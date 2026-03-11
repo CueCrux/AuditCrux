@@ -183,6 +183,7 @@ Metrics: expected_found=1, expected_total=2, precision=0.500, recall=0.500, retr
 - F2 (Moderate (4 docs, 3 domains)): fragility=0.000 range=[0.3,0.7] OUT OF RANGE
 - F3 (Low (6 docs, 4 domains)): fragility=0.000 range=[0.1,0.5] OUT OF RANGE
 - Monotonic ordering: F1 > F2 >= F3 — CORRECT
+- Note: F2 and F3 are OUT OF RANGE against original expected calibration ranges. The Engine's fragility implementation produces binary scores (1.0 at minDomains boundary, 0.0 with redundant domain coverage). Pass criteria uses monotonic ordering, not range compliance. This is expected behaviour, documented in README.md Cat 6 section and whitepapers/retrieval-quality-benchmark-v1.md Section 5.
 
 #### Query Details
 
@@ -414,6 +415,7 @@ Metrics: expected_found=1, expected_total=2, precision=0.500, recall=0.500, retr
 - F2 (Moderate (4 docs, 3 domains)): fragility=0.000 range=[0.3,0.7] OUT OF RANGE
 - F3 (Low (6 docs, 4 domains)): fragility=0.000 range=[0.1,0.5] OUT OF RANGE
 - Monotonic ordering: F1 > F2 >= F3 — CORRECT
+- Note: F2 and F3 are OUT OF RANGE against original expected calibration ranges. The Engine's fragility implementation produces binary scores (1.0 at minDomains boundary, 0.0 with redundant domain coverage). Pass criteria uses monotonic ordering, not range compliance. This is expected behaviour, documented in README.md Cat 6 section and whitepapers/retrieval-quality-benchmark-v1.md Section 5.
 
 #### Query Details
 
@@ -612,6 +614,7 @@ Metrics: expected_found=1, expected_total=2, precision=0.500, recall=0.500, retr
 - F2 (Moderate (4 docs, 3 domains)): fragility=0.000 range=[0.3,0.7] OUT OF RANGE
 - F3 (Low (6 docs, 4 domains)): fragility=0.000 range=[0.1,0.5] OUT OF RANGE
 - Monotonic ordering: F1 > F2 >= F3 — CORRECT
+- Note: F2 and F3 are OUT OF RANGE against original expected calibration ranges. The Engine's fragility implementation produces binary scores (1.0 at minDomains boundary, 0.0 with redundant domain coverage). Pass criteria uses monotonic ordering, not range compliance. This is expected behaviour, documented in README.md Cat 6 section and whitepapers/retrieval-quality-benchmark-v1.md Section 5.
 
 #### Query Details
 
