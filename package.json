@@ -1,0 +1,26 @@
+{
+  "name": "crux-audit",
+  "version": "1.0.0",
+  "description": "Retrieval quality audit suite for the CueCrux Engine",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "audit:v1": "npx tsx scripts/audit/quality-audit.ts",
+    "audit:v2": "npx tsx scripts/audit-v2/quality-audit-v2.ts",
+    "audit:v3": "npx tsx scripts/audit-v3/quality-audit-v3.ts",
+    "audit:v3:dry": "npx tsx scripts/audit-v3/quality-audit-v3.ts --dry-run",
+    "audit:all": "npm run audit:v1 && npm run audit:v2 && npm run audit:v3"
+  },
+  "dependencies": {
+    "pg": "^8.18.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.11.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
