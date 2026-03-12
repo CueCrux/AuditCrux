@@ -108,7 +108,7 @@ Documents have lifecycles: published, updated, superseded, deprecated, contested
 
 ### v3 Cat 1: Relation-Bootstrapped Retrieval
 
-Tests whether `artifact_relations` edges expand the retrieval candidate set. A query matches document A by vocabulary. Document B uses completely different terminology but has a `supersedes` relation to A. If the Engine uses relations during candidate expansion, B appears. Current result: relation expansion is not active. This is documented as a baseline, not a failure.
+Tests whether `artifact_relations` edges expand the retrieval candidate set. A query matches document A by vocabulary. Document B uses completely different terminology but has a `supersedes` relation to A. If the Engine uses relations during candidate expansion, B appears. Current status: relation expansion is implemented and gated behind `FEATURE_RELATION_EXPANSION` (default `false` for backward compatibility). With the flag enabled, `amendment_found=true` — the amendment document surfaces in the candidate pool via the `supersedes` relation edge despite zero vocabulary overlap with the query. The baseline (flag off) behaviour is preserved and still passes Cat 1.
 
 ### v3 Cat 2: Format-Aware Ingestion Recall
 
@@ -134,11 +134,19 @@ Three scenarios with controlled domain distribution to test whether leave-one-ou
 
 ## Known limitations
 
-**Embedding space mismatch.** The canonical runs use OpenAI `text-embedding-3-small` at 768 dimensions. The production Engine uses EmbedderCrux (nomic-embed-text-v1.5) at 768 dimensions. These are different embedding spaces. The audit suite's retrieval patterns may differ from production retrieval patterns. This will be resolved when the audit suite is switched to EmbedderCrux embeddings. The cache is keyed by provider to prevent cross-contamination.
+**Embedding space.** Two canonical run sets are published:
+- **OpenAI** (`text-embedding-3-small`, 768d): runs `110ada93` (v1), `c85daff7` (v2), `e782fbd0` (v3)
+- **EmbedderCrux** (`nomic-embed-text-v1.5`, 768d): runs `a86b1733` (v1), `5b125495` (v2), `8dd5efff` (v3)
 
-**Format-aware chunking not implemented.** The Engine currently treats all MIME types as plain text during chunking. JSON, YAML, and CSV documents are not parsed into their structural components. Cat 2 demonstrates that the pipeline retrieves these formats successfully despite the lack of format-specific chunking, but format-aware processing would improve citation rates for structured data.
+The EmbedderCrux runs validate the benchmark against the production embedding provider. Both run sets are in `results/`. The embedding cache is keyed by provider to prevent cross-contamination.
 
-**Relation expansion not active.** Cat 1 documents that `artifact_relations` edges do not currently expand the retrieval candidate set. The relation graph is used for living state classification and MiSES composition, but not for candidate retrieval. This is a known architectural gap, not a bug.
+**Format-aware chunking and citation gap.** The ingest pipeline implements format-aware processing via LLM annotation at ingest time (`mime-classifier.ts`, `annotation-generator.ts`, `entity-extractor.ts`). Structured formats (JSON, YAML) receive a prose annotation chunk stored alongside the source chunk; informal formats (chat, notes) receive entity extraction enrichment. This produces **100% retrieved recall across all formats** (run `e782fbd0`) — every format reaches the candidate pool.
+
+The remaining gap is citation recall: the LLM prefers citing prose-formatted documents over structured or informal ones even when retrieved. YAML, chat, and notes achieve 0% citation recall despite 100% retrieved recall. This is an LLM citation selection characteristic, not a retrieval defect.
+
+Structure-aware chunking (parsing YAML/JSON at structural boundaries rather than character counts) would further improve citation rates for structured formats and is on the roadmap. The current annotation approach is sufficient for full retrieved recall.
+
+**Relation expansion.** Relation-based candidate expansion is implemented behind a `FEATURE_RELATION_EXPANSION` flag (default `false`). With the flag enabled, the pipeline fetches documents connected by `supersedes`, `derived_from`, and `elaborates` relation edges to retrieved candidates, adding them to the scoring pool. The feature flag defaults to false for backward compatibility; the `v3-relation-expansion-canonical` run documents behaviour with the flag enabled.
 
 **Fragility scoring is corpus-dependent.** Fragility scores measure how sensitive a specific answer is to the removal of individual citations. The score depends on the number of domains represented in the citation set and the `minDomains` constraint. A fragility score of 0.0 does not mean "robust" in the abstract — it means "no single citation removal violates the domain diversity constraint for this specific query."
 

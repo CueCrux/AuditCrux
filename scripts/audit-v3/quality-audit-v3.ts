@@ -282,9 +282,11 @@ async function runCat1(pool: pg.Pool, mode: EngineMode): Promise<V3CategoryResul
 
     const avgRecall = queries.reduce((s, q) => s + (q.metrics.recall as number), 0) / queries.length;
 
-    // Check if the amendment doc appeared (binary relation expansion indicator)
-    const foundIds = queries[0]?.metrics.found_ids as string[] | undefined;
-    const amendmentFound = foundIds?.includes(RELATION_EXPANSION_TARGET) ?? false;
+    // Check if the amendment doc appeared in the retrieval pipeline (binary relation expansion indicator)
+    // Use retrieved_ids (pipeline output) not found_ids (expected ∩ cited) since the amendment
+    // is not in the expected set — it's an expansion target, not a ground truth document.
+    const retrievedIds = queries[0]?.metrics.retrieved_ids as string[] | undefined;
+    const amendmentFound = retrievedIds?.includes(RELATION_EXPANSION_TARGET) ?? false;
 
     const notes: string[] = [
         ...queries.flatMap((q) => q.notes),
