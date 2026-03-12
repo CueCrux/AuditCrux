@@ -42,7 +42,7 @@ To run all three suites:
 ```bash
 npm run audit:v1       # baseline corpus, 4 categories, ~10 min
 npm run audit:v2       # enterprise corpus (25K docs), 4 categories, ~20 min
-npm run audit:v3       # capability probes, 6 categories, ~5 min
+npm run audit:v3       # capability probes, 8 categories, ~5 min
 ```
 
 Results are written to `scripts/audit-results/` as both `.md` (human-readable) and `.json` (machine-readable).
@@ -83,8 +83,10 @@ The current canonical run, executed 2026-03-11 against CueCrux Engine on CueCrux
 | Temporal Edge Cases | skip | PASS | PASS |
 | Receipt Chain Stress | PASS | — | — |
 | Fragility Calibration | PASS | PASS | PASS |
+| Broad-Query Recall | pending refresh | pending refresh | pending refresh |
+| Proposition Precision@1 | pending refresh | pending refresh | pending refresh |
 
-**16/16 passed.** Small focused corpus (~64 docs) probing 6 specific Engine capabilities.
+**16/16 passed on the original 6-category suite.** The v3 harness now includes two additional DQP-era categories, Broad-Query Recall and Proposition Precision@1, and needs a fresh canonical run before those rows can be marked PASS/FAIL.
 
 Full results with per-query metrics: [RESULTS.md](RESULTS.md)
 
@@ -132,6 +134,14 @@ Three scenarios with controlled domain distribution to test whether leave-one-ou
 
 > **Note on expected ranges:** The `results/v3-canonical.md` file shows F2 and F3 as "OUT OF RANGE" against their original expected ranges ([0.3, 0.7] and [0.1, 0.5] respectively). Those expected ranges were set assuming fragility would be proportional to the fraction of load-bearing citations. The actual Engine implementation produces a binary distribution — 1.0 when the citation set is exactly at `minDomains`, 0.0 when redundant domain coverage exists. The test PASSes because the monotonic ordering F1 > F2 >= F3 is the correct pass criterion. The expected ranges in the result file are a documentation artefact, not a failure signal.
 
+### v3 Cat 7: Broad-Query Recall
+
+Tests whether broad, theme-level questions recover an entire source cluster when hierarchical summary chunks are present. Each topic includes multiple source chunks plus a `hierarchical_summary` chunk inserted with the same artifact lineage metadata the DQP pipeline uses. Pass criteria use retrieved recall, not citation recall: the summary must appear in the retrieved set for every query and the average retrieved recall across the topic cluster must remain at or above 0.75.
+
+### v3 Cat 8: Proposition Precision@1
+
+Tests whether targeted fact queries rank `proposition` chunks first once proposition-aware retrieval weights are active. Each topic includes one source chunk and one derived proposition chunk sharing the same artifact key. The category measures retrieved precision@1 using the first ID in `retrievedIds`; citation precision@1 is recorded as a diagnostic only because LLM citation ordering is not stable enough to be the primary pass criterion.
+
 ## Known limitations
 
 **Embedding space.** Two canonical run sets are published:
@@ -162,7 +172,7 @@ Structure-aware chunking (parsing YAML/JSON at structural boundaries rather than
 
 **Degradation slopes.** A slope of -0.02 precision@5 per 1K documents means that adding 1,000 noise documents reduces precision@5 by 0.02. The v1 baseline slope is -0.020 (V1 mode) and -0.019 (V4.1 mode). The v2 enterprise slope is -0.010 (V1) and -0.008 (V4.1). The enterprise corpus degrades more slowly because the heterogeneous format distribution provides more distinctive content per document.
 
-**Pass/fail criteria.** Each category has specific, documented pass criteria. A PASS means the measured metrics exceed the threshold. Categories designed to document baselines (Cat 1 relation expansion, Cat 2 format recall, Cat 6 fragility calibration) have relaxed thresholds that characterize current behavior rather than assert ideal behavior. The thresholds are set based on what the Engine can reliably achieve, not on what would be ideal.
+**Pass/fail criteria.** Each category has specific, documented pass criteria. A PASS means the measured metrics exceed the threshold. Categories designed to document baselines (Cat 1 relation expansion, Cat 2 format recall, Cat 6 fragility calibration) have relaxed thresholds that characterize current behavior rather than assert ideal behavior. Categories 7 and 8 intentionally use retrieval-stage metrics (`retrieved_recall`, retrieved precision@1) so the suite measures DQP retrieval behavior directly instead of LLM citation preferences.
 
 ## Contributing
 

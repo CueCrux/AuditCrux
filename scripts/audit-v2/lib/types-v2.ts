@@ -37,4 +37,10 @@ export type CorpusDocV2 = {
     licenseId: string;
     riskFlag: string;
     tenantId: string;
+    artifactKey?: string;
+    contentType?: "source" | "annotation" | "entity-enriched" | "ocr-extracted" | "hierarchical_summary" | "proposition";
+    mimeType?: string;
+    chunkIndex?: number;
+    indexable?: boolean;
+    processingMetadata?: Record<string, unknown>;
 };

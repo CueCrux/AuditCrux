@@ -19,7 +19,7 @@ export type {
 export type { CorpusDocV2 } from "../../audit-v2/lib/types-v2.js";
 export type { TemporalGroundTruth } from "../../audit/lib/corpus.js";
 
-export type V3CategoryId = "cat1" | "cat2" | "cat3" | "cat4" | "cat5" | "cat6";
+export type V3CategoryId = "cat1" | "cat2" | "cat3" | "cat4" | "cat5" | "cat6" | "cat7" | "cat8";
 
 /** Format-stratified recall for Cat 2 */
 export type FormatRecallMap = Record<string, number>;

@@ -2,7 +2,7 @@
 /**
  * Retrieval Quality Audit Suite — v3 (Edge Cases & Capability Probes)
  *
- * Small, focused corpus (~64 docs) probing 6 specific Engine capabilities:
+ * Small, focused corpus (~78 docs) probing 8 specific Engine capabilities:
  *
  *   Cat 1: Relation-bootstrapped retrieval (8 docs, 1 query)
  *   Cat 2: Format-aware ingestion recall (18 docs, 3 queries)
@@ -10,6 +10,8 @@
  *   Cat 4: Temporal edge cases (12 docs, DB state checks)
  *   Cat 5: Receipt chain stress (2 docs, 50 queries) — verified mode only
  *   Cat 6: Fragility calibration (12 docs, 3 queries)
+ *   Cat 7: Broad-query recall (8 docs, 2 queries)
+ *   Cat 8: Proposition precision@1 (6 docs, 3 queries)
  *
  * Usage:
  *   npx tsx scripts/audit-v3/quality-audit-v3.ts --mode V1 --cat 1
@@ -33,6 +35,8 @@ import { CAT3_DOCS, CAT3_GROUND_TRUTH, getDocClass } from "./lib/corpus/cat3-ret
 import { CAT4_DOCS, CAT4_RELATIONS, CAT4_LIVING_STATES, CAT4_TEMPORAL_TRUTH } from "./lib/corpus/cat4-temporal-edges.js";
 import { CAT5_DOCS, generateReceiptQueries, RECEIPT_DEPTH_CHECKPOINTS } from "./lib/corpus/cat5-receipt-stress.js";
 import { CAT6_DOCS, CAT6_GROUND_TRUTH, FRAGILITY_SCENARIOS } from "./lib/corpus/cat6-fragility-calibration.js";
+import { CAT7_DOCS, CAT7_GROUND_TRUTH, CAT7_SUMMARY_IDS } from "./lib/corpus/cat7-broad-query-recall.js";
+import { CAT8_DOCS, CAT8_GROUND_TRUTH } from "./lib/corpus/cat8-proposition-precision.js";
 import { TENANT_V3 } from "./lib/tenant.js";
 
 // v3 types
@@ -69,7 +73,7 @@ function parseArgs(): { modes: EngineMode[]; cats: V3CategoryId[]; dryRun: boole
     const allModes: EngineMode[] = ["V1", "V3.1", "V4.1"];
     const modes: EngineMode[] = modeArg === "all" ? allModes : [modeArg as EngineMode];
 
-    const allCats: V3CategoryId[] = ["cat1", "cat2", "cat3", "cat4", "cat5", "cat6"];
+    const allCats: V3CategoryId[] = ["cat1", "cat2", "cat3", "cat4", "cat5", "cat6", "cat7", "cat8"];
     const cats: V3CategoryId[] = catArg === "all" ? allCats : [(`cat${catArg}`) as V3CategoryId];
 
     return { modes, cats, dryRun };
@@ -179,9 +183,19 @@ function validateCorpus(): boolean {
     checkUnique(CAT6_DOCS, "Cat6 docs");
     checkGroundTruth(CAT6_GROUND_TRUTH, CAT6_DOCS, "Cat6");
 
+    // Cat 7
+    console.log("\nCategory 7 — Broad Query Recall:");
+    checkUnique(CAT7_DOCS, "Cat7 docs");
+    checkGroundTruth(CAT7_GROUND_TRUTH, CAT7_DOCS, "Cat7");
+
+    // Cat 8
+    console.log("\nCategory 8 — Proposition Precision@1:");
+    checkUnique(CAT8_DOCS, "Cat8 docs");
+    checkGroundTruth(CAT8_GROUND_TRUTH, CAT8_DOCS, "Cat8");
+
     // Total doc count
-    const allDocs = [...CAT1_DOCS, ...CAT2_DOCS, ...CAT3_DOCS, ...CAT4_DOCS, ...CAT5_DOCS, ...CAT6_DOCS];
-    console.log(`\n=== Total: ${allDocs.length} docs, ${CAT1_GROUND_TRUTH.length + CAT2_GROUND_TRUTH.length + CAT3_GROUND_TRUTH.length + receiptQueries.length + CAT6_GROUND_TRUTH.length} queries ===`);
+    const allDocs = [...CAT1_DOCS, ...CAT2_DOCS, ...CAT3_DOCS, ...CAT4_DOCS, ...CAT5_DOCS, ...CAT6_DOCS, ...CAT7_DOCS, ...CAT8_DOCS];
+    console.log(`\n=== Total: ${allDocs.length} docs, ${CAT1_GROUND_TRUTH.length + CAT2_GROUND_TRUTH.length + CAT3_GROUND_TRUTH.length + receiptQueries.length + CAT6_GROUND_TRUTH.length + CAT7_GROUND_TRUTH.length + CAT8_GROUND_TRUTH.length} queries ===`);
 
     // Check global uniqueness
     const allIds = allDocs.map((d) => d.id);
@@ -771,6 +785,102 @@ async function runCat6(pool: pg.Pool, mode: EngineMode): Promise<V3CategoryResul
     };
 }
 
+async function runCat7(pool: pg.Pool, mode: EngineMode): Promise<V3CategoryResult> {
+    console.log(`\n=== Cat 7: Broad-Query Recall [${mode}] ===`);
+
+    await cleanAuditData(pool, TENANT_V3);
+    await ingestV3(pool, CAT7_DOCS, mode, [], []);
+
+    const queries = await runQueries(CAT7_GROUND_TRUTH, TENANT_V3);
+    const avgCitationRecall = queries.reduce((sum, query) => sum + ((query.metrics.recall as number) ?? 0), 0) / queries.length;
+    const avgRetrievedRecall = queries.reduce((sum, query) => sum + ((query.metrics.retrieved_recall as number) ?? 0), 0) / queries.length;
+
+    let summaryRetrievedCount = 0;
+    let summaryCitationCount = 0;
+    const notes: string[] = [];
+
+    for (let i = 0; i < queries.length; i++) {
+        const summaryId = CAT7_SUMMARY_IDS[i];
+        const retrievedSet = new Set((queries[i]?.metrics.retrieved_ids as string[]) ?? []);
+        const foundSet = new Set((queries[i]?.metrics.found_ids as string[]) ?? []);
+        const summaryRetrieved = retrievedSet.has(summaryId);
+        const summaryCited = foundSet.has(summaryId);
+        if (summaryRetrieved) summaryRetrievedCount++;
+        if (summaryCited) summaryCitationCount++;
+        notes.push(`${summaryId}: summary_retrieved=${summaryRetrieved} summary_cited=${summaryCited}`);
+    }
+
+    const summaryRetrievedRecall = summaryRetrievedCount / CAT7_GROUND_TRUTH.length;
+    const summaryCitationRecall = summaryCitationCount / CAT7_GROUND_TRUTH.length;
+    const passed = avgRetrievedRecall >= 0.75 && summaryRetrievedRecall >= 1;
+
+    notes.push(`avg_retrieved_recall=${avgRetrievedRecall.toFixed(2)}`);
+    notes.push(`summary_retrieved_recall=${summaryRetrievedRecall.toFixed(2)}`);
+
+    return {
+        category: "cat7",
+        mode,
+        passed,
+        metrics: {
+            avg_citation_recall: avgCitationRecall,
+            avg_retrieved_recall: avgRetrievedRecall,
+            summary_retrieved_recall: summaryRetrievedRecall,
+            summary_citation_recall: summaryCitationRecall,
+            summary_retrieved_count: summaryRetrievedCount,
+            summary_total: CAT7_GROUND_TRUTH.length,
+        },
+        queries,
+        notes,
+    };
+}
+
+async function runCat8(pool: pg.Pool, mode: EngineMode): Promise<V3CategoryResult> {
+    console.log(`\n=== Cat 8: Proposition Precision@1 [${mode}] ===`);
+
+    await cleanAuditData(pool, TENANT_V3);
+    await ingestV3(pool, CAT8_DOCS, mode, [], []);
+
+    const queries = await runQueries(CAT8_GROUND_TRUTH, TENANT_V3);
+    let retrievedTop1Hits = 0;
+    let citedTop1Hits = 0;
+    const notes: string[] = [];
+
+    for (let i = 0; i < CAT8_GROUND_TRUTH.length; i++) {
+        const expected = CAT8_GROUND_TRUTH[i]?.expectedDocIds[0];
+        const retrievedTop1 = ((queries[i]?.metrics.retrieved_ids as string[]) ?? [])[0];
+        const citedTop1 = ((queries[i]?.metrics.found_ids as string[]) ?? [])[0];
+        const retrievedHit = retrievedTop1 === expected;
+        const citedHit = citedTop1 === expected;
+        if (retrievedHit) retrievedTop1Hits++;
+        if (citedHit) citedTop1Hits++;
+        notes.push(`${expected}: retrieved_top1=${retrievedTop1 ?? "missing"} cited_top1=${citedTop1 ?? "missing"}`);
+    }
+
+    const retrievedPrecisionAt1 = retrievedTop1Hits / CAT8_GROUND_TRUTH.length;
+    const citedPrecisionAt1 = citedTop1Hits / CAT8_GROUND_TRUTH.length;
+    const avgRetrievedRecall = queries.reduce((sum, query) => sum + ((query.metrics.retrieved_recall as number) ?? 0), 0) / queries.length;
+    const passed = retrievedPrecisionAt1 >= 2 / 3 && avgRetrievedRecall >= 1;
+
+    notes.push(`retrieved_precision_at_1=${retrievedPrecisionAt1.toFixed(2)}`);
+    notes.push(`cited_precision_at_1=${citedPrecisionAt1.toFixed(2)}`);
+
+    return {
+        category: "cat8",
+        mode,
+        passed,
+        metrics: {
+            retrieved_precision_at_1: retrievedPrecisionAt1,
+            cited_precision_at_1: citedPrecisionAt1,
+            retrieved_top1_hits: retrievedTop1Hits,
+            cited_top1_hits: citedTop1Hits,
+            avg_retrieved_recall: avgRetrievedRecall,
+            query_count: CAT8_GROUND_TRUTH.length,
+        },
+        queries,
+        notes,
+    };
+}
+
 // ---------------------------------------------------------------------------
 // Report generation
 // ---------------------------------------------------------------------------
@@ -792,7 +902,7 @@ function generateMarkdownReport(report: V3Report): string {
     lines.push(`**Started:** ${report.startedAt}`);
     lines.push(`**Finished:** ${report.finishedAt}`);
     lines.push(`**Host:** ${report.host}`);
-    lines.push(`**Corpus:** ~64 docs, 6 categories`);
+    lines.push(`**Corpus:** ~78 docs, 8 categories`);
     lines.push(``);
 
     const catNames: Record<string, string> = {
@@ -802,6 +912,8 @@ function generateMarkdownReport(report: V3Report): string {
         cat4: "Temporal Edge Cases (12 docs, DB checks)",
         cat5: "Receipt Chain Stress (2 docs, 50 queries)",
         cat6: "Fragility Calibration (12 docs, 3 queries)",
+        cat7: "Broad-Query Recall (8 docs, 2 queries)",
+        cat8: "Proposition Precision@1 (6 docs, 3 queries)",
     };
 
     // Group by mode
@@ -926,7 +1038,7 @@ function generateMarkdownReport(report: V3Report): string {
             if (cat.queries.length > 0 && cat.queries.length <= 10) {
                 lines.push(`#### Query Details`);
                 lines.push(``);
-                for (const q of cat.queries) {
+                for (const q of cat.queries as Array<{ query: string; metrics: Record<string, unknown>; notes: string[] }>) {
                     lines.push(`**Query:** "${q.query}"`);
                     const displayMetrics = Object.entries(q.metrics)
                         .filter(([k]) => !["found_ids", "missing_ids", "mises_actual"].includes(k))
@@ -1016,6 +1128,8 @@ async function main() {
                 cat3: runCat3,
                 cat4: runCat4,
                 cat6: runCat6,
+                cat7: runCat7,
+                cat8: runCat8,
             };
 
             const runner = runners[cat];

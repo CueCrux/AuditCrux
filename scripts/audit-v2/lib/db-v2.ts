@@ -31,26 +31,93 @@ export async function insertChunksV2(
     embeddings: number[][],
 ): Promise<Map<string, number>> {
     const idMap = new Map<string, number>();
+    const artifactMap = new Map<string, number>();
 
     for (let i = 0; i < docs.length; i++) {
         const d = docs[i];
         const vec = embeddings[i];
-        const sha256 = createHash("sha256").update(`${d.id}:${d.content}`).digest("hex");
-
-        const artResult = await pool.query(
-            `INSERT INTO artifacts (kind, mime, sha256, domain, published_at, license_id, risk_flag, tenant_id)
-             VALUES ('chunk', $1, $2, $3, $4::timestamptz, $5, $6, $7)
-             RETURNING id`,
-            [d.mime, sha256, d.domain, d.publishedAt, d.licenseId, d.riskFlag, d.tenantId],
-        );
-        const artifactId: number = artResult.rows[0].id;
+        const artifactKey = d.artifactKey ?? d.id;
+        let artifactId = artifactMap.get(artifactKey);
+        if (artifactId === undefined) {
+            const sha256 = createHash("sha256").update(`${artifactKey}:${d.content}`).digest("hex");
+            const artResult = await pool.query(
+                `INSERT INTO artifacts (kind, mime, sha256, domain, published_at, license_id, risk_flag, tenant_id)
+                 VALUES ('chunk', $1, $2, $3, $4::timestamptz, $5, $6, $7)
+                 RETURNING id`,
+                [d.mime, sha256, d.domain, d.publishedAt, d.licenseId, d.riskFlag, d.tenantId],
+            );
+            artifactId = artResult.rows[0].id as number;
+            artifactMap.set(artifactKey, artifactId);
+        }
         idMap.set(d.id, artifactId);
 
         await pool.query(
-            `INSERT INTO artifact_chunks (id, artifact_id, url, domain, title, excerpt, content, content_tsv, published_at, observed_at, license_id, risk_flag, tenant_id)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, to_tsvector('english', $7), $8::timestamptz, $8::timestamptz, $9, $10, $11)
-             ON CONFLICT (id) DO UPDATE SET content = EXCLUDED.content, content_tsv = EXCLUDED.content_tsv`,
-            [d.id, artifactId, d.url, d.domain, d.title, d.content.slice(0, 480), d.content, d.publishedAt, d.licenseId, d.riskFlag, d.tenantId],
+            `INSERT INTO artifact_chunks (
+                id,
+                artifact_id,
+                url,
+                domain,
+                title,
+                excerpt,
+                content,
+                content_tsv,
+                published_at,
+                observed_at,
+                license_id,
+                risk_flag,
+                tenant_id,
+                content_type,
+                mime_type,
+                chunk_index,
+                indexable,
+                processing_metadata
+            )
+             VALUES (
+                $1,
+                $2,
+                $3,
+                $4,
+                $5,
+                $6,
+                $7,
+                to_tsvector('english', $7),
+                $8::timestamptz,
+                $8::timestamptz,
+                $9,
+                $10,
+                $11,
+                $12,
+                $13,
+                $14,
+                $15,
+                $16::jsonb
+            )
+             ON CONFLICT (id) DO UPDATE
+             SET content = EXCLUDED.content,
+                 content_tsv = EXCLUDED.content_tsv,
+                 content_type = EXCLUDED.content_type,
+                 mime_type = EXCLUDED.mime_type,
+                 chunk_index = EXCLUDED.chunk_index,
+                 indexable = EXCLUDED.indexable,
+                 processing_metadata = EXCLUDED.processing_metadata`,
+            [
+                d.id,
+                artifactId,
+                d.url,
+                d.domain,
+                d.title,
+                d.content.slice(0, 480),
+                d.content,
+                d.publishedAt,
+                d.licenseId,
+                d.riskFlag,
+                d.tenantId,
+                d.contentType ?? "source",
+                d.mimeType ?? d.mime,
+                d.chunkIndex ?? i,
+                d.indexable ?? true,
+                JSON.stringify(d.processingMetadata ?? {}),
+            ],
         );
 
         await pool.query(
