@@ -1,6 +1,8 @@
 # AuditCrux
 
-A reproducible retrieval quality audit suite for the CueCrux Engine.
+> Reproducible retrieval quality audit suite (14 categories, 3 corpus configs, 3 engine modes).
+
+Part of [CueCrux](../README.md) — measures and verifies Engine retrieval quality.
 
 ## Why this exists
 
@@ -203,6 +205,12 @@ npm run audit:v3 -- --mode all --cat all
 ```
 
 Copy the generated `.md` and `.json` files from `scripts/audit-results/` to `results/` with the appropriate version prefix. Add a row to [RESULTS.md](RESULTS.md).
+
+## Key Links
+
+- Platform overview: [CueCrux README](../README.md)
+- Progress tracker: [PlanCrux/docs/master-plan/progress-tracker.md](../PlanCrux/docs/master-plan/progress-tracker.md)
+- Related repos: [Engine](../Engine/README.md) (system under test), [EmbedderCrux](../EmbedderCrux/README.md) (embedding provider), [ResearchCrux](../ResearchCrux/README.md) (published evidence)
 
 ## License
 
