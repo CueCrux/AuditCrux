@@ -1,0 +1,241 @@
+{
+  "suite": "v4",
+  "date_range": "2026-03-16 to 2026-03-19",
+  "embedding_provider": "EmbedderCrux nomic-embed-text-v1.5",
+  "embedding_dim": 768,
+  "infrastructure": "CueCrux-Data-1 (i9-13900, 192GB DDR5, 2x1.92TB NVMe RAID-1)",
+  "corpus": {
+    "total_docs": 897,
+    "total_queries": 411,
+    "total_categories": 12,
+    "categories": {
+      "cat1": { "docs": 8, "queries": 1, "name": "Relation-Bootstrapped Retrieval" },
+      "cat2": { "docs": 270, "queries": 45, "name": "Format-Aware Ingestion Recall" },
+      "cat3": { "docs": 55, "queries": 55, "name": "BM25 vs Vector Decomposition" },
+      "cat5": { "docs": 2, "queries": 10, "name": "Receipt Chain Stress" },
+      "cat6": { "docs": 12, "queries": 3, "name": "Fragility Calibration" },
+      "cat7": { "docs": 180, "queries": 36, "name": "Hierarchical Broad Query Recall" },
+      "cat8": { "docs": 80, "queries": 80, "name": "Proposition Precision" },
+      "cat9": { "docs": 126, "queries": 35, "name": "Semantic Dedup" },
+      "cat10": { "docs": 61, "queries": 30, "name": "Contextual Chain Recall" },
+      "cat11": { "docs": 50, "queries": 80, "name": "Multi-Doc Broad Recall" },
+      "cat12": { "docs": 53, "queries": 36, "name": "Hard-Negative Overlap" }
+    }
+  },
+  "phases": {
+    "6.0": {
+      "date": "2026-03-16",
+      "result": "10/11",
+      "key_achievement": "Coverage/answer split, representative selection, admission v2",
+      "categories": {
+        "cat1": { "result": "PASS", "avg_recall": 1.0 },
+        "cat2": { "result": "PASS", "avg_retrieved_recall": 1.0 },
+        "cat3": { "result": "FAIL", "note": "LLM decomposition variance" },
+        "cat4": { "result": "PASS", "note": "V1 mode skip" },
+        "cat5": { "result": "PASS", "chains_intact": 10 },
+        "cat6": { "result": "PASS", "f1": 1.0, "f2": 0.0, "f3": 0.0 },
+        "cat7": { "result": "PASS", "broad_recall": 1.0 },
+        "cat8": { "result": "PASS", "precision_at_1": 0.963 },
+        "cat9": { "result": "PASS", "dedup_effectiveness": 0.0, "note": "Not yet fixed" },
+        "cat10": { "result": "PASS", "avg_retrieved_recall": 0.984 },
+        "cat11": { "result": "PASS", "broad_recall": 0.927, "note": "QDRANT_URL bug masked" }
+      }
+    },
+    "6.1": {
+      "date": "2026-03-18",
+      "result": "12/12",
+      "run_id": "141e491e",
+      "duration_minutes": 54,
+      "key_achievement": "First clean sweep — Cat 9 dedup, Cat 11 Qdrant fix, Cat 12 implements relation",
+      "categories": {
+        "cat1": { "result": "PASS", "avg_recall": 1.0 },
+        "cat2": { "result": "PASS", "avg_retrieved_recall": 1.0, "avg_citation_recall": 0.322 },
+        "cat3": { "result": "PASS", "combined_retrieved_recall": 0.867, "bm25_recall": 1.0, "vector_recall": 0.618 },
+        "cat4": { "result": "PASS", "note": "V1 mode skip" },
+        "cat5": { "result": "PASS", "chains_intact": 10 },
+        "cat6": { "result": "PASS", "f1": 0.0, "f2": 0.0, "f3": 0.0 },
+        "cat7": { "result": "PASS", "broad_recall": 0.917, "avg_recall": 0.765 },
+        "cat8": { "result": "PASS", "precision_at_1": 0.963, "hits": "77/80" },
+        "cat9": { "result": "PASS", "dedup_effectiveness": 1.0, "canonical_recall": 1.0, "total_dupes": 0 },
+        "cat10": { "result": "PASS", "avg_retrieved_recall": 1.0, "chain_completeness": 1.0 },
+        "cat11": { "result": "PASS", "broad_recall": 0.927, "within_chunk_precision": 0.975, "cross_chunk_recall": 1.0 },
+        "cat12": { "result": "PASS", "avg_retrieved_recall": 1.0, "version_precision": 1.0, "parent_child_recall": 0.692 }
+      },
+      "fixes": [
+        "Cat 11: QDRANT_URL set in audit env (insertChunksV2 → Qdrant)",
+        "Cat 9: 3-layer dedup penalty (scoring 0.3x/0.8x + retrievedIds filter + representative selector)",
+        "Cat 12: Migration 127 adds 'implements' relation type; CAT12_V1_RELATIONS (4 pairs)"
+      ]
+    },
+    "6.2": {
+      "date": "2026-03-18",
+      "result": "10/12",
+      "run_ids": ["ca0069f2", "9bb71fcf"],
+      "key_achievement": "Infrastructure hardening, Cat 6/7 fixes, Cat 3/11 regressed (LLM flakiness)",
+      "categories": {
+        "cat1": { "result": "PASS" },
+        "cat2": { "result": "PASS", "avg_retrieved_recall": 0.33 },
+        "cat3": { "result": "FAIL", "note": "LLM decomposition flakiness" },
+        "cat4": { "result": "PASS" },
+        "cat5": { "result": "PASS" },
+        "cat6": { "result": "PASS", "f1": 1.0, "note": "Per-scenario isolation fix" },
+        "cat7": { "result": "PASS", "broad_recall": 1.0, "note": "Broad admission relaxed" },
+        "cat8": { "result": "PASS", "precision_at_1": 0.963 },
+        "cat9": { "result": "PASS", "dedup_effectiveness": 1.0 },
+        "cat10": { "result": "PASS", "avg_retrieved_recall": 0.885 },
+        "cat11": { "result": "FAIL", "multi_doc_precision": 0.4, "note": "LLM citation precision" },
+        "cat12": { "result": "PASS", "avg_retrieved_recall": 1.0 }
+      },
+      "milestones": [
+        "M0: Fail-closed preflight diagnostics",
+        "M1: DQP-native corpus types (CorpusDocV2)",
+        "M2: Cat 4 temporal hardening",
+        "M3: Observability & SLOs",
+        "M4: Format-aware citation hint (gated)",
+        "M5: Cat 6 fragility per-scenario isolation",
+        "M6: Operational tuning docs"
+      ]
+    },
+    "6.3": {
+      "date": "2026-03-18",
+      "result": "10/12 (3x consistent)",
+      "run_ids": ["3ea51929", "7590b5bc", "affeb3d2"],
+      "key_achievement": "Evidence selector + decomposition cache — Cat 3/11 fixed, Cat 6/12 regressed",
+      "categories": {
+        "cat1": { "result": "PASS" },
+        "cat2": { "result": "PASS" },
+        "cat3": { "result": "PASS", "note": "Fixed: decomposition cache + keyword retry (3/3)" },
+        "cat4": { "result": "PASS" },
+        "cat5": { "result": "PASS" },
+        "cat6": { "result": "FAIL", "note": "Evidence selector limits contexts → all fragility=1.0" },
+        "cat7": { "result": "PASS" },
+        "cat8": { "result": "PASS" },
+        "cat9": { "result": "PASS" },
+        "cat10": { "result": "PASS" },
+        "cat11": { "result": "PASS", "note": "Fixed: evidence selector (fewer, better contexts)" },
+        "cat12": { "result": "FAIL", "note": "Top-1-per-artifact drops parent/child pairs" }
+      },
+      "milestones": [
+        "M0: Evidence selector (evidenceSelector.ts)",
+        "M1: Decomposition stability (LRU cache + keyword retry)",
+        "M2: Exemplar-based admission (code-complete, not validated)",
+        "M3: Release-gating (slo-baseline.json + release-gate.sh)",
+        "M4: Cat 2 reconciliation",
+        "M5: Regression lockdown (3x 10/12)"
+      ]
+    },
+    "6.4": {
+      "date": "2026-03-19",
+      "result": "11/12 (3x consistent)",
+      "key_achievement": "Pre-selector fragility — Cat 6 fixed, Cat 12 sole remaining failure",
+      "categories": {
+        "cat1": { "result": "PASS" },
+        "cat2": { "result": "PASS" },
+        "cat3": { "result": "PASS" },
+        "cat4": { "result": "PASS" },
+        "cat5": { "result": "PASS" },
+        "cat6": { "result": "PASS", "note": "Fixed: pre-selector fragility" },
+        "cat7": { "result": "PASS" },
+        "cat8": { "result": "PASS" },
+        "cat9": { "result": "PASS" },
+        "cat10": { "result": "PASS" },
+        "cat11": { "result": "PASS" },
+        "cat12": { "result": "FAIL", "version_precision": 0.444, "parent_child_recall": 0.538, "retrieved_recall": 1.0 }
+      }
+    },
+    "6.5": {
+      "date": "2026-03-19",
+      "result": "12/12 (3x stable)",
+      "run_ids": ["9550fb24", "0054663e", "2eb0bdef"],
+      "durations_seconds": [3471, 3603, 3631],
+      "key_achievement": "Citation controller — version_precision 0.444→1.000, Cat 12 fixed",
+      "categories": {
+        "cat1": { "result": "PASS", "avg_recall": 1.0 },
+        "cat2": { "result": "PASS", "avg_retrieved_recall": 1.0 },
+        "cat3": { "result": "PASS" },
+        "cat4": { "result": "PASS" },
+        "cat5": { "result": "PASS" },
+        "cat6": { "result": "PASS" },
+        "cat7": { "result": "PASS" },
+        "cat8": { "result": "PASS", "precision_at_1": 0.963 },
+        "cat9": { "result": "PASS", "dedup_effectiveness": 1.0 },
+        "cat10": { "result": "PASS" },
+        "cat11": { "result": "PASS" },
+        "cat12": { "result": "PASS", "version_precision": 1.0, "parent_child_recall": 0.462, "overall_recall": 0.778, "retrieved_recall": 1.0, "version_swaps": 9, "relation_adds": 5 }
+      },
+      "config_manifest": "Engine/docs/config-manifest-6.5.json"
+    },
+    "6.6": {
+      "date": "2026-03-19",
+      "result": "code_complete",
+      "key_achievement": "Knowledge bridge fix, config enforcement, observability, parent/child optimization, adversarial corpus, shadow replay",
+      "milestones": {
+        "M0": {
+          "name": "Knowledge Bridge Bug Fix",
+          "status": "complete",
+          "summary": "isAppendSuccess('disabled') → true; early return when !config.enabled",
+          "tests": 14,
+          "files_changed": ["src/services/corecrux/knowledge-bridge.ts", "tests/services.knowledge-bridge.test.ts"]
+        },
+        "M1": {
+          "name": "Config Manifest Enforcement",
+          "status": "complete",
+          "summary": "config-manifest-6.5.json + check-config-manifest.ts library + audit/release-gate integration",
+          "files_changed": ["docs/config-manifest-6.5.json", "scripts/audit-v4/check-config-manifest.ts", "scripts/audit-v4/quality-audit-v4.ts", "scripts/release-gate.sh"]
+        },
+        "M2": {
+          "name": "Citation Controller Observability",
+          "status": "complete",
+          "summary": "Latency histogram, families histogram, version intent counter, pair intent counter, raw-vs-repaired tracing",
+          "new_metrics": [
+            "engine_citation_controller_latency_seconds",
+            "engine_citation_controller_families_detected",
+            "engine_citation_controller_version_intent_total",
+            "engine_citation_controller_pair_intent_detected_total"
+          ],
+          "files_changed": ["src/observability/metrics.ts", "src/services/citationController.ts", "src/routes/answers.ts"]
+        },
+        "M3": {
+          "name": "Parent/Child Citation Optimization",
+          "status": "complete",
+          "summary": "supplementaryCandidates in packCitations + 5 new detectPairIntent patterns",
+          "expected_impact": "parent_child_recall 0.462 → ≥0.70",
+          "files_changed": ["src/services/citations.ts", "src/routes/answers.ts", "src/services/citationController.ts"]
+        },
+        "M4": {
+          "name": "Adversarial Cat 12 Expansion",
+          "status": "complete",
+          "summary": "v2 corpus: 61 docs, 51 queries, 6 relations (Theme F: 4 versions, Theme G: cross-theme pairs)",
+          "files_changed": ["scripts/audit-v4/lib/corpus/cat12-hard-negative-overlap-v2.ts"]
+        },
+        "M5": {
+          "name": "Shadow Replay Framework",
+          "status": "design_only",
+          "summary": "Design doc + working stub script (JSONL replay through applyCitationController)",
+          "blockers": ["No production traffic with citation controller", "Candidate content reconstruction needs DB", "Privacy review needed"],
+          "files_changed": ["docs/shadow-replay-design.md", "scripts/shadow-replay/replay-stub.ts"]
+        }
+      }
+    }
+  },
+  "slo_baseline": {
+    "version": "1.0.0",
+    "global_min_pass": 10,
+    "total_categories": 12,
+    "preflight_required": true,
+    "thresholds": {
+      "cat1": { "metric": "avg_recall", "threshold": 0.95 },
+      "cat2": { "metric": "avg_retrieved_recall", "threshold": 0.25 },
+      "cat3": { "metric": "combined_citation_recall", "threshold": 0.60 },
+      "cat4": { "metric": "temporal_accuracy", "threshold": 0.80 },
+      "cat5": { "metric": "chains_intact_ratio", "threshold": 1.00 },
+      "cat6": { "metric": "monotonic_order", "threshold": 1.00 },
+      "cat7": { "metric": "broad_recall", "threshold": 0.95 },
+      "cat8": { "metric": "precision_at_1", "threshold": 0.95 },
+      "cat9": { "metric": "dedup_effectiveness", "threshold": 0.95 },
+      "cat10": { "metric": "avg_retrieved_recall", "threshold": 0.80 },
+      "cat11": { "metric": "broad_recall", "threshold": 0.90 },
+      "cat12": { "metric": "avg_retrieved_recall", "threshold": 0.90 }
+    }
+  }
+}

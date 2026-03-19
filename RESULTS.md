@@ -484,3 +484,67 @@ Based on cross-reference against DQP Master Plan, retrieval architecture docs, a
 | 8dd5efff | v3 | Nomic v1.5 (EmbedderCrux) | 2026-03-12 | 4m 13s | 16/16 | Production provider canonical — auditor Gap 1 |
 | 2df50997 | v3 | Nomic v1.5 (EmbedderCrux) | 2026-03-14 | 4m 56s | 16/22 | Regression check with `FEATURE_RELATION_EXPANSION=true` |
 | 47f31b67 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-14 | 4m 56s | 0/2 | Cat 7+8 per-tenant isolation + relation expansion |
+| 141e491e | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-18 | 54m | 12/12 | Phase 6.1 — first clean sweep |
+| ca0069f2 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-18 | — | 10/12 | Phase 6.2 — infrastructure hardening |
+| 3ea51929 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-18 | — | 10/12 | Phase 6.3 — evidence selector (run 1/3) |
+| 7590b5bc | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-18 | — | 10/12 | Phase 6.3 — evidence selector (run 2/3) |
+| affeb3d2 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-18 | — | 10/12 | Phase 6.3 — evidence selector (run 3/3) |
+| 9550fb24 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-19 | 57m 51s | 12/12 | Phase 6.5 — citation controller (run 1/3) |
+| 0054663e | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-19 | 60m 03s | 12/12 | Phase 6.5 — citation controller (run 2/3) |
+| 2eb0bdef | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-19 | 60m 31s | 12/12 | Phase 6.5 — citation controller (run 3/3) |
+
+---
+
+## v4 — DQP + Citation Controller Phases
+
+### Phase 6.0–6.6 Summary — 2026-03-16 to 2026-03-19
+
+**Full details:** [`results/v4-phase-6.0-to-6.6-summary.md`](results/v4-phase-6.0-to-6.6-summary.md) | [`results/v4-phase-6.0-to-6.6-summary.json`](results/v4-phase-6.0-to-6.6-summary.json)
+
+**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → **12/12 (3× stable)**
+
+| Phase | Date | Result | Key Achievement |
+|-------|------|:------:|-----------------|
+| 6.0 | 2026-03-16 | 10/11 | Surface routing stack (coverage/answer split, admission v2) |
+| 6.1 | 2026-03-18 | **12/12** | First clean sweep (Cat 9 dedup, Cat 11 Qdrant fix, Cat 12 `implements`) |
+| 6.2 | 2026-03-18 | 10/12 | Infrastructure hardening (7 milestones, Cat 3/11 LLM regressions) |
+| 6.3 | 2026-03-18 | 10/12 (3×) | Evidence selector + decomposition cache (Cat 3/11 fixed, Cat 6/12 regressed) |
+| 6.4 | 2026-03-19 | 11/12 (3×) | Pre-selector fragility (Cat 6 fixed, Cat 12 sole failure) |
+| 6.5 | 2026-03-19 | **12/12 (3×)** | Citation controller: version_precision 0.444→1.000 |
+| 6.6 | 2026-03-19 | Code complete | Post-6.5 hardening (6 milestones: bridge fix, config, observability, parent/child, adversarial corpus, shadow replay) |
+
+### Phase 6.5 Canonical Run — 12/12 PASS (3× stable)
+
+| Run ID | Date | Duration | Result |
+|--------|------|----------|:------:|
+| 9550fb24 | 2026-03-19 | 57m 51s | 12/12 |
+| 0054663e | 2026-03-19 | 60m 03s | 12/12 |
+| 2eb0bdef | 2026-03-19 | 60m 31s | 12/12 |
+
+**Config manifest:** `Engine/docs/config-manifest-6.5.json` (23 flags frozen)
+
+| Cat | Name | Result | Key Metric |
+|-----|------|:------:|------------|
+| 1 | Relation-Bootstrapped Retrieval | PASS | avg_recall=1.000 |
+| 2 | Format-Aware Ingestion Recall | PASS | avg_retrieved_recall=1.000, citation_recall=0.322 |
+| 3 | BM25 vs Vector Decomposition | PASS | combined_retrieved_recall=0.867 |
+| 4 | Temporal Edge Cases | PASS | V1 mode skip |
+| 5 | Receipt Chain Stress | PASS | 10/10 chains intact |
+| 6 | Fragility Calibration | PASS | Pre-selector fragility, monotonic F1>F2>=F3 |
+| 7 | Hierarchical Broad Query Recall | PASS | broad_recall=0.917 |
+| 8 | Proposition Precision | PASS | P@1=0.963 |
+| 9 | Semantic Dedup | PASS | dedup_effectiveness=1.000, 0 duplicates in results |
+| 10 | Contextual Chain Recall | PASS | chain_completeness=1.000 |
+| 11 | Multi-Doc Broad Recall | PASS | broad_recall=0.927, multi_doc_precision=1.000 |
+| 12 | Hard-Negative Overlap | PASS | version_precision=1.000 (9/9 swaps), parent_child_recall=0.462 |
+
+#### Citation Controller Impact (Cat 12)
+
+| Metric | Phase 6.4 (no controller) | Phase 6.5 (controller) | Delta |
+|--------|:-------------------------:|:----------------------:|:-----:|
+| version_precision | 0.444 | **1.000** | +125% |
+| parent_child_recall | 0.538 | 0.462 | -14%* |
+| overall_recall | 0.750 | **0.778** | +4% |
+| retrieved_recall | 1.000 | 1.000 | 0% |
+
+*Parent/child regression caused by `packCitations` bug (controller-added partners dropped). Fixed in Phase 6.6 M3 (code complete, pending validation).
