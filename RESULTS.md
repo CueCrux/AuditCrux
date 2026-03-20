@@ -463,9 +463,12 @@ Based on cross-reference against DQP Master Plan, retrieval architecture docs, a
 |---|---|---|
 | Benchmark isolation | ~~Full-corpus contamination distorts Cat 7/8 by ~50%~~ **RESOLVED** — `--tenant-per-cat` implemented and validated | Phase 0 complete (2026-03-14) |
 | Relation expansion | `FEATURE_RELATION_EXPANSION=true` on prod; relation data not populated for v4 corpus | Phase 1 partial — insert relations via audit runner or ingest |
-| Rerank not implemented | No cross-encoder reranking on verified/audit | Phase 2: implement rerank, validate Cat 8 P@1 ≥ 0.80 |
-| Multi-lane retrieval not active | `FEATURE_MULTI_LANE_RETRIEVAL=false`; MV updates needed | Phase 3: update MVs, enable flag |
-| Citation recall gap for structured/informal formats | 0.00 for YAML/chat/notes | DQP Phase 1+2: late chunking + context notation — target ≥ 0.50 |
+| Rerank not implemented | Cross-encoder reranking active (`FEATURE_CROSS_ENCODER_RERANK=true`) | BGE-reranker-v2-m3 deployed on GPU-1 |
+| Multi-lane retrieval parked | `FEATURE_MULTI_LANE_RETRIEVAL=false`; ablation proved quality dilution | Re-evaluate only if corpus grows 10× |
+| Citation recall gap for structured/informal formats | Improved (Cat 2 citation_recall=0.670, up from 0.322). Confirmed 100% pinnedIds-driven (M2 attribution) | Format-aware prompt engineering |
+| Cat 10 chain_completeness=0.967 | Soft trade-off — was 0.869 in 6.5, 0.900 in 6.6, 0.967 in 7.0. Not pinnedIds-caused | LLM citation variance on eng-domain chains; monitor |
+| Cat 11 broad_recall=0.827 | Soft trade-off — volatile across phases (range 0.273–0.927). Stable at 0.827 in 7.0 | Structurally bounded by LLM multi-doc selection; monitor |
+| Cat 12 v2 adversarial_recall=0.818 | Non-required SLO (threshold 0.70). adversarial_parent_child_recall=0.769 | Corpus calibration; promote to required when stable |
 | V-class citation recall | 0.00 for semantic-only matches | DQP Phase 2: HyDE — bridges vocabulary gap at query time |
 | Cat 7/8 corpus design | v4 max doc ~384 tokens; benchmark uses single tenant for all categories | v5 corpus (500-2000+ tokens) + per-tenant benchmark isolation |
 | Fragility calibration | Binary distribution, not graduated | Documented as engine design characteristic, not a defect |
@@ -492,16 +495,20 @@ Based on cross-reference against DQP Master Plan, retrieval architecture docs, a
 | 9550fb24 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-19 | 57m 51s | 12/12 | Phase 6.5 — citation controller (run 1/3) |
 | 0054663e | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-19 | 60m 03s | 12/12 | Phase 6.5 — citation controller (run 2/3) |
 | 2eb0bdef | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-19 | 60m 31s | 12/12 | Phase 6.5 — citation controller (run 3/3) |
+| 86e8e410 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-20 | 56m 13s | 12/12 | Phase 6.6 — MiSES pinnedIds fix (run 1/3) |
+| 81e0c65c | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-20 | 63m 01s | 12/12 | Phase 6.6 — MiSES pinnedIds fix (run 2/3) |
+| ea745d1b | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-20 | 54m 14s | 12/12 | Phase 6.6 — MiSES pinnedIds fix (run 3/3) |
+| 6f29dae2 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-20 | 78m 48s | 13/13 | Phase 7.0 — Stabilisation (cat12v2 + replay + gate) |
 
 ---
 
 ## v4 — DQP + Citation Controller Phases
 
-### Phase 6.0–6.6 Summary — 2026-03-16 to 2026-03-19
+### Phase 6.0–7.0 Summary — 2026-03-16 to 2026-03-20
 
 **Full details:** [`results/v4-phase-6.0-to-6.6-summary.md`](results/v4-phase-6.0-to-6.6-summary.md) | [`results/v4-phase-6.0-to-6.6-summary.json`](results/v4-phase-6.0-to-6.6-summary.json)
 
-**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → **12/12 (3× stable)**
+**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → 12/12 (3×) → 12/12 (3×) → **13/13**
 
 | Phase | Date | Result | Key Achievement |
 |-------|------|:------:|-----------------|
@@ -511,40 +518,47 @@ Based on cross-reference against DQP Master Plan, retrieval architecture docs, a
 | 6.3 | 2026-03-18 | 10/12 (3×) | Evidence selector + decomposition cache (Cat 3/11 fixed, Cat 6/12 regressed) |
 | 6.4 | 2026-03-19 | 11/12 (3×) | Pre-selector fragility (Cat 6 fixed, Cat 12 sole failure) |
 | 6.5 | 2026-03-19 | **12/12 (3×)** | Citation controller: version_precision 0.444→1.000 |
-| 6.6 | 2026-03-19 | Code complete | Post-6.5 hardening (6 milestones: bridge fix, config, observability, parent/child, adversarial corpus, shadow replay) |
+| 6.6 | 2026-03-20 | **12/12 (3×)** | MiSES pinnedIds: parent_child_recall 0.462→1.000, all Cat 12 metrics at 1.000 |
+| 7.0 | 2026-03-20 | **13/13** | Stabilisation: Cat 12 v2 adversarial (0.818), shadow replay, release gate hardening |
 
-### Phase 6.5 Canonical Run — 12/12 PASS (3× stable)
+### Phase 6.6 Canonical Run — 12/12 PASS (3× stable)
 
 | Run ID | Date | Duration | Result |
 |--------|------|----------|:------:|
-| 9550fb24 | 2026-03-19 | 57m 51s | 12/12 |
-| 0054663e | 2026-03-19 | 60m 03s | 12/12 |
-| 2eb0bdef | 2026-03-19 | 60m 31s | 12/12 |
+| 86e8e410 | 2026-03-20 | 56m 13s | 12/12 |
+| 81e0c65c | 2026-03-20 | 63m 01s | 12/12 |
+| ea745d1b | 2026-03-20 | 54m 14s | 12/12 |
 
-**Config manifest:** `Engine/docs/config-manifest-6.5.json` (23 flags frozen)
+**Config manifest:** `Engine/docs/config-manifest-6.5.json` (23 flags frozen — 6.6 is code-only, no config changes)
 
 | Cat | Name | Result | Key Metric |
 |-----|------|:------:|------------|
 | 1 | Relation-Bootstrapped Retrieval | PASS | avg_recall=1.000 |
-| 2 | Format-Aware Ingestion Recall | PASS | avg_retrieved_recall=1.000, citation_recall=0.322 |
-| 3 | BM25 vs Vector Decomposition | PASS | combined_retrieved_recall=0.867 |
+| 2 | Format-Aware Ingestion Recall | PASS | avg_retrieved_recall=0.889, citation_recall=0.648 |
+| 3 | BM25 vs Vector Decomposition | PASS | combined_retrieved_recall=0.849 |
 | 4 | Temporal Edge Cases | PASS | V1 mode skip |
 | 5 | Receipt Chain Stress | PASS | 10/10 chains intact |
 | 6 | Fragility Calibration | PASS | Pre-selector fragility, monotonic F1>F2>=F3 |
-| 7 | Hierarchical Broad Query Recall | PASS | broad_recall=0.917 |
-| 8 | Proposition Precision | PASS | P@1=0.963 |
+| 7 | Hierarchical Broad Query Recall | PASS | broad_recall=1.000, avg_recall=0.765 |
+| 8 | Proposition Precision | PASS | P@1=0.963 (77/80) |
 | 9 | Semantic Dedup | PASS | dedup_effectiveness=1.000, 0 duplicates in results |
-| 10 | Contextual Chain Recall | PASS | chain_completeness=1.000 |
-| 11 | Multi-Doc Broad Recall | PASS | broad_recall=0.927, multi_doc_precision=1.000 |
-| 12 | Hard-Negative Overlap | PASS | version_precision=1.000 (9/9 swaps), parent_child_recall=0.462 |
+| 10 | Contextual Chain Recall | PASS | chain_completeness=0.900 (27/30), avg_retrieved_recall=0.902 |
+| 11 | Multi-Doc Broad Recall | PASS | broad_recall=0.827, multi_doc_precision=1.000 |
+| 12 | Hard-Negative Overlap | PASS | **All metrics 1.000** — version_precision, parent_child_recall, overall_recall |
 
-#### Citation Controller Impact (Cat 12)
+#### Citation Controller + MiSES pinnedIds Impact (Cat 12)
 
-| Metric | Phase 6.4 (no controller) | Phase 6.5 (controller) | Delta |
-|--------|:-------------------------:|:----------------------:|:-----:|
-| version_precision | 0.444 | **1.000** | +125% |
-| parent_child_recall | 0.538 | 0.462 | -14%* |
-| overall_recall | 0.750 | **0.778** | +4% |
-| retrieved_recall | 1.000 | 1.000 | 0% |
+| Metric | Phase 6.4 (no controller) | Phase 6.5 (controller) | Phase 6.6 (+ pinnedIds) | Delta 6.5→6.6 |
+|--------|:-------------------------:|:----------------------:|:----------------------:|:--------------:|
+| version_precision | 0.444 | **1.000** | **1.000** | 0% |
+| parent_child_recall | 0.538 | 0.462 | **1.000** | +116% |
+| overall_recall | 0.750 | 0.778 | **1.000** | +29% |
+| retrieved_recall | 1.000 | 1.000 | **1.000** | 0% |
 
-*Parent/child regression caused by `packCitations` bug (controller-added partners dropped). Fixed in Phase 6.6 M3 (code complete, pending validation).
+#### MiSES pinnedIds Fix (Root Cause of parent_child_recall regression)
+
+**Root cause:** MiSES (`selectMiSES` in `Engine/src/services/mises.ts`) with `MISES_MAX_SIZE=3` and non-greedy mode was dropping controller-cited parent/child documents. When multiple docs share a domain (e.g., `eng.meridian.test`), MiSES picks one per domain for diversity — the controller's relation partners lost to other same-domain candidates.
+
+**Fix:** `pinnedIds` parameter in `selectMiSES` — controller-cited IDs are seeded first, bypassing domain/recency selection. Remaining slots filled with domain-diverse candidates. `effectiveMax = Math.max(maxSize, selected.length)` ensures pinned citations expand beyond maxSize if needed.
+
+**Note:** The Phase 6.5 narrative attributed the regression to `packCitations` (`supplementaryCandidates` fix). This was incorrect — `llmCandidates ⊆ final`, so `supplementaryCandidates` was always empty. MiSES was the actual filter boundary.
