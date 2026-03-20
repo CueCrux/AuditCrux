@@ -1,7 +1,7 @@
 # Engine Quality Audit — Phase 6.0 through 7.0
 
 **Date range:** 2026-03-16 → 2026-03-20
-**Suite:** v4 (13 categories, 1025+ docs, 462+ queries)
+**Suite:** v4 (13 categories, 1074 unique docs / 1127 ingested, 462 queries)
 **Embedding:** EmbedderCrux nomic-embed-text-v1.5, 768d
 **Infrastructure:** CueCrux-Data-1 (i9-13900, 192GB DDR5, 2×1.92TB NVMe RAID-1)
 
@@ -644,17 +644,17 @@ Six milestones executing external audit recommendations. No config changes to th
 |----------|:----:|:-------:|-------------|
 | Cat 1 | 8 | 1 | Relation graph (original, amendments, supports) |
 | Cat 2 | 270 | 45 | 6 MIME types × 45 topics |
-| Cat 3 | 55 | 55 | BM25-optimal vs vector-optimal |
+| Cat 3 | 165 | 55 | 3 lanes (BM25/vector/hybrid) × 55 queries |
 | Cat 5 | 2 | 10 | Receipt chain integrity |
 | Cat 6 | 12 | 3 | Fragility perturbation levels |
 | Cat 7 | 180 | 36 | 12 themes × 15 docs, broad + precision |
 | Cat 8 | 80 | 80 | Proposition precision (exact value extraction) |
 | Cat 9 | 126 | 35 | 35 dedup clusters (1 canonical + 2-3 dupes) |
-| Cat 10 | 61 | 30 | Multi-hop reasoning chains |
+| Cat 10 | 120 | 30 | Multi-hop reasoning chains |
 | Cat 11 | 50 | 80 | Chunking stress (within, cross, broad, multi-doc) |
 | Cat 12 v1 | 53 | 36 | Hard-negative overlap (5 themes) |
 | Cat 12 v2 | 61 | 51 | +4-version families, cross-theme pairs, adversarial queries |
-| **Total** | **958** | **462** | |
+| **Total** | **1127** | **462** | (per-category ingested; 53 docs shared between Cat 12 v1/v2) |
 
 ---
 

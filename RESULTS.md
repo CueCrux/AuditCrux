@@ -506,7 +506,7 @@ Based on cross-reference against DQP Master Plan, retrieval architecture docs, a
 
 ### Phase 6.0–7.0 Summary — 2026-03-16 to 2026-03-20
 
-**Full details:** [`results/v4-phase-6.0-to-6.6-summary.md`](results/v4-phase-6.0-to-6.6-summary.md) | [`results/v4-phase-6.0-to-6.6-summary.json`](results/v4-phase-6.0-to-6.6-summary.json)
+**Full details:** [`results/v4-phase-6.0-to-7.0-summary.md`](results/v4-phase-6.0-to-7.0-summary.md) | [`results/v4-phase-6.0-to-6.6-summary.json`](results/v4-phase-6.0-to-6.6-summary.json)
 
 **Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → 12/12 (3×) → 12/12 (3×) → **13/13**
 
