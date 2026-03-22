@@ -1,6 +1,6 @@
 # AuditCrux
 
-> Reproducible retrieval quality audit suite (14 categories, 3 corpus configs, 3 engine modes).
+> Reproducible retrieval quality audit suite — v4 (13 categories, 1074 docs, 462 queries) + v1-v3 legacy (40/40).
 
 Part of [CueCrux](../README.md) — measures and verifies Engine retrieval quality.
 
@@ -49,46 +49,87 @@ npm run audit:v3       # capability probes, 8 categories, ~5 min
 
 Results are written to `scripts/audit-results/` as both `.md` (human-readable) and `.json` (machine-readable).
 
-## Canonical Results
+## Current Status — Phase 7.3 (v7.3.0)
 
-The current canonical run, executed 2026-03-11 against CueCrux Engine on CueCrux-Data-1 (i9-13900, 192GB DDR5, 2x1.92TB NVMe RAID-1).
+**Canonical quality baseline:** 13/13 × 3 (runs `16554101`, `ca505454`, `5e5ccff5`)
+**Date:** 2026-03-22
+**Config manifest:** [`Engine/docs/config-manifest-6.7.json`](../Engine/docs/config-manifest-6.7.json)
+**SLO baseline:** [`Engine/docs/slo-baseline.json`](../Engine/docs/slo-baseline.json) v1.3.0
 
-### v1 — Baseline Corpus (run 110ada93)
+### v4 — Production Quality (Phase 7.3 baseline)
 
-| Category | V1 | V3.1 | V4.1 |
-|---|:---:|:---:|:---:|
-| Supersession Accuracy | PASS | PASS | PASS |
-| Causal Chain Retrieval | PASS | PASS | PASS |
-| Corpus Degradation | PASS | PASS | PASS |
-| Temporal Reconstruction | PASS | PASS | PASS |
+| Cat | Name | Metric | Run 1 | Run 2 | Run 3 | Target |
+|---|---|---|:---:|:---:|:---:|---|
+| 1 | Supersession / Relation Retrieval | supersession_recall | 1.000 | 1.000 | 1.000 | ≥0.80 |
+| 2 | Format-Aware Ingestion Recall | avg_citation_recall | 0.670 | 0.715 | 0.696 | ≥0.50 |
+| 3 | Retrieval Lane Decomposition | lane_contribution | PASS | PASS | PASS | all lanes |
+| 5 | Receipt Chain Verification | chain_integrity | 1.000 | 1.000 | 1.000 | 1.000 |
+| 6 | Fragility Calibration | fragility_ordering | PASS | PASS | PASS | monotonic |
+| 7 | Broad Recall | broad_recall | ≥0.70 | ≥0.70 | ≥0.70 | ≥0.70 |
+| 8 | Proposition Precision@1 | P@1 | ≥0.75 | ≥0.75 | ≥0.75 | ≥0.75 |
+| 9 | Dedup Detection | dedup_recall | 1.000 | 1.000 | 1.000 | ≥0.90 |
+| 10 | Causal Chain Completeness | chain_completeness | ≥0.90 | ≥0.90 | ≥0.90 | ≥0.90 |
+| 11 | Chunking Stress | broad_recall | 0.927 | 0.927 | 0.927 | ≥0.70 |
+| 12 | Hard-Negative Overlap | parent_child_recall | 1.000 | 1.000 | 1.000 | ≥0.80 |
+| 12v2 | Hard-Negative Overlap v2 | overlap_recall | PASS | PASS | PASS | ≥0.80 |
+| 13 | Temporal Reconstruction | accuracy | PASS | PASS | PASS | ≥0.90 |
 
-**12/12 passed.** Clean text corpus, ~40 docs per category (Cat 3 scales to 10K).
+**Corpus:** 1074 unique docs / 1127 ingested, 462 queries
 
-### v2 — Enterprise Corpus (run c85daff7)
+#### Two-Layer Narrative
 
-| Category | V1 | V3.1 | V4.1 |
-|---|:---:|:---:|:---:|
-| Supersession Accuracy | PASS | PASS | PASS |
-| Causal Chain Retrieval | PASS | PASS | PASS |
-| Corpus Degradation | PASS | PASS | PASS |
-| Temporal Reconstruction | PASS | PASS | PASS |
+- **Layer 1 (product-owned):** Cat 2 format-aware citation and Cat 12 relation-pair preservation are engineering improvements attributable to shipped code.
+- **Layer 2 (externally contingent):** Cat 11 broad_recall 0.722→0.927 is not attributable to any 7.3 code change. Full attribution matrix (runs `f9b80070`, `b5f84195`) ruled out both flags. Most likely cause: upstream LLM model drift.
 
-**12/12 passed.** Meridian Financial Services corpus with heterogeneous MIME types (Markdown, JSON, YAML, CSV, HTML, email, chat, meeting notes), 550 base docs scaling to 25K.
+#### Attribution Matrix
 
-### v3 — Capability Probes (run e782fbd0)
+| Run | Flag Disabled | Cat 11 broad_recall | Conclusion |
+|---|---|:---:|---|
+| `f9b80070` | `FEATURE_RELATION_PAIR_PRESERVATION=false` | 0.927 | Not the cause |
+| `b5f84195` | `FEATURE_FORMAT_AWARE_CITATION=false` | 0.927 | Not the cause |
 
-| Category | V1 | V3.1 | V4.1 |
-|---|:---:|:---:|:---:|
-| Relation-Bootstrapped Retrieval | PASS | PASS | PASS |
-| Format-Aware Ingestion Recall | PASS | PASS | PASS |
-| BM25 vs Vector Decomposition | PASS | PASS | PASS |
-| Temporal Edge Cases | skip | PASS | PASS |
-| Receipt Chain Stress | PASS | — | — |
-| Fragility Calibration | PASS | PASS | PASS |
-| Broad-Query Recall | pending refresh | pending refresh | pending refresh |
-| Proposition Precision@1 | pending refresh | pending refresh | pending refresh |
+### Production Config (config-manifest-6.7)
 
-**16/16 passed on the original 6-category suite.** The v3 harness now includes two additional DQP-era categories, Broad-Query Recall and Proposition Precision@1, and needs a fresh canonical run before those rows can be marked PASS/FAIL.
+| Flag | Value | Notes |
+|---|:---:|---|
+| `FEATURE_EVIDENCE_SELECTOR` | **on** | Evidence selection pipeline |
+| `EVIDENCE_SELECTOR_MAX_CONTEXTS` | **6** | Max contexts for evidence selector |
+| `FEATURE_PRE_SELECTOR_FRAGILITY` | **on** | Fragility scoring before selection |
+| `FEATURE_DECOMPOSITION_CACHE` | **on** | Query decomposition caching |
+| `DECOMPOSITION_RETRY_ON_LOW_COVERAGE` | **on** | Retry decomposition on low coverage |
+| `FEATURE_RELATION_EXPANSION` | **on** | Relation-based candidate expansion |
+| `FEATURE_CROSS_ENCODER_RERANK` | **on** | BGE-reranker-v2-m3 on GPU |
+| `FEATURE_QUERY_PROFILES` | **on** | Query profile classification |
+| `FEATURE_QUERY_DECOMPOSITION` | **on** | Sub-query generation |
+| `FEATURE_QDRANT_DUAL_WRITE` | **on** | Write to both Postgres + Qdrant |
+| `FEATURE_QDRANT_READ` | **on** | Read vectors from Qdrant |
+| `FEATURE_SURFACE_ROUTING` | **on** | Surface-level query routing |
+| `FEATURE_ADMISSION_CONTROLLER` | **on** | Query admission control |
+| `FEATURE_COVERAGE_ANSWER_SPLIT` | **on** | Coverage-aware answer splitting |
+| `FEATURE_REPRESENTATIVE_SELECTION` | **on** | Representative chunk selection |
+| `FEATURE_DEDUP_RETRIEVAL_PENALTY` | **on** | Dedup penalty in retrieval scoring |
+| `FEATURE_CITATION_CONTROLLER` | **on** | Citation selection controller |
+| `FEATURE_CITATION_CASCADE` | **on** | Citation cascade pipeline |
+| `FEATURE_CITATION_CASCADE_PROFILE` | **broad_only** | Cascade profile (frozen M1) |
+| `ABLATION_PINNED_IDS_POLICY` | **profile_scoped** | Pinned IDs policy (frozen M0) |
+| `FEATURE_LEXICAL_SHADOW` | **on** | Lexical shadow scoring |
+| `FEATURE_FORMAT_AWARE_CITATION` | **on** | LLM hint for structured-doc citation (7.3) |
+| `FEATURE_RELATION_PAIR_PRESERVATION` | **on** | Inject relation children past topK (7.3) |
+| `FEATURE_MULTI_LANE_RETRIEVAL` | **off** | Multi-lane RRF (parked — dilutes quality) |
+| `LLM_PROMPT_STYLE` | **evidence_selector** | Prompt template style |
+| `VECTOR_DIM` | **768** | nomic-embed-text-v1.5 |
+
+**Frozen flags (do not change):** `ABLATION_PINNED_IDS_POLICY`, `FEATURE_CITATION_CASCADE_PROFILE` — M0+M1 frozen per audit guidance.
+
+**Parked (do not reopen):** `FEATURE_MULTI_LANE_RETRIEVAL`, DQP Tier 3 — recent quality movement dominated by answer-model behavior, not retrieval richness.
+
+### Legacy Suites (v1-v3)
+
+| Suite | Run ID | Categories | Result |
+|---|---|---|---|
+| v1 — Baseline Corpus | `110ada93` | 4 categories × 3 modes | **12/12** |
+| v2 — Enterprise Corpus | `c85daff7` | 4 categories × 3 modes | **12/12** |
+| v3 — Capability Probes | `e782fbd0` | 6 categories × 3 modes | **16/16** |
 
 Full results with per-query metrics: [RESULTS.md](RESULTS.md)
 
@@ -144,21 +185,61 @@ Tests whether broad, theme-level questions recover an entire source cluster when
 
 Tests whether targeted fact queries rank `proposition` chunks first once proposition-aware retrieval weights are active. Each topic includes one source chunk and one derived proposition chunk sharing the same artifact key. The category measures retrieved precision@1 using the first ID in `retrievedIds`; citation precision@1 is recorded as a diagnostic only because LLM citation ordering is not stable enough to be the primary pass criterion.
 
+### v4 Cat 9: Dedup Detection
+
+Tests whether semantically duplicate documents are correctly identified and consolidated. Inserts near-identical documents with minor paraphrasing and verifies the dedup pipeline detects them. Pass criterion: dedup_recall ≥0.90.
+
+### v4 Cat 10: Causal Chain Completeness
+
+Tests multi-document causal chains: given a query about a downstream effect, measures whether the full causal chain (upstream causes, intermediary documents) is retrieved. Pass criterion: chain_completeness ≥0.90.
+
+### v4 Cat 11: Chunking Stress
+
+Tests broad recall on long documents (500-2000+ tokens) that exercise the semantic chunker. Measures whether all relevant chunks from a large document set are retrieved for theme-level queries. Pass criterion: broad_recall ≥0.70. Note: Cat 11's improvement from 0.722 to 0.927 in Phase 7.3 is externally contingent (LLM model drift), not attributable to any shipped code change.
+
+### v4 Cat 12: Hard-Negative Overlap
+
+Tests parent-child document retrieval when relation-expanded children compete with hard-negative overlapping documents. A parent ADR makes the topK cutoff; its implementing runbook docs are found by relation expansion but rank below topK. Measures whether relation-pair preservation injects the child. Pass criterion: parent_child_recall ≥0.80.
+
+### v4 Cat 12v2: Hard-Negative Overlap v2
+
+Extended overlap scenarios with additional hard-negative patterns. Pass criterion: overlap_recall ≥0.80.
+
+### v4 Cat 13: Temporal Reconstruction
+
+Point-in-time accuracy for document lifecycle states across temporal snapshots. Pass criterion: accuracy ≥0.90.
+
+## Regression Suites
+
+### Prompt-Spillover Suite
+
+Categories sensitive to LLM prompt wording: Cat 2, 10, 11. Run when changing prompt text in `Engine/src/services/llm.ts` or `prompt_hashes` in the config manifest.
+
+```bash
+./scripts/audit-v4/prompt-spillover-suite.sh          # single run
+./scripts/audit-v4/prompt-spillover-suite.sh --runs 3  # 3× stability
+```
+
+### Model-Drift Sentinel Pack
+
+Canary suite for detecting upstream LLM model/provider changes: Cat 2, 11, 12. Run when the model provider or model ID changes.
+
+```bash
+./scripts/audit-v4/model-drift-sentinel.sh            # single run
+./scripts/audit-v4/model-drift-sentinel.sh --runs 3    # 3× stability
+```
+
 ## Known limitations
 
-**Embedding space.** Two canonical run sets are published:
-- **OpenAI** (`text-embedding-3-small`, 768d): runs `110ada93` (v1), `c85daff7` (v2), `e782fbd0` (v3)
-- **EmbedderCrux** (`nomic-embed-text-v1.5`, 768d): runs `a86b1733` (v1), `5b125495` (v2), `8dd5efff` (v3)
+**Embedding space.** v4 canonical runs use EmbedderCrux/nomic-embed-text-v1.5 (768d). Legacy v1-v3 runs cover both OpenAI and nomic. The embedding cache is keyed by provider to prevent cross-contamination.
 
-The EmbedderCrux runs validate the benchmark against the production embedding provider. Both run sets are in `results/`. The embedding cache is keyed by provider to prevent cross-contamination.
+**Format-aware citation gap (Cat 2).** All formats achieve 100% retrieved recall. The remaining gap is citation recall: the LLM prefers citing prose over structured data. Phase 7.3 added `FEATURE_FORMAT_AWARE_CITATION` which improved avg_citation_recall from ~0.626 to 0.670-0.715 by hinting the LLM to cite structured docs. The gap is substantially narrowed but not fully closed — still LLM-bounded.
 
-**Format-aware chunking and citation gap.** The ingest pipeline implements format-aware processing via LLM annotation at ingest time (`mime-classifier.ts`, `annotation-generator.ts`, `entity-extractor.ts`). Structured formats (JSON, YAML) receive a prose annotation chunk stored alongside the source chunk; informal formats (chat, notes) receive entity extraction enrichment. This produces **100% retrieved recall across all formats** (run `e782fbd0`) — every format reaches the candidate pool.
+**Relation expansion and pair preservation.** `FEATURE_RELATION_EXPANSION=true` (production default since Phase 7.0). `FEATURE_RELATION_PAIR_PRESERVATION=true` (Phase 7.3) injects relation-expanded children that survive reranking but miss the topK cutoff (capped at 2 injections). This restored Cat 12 parent_child_recall from 0.846 to 1.000.
 
-The remaining gap is citation recall: the LLM prefers citing prose-formatted documents over structured or informal ones even when retrieved. YAML, chat, and notes achieve 0% citation recall despite 100% retrieved recall. This is an LLM citation selection characteristic, not a retrieval defect.
+**Cat 11 externally contingent.** broad_recall improved 0.722→0.927 in Phase 7.3 but is not attributable to any shipped code. Full attribution matrix (runs `f9b80070`, `b5f84195`) ruled out both 7.3 flags. Most likely cause: upstream LLM model/provider drift. Monitored via model-drift sentinel pack.
 
-Structure-aware chunking (parsing YAML/JSON at structural boundaries rather than character counts) would further improve citation rates for structured formats and is on the roadmap. The current annotation approach is sufficient for full retrieved recall.
-
-**Relation expansion.** Relation-based candidate expansion is implemented behind a `FEATURE_RELATION_EXPANSION` flag (default `false`). With the flag enabled, the pipeline fetches documents connected by `supersedes`, `derived_from`, and `elaborates` relation edges to retrieved candidates, adding them to the scoring pool. The feature flag defaults to false for backward compatibility; the `v3-relation-expansion-canonical` run documents behaviour with the flag enabled.
+**Model provenance.** Baseline runs used gpt-4o-mini (OpenAI). Model/provider drift is a first-class release variable. Model provenance is pinned in the config manifest and tracked in audit JSON output.
 
 **Fragility scoring is corpus-dependent.** Fragility scores measure how sensitive a specific answer is to the removal of individual citations. The score depends on the number of domains represented in the citation set and the `minDomains` constraint. A fragility score of 0.0 does not mean "robust" in the abstract — it means "no single citation removal violates the domain diversity constraint for this specific query."
 
