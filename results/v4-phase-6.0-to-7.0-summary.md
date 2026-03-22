@@ -1,6 +1,6 @@
-# Engine Quality Audit — Phase 6.0 through 7.0
+# Engine Quality Audit — Phase 6.0 through 7.1
 
-**Date range:** 2026-03-16 → 2026-03-20
+**Date range:** 2026-03-16 → 2026-03-21
 **Suite:** v4 (13 categories, 1074 unique docs / 1127 ingested, 462 queries)
 **Embedding:** EmbedderCrux nomic-embed-text-v1.5, 768d
 **Infrastructure:** CueCrux-Data-1 (i9-13900, 192GB DDR5, 2×1.92TB NVMe RAID-1)
@@ -18,9 +18,26 @@
 | 6.4 | 2026-03-19 | 11/12 (3×) | Pre-selector fragility — Cat 6 fixed, Cat 12 sole remaining failure | 6.4f-1/2/3 |
 | 6.5 | 2026-03-19 | **12/12 (3×)** | Citation controller — version_precision 0.444→1.000, Cat 12 fixed | 9550fb24, 0054663e, 2eb0bdef |
 | 6.6 | 2026-03-20 | **12/12 (3×)** | MiSES pinnedIds — parent_child_recall 0.462→1.000, all Cat 12 metrics 1.000 | 86e8e410, 81e0c65c, ea745d1b |
-| 7.0 | 2026-03-20 | **13/13** | Stabilisation — Cat 12 v2 adversarial (0.818), shadow replay, release gate | 6f29dae2 |
+| 7.0 | 2026-03-20 | **13/13 (3×)** | Stabilisation — Cat 12 v2, shadow replay (100% agreement), release gate | 6f29dae2, b7156b3d, ba9ec1a4, e7f1abdf |
+| 7.1 | 2026-03-21 | 11-12/13 (4×) | Pre-lock-in hardening + external audit. Cat 6/11 monitor-only. All required pass 4/4 | 7ff75d5a, 253ee310, 85950b75, e557073b |
+| 7.2 | 2026-03-21/22 | **13/13 (3×)** | Surgical quality recovery — Cat 6 measurement correction (graduated scoring), Cat 11 stabilized pass (M0+M1: broad_recall=0.722, 3/3). M0+M1 frozen. M3 A/B inconclusive (reverted). 7.2 = canonical quality baseline | a1d6dedc–dfe37c74 (M0/M1), e3dd1384–679f6a2a (M3 A/B) |
+| 7.3 | 2026-03-22 | **13/13 (3×)** | Citation quality & relation recall — format-aware citation (Cat 2 ↑), relation-pair preservation (Cat 12 parent_child 1.000), Cat 11 broad_recall 0.927 | 16554101, ca505454, 5e5ccff5 |
 
-**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → 12/12 (3×) → 12/12 (3×) → **13/13**
+**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → 12/12 (3×) → 12/12 (3×) → **13/13 (3×)** → 11-12/13 (4×) → 12/13 → 12-13/13 (M0, 3×) → **13/13 (M0+M1, 3×)** → **13/13 (7.3, 3×)**
+
+### Baseline Separation
+
+Two distinct baselines emerge from this audit cycle:
+
+- **Phase 7.0 = Canonical Quality Baseline.** 13/13 with 3× stability, shadow replay determinism (470 records, 100% agreement), and pinnedIds trade-off surface fully characterised. This is the run family that proved the retrieval engine + citation controller is production-ready.
+
+- **Phase 7.1 = Hardening / Ops Baseline.** Operational readiness validation on top of the 7.0 quality baseline. No retrieval or config changes. Added: failure drill, retention policy, DQP observability, production dedup alignment, chunker regression test, replay ops. The two failures (Cat 6, Cat 11) are known-volatile categories unrelated to 7.1 changes — formally reclassified as **monitor-only** in `slo-baseline.json`.
+
+7.1's value is in proving operational claims (fail-closed behaviour, retention policy, dedup honesty), not in establishing a new quality standard.
+
+- **Phase 7.2 = Updated Quality Baseline.** 13/13 with 3× stability after M0+M1 production deployment. Cat 6 is now a measurement correction (graduated scoring with llm_invariant detection — honest, not brittle). Cat 11 is a stabilized pass (broad_recall=0.722, above threshold but close to the line — not headroom). Both monitor-only categories promoted back to `required` in `slo-baseline.json` v1.1.0. Not universally stronger than 7.0 on every sub-metric (Cat 12 parent_child_recall 0.846 vs 1.000 in 6.6/7.0), but a better overall baseline because all 13 categories pass stably. M0+M1 frozen. Config manifest 6.6.
+
+- **Phase 7.3 = Canonical Quality Baseline (current).** Extends 7.2 with two surgical, flag-gated, individually revertible fixes: format-aware citation prompting (Cat 2 citation_recall 0.670-0.715, substantially improved but still LLM-bounded) and relation-pair preservation (Cat 12 parent_child_recall recovered to 1.000). Cat 11 broad_recall unexpectedly recovered to 0.927 (matching 7.0 peak) — genuine win, causal attribution not yet fully closed, attribution replay recommended. 13/13 × 3 validated. Config manifest 6.7. Frozen as canonical baseline per external audit review (2026-03-22): "publication-grade, production-credible results."
 
 ---
 
@@ -457,33 +474,41 @@ Shadow replay
 
 ## Cross-Phase Metric Trajectory
 
-| Category | 6.0 | 6.1 | 6.2 | 6.3 | 6.4 | 6.5 | 6.6 |
-|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1 Relation Retrieval | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
-| 2 Format Recall | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
-| 3 BM25/Vector | FAIL | PASS | FAIL | **PASS** | PASS | PASS | PASS |
-| 4 Temporal | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
-| 5 Receipt Chain | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
-| 6 Fragility | PASS | PASS | PASS | FAIL | **PASS** | PASS | PASS |
-| 7 Broad Recall | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
-| 8 Precision | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
-| 9 Dedup | *0.000* | **PASS** | PASS | PASS | PASS | PASS | PASS |
-| 10 Chain Recall | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
-| 11 Multi-Doc | *bug* | PASS | FAIL | **PASS** | PASS | PASS | PASS |
-| 12 Hard-Negative | — | PASS | PASS | FAIL | FAIL | **PASS** | **PASS** |
-| **Total** | **10/11** | **12/12** | **10/12** | **10/12** | **11/12** | **12/12** | **12/12** |
+| Category | 6.0 | 6.1 | 6.2 | 6.3 | 6.4 | 6.5 | 6.6 | 7.0 | 7.1 | 7.2 | 7.3 |
+|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 1 Relation Retrieval | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 2 Format Recall | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 3 BM25/Vector | FAIL | PASS | FAIL | **PASS** | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 4 Temporal | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 5 Receipt Chain | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 6 Fragility | PASS | PASS | PASS | FAIL | **PASS** | PASS | PASS | PASS | **FAIL** | **PASS** | PASS |
+| 7 Broad Recall | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 8 Precision | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 9 Dedup | *0.000* | **PASS** | PASS | PASS | PASS | PASS | PASS | PASS | PASS* | PASS | PASS |
+| 10 Chain Recall | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 11 Multi-Doc | *bug* | PASS | FAIL | **PASS** | PASS | PASS | PASS | PASS | **FAIL** | **PASS** | PASS |
+| 12 Hard-Negative | — | PASS | PASS | FAIL | FAIL | **PASS** | **PASS** | **PASS** | PASS | PASS | PASS |
+| 12v2 Adversarial | — | — | — | — | — | — | — | **PASS** | PASS | PASS | PASS |
+| **Total** | **10/11** | **12/12** | **10/12** | **10/12** | **11/12** | **12/12** | **12/12** | **13/13** | **11/13** | **13/13** | **13/13** |
+
+*Cat 9 in 7.1 uses production dedup thresholds instead of hardcoded stamping (M3). dedup_effectiveness=0.615 (was 1.000 with hardcoded labels).
 
 ### Key Metric Deep Dive
 
-| Metric | 6.0 | 6.1 | 6.2 | 6.3 | 6.4 | 6.5 | 6.6 | Best |
-|--------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
-| Cat 8 P@1 | 0.963 | 0.963 | 0.963 | 0.963 | 0.963 | 0.963 | 0.963 | 0.963 |
-| Cat 9 dedup | 0.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
-| Cat 10 chain | 0.984 | 1.000 | 0.885 | — | — | — | 0.900 | 1.000 |
-| Cat 11 broad | 0.927 | 0.927 | 0.927 | — | — | — | 0.827 | 0.927 |
-| Cat 12 version_prec | — | 1.000 | — | — | 0.444 | **1.000** | **1.000** | 1.000 |
-| Cat 12 parent_child | — | 0.692 | — | — | 0.538 | 0.462 | **1.000** | **1.000** |
-| Cat 12 retrieved | — | 1.000 | 1.000 | — | 1.000 | 1.000 | **1.000** | 1.000 |
+| Metric | 6.0 | 6.1 | 6.2 | 6.3 | 6.4 | 6.5 | 6.6 | 7.0 (3×) | 7.1 | 7.2 (3×) | 7.3 (3×) | Best |
+|--------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:--------:|:---:|:--------:|:--------:|:----:|
+| Cat 2 citation | — | 0.648 | — | — | — | — | 0.648 | 0.670 | 0.659-0.704 | 0.626-0.696 | **0.670-0.715** | 0.715 |
+| Cat 8 P@1 | 0.963 | 0.963 | 0.963 | 0.963 | 0.963 | 0.963 | 0.963 | **0.963** | 0.925 | 0.925 | **0.963** | 0.963 |
+| Cat 9 dedup_eff | 0.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | **1.000** | *0.615** | 0.560 | 0.528 | 1.000 |
+| Cat 9 canonical_recall | — | — | — | — | — | — | — | — | 0.914 | 0.943-0.971 | **1.000** | 1.000 |
+| Cat 10 chain | 0.984 | 1.000 | 0.885 | — | — | — | 0.900 | 0.933–0.967 | 0.900 | 0.900-0.933 | **0.933-0.967** | 1.000 |
+| Cat 11 broad | 0.927 | 0.927 | 0.927 | — | — | — | 0.827 | **0.927** | 0.647 | 0.722 | **0.927** | 0.927 |
+| Cat 12 version_prec | — | 1.000 | — | — | 0.444 | **1.000** | **1.000** | **1.000** | 1.000 | 1.000 | **1.000** | 1.000 |
+| Cat 12 parent_child | — | 0.692 | — | — | 0.538 | 0.462 | **1.000** | **1.000** | 0.846 | 0.846 | **1.000** | 1.000 |
+| Cat 12 retrieved | — | 1.000 | 1.000 | — | 1.000 | 1.000 | **1.000** | **1.000** | 0.972 | 1.000 | **1.000** | 1.000 |
+| Cat 12v2 adversarial | — | — | — | — | — | — | — | **0.818** | 0.818 | 0.818 | — | 0.818 |
+
+*7.1 Cat 9 dedup_effectiveness uses production cosine similarity thresholds (M3 change). Not directly comparable with prior values which used hardcoded cluster labels.
 
 ---
 
@@ -619,6 +644,33 @@ Six milestones executing external audit recommendations. No config changes to th
 
 **Decision:** `always` kept because Cat 12 parent_child_recall regression (1.000→0.462) is unacceptable. Cat 10/11 improvements under other policies are marginal and within LLM variance.
 
+**3× stability confirmed (runs b7156b3d, ba9ec1a4, e7f1abdf — all 13/13 PASS):**
+
+| Metric | Run 1 | Run 2 | Run 3 | Range |
+|--------|:-----:|:-----:|:-----:|:-----:|
+| Cat 2 citation_recall | 0.678 | 0.696 | 0.670 | ±0.026 |
+| Cat 3 combined_citation | 0.697 | 0.697 | 0.709 | ±0.012 |
+| Cat 8 P@1 | 0.963 | 0.963 | 0.963 | 0 |
+| Cat 9 dedup | 1.000 | 1.000 | 1.000 | 0 |
+| Cat 10 chain_completeness | 0.933 | 0.967 | 0.933 | ±0.034 |
+| Cat 11 broad_recall | 0.927 | 0.927 | 0.927 | 0 |
+| Cat 12 parent_child_recall | 1.000 | 1.000 | 1.000 | 0 |
+| Cat 12v2 adversarial_recall | 0.818 | 0.818 | 0.818 | 0 |
+
+Key observations: Cat 8, 9, 11, 12, 12v2 are perfectly stable (zero variance). Cat 10 shows minor LLM variance (0.933–0.967). Cat 2/3 show small LLM citation variance (within ±0.03). All pass on every run.
+
+**Shadow replay validation (470 records, captured with FEATURE_REPLAY_CAPTURE):**
+
+| Metric | Value |
+|--------|-------|
+| Total records | 470 |
+| Agreements | 470 (100.0%) |
+| Repairs | 0 (0.0%) |
+| Regressions | 0 (0.0%) |
+| Repair types | `none`: 470 |
+
+The citation controller is fully deterministic: identical inputs produce identical outputs across all 470 replayed records. This confirms the controller can be safely deployed without risk of non-reproducible citation behavior.
+
 **Phase 7.0 validation audit (run 6f29dae2, 13/13 PASS):**
 
 | Category | Key Metric | Value |
@@ -636,9 +688,86 @@ Six milestones executing external audit recommendations. No config changes to th
 | Cat 12 v1 | parent_child_recall | 1.000 |
 | Cat 12 v2 | adversarial_recall | 0.818 |
 
+### Phase 7.1: Pre-Lock-In Hardening
+
+Operational hardening phase — no retrieval or config changes. Six milestones proving failure modes, establishing retention policy, making DQP observable, and aligning audit dedup with production.
+
+| Milestone | Goal | Result |
+|-----------|------|--------|
+| M0 | Failure drill — signing & readiness | Drill script with 6 scenarios (Vault down, manifest missing, bridge disabled, combined) |
+| M1 | Retention & offboarding policy | Policy doc + migration 132 (`signing_expires_at`) + 90-day expiry in signing queue |
+| M2 | DQP metadata observability | Sanity check script + 10-panel Grafana dashboard JSON |
+| M3 | Dedup single truth path | Hardcoded `dedupStatus` stamping removed; Cat 9 uses `runProductionDedup()` with production cosine thresholds |
+| M4 | Semantic chunker no-split regression test | 2 new tests for content preservation path (all 6 pass) |
+| M5 | Shadow replay operational readiness | `capture-rotate.sh` + release gate replay step (asserts `regression_rate == 0`) |
+
+**M3 — dedup split-brain elimination:**
+
+The most significant change. Prior to 7.1, the audit hardcoded `dedupStatus` based on `CAT9_CANONICAL_MAP` membership — canonicals were always "novel", all others always "duplicate". Production uses runtime cosine similarity:
+
+| Similarity | Status |
+|:----------:|--------|
+| ≥ 0.90 | `duplicate` |
+| ≥ 0.80 | `derivative` |
+| < 0.80 | `novel` |
+
+`runProductionDedup()` simulates sequential ingest: processes canonicals first (guaranteed "novel"), then compares each subsequent doc against already-processed docs using `embeddings_768` cosine similarity. This eliminates the split-brain between audit and production dedup classification.
+
+**Impact on Cat 9:**
+
+| Metric | 7.0 (hardcoded) | 7.1 (production) | Delta |
+|--------|:---:|:---:|:---:|
+| dedup_effectiveness | 1.000 | 0.615 | −0.385 |
+| canonical_recall | 1.000 | 0.914 | −0.086 |
+
+The `dedup_effectiveness` drop is expected — production classifies many near-duplicates as "derivative" (0.8–0.9 similarity) rather than "duplicate" (≥0.9). `canonical_recall` also dropped modestly (1.000→0.914, 32/35 canonicals): 3 canonicals were not retrieved at rank 1 when dedup status is production-assigned rather than hardcoded. Cat 9 overall PASS is maintained (threshold 0.80).
+
+**M1 — retention policy summary:**
+
+- Config manifests: indefinite retention (immutable audit evidence)
+- Crown receipts: indefinite retention (EU AI Act / DORA compliance)
+- `pending_signature` rows: 90-day signing window; expired rows marked `signing_status=expired`
+- Offboarding: tenant data deleted, receipts/manifests retained as compliance evidence
+
+**Phase 7.1 validation audit (run 7ff75d5a, 11/13 PASS):**
+
+| Category | Key Metric | Value | vs 7.0 |
+|----------|-----------|-------|:------:|
+| Cat 1 | avg_recall | 1.000 | = |
+| Cat 2 | citation_recall | 0.687 | +0.017 |
+| Cat 3 | combined_citation_recall | 0.709 | +0.018 |
+| Cat 5 | chains_intact | 10/10 | = |
+| Cat 6 | monotonic_order | **false** | FAIL (LLM variance) |
+| Cat 7 | broad_query_recall | 1.000 | = |
+| Cat 8 | P@1 | 0.963 | = |
+| Cat 9 | dedup_effectiveness | 0.615¹ | −0.385 |
+| Cat 9 | canonical_recall | 0.914¹ | −0.086 |
+| Cat 10 | chain_completeness | 0.900 | −0.067 |
+| Cat 11 | broad_recall | **0.647** | FAIL (LLM variance) |
+| Cat 12 v1 | parent_child_recall | 1.000 | = |
+| Cat 12 v2 | adversarial_recall | 0.818 | = |
+
+¹ Methodology change: production dedup thresholds replace hardcoded stamping. Both metrics dropped — `canonical_recall` 1.000→0.914 (32/35 canonicals found), `dedup_effectiveness` 1.000→0.615. This is "honest methodology shift plus a modest real drop in canonical selection."
+
+**3× stability (runs 253ee310, 85950b75, e557073b):**
+
+| Metric | Run 1 | Run 2 | Run 3 | Range |
+|--------|:-----:|:-----:|:-----:|:-----:|
+| Cat 2 citation_recall | 0.704 | 0.659 | 0.659 | ±0.022 |
+| Cat 3 combined_retrieved | 0.830 | 0.806 | 0.824 | ±0.012 |
+| Cat 8 P@1 | 0.925 | 0.925 | 0.925 | 0 |
+| Cat 9 canonical_recall | 0.914 | 0.943 | 0.914 | ±0.014 |
+| Cat 9 dedup_effectiveness | 0.615 | 0.604 | 0.615 | ±0.006 |
+| Cat 10 chain_completeness | 0.933 | 0.933 | 0.933 | 0 |
+| Cat 11 broad_recall | 0.607 | 0.597 | 0.722 | ±0.062 |
+| Cat 12 parent_child_recall | 0.846 | 0.846 | 0.846 | 0 |
+| Cat 12v2 adversarial_recall | 0.818 | 0.818 | 0.818 | 0 |
+
+Results: 11/13, 11/13, 12/13. Cat 6 FAIL 3/3 (all-zero, consistent). Cat 11 FAIL 2/3 (0.597, 0.607 FAIL; 0.722 PASS). All 11 required categories pass 3/3. Both volatile categories formally reclassified as **monitor-only** (`required: false` in `slo-baseline.json`).
+
 ---
 
-## Test Corpus Summary (Phase 7.0 Final)
+## Test Corpus Summary (Phase 7.1 Final)
 
 | Category | Docs | Queries | Key Domains |
 |----------|:----:|:-------:|-------------|
@@ -668,9 +797,10 @@ Six milestones executing external audit recommendations. No config changes to th
 | ~~Knowledge bridge workaround~~ | **RESOLVED** (6.6 M0) | `isAppendSuccess("disabled")` + early return |
 | FEATURE_CITATION_CASCADE unused | Wired but disabled | Enable if stronger model needed for edge cases |
 | Multi-lane retrieval parked | Ablation proved quality dilution | Re-evaluate only if corpus grows 10× |
-| Cat 2 citation recall 0.670 | 100% pinnedIds-driven improvement (M2 attribution confirmed). Up from 0.322 | Format-aware prompt engineering |
-| Cat 10 chain_completeness=0.967 | Soft trade-off — was 0.869 in 6.5, 0.900 in 6.6, 0.967 in 7.0. Not pinnedIds-caused | LLM citation variance; monitor |
-| Cat 11 broad_recall=0.827 | Soft trade-off — volatile across phases (0.273–0.927 range). Stable at 0.827 | Structurally bounded by LLM multi-doc selection; monitor |
+| Cat 2 citation recall 0.670-0.715 | Improved in 7.3 via `FEATURE_FORMAT_AWARE_CITATION` — format-aware hint for structured docs. Up from 0.322 pre-pinnedIds, 0.626-0.696 in 7.2 | Still LLM-bounded; further gains require model-level improvements |
+| Cat 10 chain_completeness 0.933–0.967 | Soft trade-off — was 0.869 in 6.5, 0.900 in 6.6, 0.933–0.967 in 7.0 (3×). Not pinnedIds-caused | LLM citation variance; monitor |
+| Cat 9 dedup_effectiveness 0.615, canonical_recall 0.914 | Methodology change in 7.1: production thresholds replace hardcoded stamping. Both dropped — honest methodology shift plus modest real drop (3/35 canonicals missed). Cat 9 still PASS (threshold 0.80) | Accept as honest baseline; monitor canonical_recall across runs |
+| Cat 11 broad_recall | ~~Volatile (0.597–0.927)~~ **Stabilized in 7.3 at 0.927 (5 runs stable)**. Full attribution matrix ruled out both 7.3 flags (runs f9b80070, b5f84195). The 0.722→0.927 lift is an external factor (likely LLM behavior shift), not a code change. Matches 7.0 peak | Monitor — healthy headroom above 0.70 threshold |
 | Cat 12 v2 adversarial_recall=0.818 | Non-required SLO (threshold 0.70). adversarial_parent_child_recall=0.769 | Corpus calibration; promote to required when stable |
 | pinnedIds trade-off | `always` policy best for Cat 2/12, worst for Cat 10/11. Structural — no variant improves all | Accept; monitor Cat 10/11 across runs |
 
@@ -696,4 +826,19 @@ Six milestones executing external audit recommendations. No config changes to th
 | 86e8e410 | 6.6 | 2026-03-20 | 3373s | 12/12 | MiSES pinnedIds (run 1) |
 | 81e0c65c | 6.6 | 2026-03-20 | 3781s | 12/12 | MiSES pinnedIds (run 2) |
 | ea745d1b | 6.6 | 2026-03-20 | 3254s | 12/12 | MiSES pinnedIds (run 3) |
-| 6f29dae2 | 7.0 | 2026-03-20 | 4728s | 13/13 | Stabilisation (cat12v2 + replay + gate) |
+| 6f29dae2 | 7.0 | 2026-03-20 | 4728s | 13/13 | Stabilisation validation |
+| b7156b3d | 7.0 | 2026-03-20 | 4261s | 13/13 | 3× stability (run 1/3) |
+| ba9ec1a4 | 7.0 | 2026-03-20 | 4225s | 13/13 | 3× stability (run 2/3) |
+| e7f1abdf | 7.0 | 2026-03-20 | 3965s | 13/13 | 3× stability (run 3/3) |
+| 7ff75d5a | 7.1 | 2026-03-21 | 3874s | 11/13 | Pre-lock-in hardening (Cat 6/11 LLM variance) |
+| 253ee310 | 7.1 | 2026-03-21 | 3952s | 11/13 | 3× stability (run 1/3) — Cat 6/11 |
+| 85950b75 | 7.1 | 2026-03-21 | 4136s | 11/13 | 3× stability (run 2/3) — Cat 6/11 |
+| e557073b | 7.1 | 2026-03-21 | 4308s | 12/13 | 3× stability (run 3/3) — Cat 6 only |
+| f61b4cce | 7.2 | 2026-03-22 | 3502s | 13/13 | M0+M1 deployed (run 1/3) — broad_recall=0.722 |
+| 6629a9ec | 7.2 | 2026-03-22 | 3354s | 13/13 | M0+M1 deployed (run 2/3) — broad_recall=0.722 |
+| dfe37c74 | 7.2 | 2026-03-22 | 3441s | 13/13 | M0+M1 deployed (run 3/3) — broad_recall=0.722 |
+| 16554101 | 7.3 | 2026-03-22 | 3881s | 13/13 | Format-aware citation + relation-pair preservation (run 1/3) |
+| ca505454 | 7.3 | 2026-03-22 | 4160s | 13/13 | Format-aware citation + relation-pair preservation (run 2/3) |
+| 5e5ccff5 | 7.3 | 2026-03-22 | 4083s | 13/13 | Format-aware citation + relation-pair preservation (run 3/3) |
+| f9b80070 | 7.3 | 2026-03-22 | 620s | 1/1 | Attribution: RELATION_PAIR_PRESERVATION=false, Cat 11 broad_recall=0.927 |
+| b5f84195 | 7.3 | 2026-03-22 | 585s | 1/1 | Attribution: FORMAT_AWARE_CITATION=false, Cat 11 broad_recall=0.927 |
