@@ -1,0 +1,560 @@
+{
+  "runId": "194b1e9f",
+  "startedAt": "2026-03-23T16:49:16.195Z",
+  "finishedAt": "2026-03-23T16:49:16.271Z",
+  "target": "api",
+  "targetUrl": "http://localhost:14333",
+  "tenantId": "__audit_memory__",
+  "results": [
+    {
+      "category": "catA",
+      "label": "A: Core Memory",
+      "passed": false,
+      "skipped": false,
+      "toolResults": [
+        {
+          "toolName": "query_memory",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 4,
+          "expected": "returns {results[]}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        },
+        {
+          "toolName": "query_memory",
+          "testName": "missing_query",
+          "verdict": "pass",
+          "latencyMs": 2,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"title\":\"body must have requi"
+        },
+        {
+          "toolName": "query_memory",
+          "testName": "limit_bounds",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error for limit>20",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"title\":\"body/limit must be <"
+        },
+        {
+          "toolName": "list_topics",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 2,
+          "expected": "returns {items[]}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        },
+        {
+          "toolName": "list_topics",
+          "testName": "limit_valid",
+          "verdict": "fail",
+          "latencyMs": 2,
+          "expected": "<=5 items",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        },
+        {
+          "toolName": "get_versioned_snapshot",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 2,
+          "expected": "returns {topic,items[]}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        },
+        {
+          "toolName": "get_versioned_snapshot",
+          "testName": "missing_topic",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"title\":\"headers/x-api-key mu"
+        },
+        {
+          "toolName": "get_audit_trail",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 2,
+          "expected": "returns {topic,items[]}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        },
+        {
+          "toolName": "get_audit_trail",
+          "testName": "missing_topic",
+          "verdict": "pass",
+          "latencyMs": 2,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"title\":\"headers/x-api-key mu"
+        },
+        {
+          "toolName": "check_claim",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns {verdict}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        },
+        {
+          "toolName": "check_claim",
+          "testName": "missing_claim",
+          "verdict": "pass",
+          "latencyMs": 2,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"title\":\"body must have requi"
+        },
+        {
+          "toolName": "get_freshness_report",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns {items[]}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        },
+        {
+          "toolName": "get_freshness_report",
+          "testName": "custom_stale_days",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "stale_after_days=7 accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        },
+        {
+          "toolName": "get_contradictions",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns {items[]}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.validation.fst_err_validation\\\",\\\"title\\\":\\\"headers/x-api-key must NOT have"
+        }
+      ],
+      "metrics": {
+        "total": 14,
+        "passed": 5,
+        "failed": 9,
+        "skipped": 0,
+        "errors": 0,
+        "latencyP50Ms": 2,
+        "latencyP95Ms": 4
+      }
+    },
+    {
+      "category": "catB",
+      "label": "B: Decision Plane",
+      "passed": false,
+      "skipped": false,
+      "toolResults": [
+        {
+          "toolName": "get_decision_context",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 0,
+          "expected": "returns object or 404",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_decision_context",
+          "testName": "missing_session_id",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "get_causal_chain",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns object or 404",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_causal_chain",
+          "testName": "missing_decision_id",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "reconstruct_knowledge_state",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns object or 404",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "reconstruct_knowledge_state",
+          "testName": "with_options",
+          "verdict": "fail",
+          "latencyMs": 2,
+          "expected": "options accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_correction_chain",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 2,
+          "expected": "returns object or 404",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_correction_chain",
+          "testName": "missing_decision_id",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "get_decisions_on_stale_context",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 2,
+          "expected": "returns object or 404",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_decisions_on_stale_context",
+          "testName": "missing_session_id",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "record_decision_context",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "POST accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "record_decision_context",
+          "testName": "missing_fields",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "record_decision_context",
+          "testName": "mutation_readback",
+          "verdict": "fail",
+          "latencyMs": 0,
+          "expected": "record first",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        }
+      ],
+      "metrics": {
+        "total": 13,
+        "passed": 5,
+        "failed": 8,
+        "skipped": 0,
+        "errors": 0,
+        "latencyP50Ms": 1,
+        "latencyP95Ms": 2
+      }
+    },
+    {
+      "category": "catC",
+      "label": "C: Platform Wiring",
+      "passed": false,
+      "skipped": false,
+      "toolResults": [
+        {
+          "toolName": "get_pressure_status",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns object",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_pressure_status",
+          "testName": "no_args_validation",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "empty args accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_active_alerts",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns object",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_active_alerts",
+          "testName": "with_limit",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "limit=5 accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_active_alerts",
+          "testName": "invalid_limit",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error for limit=0",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "get_signals_feed",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns object",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_signals_feed",
+          "testName": "with_since",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "since param accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_signals_feed",
+          "testName": "invalid_limit",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error for limit=0",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        }
+      ],
+      "metrics": {
+        "total": 8,
+        "passed": 2,
+        "failed": 6,
+        "skipped": 0,
+        "errors": 0,
+        "latencyP50Ms": 1,
+        "latencyP95Ms": 1
+      }
+    },
+    {
+      "category": "catD",
+      "label": "D: Constraints",
+      "passed": false,
+      "skipped": false,
+      "toolResults": [
+        {
+          "toolName": "declare_constraint",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 2,
+          "expected": "returns {id}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "missing_assertion",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "missing_type",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "invalid_type",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error for bad enum",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "type_boundary",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "boundary accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "type_relationship",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "relationship accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "type_policy",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "policy accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "type_context_flag",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "context_flag accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "update_constraint",
+          "testName": "happy_path",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs created constraint",
+          "actual": "no constraint created"
+        },
+        {
+          "toolName": "update_constraint",
+          "testName": "status_change",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs created constraint",
+          "actual": "no constraint created"
+        },
+        {
+          "toolName": "update_constraint",
+          "testName": "missing_id",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "get_constraints",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns object",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_constraints",
+          "testName": "filter_by_type",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "constraint_type=boundary accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "get_constraints",
+          "testName": "filter_by_status",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "status=active accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "check_constraints",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns {verdict}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "check_constraints",
+          "testName": "missing_action",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "check_constraints",
+          "testName": "verdict_enum",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "verdict in {pass,warn,block}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "verify_before_acting",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "returns {verdict}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "verify_before_acting",
+          "testName": "missing_fields",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"title\":\"Unauthorized\",\"status\":401,\"deta"
+        },
+        {
+          "toolName": "verify_before_acting",
+          "testName": "verdict_values",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "verdict in {proceed,warn,require_approval,block}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "lifecycle",
+          "testName": "step1_declare",
+          "verdict": "fail",
+          "latencyMs": 1,
+          "expected": "declare returns id",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.auth.auth_missing\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.auth.auth_missing\\\",\\\"title\\\":\\\"Unauthorized\\\",\\\"status\\\":401,\\\"detail\\\":\\\"Invalid API "
+        },
+        {
+          "toolName": "lifecycle",
+          "testName": "step2_get_active",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs lifecycle id",
+          "actual": "skipped"
+        },
+        {
+          "toolName": "lifecycle",
+          "testName": "step3_update_severity",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs lifecycle id",
+          "actual": "skipped"
+        },
+        {
+          "toolName": "lifecycle",
+          "testName": "step4_expire",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs lifecycle id",
+          "actual": "skipped"
+        }
+      ],
+      "metrics": {
+        "total": 24,
+        "passed": 6,
+        "failed": 13,
+        "skipped": 5,
+        "errors": 0,
+        "latencyP50Ms": 1,
+        "latencyP95Ms": 2
+      }
+    }
+  ],
+  "summary": {
+    "totalCategories": 4,
+    "passedCategories": 0,
+    "skippedCategories": 0,
+    "totalTools": 22,
+    "passedTools": 15,
+    "totalTests": 59,
+    "passedTests": 18,
+    "durationS": "0.1"
+  }
+}

@@ -1,0 +1,456 @@
+{
+  "runId": "785a982f",
+  "startedAt": "2026-03-23T17:05:19.920Z",
+  "finishedAt": "2026-03-23T17:05:20.211Z",
+  "target": "api",
+  "targetUrl": "http://localhost:14333",
+  "tenantId": "__audit_memory__",
+  "results": [
+    {
+      "category": "catA",
+      "label": "A: Core Memory",
+      "passed": true,
+      "skipped": false,
+      "toolResults": [
+        {
+          "toolName": "query_memory",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 35,
+          "expected": "returns {results[]}",
+          "actual": "0 results"
+        },
+        {
+          "toolName": "query_memory",
+          "testName": "missing_query",
+          "verdict": "pass",
+          "latencyMs": 2,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"title\":\"body must have requi"
+        },
+        {
+          "toolName": "query_memory",
+          "testName": "limit_bounds",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error for limit>20",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"title\":\"body/limit must be <"
+        },
+        {
+          "toolName": "list_topics",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 7,
+          "expected": "returns {items[]}",
+          "actual": "0 items"
+        },
+        {
+          "toolName": "list_topics",
+          "testName": "limit_valid",
+          "verdict": "pass",
+          "latencyMs": 6,
+          "expected": "<=5 items",
+          "actual": "0 items"
+        },
+        {
+          "toolName": "get_versioned_snapshot",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 6,
+          "expected": "returns {topic,items[]}",
+          "actual": "topic=audit-probe"
+        },
+        {
+          "toolName": "get_versioned_snapshot",
+          "testName": "missing_topic",
+          "verdict": "pass",
+          "latencyMs": 8,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.validation_error\",\"title\":\"Unprocessable Entity\","
+        },
+        {
+          "toolName": "get_audit_trail",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 5,
+          "expected": "returns {topic,items[]}",
+          "actual": "topic=audit-probe"
+        },
+        {
+          "toolName": "get_audit_trail",
+          "testName": "missing_topic",
+          "verdict": "pass",
+          "latencyMs": 5,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.validation_error\",\"title\":\"Unprocessable Entity\","
+        },
+        {
+          "toolName": "check_claim",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 10,
+          "expected": "returns {verdict}",
+          "actual": "verdict=insufficient"
+        },
+        {
+          "toolName": "check_claim",
+          "testName": "missing_claim",
+          "verdict": "pass",
+          "latencyMs": 1,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.fst_err_validation\",\"title\":\"body must have requi"
+        },
+        {
+          "toolName": "get_freshness_report",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 5,
+          "expected": "returns {items[]}",
+          "actual": "0 items"
+        },
+        {
+          "toolName": "get_freshness_report",
+          "testName": "custom_stale_days",
+          "verdict": "pass",
+          "latencyMs": 4,
+          "expected": "stale_after_days=7 accepted",
+          "actual": "0 items"
+        },
+        {
+          "toolName": "get_contradictions",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 4,
+          "expected": "returns {items[]}",
+          "actual": "0 items"
+        }
+      ],
+      "metrics": {
+        "total": 14,
+        "passed": 14,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "latencyP50Ms": 5,
+        "latencyP95Ms": 35
+      }
+    },
+    {
+      "category": "catB",
+      "label": "B: Decision Plane",
+      "passed": false,
+      "skipped": true,
+      "skipReason": "CoreCrux upstream unavailable: {\"type\":\"https://errors.cuecrux.com/api.internal.upstream_down\",\"title\":\"Internal Server Error\",\"sta",
+      "toolResults": [],
+      "metrics": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "latencyP50Ms": 0,
+        "latencyP95Ms": 0
+      }
+    },
+    {
+      "category": "catC",
+      "label": "C: Platform Wiring",
+      "passed": false,
+      "skipped": false,
+      "toolResults": [
+        {
+          "toolName": "get_pressure_status",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 4,
+          "expected": "returns object",
+          "actual": "{\"tenantId\":\"__audit_memory__\",\"overallPressure\":0,\"sources\":[],\"retrievedAt\":\"2026-03-23T17:05:20.0"
+        },
+        {
+          "toolName": "get_pressure_status",
+          "testName": "no_args_validation",
+          "verdict": "pass",
+          "latencyMs": 4,
+          "expected": "empty args accepted",
+          "actual": "ok"
+        },
+        {
+          "toolName": "get_active_alerts",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 5,
+          "expected": "returns object",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "get_active_alerts",
+          "testName": "with_limit",
+          "verdict": "fail",
+          "latencyMs": 8,
+          "expected": "limit=5 accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "get_active_alerts",
+          "testName": "invalid_limit",
+          "verdict": "fail",
+          "latencyMs": 8,
+          "expected": "validation error or coercion",
+          "actual": "success=false"
+        },
+        {
+          "toolName": "get_signals_feed",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 7,
+          "expected": "returns data",
+          "actual": "[]"
+        },
+        {
+          "toolName": "get_signals_feed",
+          "testName": "with_since",
+          "verdict": "pass",
+          "latencyMs": 4,
+          "expected": "since param accepted",
+          "actual": "ok"
+        },
+        {
+          "toolName": "get_signals_feed",
+          "testName": "invalid_limit",
+          "verdict": "pass",
+          "latencyMs": 4,
+          "expected": "limit=0 coerced (API mode)",
+          "actual": "coerced"
+        }
+      ],
+      "metrics": {
+        "total": 8,
+        "passed": 5,
+        "failed": 3,
+        "skipped": 0,
+        "errors": 0,
+        "latencyP50Ms": 4,
+        "latencyP95Ms": 8
+      }
+    },
+    {
+      "category": "catD",
+      "label": "D: Constraints",
+      "passed": false,
+      "skipped": false,
+      "toolResults": [
+        {
+          "toolName": "declare_constraint",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 8,
+          "expected": "returns {id}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "missing_assertion",
+          "verdict": "pass",
+          "latencyMs": 8,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.validation_error\",\"title\":\"Unprocessable Entity\","
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "missing_type",
+          "verdict": "pass",
+          "latencyMs": 5,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.validation_error\",\"title\":\"Unprocessable Entity\","
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "invalid_type",
+          "verdict": "pass",
+          "latencyMs": 5,
+          "expected": "rejected bad enum",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"title\":\"Internal Server Error\",\"status\":5"
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "type_boundary",
+          "verdict": "fail",
+          "latencyMs": 7,
+          "expected": "boundary accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "type_relationship",
+          "verdict": "fail",
+          "latencyMs": 9,
+          "expected": "relationship accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "type_policy",
+          "verdict": "fail",
+          "latencyMs": 7,
+          "expected": "policy accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "declare_constraint",
+          "testName": "type_context_flag",
+          "verdict": "fail",
+          "latencyMs": 8,
+          "expected": "context_flag accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "update_constraint",
+          "testName": "happy_path",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs created constraint",
+          "actual": "no constraint created"
+        },
+        {
+          "toolName": "update_constraint",
+          "testName": "status_change",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs created constraint",
+          "actual": "no constraint created"
+        },
+        {
+          "toolName": "update_constraint",
+          "testName": "missing_id",
+          "verdict": "pass",
+          "latencyMs": 7,
+          "expected": "rejected missing id",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"title\":\"Internal Server Error\",\"status\":5"
+        },
+        {
+          "toolName": "get_constraints",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 7,
+          "expected": "returns object",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "get_constraints",
+          "testName": "filter_by_type",
+          "verdict": "fail",
+          "latencyMs": 7,
+          "expected": "constraint_type=boundary accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "get_constraints",
+          "testName": "filter_by_status",
+          "verdict": "fail",
+          "latencyMs": 7,
+          "expected": "status=active accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "check_constraints",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 9,
+          "expected": "returns {verdict}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "check_constraints",
+          "testName": "missing_action",
+          "verdict": "pass",
+          "latencyMs": 8,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.validation_error\",\"title\":\"Unprocessable Entity\","
+        },
+        {
+          "toolName": "check_constraints",
+          "testName": "verdict_enum",
+          "verdict": "fail",
+          "latencyMs": 5,
+          "expected": "verdict in {pass,warn,block}",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "verify_before_acting",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 13,
+          "expected": "returns {verdict}",
+          "actual": "verdict=warn"
+        },
+        {
+          "toolName": "verify_before_acting",
+          "testName": "missing_fields",
+          "verdict": "pass",
+          "latencyMs": 5,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.validation_error\",\"title\":\"Unprocessable Entity\","
+        },
+        {
+          "toolName": "verify_before_acting",
+          "testName": "verdict_values",
+          "verdict": "pass",
+          "latencyMs": 10,
+          "expected": "verdict in {proceed,warn,require_approval,block}",
+          "actual": "verdict=warn"
+        },
+        {
+          "toolName": "lifecycle",
+          "testName": "step1_declare",
+          "verdict": "fail",
+          "latencyMs": 5,
+          "expected": "declare returns id",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.internal.x_42p01\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.internal.x_42p01\\\",\\\"title\\\":\\\"Internal Server Error\\\",\\\"status\\\":500,\\\"instance\\\":\\\"/v1"
+        },
+        {
+          "toolName": "lifecycle",
+          "testName": "step2_get_active",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs lifecycle id",
+          "actual": "skipped"
+        },
+        {
+          "toolName": "lifecycle",
+          "testName": "step3_update_severity",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs lifecycle id",
+          "actual": "skipped"
+        },
+        {
+          "toolName": "lifecycle",
+          "testName": "step4_expire",
+          "verdict": "skip",
+          "latencyMs": 0,
+          "expected": "needs lifecycle id",
+          "actual": "skipped"
+        }
+      ],
+      "metrics": {
+        "total": 24,
+        "passed": 8,
+        "failed": 11,
+        "skipped": 5,
+        "errors": 0,
+        "latencyP50Ms": 7,
+        "latencyP95Ms": 13
+      }
+    }
+  ],
+  "summary": {
+    "totalCategories": 4,
+    "passedCategories": 1,
+    "skippedCategories": 1,
+    "totalTools": 16,
+    "passedTools": 13,
+    "totalTests": 46,
+    "passedTests": 27,
+    "durationS": "0.3"
+  }
+}

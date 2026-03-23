@@ -67,6 +67,16 @@ export type ProofDocumentPoint = {
     signed: boolean;
     knowledge_state_cursor_present: boolean;
     crown_mode_applied: string;
+    // COSE_Sign1 envelope verification (SCITT alignment)
+    cose_envelope_present: boolean;
+    cose_signature_valid: boolean;
+    cose_kid_present: boolean;
+    cose_cwt_issuer: string | null;
+    cose_cwt_subject: string | null;
+    cose_content_type_correct: boolean;
+    cose_algorithm_correct: boolean;
+    cose_cbor_receipt_hash_match: boolean;
+    cose_error?: string;
 };
 
 // ── Watch Lifecycle (Cat 4) ──────────────────────────────────────────────

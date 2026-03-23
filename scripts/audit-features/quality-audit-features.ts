@@ -51,7 +51,7 @@ import type {
 import { createPool, cleanAuditData, insertRelations, insertLivingStates, refreshMaterializedViews, type ChunkIdMap } from "../audit-v2/lib/db-v2.js";
 import { insertChunksV2 } from "../audit-v2/lib/db-v2.js";
 import { embedTexts } from "../audit/lib/embed.js";
-import { queryAnswers, verifyReceiptChain } from "../audit/lib/query.js";
+import { queryAnswers, verifyReceiptChain, fetchReceipt, verifyCoseEnvelope } from "../audit/lib/query.js";
 import { scoreQuery, percentile } from "../audit/lib/score.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -490,7 +490,38 @@ async function runCat3(pool: pg.Pool, mode: EngineMode): Promise<FeatureCategory
                 signed: qr.crown.signed,
                 knowledge_state_cursor_present: qr.crown.knowledgeStateCursor !== undefined && qr.crown.knowledgeStateCursor !== null,
                 crown_mode_applied: qr.crown.modeApplied ?? "unknown",
+                // COSE defaults — populated below if receipt is signed
+                cose_envelope_present: false,
+                cose_signature_valid: false,
+                cose_kid_present: false,
+                cose_cwt_issuer: null,
+                cose_cwt_subject: null,
+                cose_content_type_correct: false,
+                cose_algorithm_correct: false,
+                cose_cbor_receipt_hash_match: false,
             };
+
+            // COSE_Sign1 envelope verification (SCITT alignment)
+            if (qr.crown.signed && qr.answerId) {
+                try {
+                    const receiptData = await fetchReceipt(qr.answerId);
+                    const cose = verifyCoseEnvelope(receiptData);
+                    point.cose_envelope_present = cose.envelope_present;
+                    point.cose_signature_valid = cose.signature_valid;
+                    point.cose_kid_present = cose.kid_present;
+                    point.cose_cwt_issuer = cose.cwt_issuer;
+                    point.cose_cwt_subject = cose.cwt_subject;
+                    point.cose_content_type_correct = cose.content_type_correct;
+                    point.cose_algorithm_correct = cose.algorithm_correct;
+                    point.cose_cbor_receipt_hash_match = cose.cbor_receipt_hash_match;
+                    if (cose.error) point.cose_error = cose.error;
+                } catch (coseErr) {
+                    const coseMsg = coseErr instanceof Error ? coseErr.message : String(coseErr);
+                    point.cose_error = coseMsg.slice(0, 200);
+                    notes.push(`${scenario?.id}: COSE fetch error: ${coseMsg.slice(0, 120)}`);
+                }
+            }
+
             proofPoints.push(point);
 
             queries.push({
@@ -500,7 +531,10 @@ async function runCat3(pool: pg.Pool, mode: EngineMode): Promise<FeatureCategory
                 proof: point,
             });
 
-            console.log(`    Receipt: ${point.receipt_generated ? "YES" : "NO"} | MiSES: ${point.mises_size} | Signed: ${point.signed} | Fragility: ${point.fragility_present ? qr.crown.fragilityScore?.toFixed(3) : "N/A"}`);
+            const coseStatus = point.cose_envelope_present
+                ? (point.cose_signature_valid ? "COSE:PASS" : `COSE:FAIL${point.cose_error ? ` (${point.cose_error.slice(0, 40)})` : ""}`)
+                : (point.signed ? "COSE:missing" : "unsigned");
+            console.log(`    Receipt: ${point.receipt_generated ? "YES" : "NO"} | MiSES: ${point.mises_size} | Signed: ${point.signed} | Fragility: ${point.fragility_present ? qr.crown.fragilityScore?.toFixed(3) : "N/A"} | ${coseStatus}`);
 
             // Detailed notes
             if (!point.receipt_generated) notes.push(`${scenario?.id}: No receipt generated`);
@@ -527,6 +561,23 @@ async function runCat3(pool: pg.Pool, mode: EngineMode): Promise<FeatureCategory
     const fragilityCount = proofPoints.filter((p) => p.fragility_present).length;
     const cursorCount = proofPoints.filter((p) => p.knowledge_state_cursor_present).length;
 
+    // COSE envelope aggregate metrics
+    const coseEnvelopeCount = proofPoints.filter((p) => p.cose_envelope_present).length;
+    const coseSigValidCount = proofPoints.filter((p) => p.cose_signature_valid).length;
+    const coseKidCount = proofPoints.filter((p) => p.cose_kid_present).length;
+    const coseCwtIssuerCount = proofPoints.filter((p) => p.cose_cwt_issuer !== null).length;
+    const coseCwtSubjectCount = proofPoints.filter((p) => p.cose_cwt_subject !== null).length;
+    const coseCtCorrectCount = proofPoints.filter((p) => p.cose_content_type_correct).length;
+    const coseAlgCorrectCount = proofPoints.filter((p) => p.cose_algorithm_correct).length;
+    const coseHashMatchCount = proofPoints.filter((p) => p.cose_cbor_receipt_hash_match).length;
+    // COSE pass: all signed receipts have valid envelopes
+    const signedPoints = proofPoints.filter((p) => p.signed);
+    const allCoseValid = signedPoints.length > 0 && signedPoints.every((p) =>
+        p.cose_envelope_present && p.cose_signature_valid &&
+        p.cose_kid_present && p.cose_content_type_correct &&
+        p.cose_algorithm_correct && p.cose_cbor_receipt_hash_match
+    );
+
     // Mode consistency check
     const modeConsistent = proofPoints.every((p) => p.crown_mode_applied !== "unknown");
 
@@ -535,9 +586,14 @@ async function runCat3(pool: pg.Pool, mode: EngineMode): Promise<FeatureCategory
     notes.push(`Fragility present: ${fragilityCount}/${proofPoints.length}`);
     notes.push(`Knowledge state cursor: ${cursorCount}/${proofPoints.length}`);
     notes.push(`Avg MiSES size: ${avgMisesSize.toFixed(1)}`);
+    notes.push(`COSE envelopes: ${coseEnvelopeCount}/${signedCount} | sig valid: ${coseSigValidCount}/${signedCount} | hash match: ${coseHashMatchCount}/${signedCount}`);
+    notes.push(`COSE kid: ${coseKidCount}/${signedCount} | CWT iss: ${coseCwtIssuerCount}/${signedCount} | CWT sub: ${coseCwtSubjectCount}/${signedCount}`);
+    if (!allCoseValid && signedCount > 0) {
+        notes.push(`COSE SCITT alignment: FAIL — not all signed receipts have valid COSE envelopes`);
+    }
 
-    // Pass: all receipts generated, mode applied is consistent
-    const passed = allReceiptsPresent && modeConsistent;
+    // Pass: all receipts generated, mode applied is consistent, AND all COSE envelopes valid
+    const passed = allReceiptsPresent && modeConsistent && allCoseValid;
 
     return {
         category: "cat3",
@@ -552,6 +608,15 @@ async function runCat3(pool: pg.Pool, mode: EngineMode): Promise<FeatureCategory
             fragility_present_count: fragilityCount,
             knowledge_cursor_count: cursorCount,
             mode_consistent: modeConsistent,
+            cose_envelope_count: coseEnvelopeCount,
+            cose_sig_valid_count: coseSigValidCount,
+            cose_kid_count: coseKidCount,
+            cose_cwt_issuer_count: coseCwtIssuerCount,
+            cose_cwt_subject_count: coseCwtSubjectCount,
+            cose_content_type_correct_count: coseCtCorrectCount,
+            cose_algorithm_correct_count: coseAlgCorrectCount,
+            cose_hash_match_count: coseHashMatchCount,
+            all_cose_valid: allCoseValid,
             proof_points: JSON.stringify(proofPoints),
         },
         queries,
@@ -769,6 +834,19 @@ function generateMarkdownReport(report: FeatureReport): string {
                     lines.push(`| ${p.scenario} | ${p.receipt_generated ? "YES" : "NO"} | ${p.mises_size} | ${p.signed ? "YES" : "NO"} | ${p.fragility_present ? "YES" : "NO"} | ${p.knowledge_state_cursor_present ? "YES" : "NO"} | ${p.crown_mode_applied} |`);
                 }
                 lines.push(``);
+
+                // COSE_Sign1 envelope verification details
+                const cosePoints = points.filter((p) => p.signed);
+                if (cosePoints.length > 0) {
+                    lines.push(`#### COSE_Sign1 Envelope Verification (SCITT Alignment)`);
+                    lines.push(``);
+                    lines.push(`| Scenario | Envelope | Sig Valid | Kid | CWT iss | CWT sub | Content-Type | Alg | Hash Match |`);
+                    lines.push(`|----------|:--------:|:---------:|:---:|:-------:|:-------:|:------------:|:---:|:----------:|`);
+                    for (const p of cosePoints) {
+                        lines.push(`| ${p.scenario} | ${p.cose_envelope_present ? "YES" : "NO"} | ${p.cose_signature_valid ? "YES" : "NO"} | ${p.cose_kid_present ? "YES" : "NO"} | ${p.cose_cwt_issuer ? "YES" : "NO"} | ${p.cose_cwt_subject ? "YES" : "NO"} | ${p.cose_content_type_correct ? "YES" : "NO"} | ${p.cose_algorithm_correct ? "YES" : "NO"} | ${p.cose_cbor_receipt_hash_match ? "YES" : "NO"} |`);
+                    }
+                    lines.push(``);
+                }
             }
 
             // Scenario results (Cat 4)
