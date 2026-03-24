@@ -8,10 +8,11 @@ async function timed<T>(fn: () => Promise<T>): Promise<{ result: T; ms: number }
 }
 
 function isUpstreamUnavailable(status?: number, error?: { type: string; message: string }): boolean {
-  if (status === 502 || status === 503 || status === 404) return true;
+  if (status === 502 || status === 503) return true;
   if (error?.type === "Unavailable") return true;
-  if (error?.type?.includes("not_found")) return true;
   if (error?.message?.includes("ECONNREFUSED")) return true;
+  // 404 with upstream_down means VaultCrux reached CoreCrux but the resource wasn't found — that's available, not down
+  if (status === 404 && error?.message?.includes("upstream_down")) return false;
   return false;
 }
 

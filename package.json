@@ -11,8 +11,8 @@
     "audit:v3:dry": "pnpm tsx scripts/audit-v3/quality-audit-v3.ts --dry-run",
     "audit:features": "pnpm tsx scripts/audit-features/quality-audit-features.ts",
     "audit:features:dry": "pnpm tsx scripts/audit-features/quality-audit-features.ts --dry-run",
-    "audit:memory": "pnpm tsx scripts/audit-memory/audit-memory.ts",
-    "audit:memory:dry": "pnpm tsx scripts/audit-memory/audit-memory.ts --dry-run",
+    "audit:memory": "pnpm tsx --env-file=.env scripts/audit-memory/audit-memory.ts",
+    "audit:memory:dry": "pnpm tsx --env-file=.env scripts/audit-memory/audit-memory.ts --dry-run",
     "audit:all": "pnpm run audit:v1 && pnpm run audit:v2 && pnpm run audit:v3 && pnpm run audit:features && pnpm run audit:memory"
   },
   "dependencies": {
