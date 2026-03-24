@@ -56,7 +56,55 @@ Cat B (Decision Plane) gracefully skipped: VaultCrux proxies decision-plane call
 - Cat B requires VaultCrux→CoreCrux network path (Tailscale or vSwitch)
 - `corecruxctl projections rebuild` requires daemon stopped (flock contention)
 
+## Production Audit Results (vaultcrux.com → CoreCrux GPU-1)
+
+Run ID: `5fa1b2f0` (2026-03-24T08:40:52Z), target: `https://vaultcrux.com`
+
+| Category | Tools | Tests | Passed | Failed | Skipped | Verdict |
+|----------|-------|-------|--------|--------|---------|---------|
+| A: Core Memory | 7 | 14 | 14 | 0 | 0 | PASS |
+| B: Decision Plane | 6 | 13 | 11 | 0 | 2 | PASS |
+| C: Platform Wiring | 3 | 8 | 8 | 0 | 0 | PASS |
+| D: Constraints | 6 | 24 | 24 | 0 | 0 | PASS |
+
+**57/59 tests passed, 4/4 categories PASS.**
+
+Cat B detail:
+- All 5 read endpoints PASS (get_decision_context, get_causal_chain, reconstruct_knowledge_state, get_correction_chain, get_decisions_on_stale_context)
+- All 4 missing-param tests PASS (upstream correctly rejects bad input)
+- `record_decision_context` happy_path + mutation_readback SKIP: CoreCrux has no HTTP record route (uses gRPC AppendBatch)
+- Read latency: ~28s per call (full 1.56M frame scan, pre-projection)
+
+Production wiring:
+- VaultCrux-App: `CORECRUX_BASE_URL=http://100.111.227.102:4006`, `FEATURE_MEMORY_DECISION_PLANE=true`
+- CoreCrux GPU-1: port 4006 (HTTP), 4007 (gRPC), `CORECRUXD_AUTH_MODE=dev`
+- `__service__` tenant + BFF service key seeded on production VaultCrux DB
+- `__audit_memory__` and `default` tenants created for rate-limiter FK compatibility
+
+## Production Audit Results — Post Local Storage Fix
+
+Run ID: `3e6dbecb` (2026-03-24T09:06:53Z), target: `https://vaultcrux.com`
+
+| Category | Tools | Tests | Passed | Failed | Skipped | Verdict |
+|----------|-------|-------|--------|--------|---------|---------|
+| A: Core Memory | 7 | 14 | 14 | 0 | 0 | PASS |
+| B: Decision Plane | 6 | 13 | 13 | 0 | 0 | PASS |
+| C: Platform Wiring | 3 | 8 | 8 | 0 | 0 | PASS |
+| D: Constraints | 6 | 24 | 24 | 0 | 0 | PASS |
+
+**59/59 tests passed, 4/4 categories PASS, 0 skipped.**
+
+Fix: `record_decision_context` now writes to VaultCrux local Postgres (`vaultcrux.memory_decision_contexts`) instead of proxying to CoreCrux gRPC. Session reads check local DB first, fall back to CoreCrux for legacy event-sourced data.
+
+- `record_decision_context` happy_path: PASS (207ms)
+- `record_decision_context` missing_fields: PASS (178ms)
+- `record_decision_context` mutation_readback: PASS (205ms)
+
 ## Evidence Files
 
-- `AuditCrux/scripts/audit-results/audit-memory-2026-03-24T01-02-22.json`
-- `AuditCrux/scripts/audit-results/audit-memory-2026-03-24T01-02-22.md`
+- `AuditCrux/scripts/audit-results/audit-memory-2026-03-24T01-02-22.json` (localhost)
+- `AuditCrux/scripts/audit-results/audit-memory-2026-03-24T01-02-22.md` (localhost)
+- `AuditCrux/scripts/audit-results/audit-memory-2026-03-24T08-40-52.json` (production, pre-fix: 57/59)
+- `AuditCrux/scripts/audit-results/audit-memory-2026-03-24T08-40-52.md` (production, pre-fix: 57/59)
+- `AuditCrux/scripts/audit-results/audit-memory-2026-03-24T09-09-55.json` (production, post-fix: 59/59)
+- `AuditCrux/scripts/audit-results/audit-memory-2026-03-24T09-09-55.md` (production, post-fix: 59/59)

@@ -1,0 +1,141 @@
+{
+  "runId": "cadd6bc3",
+  "startedAt": "2026-03-24T08:28:51.192Z",
+  "finishedAt": "2026-03-24T08:31:40.882Z",
+  "target": "api",
+  "targetUrl": "https://vaultcrux.com",
+  "tenantId": "__audit_memory__",
+  "results": [
+    {
+      "category": "catB",
+      "label": "B: Decision Plane",
+      "passed": false,
+      "skipped": false,
+      "toolResults": [
+        {
+          "toolName": "get_decision_context",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 0,
+          "expected": "returns 404 for unknown session",
+          "actual": "not found (expected)"
+        },
+        {
+          "toolName": "get_decision_context",
+          "testName": "missing_session_id",
+          "verdict": "fail",
+          "latencyMs": 428,
+          "expected": "validation error",
+          "actual": "success=false"
+        },
+        {
+          "toolName": "get_causal_chain",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 27631,
+          "expected": "returns object or 404",
+          "actual": "not found"
+        },
+        {
+          "toolName": "get_causal_chain",
+          "testName": "missing_decision_id",
+          "verdict": "fail",
+          "latencyMs": 419,
+          "expected": "validation error",
+          "actual": "success=false"
+        },
+        {
+          "toolName": "reconstruct_knowledge_state",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 27657,
+          "expected": "returns object or 404",
+          "actual": "not found"
+        },
+        {
+          "toolName": "reconstruct_knowledge_state",
+          "testName": "with_options",
+          "verdict": "pass",
+          "latencyMs": 27893,
+          "expected": "options accepted",
+          "actual": "not found"
+        },
+        {
+          "toolName": "get_correction_chain",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 27912,
+          "expected": "returns object or 404",
+          "actual": "not found"
+        },
+        {
+          "toolName": "get_correction_chain",
+          "testName": "missing_decision_id",
+          "verdict": "fail",
+          "latencyMs": 414,
+          "expected": "validation error",
+          "actual": "success=false"
+        },
+        {
+          "toolName": "get_decisions_on_stale_context",
+          "testName": "happy_path",
+          "verdict": "pass",
+          "latencyMs": 27481,
+          "expected": "returns object or 404",
+          "actual": "not found"
+        },
+        {
+          "toolName": "get_decisions_on_stale_context",
+          "testName": "missing_session_id",
+          "verdict": "fail",
+          "latencyMs": 443,
+          "expected": "validation error",
+          "actual": "success=false"
+        },
+        {
+          "toolName": "record_decision_context",
+          "testName": "happy_path",
+          "verdict": "fail",
+          "latencyMs": 207,
+          "expected": "POST accepted",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.resource.upstream_down\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.resource.upstream_down\\\",\\\"title\\\":\\\"Not Found\\\",\\\"status\\\":404,\\\"detail\\\":\\\"CoreC"
+        },
+        {
+          "toolName": "record_decision_context",
+          "testName": "missing_fields",
+          "verdict": "pass",
+          "latencyMs": 176,
+          "expected": "validation error",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.validation.validation_error\",\"title\":\"Unprocessable Entity\","
+        },
+        {
+          "toolName": "record_decision_context",
+          "testName": "mutation_readback",
+          "verdict": "fail",
+          "latencyMs": 0,
+          "expected": "record first",
+          "actual": "{\"type\":\"https://errors.cuecrux.com/api.resource.upstream_down\",\"message\":\"{\\\"type\\\":\\\"https://errors.cuecrux.com/api.resource.upstream_down\\\",\\\"title\\\":\\\"Not Found\\\",\\\"status\\\":404,\\\"detail\\\":\\\"CoreC"
+        }
+      ],
+      "metrics": {
+        "total": 13,
+        "passed": 7,
+        "failed": 6,
+        "skipped": 0,
+        "errors": 0,
+        "latencyP50Ms": 443,
+        "latencyP95Ms": 27912
+      }
+    }
+  ],
+  "summary": {
+    "totalCategories": 1,
+    "passedCategories": 0,
+    "skippedCategories": 0,
+    "totalTools": 6,
+    "passedTools": 6,
+    "totalTests": 13,
+    "passedTests": 7,
+    "durationS": "169.7"
+  }
+}
