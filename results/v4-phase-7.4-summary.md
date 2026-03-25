@@ -1,7 +1,7 @@
 # Engine Quality Audit — Phase 7.4 (LLM Metadata Deployment)
 
 **Date:** 2026-03-24
-**Suite:** v4 (13 categories, 1074 unique docs / 1127 ingested, 462 queries)
+**Suite:** v4 (12 categories, 1074 unique docs / 1127 ingested, 462 queries)
 **Embedding:** EmbedderCrux nomic-embed-text-v1.5, 768d
 **Infrastructure:** CueCrux-Data-1 (i9-13900, 192GB DDR5, 2x1.92TB NVMe RAID-1)
 **Config manifest:** 6.7 base + schema 1.1 (llmModel + llmRequestId)

@@ -72,6 +72,7 @@ Results are written to `scripts/audit-results/` as both `.md` (human-readable) a
 | 10 | Causal Chain Completeness | chain_completeness | PASS | PASS | PASS | PASS | PASS | >=0.90 |
 | 11 | Chunking Stress | broad_recall | 0.927 | 0.927 | 0.927 | 0.927 | 0.927 | >=0.70 |
 | 12 | Hard-Negative Overlap | parent_child_recall | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | >=0.80 |
+| 13 | Temporal Reconstruction | accuracy | PASS | PASS | PASS | PASS | PASS | >=0.90 |
 
 **Corpus:** 1074 unique docs / 1127 ingested, 462 queries
 

@@ -527,17 +527,22 @@ Based on cross-reference against DQP Master Plan, retrieval architecture docs, a
 | ca505454 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-22 | 69m 20s | 13/13 | Phase 7.3 — format-aware citation + relation-pair preservation (run 2/3) |
 | 5e5ccff5 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-22 | 68m 03s | 13/13 | Phase 7.3 — format-aware citation + relation-pair preservation (run 3/3) |
 | f9b80070 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-22 | 10m 20s | 1/1 | Phase 7.3 — Cat 11 attribution replay (RELATION_PAIR_PRESERVATION=false, broad_recall=0.927) |
-| b5f84195 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-22 | 9m 44s | 1/1 | Phase 7.3 — Cat 11 attribution matrix (FORMAT_AWARE_CITATION=false, broad_recall=0.927) |
+| b5f84195 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-22 | 9m 44s | 1/1 | Phase 7.3 -- Cat 11 attribution matrix (FORMAT_AWARE_CITATION=false, broad_recall=0.927) |
+| 037b303a | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-24 | 61m | 12/12 | Phase 7.4 -- schema 1.1 LLM metadata (server run 1/5) |
+| 80434381 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-24 | 55m | 12/12 | Phase 7.4 -- schema 1.1 LLM metadata (server run 2/5) |
+| 69341abe | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-24 | 55m | 12/12 | Phase 7.4 -- schema 1.1 LLM metadata (server run 3/5) |
+| e0bfbd9b | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-24 | 55m | 12/12 | Phase 7.4 -- schema 1.1 LLM metadata (server run 4/5) |
+| fabf5dc8 | v4 | Nomic v1.5 (EmbedderCrux) | 2026-03-25 | 53m | 12/12 | Phase 7.4 -- schema 1.1 LLM metadata (server run 5/5) |
 
 ---
 
 ## v4 — DQP + Citation Controller Phases
 
-### Phase 6.0–7.3 Summary — 2026-03-16 to 2026-03-22
+### Phase 6.0--7.4 Summary -- 2026-03-16 to 2026-03-25
 
-**Full details:** [`results/v4-phase-6.0-to-7.0-summary.md`](results/v4-phase-6.0-to-7.0-summary.md) | [`results/v4-phase-7.1-summary.md`](results/v4-phase-7.1-summary.md) | [`results/v4-phase-7.2-summary.md`](results/v4-phase-7.2-summary.md) | [`results/v4-phase-7.3-summary.md`](results/v4-phase-7.3-summary.md) | [`results/v4-phase-6.0-to-6.6-summary.json`](results/v4-phase-6.0-to-6.6-summary.json)
+**Full details:** [`results/v4-phase-6.0-to-7.0-summary.md`](results/v4-phase-6.0-to-7.0-summary.md) | [`results/v4-phase-7.1-summary.md`](results/v4-phase-7.1-summary.md) | [`results/v4-phase-7.2-summary.md`](results/v4-phase-7.2-summary.md) | [`results/v4-phase-7.3-summary.md`](results/v4-phase-7.3-summary.md) | [`results/v4-phase-7.4-summary.md`](results/v4-phase-7.4-summary.md) | [`results/v4-phase-6.0-to-6.6-summary.json`](results/v4-phase-6.0-to-6.6-summary.json)
 
-**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → 12/12 (3×) → 12/12 (3×) → **13/13 (3×)** → 11-12/13 (4×) → 12/13 → 12-13/13 (M0, 3×) → **13/13 (M0+M1, 3×)** → **13/13 (7.3, 3×)**
+**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → 12/12 (3×) → 12/12 (3×) → **13/13 (3×)** → 11-12/13 (4×) → 12/13 → 12-13/13 (M0, 3×) → **13/13 (M0+M1, 3×)** → **13/13 (7.3, 3×)** → **12/12 (7.4, 5×)**
 
 | Phase | Date | Result | Key Achievement |
 |-------|------|:------:|-----------------|
@@ -551,7 +556,8 @@ Based on cross-reference against DQP Master Plan, retrieval architecture docs, a
 | 7.0 | 2026-03-20 | **13/13 (3×)** | Stabilisation: Cat 12 v2 adversarial (0.818), shadow replay (470 records, 100% agreement), release gate |
 | 7.1 | 2026-03-21 | 11-12/13 (4×) | Pre-lock-in hardening + external audit recommendations. Cat 6/11 reclassified monitor-only. All required categories pass 4/4 |
 | 7.2 | 2026-03-21/22 | **13/13 (3×)** | Surgical quality recovery — Cat 6 measurement correction (graduated scoring), Cat 11 stabilized pass (M0+M1: broad_recall=0.722, 3/3). M0+M1 frozen. M3 A/B experiment inconclusive (reverted). 7.2 = canonical quality baseline |
-| 7.3 | 2026-03-22 | **13/13 (3×)** | Citation quality & relation recall — format-aware citation prompting (Cat 2 citation_recall 0.670-0.715), relation-pair preservation (Cat 12 parent_child_recall 1.000), Cat 11 broad_recall 0.927 |
+| 7.3 | 2026-03-22 | **13/13 (3×)** | Citation quality & relation recall -- format-aware citation prompting (Cat 2 citation_recall 0.670-0.715), relation-pair preservation (Cat 12 parent_child_recall 1.000), Cat 11 broad_recall 0.927 |
+| 7.4 | 2026-03-24 | **12/12 (5×)** | LLM metadata deployment (schema 1.1) -- llmModel + llmRequestId hash-bound via BLAKE3. Zero retrieval changes. 5x server-side validation |
 
 ### Phase 6.6 Canonical Run — 12/12 PASS (3× stable)
 

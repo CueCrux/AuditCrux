@@ -22,8 +22,9 @@
 | 7.1 | 2026-03-21 | 11-12/13 (4×) | Pre-lock-in hardening + external audit. Cat 6/11 monitor-only. All required pass 4/4 | 7ff75d5a, 253ee310, 85950b75, e557073b |
 | 7.2 | 2026-03-21/22 | **13/13 (3×)** | Surgical quality recovery — Cat 6 measurement correction (graduated scoring), Cat 11 stabilized pass (M0+M1: broad_recall=0.722, 3/3). M0+M1 frozen. M3 A/B inconclusive (reverted). 7.2 = canonical quality baseline | a1d6dedc–dfe37c74 (M0/M1), e3dd1384–679f6a2a (M3 A/B) |
 | 7.3 | 2026-03-22 | **13/13 (3×)** | Citation quality & relation recall — format-aware citation (Cat 2 ↑), relation-pair preservation (Cat 12 parent_child 1.000), Cat 11 broad_recall 0.927 | 16554101, ca505454, 5e5ccff5 |
+| 7.4 | 2026-03-24 | **12/12 (5×)** | LLM metadata deployment (schema 1.1) -- llmModel + llmRequestId hash-bound. Zero retrieval changes. 5x server-side validation | 037b303a, 80434381, 69341abe, e0bfbd9b, fabf5dc8 |
 
-**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → 12/12 (3×) → 12/12 (3×) → **13/13 (3×)** → 11-12/13 (4×) → 12/13 → 12-13/13 (M0, 3×) → **13/13 (M0+M1, 3×)** → **13/13 (7.3, 3×)**
+**Trajectory:** 10/11 → 12/12 → 10/12 → 10/12 → 11/12 → 12/12 (3×) → 12/12 (3×) → **13/13 (3×)** → 11-12/13 (4×) → 12/13 → 12-13/13 (M0, 3×) → **13/13 (M0+M1, 3×)** → **13/13 (7.3, 3×)** → **12/12 (7.4, 5×)**
 
 ### Baseline Separation
 
@@ -842,3 +843,8 @@ Results: 11/13, 11/13, 12/13. Cat 6 FAIL 3/3 (all-zero, consistent). Cat 11 FAIL
 | 5e5ccff5 | 7.3 | 2026-03-22 | 4083s | 13/13 | Format-aware citation + relation-pair preservation (run 3/3) |
 | f9b80070 | 7.3 | 2026-03-22 | 620s | 1/1 | Attribution: RELATION_PAIR_PRESERVATION=false, Cat 11 broad_recall=0.927 |
 | b5f84195 | 7.3 | 2026-03-22 | 585s | 1/1 | Attribution: FORMAT_AWARE_CITATION=false, Cat 11 broad_recall=0.927 |
+| 037b303a | 7.4 | 2026-03-24 | 61m | 12/12 | Schema 1.1 LLM metadata -- server run 1/5 |
+| 80434381 | 7.4 | 2026-03-24 | 55m | 12/12 | Schema 1.1 LLM metadata -- server run 2/5 |
+| 69341abe | 7.4 | 2026-03-24 | 55m | 12/12 | Schema 1.1 LLM metadata -- server run 3/5 |
+| e0bfbd9b | 7.4 | 2026-03-24 | 55m | 12/12 | Schema 1.1 LLM metadata -- server run 4/5 |
+| fabf5dc8 | 7.4 | 2026-03-25 | 53m | 12/12 | Schema 1.1 LLM metadata -- server run 5/5 |
