@@ -8,7 +8,7 @@ Part of [CueCrux](../README.md) — measures and verifies Engine retrieval quali
 
 Most retrieval-augmented generation systems ship without a reproducible quality benchmark. You get a demo, a vague claim about accuracy, and a suggestion to "tune your prompts." There is no published methodology for measuring whether a retrieval engine correctly handles document supersession, causal chain traversal, format heterogeneity, or corpus degradation under scale. This suite exists to fill that gap. Every number has a run ID. Every claim can be reproduced.
 
-The suite measures retrieval quality across three progressively harder corpus configurations, three engine modes, and fourteen distinct test categories. It separates pipeline retrieval quality (did the right documents reach the scoring layer?) from LLM citation selection (did the model choose to cite them?). It documents known limitations by name, not by omission.
+The suite measures retrieval quality across three progressively harder corpus configurations, three engine modes, and twelve v4 test categories (plus legacy v1-v3 suites covering an additional 40 category-mode combinations). It separates pipeline retrieval quality (did the right documents reach the scoring layer?) from LLM citation selection (did the model choose to cite them?). It documents known limitations by name, not by omission.
 
 ## Prerequisites
 
