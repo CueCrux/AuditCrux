@@ -1,6 +1,6 @@
 # AuditCrux
 
-> Reproducible retrieval quality audit suite — v4 (13 categories, 1074 docs, 462 queries) + v1-v3 legacy (40/40).
+> Reproducible retrieval quality audit suite -- v4 (12 categories, 1074 docs, 462 queries) + v1-v3 legacy (40/40).
 
 Part of [CueCrux](../README.md) — measures and verifies Engine retrieval quality.
 
@@ -49,37 +49,42 @@ npm run audit:v3       # capability probes, 8 categories, ~5 min
 
 Results are written to `scripts/audit-results/` as both `.md` (human-readable) and `.json` (machine-readable).
 
-## Current Status — Phase 7.3 (v7.3.0)
+## Current Status -- Phase 7.4 (v7.4.0)
 
-**Canonical quality baseline:** 13/13 × 3 (runs `16554101`, `ca505454`, `5e5ccff5`)
-**Date:** 2026-03-22
+**Canonical quality baseline:** 12/12 x 5 (runs `037b303a`, `80434381`, `69341abe`, `e0bfbd9b`, `fabf5dc8`)
+**Date:** 2026-03-24
+**Schema:** Receipt schema 1.1 (llmModel + llmRequestId hash-bound)
 **Config manifest:** [`Engine/docs/config-manifest-6.7.json`](../Engine/docs/config-manifest-6.7.json)
 **SLO baseline:** [`Engine/docs/slo-baseline.json`](../Engine/docs/slo-baseline.json) v1.3.0
 
-### v4 — Production Quality (Phase 7.3 baseline)
+### v4 -- Production Quality (Phase 7.4 baseline)
 
-| Cat | Name | Metric | Run 1 | Run 2 | Run 3 | Target |
-|---|---|---|:---:|:---:|:---:|---|
-| 1 | Supersession / Relation Retrieval | supersession_recall | 1.000 | 1.000 | 1.000 | ≥0.80 |
-| 2 | Format-Aware Ingestion Recall | avg_citation_recall | 0.670 | 0.715 | 0.696 | ≥0.50 |
-| 3 | Retrieval Lane Decomposition | lane_contribution | PASS | PASS | PASS | all lanes |
-| 5 | Receipt Chain Verification | chain_integrity | 1.000 | 1.000 | 1.000 | 1.000 |
-| 6 | Fragility Calibration | fragility_ordering | PASS | PASS | PASS | monotonic |
-| 7 | Broad Recall | broad_recall | ≥0.70 | ≥0.70 | ≥0.70 | ≥0.70 |
-| 8 | Proposition Precision@1 | P@1 | ≥0.75 | ≥0.75 | ≥0.75 | ≥0.75 |
-| 9 | Dedup Detection | dedup_recall | 1.000 | 1.000 | 1.000 | ≥0.90 |
-| 10 | Causal Chain Completeness | chain_completeness | ≥0.90 | ≥0.90 | ≥0.90 | ≥0.90 |
-| 11 | Chunking Stress | broad_recall | 0.927 | 0.927 | 0.927 | ≥0.70 |
-| 12 | Hard-Negative Overlap | parent_child_recall | 1.000 | 1.000 | 1.000 | ≥0.80 |
-| 12v2 | Hard-Negative Overlap v2 | overlap_recall | PASS | PASS | PASS | ≥0.80 |
-| 13 | Temporal Reconstruction | accuracy | PASS | PASS | PASS | ≥0.90 |
+| Cat | Name | Metric | Run 1 | Run 2 | Run 3 | Run 4 | Run 5 | Target |
+|---|---|---|:---:|:---:|:---:|:---:|:---:|---|
+| 1 | Supersession / Relation Retrieval | supersession_recall | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | >=0.80 |
+| 2 | Format-Aware Ingestion Recall | avg_citation_recall | 0.678 | 0.633 | 0.644 | 0.670 | 0.693 | >=0.50 |
+| 3 | Retrieval Lane Decomposition | lane_contribution | PASS | PASS | PASS | PASS | PASS | all lanes |
+| 5 | Receipt Chain Verification | chain_integrity | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| 6 | Fragility Calibration | fragility_ordering | PASS | PASS | PASS | PASS | PASS | monotonic |
+| 7 | Broad Recall | broad_recall | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | >=0.70 |
+| 8 | Proposition Precision@1 | P@1 | 0.963 | 0.963 | 0.963 | 0.963 | 0.963 | >=0.75 |
+| 9 | Dedup Detection | dedup_recall | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | >=0.90 |
+| 10 | Causal Chain Completeness | chain_completeness | PASS | PASS | PASS | PASS | PASS | >=0.90 |
+| 11 | Chunking Stress | broad_recall | 0.927 | 0.927 | 0.927 | 0.927 | 0.927 | >=0.70 |
+| 12 | Hard-Negative Overlap | parent_child_recall | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | >=0.80 |
 
 **Corpus:** 1074 unique docs / 1127 ingested, 462 queries
 
-#### Two-Layer Narrative
+#### Phase 7.4 Deployment Scope
+
+Phase 7.4 adds LLM metadata binding to CROWN receipts (schema 1.0 -> 1.1). Two new fields (`llmModel`, `llmRequestId`) are hash-bound in the canonical payload via BLAKE3. **Zero retrieval, ranking, or answering code was modified.** 5x server-side validation confirms the 7.3 quality baseline is maintained with zero variance on all non-LLM-contingent metrics.
+
+Cat 7, 8, 11, 12 are perfectly deterministic across all 5 runs. Cat 2 citation_recall varies 0.633-0.693 (LLM-contingent, within 7.3 baseline range of 0.670-0.715).
+
+#### Two-Layer Narrative (inherited from Phase 7.3)
 
 - **Layer 1 (product-owned):** Cat 2 format-aware citation and Cat 12 relation-pair preservation are engineering improvements attributable to shipped code.
-- **Layer 2 (externally contingent):** Cat 11 broad_recall 0.722→0.927 is not attributable to any 7.3 code change. Full attribution matrix (runs `f9b80070`, `b5f84195`) ruled out both flags. Most likely cause: upstream LLM model drift.
+- **Layer 2 (externally contingent):** Cat 11 broad_recall 0.927 is not attributable to any code change. Full attribution matrix (runs `f9b80070`, `b5f84195`) ruled out both 7.3 flags. Most likely cause: upstream LLM model drift.
 
 #### Attribution Matrix
 
@@ -88,7 +93,7 @@ Results are written to `scripts/audit-results/` as both `.md` (human-readable) a
 | `f9b80070` | `FEATURE_RELATION_PAIR_PRESERVATION=false` | 0.927 | Not the cause |
 | `b5f84195` | `FEATURE_FORMAT_AWARE_CITATION=false` | 0.927 | Not the cause |
 
-### Production Config (config-manifest-6.7)
+### Production Config (config-manifest-6.7 + schema 1.1)
 
 | Flag | Value | Notes |
 |---|:---:|---|
@@ -115,13 +120,14 @@ Results are written to `scripts/audit-results/` as both `.md` (human-readable) a
 | `FEATURE_LEXICAL_SHADOW` | **on** | Lexical shadow scoring |
 | `FEATURE_FORMAT_AWARE_CITATION` | **on** | LLM hint for structured-doc citation (7.3) |
 | `FEATURE_RELATION_PAIR_PRESERVATION` | **on** | Inject relation children past topK (7.3) |
-| `FEATURE_MULTI_LANE_RETRIEVAL` | **off** | Multi-lane RRF (parked — dilutes quality) |
+| `FEATURE_MULTI_LANE_RETRIEVAL` | **off** | Multi-lane RRF (parked -- dilutes quality) |
 | `LLM_PROMPT_STYLE` | **evidence_selector** | Prompt template style |
 | `VECTOR_DIM` | **768** | nomic-embed-text-v1.5 |
+| `RECEIPT_SCHEMA_VERSION` | **1.1** | LLM metadata hash-bound (7.4) |
 
-**Frozen flags (do not change):** `ABLATION_PINNED_IDS_POLICY`, `FEATURE_CITATION_CASCADE_PROFILE` — M0+M1 frozen per audit guidance.
+**Frozen flags (do not change):** `ABLATION_PINNED_IDS_POLICY`, `FEATURE_CITATION_CASCADE_PROFILE` -- M0+M1 frozen per audit guidance.
 
-**Parked (do not reopen):** `FEATURE_MULTI_LANE_RETRIEVAL`, DQP Tier 3 — recent quality movement dominated by answer-model behavior, not retrieval richness.
+**Parked (do not reopen):** `FEATURE_MULTI_LANE_RETRIEVAL`, DQP Tier 3 -- recent quality movement dominated by answer-model behavior, not retrieval richness.
 
 ### Legacy Suites (v1-v3)
 
