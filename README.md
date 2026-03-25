@@ -140,6 +140,15 @@ Cat 7, 8, 11, 12 are perfectly deterministic across all 5 runs. Cat 2 citation_r
 
 Full results with per-query metrics: [RESULTS.md](RESULTS.md)
 
+### Phase Changelog
+
+| Phase | Date | Change | Impact |
+|-------|------|--------|--------|
+| 7.4 | 2026-03-24 | LLM metadata binding (schema 1.1): `llmModel` + `llmRequestId` hash-bound in receipt payload via BLAKE3 | Zero retrieval changes. Category count 13 -> 12 (Cat 12v2 retired from canonical suite). 5x server validation confirms 7.3 quality baseline maintained |
+| 7.3 | 2026-03-22 | Format-aware citation prompting + relation-pair preservation | Cat 2 citation_recall 0.670-0.715. Cat 12 parent_child_recall 1.000. Cat 11 broad_recall 0.927 (externally contingent) |
+| 7.2 | 2026-03-22 | Cat 6 graduated scoring, Cat 11 stabilized via M0+M1 | 13/13 x 3. M0+M1 frozen. 7.2 = quality baseline |
+| 7.0 | 2026-03-20 | Cat 12v2 adversarial, shadow replay, release gate | 13/13 x 3. First stabilisation baseline |
+
 ## What each category tests
 
 ### v1/v2: Supersession Accuracy
@@ -293,6 +302,17 @@ npm run audit:v3 -- --mode all --cat all
 ```
 
 Copy the generated `.md` and `.json` files from `scripts/audit-results/` to `results/` with the appropriate version prefix. Add a row to [RESULTS.md](RESULTS.md).
+
+## Public Evidence Layer
+
+Results from this suite are published in [ResearchCrux](../ResearchCrux/README.md), which is the public-facing evidence and protocol layer. Outsiders reviewing CROWN claims start there. Key surfaces:
+
+- [Benchmark ledger](../ResearchCrux/evidence/ledger/README.md) -- per-run metrics, deltas, and downloadable evidence
+- [Proof gallery](../ResearchCrux/proof-gallery/README.md) -- CROWN receipt examples with verification walkthroughs
+- [SCITT integration guide](../ResearchCrux/protocol/scitt-compat/scitt-integration.md) -- CROWN-to-SCITT mapping (standards-facing)
+- [Regulatory mapping](../ResearchCrux/evidence/regulatory-mapping.md) -- EU AI Act and DORA coverage
+
+AuditCrux produces the evidence; ResearchCrux publishes it.
 
 ## Key Links
 
