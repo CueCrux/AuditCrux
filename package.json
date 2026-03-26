@@ -13,12 +13,16 @@
     "audit:features:dry": "pnpm tsx scripts/audit-features/quality-audit-features.ts --dry-run",
     "audit:memory": "pnpm tsx --env-file=.env scripts/audit-memory/audit-memory.ts",
     "audit:memory:dry": "pnpm tsx --env-file=.env scripts/audit-memory/audit-memory.ts --dry-run",
-    "audit:all": "pnpm run audit:v1 && pnpm run audit:v2 && pnpm run audit:v3 && pnpm run audit:features && pnpm run audit:memory"
+    "audit:all": "pnpm run audit:v1 && pnpm run audit:v2 && pnpm run audit:v3 && pnpm run audit:features && pnpm run audit:memory",
+    "bench:mc": "pnpm tsx --env-file=.env benchmarks/memorycrux/run-benchmark.ts",
+    "bench:mc:dry": "pnpm tsx --env-file=.env benchmarks/memorycrux/run-benchmark.ts --dry-run"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.74.0",
     "@noble/curves": "^2.0.1",
     "@noble/hashes": "^2.0.1",
     "cbor-x": "^1.6.0",
+    "openai": "^6.22.0",
     "pg": "^8.18.0"
   },
   "devDependencies": {

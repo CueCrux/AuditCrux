@@ -1,0 +1,1580 @@
+{
+  "runId": "mc-bench-alpha-p4-gpt-5-4-balanced-t2-A1-20260326-0a428a",
+  "project": "alpha",
+  "fixtureVariant": "A1",
+  "phase": 4,
+  "arm": "T2",
+  "timestamp": "2026-03-26T16:31:05.618Z",
+  "durationSeconds": 210.336,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 16000
+  },
+  "usage": {
+    "inputTokens": 56325,
+    "outputTokens": 10411,
+    "cachedTokens": 39552,
+    "billableTokens": 66736,
+    "estimatedCostUsd": 0.1954825
+  },
+  "sessions": [
+    {
+      "sessionId": "aa295e22-1685-4f74-8fcd-0aa554b03647",
+      "phaseIndex": 1,
+      "phaseName": "Auth Module Design",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1643,
+          "outputTokens": 169,
+          "cachedTokens": 0,
+          "latencyMs": 2327,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Design and implement the authentication module for the Payments API. Review API specification, security review findings, and prior team decisions. Need to confirm token signing algorithm, design JWT structure and refresh strategy, outline validation middleware, and produce an ADR.",
+                "token_budget": 7000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "items": [
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] integration: ### Refunds Refunds are processed via Stripe Refund objects. Our refund endpoint maps directly to `POST /v1/refunds` on Stripe. Partial refunds: supported. Multiple partial refunds on the same payment: supported, as long as total refunded does not exceed original amount. ## Testing ### Test Cards Stripe provides test card numbers: - `[redacted-phone]242` — succeeds - `[redacted-phone]002` — declined - `[redacted-phone]995` — insufficient funds ### Webhook Testing Use `stripe listen --forward-to localhost:3000/webhooks/stripe` for local development. ## Configuration Required environment variables: - `STRIPE_SECRET_KEY` — API secret key - `STRIPE_WEBHOOK_SECRET` — webhook endpoint signing secret - `STRIPE_API_VERSION` — pinned API version (currently `2025-12-15.ac...",
+                    "detail": "Confidence: 0.6509998459406701",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] security: # 2025-Q4 Security Review — Authentication Findings ## Classification: Internal ## Reviewer: InfoSec Team ## Date: 2025-12-15 ## Executive Summary The security review identified several findings related to the planned Payments API authentication implementation. Two findings are rated Critical and require remediation before production deployment. ## Finding SEC-2025-041: Token Signing Algorithm **Severity: Critical** **Status: Open — requires implementation decision** The initial design document specified HS256 (HMAC-SHA256) for JWT signing. This is unacceptable for the following reasons: 1. HS256 uses a symmetric shared secret. In a microservices architecture where 8+ services need to validate tokens, this creates an unacceptable blast radius. Compromise of any sin...",
+                    "detail": "Confidence: 0.5639998456732526",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] api: ter (pending, confirmed, failed, refunded) - `customer_id` filter - `created_after` / `created_before` date range - `limit` / `cursor` pagination ### POST /v1/subscriptions Create a subscription. Subscriptions generate recurring payments on a defined schedule. ### PATCH /v1/subscriptions/:id Update subscription (change plan, update payment method, pause/resume). ### DELETE /v1/subscriptions/:id Cancel a subscription. Supports immediate cancellation or end-of-period cancellation. ## Rate Limiting All endpoints are rate-limited. Rate limits are applied per API key or per user JWT. Default tiers: - Standard: 100 requests/minute - Premium: 500 requests/minute - Enterprise: custom Rate limit responses MUST include the following headers: - `X-RateLimit-Limit`: maximum request...",
+                    "detail": "Confidence: 0.4769998444966157",
+                    "estimatedTokens": 200
+                  }
+                ],
+                "totalTokensUsed": 600,
+                "tokenBudget": 7000,
+                "truncated": false,
+                "sourcesQueried": [
+                  "constraints",
+                  "alerts",
+                  "freshness",
+                  "knowledge"
+                ],
+                "sourcesUnavailable": [],
+                "receiptId": null
+              },
+              "latencyMs": 10497,
+              "success": true
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "constraints": [
+                  {
+                    "id": "44771729-1a0d-40e6-85f0-708c621fc52f",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "integration",
+                    "assertion": "Stripe webhook signature verification must happen server-side only. Never send the webhook signing secret to client-side code.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c4",
+                      "resource": "webhook-verification"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "2e29e64f3c6dab7238c03437634a227a07cedf726b46a22b7fcbccc3b3d56b28",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.427Z",
+                    "updatedAt": "2026-03-26T16:27:35.427Z"
+                  },
+                  {
+                    "id": "52bb4410-32ab-4756-85ab-617567d9720a",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "error-handling",
+                    "assertion": "All error responses must use RFC 9457 Problem Details format (application/problem+json). Custom error formats are not permitted. See ADR-003.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c3",
+                      "resource": "error-format"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "ace02122ad97559dd6cd5e144ae763f48206d215012a70fe5d49585b40eb7319",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.422Z",
+                    "updatedAt": "2026-03-26T16:27:35.422Z"
+                  },
+                  {
+                    "id": "b488abf3-cdff-4503-a38f-88311f6506fd",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "rate-limiting",
+                    "assertion": "Rate limit responses (HTTP 429) must include the Retry-After header. This is a contractual obligation to API consumers per the partner integration agreement signed 2025-Q3. Omitting it violates SLA terms.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c2",
+                      "resource": "rate-limit-headers"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "61bf991d4efefe92ae91332898c323f906ad8d9b80db2b2a5a3cdac902dcdef3",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.417Z",
+                    "updatedAt": "2026-03-26T16:27:35.417Z"
+                  },
+                  {
+                    "id": "387291b2-aaf8-42dd-bb68-e533bbceafe0",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "auth",
+                    "assertion": "Auth tokens must use RS256 signing, not HS256. This is a compliance requirement from security review 2025-Q4 (finding SEC-2025-041). HS256 was explicitly rejected because it requires sharing the signing secret with every validating service, creating an unacceptable blast radius.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c1",
+                      "resource": "jwt-signing"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "3572218b755fcf2e6da5e8f89afcc05ba100808ec035d30ec26f37b608c3e04f",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.411Z",
+                    "updatedAt": "2026-03-26T16:27:35.411Z"
+                  }
+                ]
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 5
+              },
+              "result": {
+                "checkpoints": []
+              },
+              "latencyMs": 4,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Payments API authentication module API specification security review findings prior team decisions token signing algorithm JWT auth ADR",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 5,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 3626,
+          "outputTokens": 192,
+          "cachedTokens": 1664,
+          "latencyMs": 3533,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "SEC-2025-041 RS256 auth finding details refresh token findings JWT claims payments API auth",
+                "topic": "security",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 7,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Payments API specification authentication authorization JWT audience issuer scopes roles API keys user JWT",
+                "topic": "api",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "prior decision ADR auth JWT RS256 refresh token JWKS key rotation middleware problem details",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 4,
+              "success": true
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Produce ADR for Payments API authentication module covering token signing algorithm, JWT claims and expiry/refresh strategy, and token validation middleware based on API spec, security findings, and prior decisions.",
+                "domains": [
+                  "auth",
+                  "security",
+                  "api",
+                  "architecture"
+                ]
+              },
+              "result": {
+                "domainsAssessed": [
+                  {
+                    "domain": "auth",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "security",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "api",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "architecture",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "authentication",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "payments",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  }
+                ],
+                "identifiedGaps": [
+                  {
+                    "domain": "auth",
+                    "gapDescription": "No artefacts about auth",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "security",
+                    "gapDescription": "No artefacts about security",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "api",
+                    "gapDescription": "No artefacts about api",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "architecture",
+                    "gapDescription": "No artefacts about architecture",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "authentication",
+                    "gapDescription": "No artefacts about authentication",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "payments",
+                    "gapDescription": "No artefacts about payments",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  }
+                ],
+                "overallReadiness": "significant_gaps",
+                "receiptId": null
+              },
+              "latencyMs": 4,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 4563,
+          "outputTokens": 318,
+          "cachedTokens": 2688,
+          "latencyMs": 8452,
+          "toolCalls": [
+            {
+              "toolName": "record_decision_context",
+              "args": {
+                "decision": "Payments API authentication module will use RS256-signed JWT access tokens with short-lived access tokens, opaque refresh tokens with rotation, and centralized validation middleware enforcing issuer/audience/expiry/jti checks and RFC 9457 error responses.",
+                "reasoning": "A critical active auth constraint requires RS256 and explicitly rejects HS256 due to shared-secret blast radius across multiple validating services. Security review context indicates the initial HS256 design was unacceptable. Short-lived JWT access tokens reduce exposure if leaked, while opaque refresh tokens with rotation and server-side storage support revocation and replay detection better than long-lived self-contained refresh JWTs. Centralized middleware ensures consistent verification, authorization context extraction, and standards-compliant error handling across the Payments API.",
+                "alternatives_considered": [
+                  "HS256-signed JWTs for simplicity",
+                  "ES256 for smaller signatures and stronger modern crypto posture",
+                  "Long-lived JWT access tokens without refresh tokens",
+                  "JWT refresh tokens instead of opaque rotated refresh tokens",
+                  "Per-endpoint ad hoc token validation instead of shared middleware"
+                ],
+                "context": "Project alpha, Auth Module Design for Payments API. Inputs available in memory were limited, but active constraints include a critical requirement to use RS256 for auth tokens and a high-severity requirement that error responses use RFC 9457 Problem Details format. API context indicates rate limiting may apply per API key or per user JWT, implying JWTs represent authenticated user/service identity for request processing.",
+                "tags": [
+                  "alpha",
+                  "payments-api",
+                  "auth",
+                  "jwt",
+                  "rs256",
+                  "refresh-tokens",
+                  "middleware",
+                  "adr"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.validation.validation_error",
+                "title": "Unprocessable Entity",
+                "status": 422,
+                "detail": "sessionId, decisionId, and context are required",
+                "instance": "/v1/memory/decisions/record",
+                "request_id": "019d2af9-6399-7bc0-8ae5-ed2a03d74c72",
+                "code": "api.validation.validation_error",
+                "retryable": false
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 422: sessionId, decisionId, and context are required"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 4986,
+          "outputTokens": 346,
+          "cachedTokens": 4736,
+          "latencyMs": 4475,
+          "toolCalls": [
+            {
+              "toolName": "record_decision_context",
+              "args": {
+                "decision": "Payments API authentication module will use RS256-signed JWT access tokens with short-lived access tokens, opaque refresh tokens with rotation, and centralized validation middleware enforcing issuer/audience/expiry/jti checks and RFC 9457 error responses.",
+                "reasoning": "A critical active auth constraint requires RS256 and explicitly rejects HS256 due to shared-secret blast radius across multiple validating services. Security review context indicates the initial HS256 design was unacceptable. Short-lived JWT access tokens reduce exposure if leaked, while opaque refresh tokens with rotation and server-side storage support revocation and replay detection better than long-lived self-contained refresh JWTs. Centralized middleware ensures consistent verification, authorization context extraction, and standards-compliant error handling across the Payments API.",
+                "alternatives_considered": [
+                  "HS256-signed JWTs for simplicity",
+                  "ES256 for smaller signatures and stronger modern crypto posture",
+                  "Long-lived JWT access tokens without refresh tokens",
+                  "JWT refresh tokens instead of opaque rotated refresh tokens",
+                  "Per-endpoint ad hoc token validation instead of shared middleware"
+                ],
+                "context": "Project alpha, Auth Module Design for Payments API. Inputs available in memory were limited, but active constraints include a critical requirement to use RS256 for auth tokens and a high-severity requirement that error responses use RFC 9457 Problem Details format. API context indicates rate limiting may apply per API key or per user JWT, implying JWTs represent authenticated user/service identity for request processing.",
+                "tags": [
+                  "alpha",
+                  "payments-api",
+                  "auth",
+                  "jwt",
+                  "rs256",
+                  "refresh-tokens",
+                  "middleware",
+                  "adr"
+                ],
+                "session_id": "alpha-auth-design-2026-03-26",
+                "decision_id": "adr-auth-payments-rs256-jwt-refresh"
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.validation.validation_error",
+                "title": "Unprocessable Entity",
+                "status": 422,
+                "detail": "sessionId, decisionId, and context are required",
+                "instance": "/v1/memory/decisions/record",
+                "request_id": "019d2af9-7bba-7bf2-9146-7f6c81e89ca6",
+                "code": "api.validation.validation_error",
+                "retryable": false
+              },
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 422: sessionId, decisionId, and context are required"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 5439,
+          "outputTokens": 2267,
+          "cachedTokens": 5248,
+          "latencyMs": 33695,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "killType": "dirty",
+      "output": "# ADR: Authentication Module for Payments API\n\n**Status:** Accepted\n\n## Context\n\nWe need an authentication design for the Payments API that is secure, practical for a multi-service environment, and understandable for future implementation work.\n\nThe available project memory provided two important inputs:\n\n1. **Security review finding SEC-2025-041**\n   - The earlier idea of using **HS256** was explicitly rejected.\n   - The review identified symmetric signing as unacceptable because multiple services would need the shared secret to validate tokens, increasing blast radius if any validator is compromised.\n\n2. **Active organisational constraint for auth**\n   - **Auth tokens must use RS256 signing, not HS256.**\n   - This is marked **critical**.\n\nThere is also a related platform constraint that:\n- **All error responses must use RFC 9457 Problem Details format**, which affects authentication failure responses from middleware.\n\nThe Payments API appears to support authenticated access patterns where rate limiting may apply per API key or per user JWT, so the auth module must produce a reliable identity and authorization context for downstream request handling.\n\nBecause prior detailed team decisions were not available in memory, this ADR establishes the baseline design for the authentication module.\n\n## Decision\n\n### 1. Token signing algorithm\n\nWe will use **RS256** for signing JWT access tokens.\n\n#### Justification\n- **Required by active security constraint**.\n- **Asymmetric signing** allows the private key to remain only in the token issuer, while validators use the public key.\n- This is safer than **HS256**, which would require distributing the same shared secret to every validating service.\n- It supports cleaner **key rotation** and future publication through **JWKS** if needed.\n- RS256 is broadly supported across libraries, gateways, and internal services.\n\n#### Rejected alternatives\n- **HS256**: rejected by security review and policy due to shared-secret blast radius.\n- **ES256**: technically viable, but not chosen as the mandated constraint explicitly requires RS256. RS256 also has wider operational familiarity and compatibility.\n\n---\n\n### 2. JWT token structure\n\nWe will issue **short-lived JWT access tokens** and **opaque refresh tokens**.\n\n#### Access token format\nJWT header:\n```json\n{\n  \"alg\": \"RS256\",\n  \"typ\": \"JWT\",\n  \"kid\": \"<key-id>\"\n}\n```\n\nJWT payload claims:\n\n| Claim | Required | Purpose |\n|---|---|---|\n| `iss` | yes | Token issuer, e.g. `https://auth.payments.internal` |\n| `aud` | yes | Intended audience, e.g. `payments-api` |\n| `sub` | yes | Stable subject identifier for the authenticated principal |\n| `jti` | yes | Unique token ID for traceability and optional revocation checks |\n| `iat` | yes | Issued-at timestamp |\n| `nbf` | recommended | Not-before timestamp to prevent premature use |\n| `exp` | yes | Expiry timestamp |\n| `scope` | yes | Space-delimited scopes, e.g. `payments:read payments:write refunds:write` |\n| `client_id` | recommended | Calling application/client identifier |\n| `tenant_id` | if applicable | Tenant/account boundary for multi-tenant enforcement |\n| `role` | optional | Coarse-grained role if needed for policy mapping |\n\n#### Claims design notes\n- `sub` identifies the principal and should be stable over time.\n- `scope` is preferred for authorization decisions over embedding too many custom claims.\n- `jti` enables audit correlation and supports deny-listing if emergency revocation is needed.\n- `aud` must be specific to the Payments API to prevent token replay against unrelated services.\n- Avoid putting sensitive or fast-changing data in the JWT, since JWTs are self-contained and may remain valid until expiry.\n\n#### Access token expiry\n- **Default access token lifetime: 15 minutes**\n\nThis is short enough to reduce risk if a token is leaked, while still being practical for clients.\n\n#### Refresh token strategy\nWe will use **opaque refresh tokens**, not JWT refresh tokens.\n\nRefresh token properties:\n- Long random high-entropy value\n- Stored server-side in hashed form\n- Bound to:\n  - subject\n  - client/application\n  - session/device metadata where relevant\n  - expiry\n  - rotation state\n- Sent only to the auth service, never used directly against resource endpoints\n\n#### Refresh token lifetime\n- **Default refresh token lifetime: 30 days**\n- Shorter lifetimes may be used for higher-risk clients.\n\n#### Refresh token rotation\nRefresh tokens will be **rotated on every use**:\n- Client presents refresh token A\n- Auth service invalidates A\n- Auth service issues new access token + refresh token B\n\nIf an already-used refresh token is presented again:\n- treat as possible replay\n- revoke the token family/session\n- require re-authentication\n\nThis provides better replay detection than static refresh tokens.\n\n#### Revocation model\n- Access tokens are primarily controlled by **short expiry**\n- Refresh tokens are **stateful and revocable**\n- Emergency access-token revocation may be supported via `jti` deny-listing for high-risk incidents, but this should not be the normal path\n\n---\n\n### 3. Token validation middleware\n\nWe will implement a shared authentication middleware used by all protected Payments API endpoints.\n\n#### Middleware responsibilities\n\n1. **Extract bearer token**\n   - Read `Authorization: Bearer <token>`\n   - Reject missing or malformed headers\n\n2. **Parse JWT header**\n   - Ensure `alg` is exactly `RS256`\n   - Read `kid`\n   - Reject tokens with missing or unexpected algorithm\n\n3. **Resolve signing key**\n   - Load public key by `kid`\n   - Support active and recently retired keys during rotation\n\n4. **Verify signature**\n   - Validate JWT signature using RS256 public key\n\n5. **Validate registered claims**\n   - `iss` matches configured issuer\n   - `aud` contains `payments-api`\n   - `exp` is in the future\n   - `nbf` is not in the future\n   - `iat` is reasonable\n   - `sub` exists and is valid\n   - `jti` exists\n\n6. **Optional revocation / deny-list checks**\n   - Check whether `jti` has been revoked for emergency cases\n   - Check whether subject/session is globally disabled if such controls exist\n\n7. **Build auth context**\n   - Attach normalized auth context to request:\n     - subject\n     - scopes\n     - client_id\n     - tenant_id\n     - role\n     - token_id (`jti`)\n\n8. **Authorize downstream**\n   - Route handlers or authorization middleware check required scopes\n   - Example:\n     - `GET /payments` requires `payments:read`\n     - `POST /refunds` requires `refunds:write`\n\n9. **Return standards-compliant errors**\n   - Authentication failures must return **RFC 9457 Problem Details**\n   - Do not leak internal verification details\n\n#### Middleware pseudocode\n```text\nauthenticate(request):\n  token = extractBearerToken(request)\n  if missing:\n    return 401 problem-details\n\n  header = parseJwtHeader(token)\n  if header.alg != \"RS256\":\n    return 401 problem-details\n\n  publicKey = keyStore.get(header.kid)\n  if not publicKey:\n    return 401 problem-details\n\n  claims = verifySignatureAndDecode(token, publicKey)\n\n  validateIssuer(claims.iss)\n  validateAudience(claims.aud, \"payments-api\")\n  validateExpiry(claims.exp)\n  validateNotBefore(claims.nbf)\n  validateSubject(claims.sub)\n  validateTokenId(claims.jti)\n\n  if isRevoked(claims.jti) or subjectDisabled(claims.sub):\n    return 401 problem-details\n\n  request.auth = {\n    subject: claims.sub,\n    scopes: parseScopes(claims.scope),\n    clientId: claims.client_id,\n    tenantId: claims.tenant_id,\n    role: claims.role,\n    jti: claims.jti\n  }\n\n  continue\n```\n\n#### Error handling\nAuthentication middleware should return:\n- **401 Unauthorized** for missing, invalid, expired, or revoked tokens\n- **403 Forbidden** for authenticated requests lacking required scope\n\nResponses must use `application/problem+json`.\n\nExample 401:\n```json\n{\n  \"type\": \"https://api.payments.example/problems/authentication-failed\",\n  \"title\": \"Authentication failed\",\n  \"status\": 401,\n  \"detail\": \"The access token is missing, invalid, expired, or revoked.\"\n}\n```\n\nExample 403:\n```json\n{\n  \"type\": \"https://api.payments.example/problems/insufficient-scope\",\n  \"title\": \"Insufficient scope\",\n  \"status\": 403,\n  \"detail\": \"The authenticated principal does not have permission to perform this action.\"\n}\n```\n\n---\n\n### 4. Operational design notes\n\n#### Key management\n- Private signing keys must remain only in the auth issuer\n- Validators use public keys only\n- Every key must have a `kid`\n- Support planned key rotation with overlap between old and new public keys\n\n#### Scope model\nUse scopes for API permissions, for example:\n- `payments:read`\n- `payments:write`\n- `refunds:write`\n- `subscriptions:read`\n- `subscriptions:write`\n\nThis keeps authorization explicit and easier to audit than relying only on roles.\n\n#### What not to include in tokens\nDo not include:\n- card data\n- bank data\n- secrets\n- highly dynamic account state\n- internal risk scores\n- excessive profile data\n\nJWTs should carry only what is needed for request authentication and authorization.\n\n## Consequences\n\n### Positive\n- Aligns with the critical security requirement to use **RS256**\n- Reduces blast radius by avoiding shared symmetric secrets\n- Supports multi-service validation using public keys\n- Short-lived access tokens reduce impact of token leakage\n- Opaque rotated refresh tokens improve revocation and replay detection\n- Shared middleware gives consistent validation behavior across endpoints\n- RFC 9457 error responses align auth failures with platform standards\n\n### Negative\n- More operational complexity than HS256 due to key-pair management\n- Refresh-token storage introduces state in the auth system\n- Rotation and replay detection require careful implementation\n- `jti` deny-list checks can add latency if used on every request\n\n### Follow-up implications\n- Implement a key management and rotation process\n- Define exact issuer and audience values in configuration\n- Define the canonical scope matrix per endpoint\n- Implement refresh-token persistence, hashing, and token-family revocation\n- Provide a shared middleware package so all Payments API services validate tokens consistently\n\nIf you want, I can next turn this ADR into:\n1. a concrete TypeScript/Node middleware implementation, or  \n2. a JWT/refresh-token schema and endpoint contract (`/login`, `/refresh`, `/logout`)."
+    },
+    {
+      "sessionId": "a26e413d-5ab4-40ea-8ba9-da775d53937f",
+      "phaseIndex": 2,
+      "phaseName": "Rate Limiting Implementation",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1622,
+          "outputTokens": 158,
+          "cachedTokens": 0,
+          "latencyMs": 2286,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Continue building the Payments API; produce an ADR for rate limiting. Need API specification, prior decisions about auth module, architectural decisions, and active constraints relevant to implementation consistency.",
+                "token_budget": 5000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "items": [
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] rate-limiting: window counts: ``` effective_count = previous_window_count × overlap_ratio + current_window_count ``` Where `overlap_ratio = (window_size - elapsed_in_current_window) / window_size`. This provides a smooth rate limit without the boundary burst problem of fixed windows, while using O(1) memory per key (just two counters and a timestamp). ### Storage Rate limit state is stored in Redis with the following key pattern: ``` rl:{scope}:{identifier}:{window_start} ``` Keys auto-expire after 2× the window duration. ### Response Headers When a request is rate-limited (429), the response MUST include: - `Retry-After: <seconds>` — contractual obligation per partner agreement - `X-RateLimit-Limit: <max>` - `X-RateLimit-Remaining: 0` - `X-RateLimit-Reset: <unix_timestamp>`...",
+                    "detail": "Confidence: 0.6799989576639661",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] auth: ate\", \"payments:read\"], \"tenant_id\": \"tenant_xyz\" } ``` ### Refresh Token Strategy - Refresh tokens are opaque (not JWTs) — stored server-side with metadata - Rotation: each refresh issues a new refresh token and invalidates the old one - Family tracking: if a revoked refresh token is replayed, the entire family is killed - Grace window: 30 seconds after rotation, the old refresh token is still accepted (handles network retries) ## Consequences - All services need access to the JWKS endpoint to validate tokens - The auth service is a single point of failure for token issuance (mitigated by horizontal scaling) - Token size is larger than HS256 (~500 bytes vs ~300 bytes) — acceptable trade-off - Key rotation requires updating the JWKS endpoint — automated via the key-rot...",
+                    "detail": "Confidence: 0.563998957396551",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] api: od\": \"card\", \"customer_id\": \"cust_abc123\", \"idempotency_key\": \"unique-request-id\", \"metadata\": {} } ``` Response (201): ```json { \"id\": \"pay_xyz789\", \"status\": \"requires_confirmation\", \"amount_cents\": 5000, \"currency\": \"USD\", \"created_at\": \"2026-01-15T10:00:00Z\" } ``` ### POST /v1/payments/:id/confirm Confirm a payment intent. Triggers the actual charge. ### GET /v1/payments/:id Retrieve payment details. Includes full audit trail of status transitions. ### POST /v1/payments/:id/refund Initiate a refund. Partial refunds are supported. The refund amount must not exceed the original payment amount minus any previous refunds. ### GET /v1/payments List payments with filtering and pagination. Supports: - `status` filter (pending, confirmed, failed, refunded) - `customer_id` f...",
+                    "detail": "Confidence: 0.4624989569152039",
+                    "estimatedTokens": 200
+                  }
+                ],
+                "totalTokensUsed": 600,
+                "tokenBudget": 5000,
+                "truncated": false,
+                "sourcesQueried": [
+                  "constraints",
+                  "alerts",
+                  "freshness",
+                  "knowledge"
+                ],
+                "sourcesUnavailable": [],
+                "receiptId": null
+              },
+              "latencyMs": 10505,
+              "success": true
+            },
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 5
+              },
+              "result": {
+                "checkpoints": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Payments API specification rate limiting auth module API key user authentication architectural decisions ADR",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 6,
+              "success": true
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "constraints": [
+                  {
+                    "id": "44771729-1a0d-40e6-85f0-708c621fc52f",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "integration",
+                    "assertion": "Stripe webhook signature verification must happen server-side only. Never send the webhook signing secret to client-side code.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c4",
+                      "resource": "webhook-verification"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "2e29e64f3c6dab7238c03437634a227a07cedf726b46a22b7fcbccc3b3d56b28",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.427Z",
+                    "updatedAt": "2026-03-26T16:27:35.427Z"
+                  },
+                  {
+                    "id": "52bb4410-32ab-4756-85ab-617567d9720a",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "error-handling",
+                    "assertion": "All error responses must use RFC 9457 Problem Details format (application/problem+json). Custom error formats are not permitted. See ADR-003.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c3",
+                      "resource": "error-format"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "ace02122ad97559dd6cd5e144ae763f48206d215012a70fe5d49585b40eb7319",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.422Z",
+                    "updatedAt": "2026-03-26T16:27:35.422Z"
+                  },
+                  {
+                    "id": "b488abf3-cdff-4503-a38f-88311f6506fd",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "rate-limiting",
+                    "assertion": "Rate limit responses (HTTP 429) must include the Retry-After header. This is a contractual obligation to API consumers per the partner integration agreement signed 2025-Q3. Omitting it violates SLA terms.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c2",
+                      "resource": "rate-limit-headers"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "61bf991d4efefe92ae91332898c323f906ad8d9b80db2b2a5a3cdac902dcdef3",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.417Z",
+                    "updatedAt": "2026-03-26T16:27:35.417Z"
+                  },
+                  {
+                    "id": "387291b2-aaf8-42dd-bb68-e533bbceafe0",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "auth",
+                    "assertion": "Auth tokens must use RS256 signing, not HS256. This is a compliance requirement from security review 2025-Q4 (finding SEC-2025-041). HS256 was explicitly rejected because it requires sharing the signing secret with every validating service, creating an unacceptable blast radius.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c1",
+                      "resource": "jwt-signing"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "3572218b755fcf2e6da5e8f89afcc05ba100808ec035d30ec26f37b608c3e04f",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.411Z",
+                    "updatedAt": "2026-03-26T16:27:35.411Z"
+                  }
+                ]
+              },
+              "latencyMs": 5,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 3652,
+          "outputTokens": 186,
+          "cachedTokens": 1664,
+          "latencyMs": 3059,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "ADR-003 error format auth module decision API keys user subject tenant payments API auth architecture",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 7,
+              "success": true
+            },
+            {
+              "toolName": "get_decision_context",
+              "args": {
+                "query": "auth module API key user JWT RS256 tenant_id scopes"
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.internal.unclassified",
+                "title": "Internal Server Error",
+                "status": 500,
+                "instance": "/v1/memory/decisions/session/undefined",
+                "request_id": "019d2afa-43fe-7563-b6f9-03dff3d29d62",
+                "code": "api.internal.unclassified",
+                "retryable": true
+              },
+              "latencyMs": 10153,
+              "success": false,
+              "error": "HTTP 500: unknown error"
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "rate limiting ADR sliding window Redis headers X-RateLimit-Reset X-RateLimit-Remaining",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 7,
+              "success": true
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Write ADR for Payments API rate limiting consistent with API spec and auth architecture, covering algorithm, headers, and per-user vs per-API-key behavior.",
+                "domains": [
+                  "api",
+                  "auth",
+                  "rate-limiting",
+                  "architecture"
+                ]
+              },
+              "result": {
+                "domainsAssessed": [
+                  {
+                    "domain": "api",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "auth",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "rate-limiting",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "architecture",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "payments",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  }
+                ],
+                "identifiedGaps": [
+                  {
+                    "domain": "api",
+                    "gapDescription": "No artefacts about api",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "auth",
+                    "gapDescription": "No artefacts about auth",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "rate-limiting",
+                    "gapDescription": "No artefacts about rate-limiting",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "architecture",
+                    "gapDescription": "No artefacts about architecture",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "payments",
+                    "gapDescription": "No artefacts about payments",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  }
+                ],
+                "overallReadiness": "significant_gaps",
+                "receiptId": null
+              },
+              "latencyMs": 5,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 4561,
+          "outputTokens": 329,
+          "cachedTokens": 2688,
+          "latencyMs": 6134,
+          "toolCalls": [
+            {
+              "toolName": "record_decision_context",
+              "args": {
+                "decision": "Adopt a sliding-window counter rate limiting design for the Payments API, keyed by authenticated principal with fallback to API key identity and unauthenticated client identity, and expose standard rate limit headers plus Retry-After on 429 responses.",
+                "reasoning": "Relevant project knowledge indicates a prior rate-limiting design using a sliding-window counter with Redis and explicit 429 headers including Retry-After. This algorithm avoids fixed-window boundary bursts while remaining operationally simple and O(1) in memory per key, which fits API infrastructure needs better than token bucket or exact sliding logs. Auth knowledge indicates JWT-based user auth with RS256 and tenant/scopes claims, so the limiter should derive identity from validated auth context and remain consistent with existing auth architecture. Active constraints require RFC 9457 Problem Details for errors and Retry-After on 429 responses.",
+                "alternatives_considered": [
+                  "Fixed window counters: simpler but allows burstiness at window boundaries.",
+                  "Token bucket/leaky bucket: good for smoothing but less aligned with existing stored knowledge and header semantics already documented.",
+                  "Sliding log: most accurate but too expensive in storage and operations for high-volume payments traffic."
+                ],
+                "context": "Task: produce ADR for Payments API rate limiting, covering algorithm, headers, auth interaction, and consistency with prior architecture. Available memory included knowledge of sliding-window formula, Redis keying pattern, mandatory Retry-After header, RFC 9457 error format, and auth architecture using RS256 JWTs with tenant_id and scopes.",
+                "tags": [
+                  "alpha",
+                  "payments-api",
+                  "rate-limiting",
+                  "adr",
+                  "auth",
+                  "architecture"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.validation.validation_error",
+                "title": "Unprocessable Entity",
+                "status": 422,
+                "detail": "sessionId, decisionId, and context are required",
+                "instance": "/v1/memory/decisions/record",
+                "request_id": "019d2afa-8a2f-7f95-bd10-40210a23e873",
+                "code": "api.validation.validation_error",
+                "retryable": false
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 422: sessionId, decisionId, and context are required"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 4994,
+          "outputTokens": 2812,
+          "cachedTokens": 4736,
+          "latencyMs": 37006,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "killType": "dirty",
+      "output": "# ADR: Rate Limiting for the Payments API\n\n- **Status:** Proposed\n- **Date:** 2026-03-26\n- **Project:** alpha / Payments API\n- **Decision Type:** Architecture Decision Record\n\n## Context\n\nWe need to implement rate limiting for the Payments API in a way that:\n\n- fits the existing API architecture,\n- is consistent with prior auth decisions,\n- provides predictable behavior for clients,\n- supports both user-authenticated and API key-authenticated access,\n- and complies with active constraints.\n\nRelevant prior context and constraints:\n\n1. **Authentication architecture**\n   - Auth tokens use **RS256**.\n   - JWTs include claims such as `sub`, `scopes`, and `tenant_id`.\n   - This implies the Payments API can reliably derive an authenticated principal from validated token claims.\n\n2. **Error handling**\n   - All error responses must use **RFC 9457 Problem Details** format.\n   - Therefore, rate limit rejections must not return ad hoc JSON.\n\n3. **Rate limit contract**\n   - HTTP `429 Too Many Requests` responses **must include `Retry-After`**.\n\n4. **Existing project knowledge**\n   - Prior knowledge already points to a **sliding-window counter** approach with Redis-backed counters and standard rate limit headers.\n\n## Decision\n\nWe will implement rate limiting using a **sliding-window counter** algorithm backed by **Redis**, with limits keyed by the **authenticated principal**. Identity resolution will follow this order:\n\n1. **Authenticated end user**: key by tenant + user subject\n2. **API key client**: key by tenant + API key identifier\n3. **Unauthenticated caller**: key by client IP (or trusted forwarded IP chain policy)\n\nWe will return rate limit metadata in response headers, and on rejection return:\n\n- HTTP `429`\n- `Retry-After`\n- rate limit headers\n- RFC 9457 Problem Details body\n\n## 1. Chosen algorithm and justification\n\n### Decision\nUse a **sliding-window counter** rather than fixed window, token bucket, or sliding log.\n\n### Why\n\n#### Benefits\n- **Avoids fixed-window burstiness**\n  - A fixed window allows clients to send a burst at the end of one window and another at the start of the next.\n  - Sliding-window counters smooth this boundary effect.\n\n- **Operationally simple**\n  - Requires only current and previous window counters plus window start time.\n  - Good fit for Redis.\n\n- **Low memory overhead**\n  - O(1) state per identity/window pair, unlike sliding logs which store many timestamps.\n\n- **Predictable enough for API consumers**\n  - More accurate than fixed windows, simpler than token bucket for communicating reset semantics.\n\n### Formula\nFor a window size `W`:\n\n```text\neffective_count =\n  previous_window_count × overlap_ratio +\n  current_window_count\n```\n\nWhere:\n\n```text\noverlap_ratio = (window_size - elapsed_in_current_window) / window_size\n```\n\nA request is allowed if:\n\n```text\neffective_count + 1 <= limit\n```\n\nOtherwise it is rejected with `429`.\n\n### Storage model\nUse Redis keys like:\n\n```text\nrl:{scope}:{identifier}:{window_start}\n```\n\nExamples:\n\n```text\nrl:user:tenant_123:user_456:1711411200\nrl:api_key:tenant_123:key_abc:1711411200\nrl:ip:203.0.113.10:1711411200\n```\n\nKeys should expire after approximately:\n\n```text\n2 × window_duration\n```\n\nThis preserves the previous window long enough for overlap calculation.\n\n### Why not the alternatives\n\n#### Fixed window\n- Simpler, but boundary bursts are undesirable for a payments system.\n\n#### Token bucket\n- Good for burst tolerance, but less aligned with the existing project knowledge and less straightforward for reset-style headers.\n- Better if we wanted explicit burst capacity as a first-class product feature; that is not currently specified.\n\n#### Sliding log\n- Most precise, but too expensive operationally for a high-throughput API.\n\n## 2. Rate limit response headers\n\n### Decision\nExpose the following headers on rate-limited responses, and optionally on successful responses where feasible:\n\n- `Retry-After: <seconds>` — **required**\n- `X-RateLimit-Limit: <max_requests>`\n- `X-RateLimit-Remaining: <remaining_requests>`\n- `X-RateLimit-Reset: <unix_timestamp>`\n\n### Header semantics\n\n#### `Retry-After`\nNumber of seconds until the client should retry.\n\nExample:\n\n```http\nRetry-After: 17\n```\n\nThis is mandatory on `429`.\n\n#### `X-RateLimit-Limit`\nThe configured request limit for the applicable policy.\n\nExample:\n\n```http\nX-RateLimit-Limit: 100\n```\n\n#### `X-RateLimit-Remaining`\nEstimated remaining requests in the current effective window.\n\nExamples:\n- success response:\n  ```http\n  X-RateLimit-Remaining: 42\n  ```\n- rate-limited response:\n  ```http\n  X-RateLimit-Remaining: 0\n  ```\n\nBecause this is a sliding-window counter, this value is best treated as an operational estimate exposed for client guidance.\n\n#### `X-RateLimit-Reset`\nUnix timestamp when the client can expect the current limiting condition to materially reset.\n\nExample:\n\n```http\nX-RateLimit-Reset: 1711411217\n```\n\nFor `429`, this should correspond to the earliest time the request would be accepted if no further requests are made.\n\n### Response body format for 429\n\nBecause all errors must use RFC 9457 Problem Details:\n\n```http\nHTTP/1.1 429 Too Many Requests\nContent-Type: application/problem+json\nRetry-After: 17\nX-RateLimit-Limit: 100\nX-RateLimit-Remaining: 0\nX-RateLimit-Reset: 1711411217\n```\n\n```json\n{\n  \"type\": \"https://api.example.com/problems/rate-limit-exceeded\",\n  \"title\": \"Too Many Requests\",\n  \"status\": 429,\n  \"detail\": \"Rate limit exceeded for this principal. Retry after 17 seconds.\"\n}\n```\n\n## 3. Interaction between rate limiting and authentication\n\n### Decision\nRate limiting is applied **after identity resolution** and should use the **most specific authenticated identity available**.\n\nPriority order:\n\n1. **User token** → limit per user\n2. **API key** → limit per API key\n3. **No authenticated identity** → limit per IP\n\n## Identity model\n\n### A. User-authenticated requests\nIf the request contains a valid bearer token representing an end user or service principal with a stable `sub`, the limiter key should be:\n\n```text\ntenant_id + subject\n```\n\nRecommended scope key:\n\n```text\nuser:{tenant_id}:{sub}\n```\n\nThis prevents one tenant’s users from affecting another tenant and aligns with the JWT claim model already in use.\n\n### B. API key-authenticated requests\nIf the request is authenticated via API key, the limiter key should be:\n\n```text\napi_key:{tenant_id}:{api_key_id}\n```\n\nUse the **API key identifier**, never the raw secret.\n\nThis ensures:\n- revocable, auditable client-level limits,\n- no leakage of secrets into Redis keys or logs,\n- clear separation between machine clients.\n\n### C. Unauthenticated requests\nIf a route is public or authentication has not yet succeeded, fall back to:\n\n```text\nip:{client_ip}\n```\n\nThis is a protective fallback, not the primary business limit.\n\n## Per-user vs per-API-key policy\n\n### Decision\nUse **principal-specific limits** based on auth mode:\n\n- **User-authenticated flows**: enforce **per-user** limits\n- **API key flows**: enforce **per-API-key** limits\n\n### Rationale\nThese identities represent different actors:\n\n- A **user token** represents an individual principal.\n- An **API key** represents an integrating client/application.\n\nUsing per-user limits for API key traffic would be ambiguous or impossible when no end-user identity exists. Using per-API-key limits for user-token traffic would collapse many users behind one integration and create noisy-neighbor problems.\n\n## Mixed-auth scenarios\n\nIf both an API key and a user token are present, the system should define a single canonical principal for the route. Recommended rule:\n\n- If the route is a **user-authorized endpoint**, use the **user principal**.\n- If the route is a **server-to-server integration endpoint**, use the **API key principal**.\n\nIf the platform allows both simultaneously, document route-level auth precedence and ensure the limiter uses the same resolved principal as authorization.\n\nThis avoids divergence between:\n- who is authorized,\n- who is audited,\n- who is rate-limited.\n\n## Authentication failure interaction\n\n### Decision\nRequests with invalid credentials should not consume authenticated principal quota. They may still be subject to a coarse **IP-based pre-auth limit**.\n\nRecommended pipeline:\n\n1. Apply a **coarse pre-auth IP limiter** to protect against credential stuffing and abuse.\n2. Attempt authentication.\n3. If authentication succeeds, apply the **principal limiter**.\n4. If authentication fails, return auth error; do not decrement a user/API-key bucket that was never validly resolved.\n\nThis avoids:\n- attackers draining a victim’s quota by guessing identifiers,\n- coupling invalid auth attempts to legitimate customer usage.\n\n## 4. Consistency with prior architectural decisions\n\nThis design is consistent with prior decisions in the following ways:\n\n### Auth consistency\n- Uses validated auth context derived from the existing **RS256 JWT** architecture.\n- Keys by stable claims such as `sub` and `tenant_id`.\n- Does not require sharing secrets across services.\n\n### Error consistency\n- `429` responses use **RFC 9457 Problem Details**.\n- No custom error envelope is introduced.\n\n### Operational consistency\n- Uses Redis-backed counters, which match the existing project knowledge for rate limiting.\n- Keeps implementation simple and horizontally scalable.\n\n### Multi-tenant consistency\n- Includes `tenant_id` in authenticated principal keys.\n- Prevents cross-tenant interference.\n\n## Detailed design\n\n## Policy scopes\n\nWe will support these scopes:\n\n- `user`\n- `api_key`\n- `ip`\n\nOptional future extension:\n- route-specific or operation-specific scopes, e.g.:\n  - `payments_create`\n  - `payments_confirm`\n  - `refund_create`\n\nFor now, the ADR defines the identity model and header contract; route-specific thresholds can be configured separately.\n\n## Recommended middleware order\n\n1. Request enters API gateway/app\n2. Determine trusted client IP\n3. Apply coarse pre-auth IP limiter\n4. Authenticate request\n5. Resolve canonical principal\n6. Apply principal rate limiter\n7. Execute authorization and business logic\n8. Attach rate limit headers to response\n\n## Redis implementation notes\n\nTo avoid race conditions:\n- use a Lua script or atomic Redis transaction to:\n  - read current and previous counters,\n  - compute effective count,\n  - decide allow/reject,\n  - increment current counter if allowed,\n  - return header values.\n\nThis keeps the limiter correct under concurrency.\n\n## Example policies\n\n### User-authenticated request\n```text\nscope = user\nidentifier = tenant_123:user_456\nlimit = 100 requests / 60 seconds\n```\n\n### API key request\n```text\nscope = api_key\nidentifier = tenant_123:key_abc\nlimit = 300 requests / 60 seconds\n```\n\n### Unauthenticated request\n```text\nscope = ip\nidentifier = 203.0.113.10\nlimit = 30 requests / 60 seconds\n```\n\n## Consequences\n\n### Positive\n- Smooths bursts better than fixed windows.\n- Scales well with Redis.\n- Aligns with auth and error-handling architecture.\n- Gives clients actionable retry information.\n- Supports both user and machine identities cleanly.\n\n### Negative\n- `X-RateLimit-Remaining` is approximate under a sliding-window model.\n- Requires careful atomic implementation in Redis.\n- Mixed-auth routes need explicit principal precedence rules.\n\n## Implementation guidance\n\n1. Build a reusable rate limiter component with:\n   - `scope`\n   - `identifier`\n   - `limit`\n   - `window_seconds`\n\n2. Resolve principal from auth middleware:\n   - JWT → `user:{tenant_id}:{sub}`\n   - API key → `api_key:{tenant_id}:{api_key_id}`\n   - fallback → `ip:{client_ip}`\n\n3. On rejection:\n   - return `429`\n   - include `Retry-After`\n   - include `X-RateLimit-*`\n   - return Problem Details JSON\n\n4. On success:\n   - include `X-RateLimit-Limit`\n   - include `X-RateLimit-Remaining`\n   - include `X-RateLimit-Reset` where practical\n\n## Final decision summary\n\nWe will implement Payments API rate limiting with a **Redis-backed sliding-window counter**, using **principal-based keys** derived from the existing auth model:\n\n- **per user** for bearer-token user traffic,\n- **per API key** for API key traffic,\n- **per IP** as fallback and pre-auth protection.\n\nRate-limited responses will include:\n\n- `Retry-After`\n- `X-RateLimit-Limit`\n- `X-RateLimit-Remaining`\n- `X-RateLimit-Reset`\n\nand the body will use **RFC 9457 Problem Details**.\n\nIf you want, I can next turn this ADR into a concrete implementation plan or framework-specific middleware pseudocode."
+    },
+    {
+      "sessionId": "83eddd9f-b578-4efe-83ce-3448d08cf131",
+      "phaseIndex": 3,
+      "phaseName": "Error Handling Refactor",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1667,
+          "outputTokens": 255,
+          "cachedTokens": 0,
+          "latencyMs": 4629,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Continue building the Payments API in project alpha, Phase: Error Handling Refactor. Need to review all prior decisions from Phase 1 (authentication) and Phase 2 (rate limiting), design a global error handling strategy consistent with all prior ADRs, ensure rate limit errors include required headers, ensure authentication errors distinguish between 401 and 403, ensure all error responses use agreed format, and verify design respects all critical constraints.",
+                "token_budget": 7000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "items": [
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] operations: health checks on new pods 5. Run smoke tests against production 6. Enable traffic routing (gradual: 10% → 50% → 100%) ## Rollback 1. Switch traffic back to blue deployment 2. Verify health 3. Investigate failure 4. Do NOT roll back database migrations unless explicitly planned ## Post-deployment Verification - Confirm rate limit headers on sample requests - Confirm error format on intentional 400/401/404 requests - Confirm JWT validation rejects HS256-signed tokens - Confirm webhook delivery for test payment - Check Grafana dashboard for latency/error rate",
+                    "detail": "Confidence: 0.47699793729335077",
+                    "estimatedTokens": 147
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] api: sted amount.\", \"instance\": \"/v1/payments/pay_xyz789/confirm\" } ``` Do NOT use custom error formats. The RFC 9457 decision was made in ADR-003 after evaluating three alternatives. ## Webhooks The API sends webhooks for payment lifecycle events: - `payment.created` - `payment.confirmed` - `payment.failed` - `payment.refunded` - `subscription.created` - `subscription.cancelled` - `subscription.payment_failed` Webhook payloads are signed with HMAC-SHA256. The signature is in the `X-Webhook-Signature` header. ## Idempotency All POST endpoints support idempotency via the `Idempotency-Key` header. Keys are stored for 24 hours. Replayed requests return the original response with a `X-Idempotent-Replayed: true` header.",
+                    "detail": "Confidence: 0.5929979353947228",
+                    "estimatedTokens": 184
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] api: following headers: - `X-RateLimit-Limit`: maximum requests per window - `X-RateLimit-Remaining`: remaining requests in current window - `X-RateLimit-Reset`: Unix timestamp when the window resets - `Retry-After`: seconds until the client should retry (required on 429 responses) The `Retry-After` header is a contractual obligation to API consumers per the partner integration agreement signed 2025-Q3. Omitting it would violate SLA terms. ## Error Handling All error responses follow RFC 9457 (Problem Details for HTTP APIs): ```json { \"type\": \"https://api.payments.example/errors/insufficient-funds\", \"title\": \"Insufficient Funds\", \"status\": 402, \"detail\": \"The card ending in 4242 has insufficient funds for the requested amount.\", \"instance\": \"/v1/payments/pay_xyz789/confirm\" ...",
+                    "detail": "Confidence: 0.4914979353947229",
+                    "estimatedTokens": 200
+                  }
+                ],
+                "totalTokensUsed": 531,
+                "tokenBudget": 7000,
+                "truncated": false,
+                "sourcesQueried": [
+                  "constraints",
+                  "alerts",
+                  "freshness",
+                  "knowledge"
+                ],
+                "sourcesUnavailable": [],
+                "receiptId": null
+              },
+              "latencyMs": 10298,
+              "success": true
+            },
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 10
+              },
+              "result": {
+                "checkpoints": []
+              },
+              "latencyMs": 6,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Phase 1 authentication ADRs decisions Payments API error response format 401 403 authentication",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Phase 2 rate limiting ADRs decisions Payments API rate limit headers error handling format",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 6,
+              "success": true
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "severity": "critical",
+                "active_only": true
+              },
+              "result": {
+                "constraints": [
+                  {
+                    "id": "44771729-1a0d-40e6-85f0-708c621fc52f",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "integration",
+                    "assertion": "Stripe webhook signature verification must happen server-side only. Never send the webhook signing secret to client-side code.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c4",
+                      "resource": "webhook-verification"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "2e29e64f3c6dab7238c03437634a227a07cedf726b46a22b7fcbccc3b3d56b28",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.427Z",
+                    "updatedAt": "2026-03-26T16:27:35.427Z"
+                  },
+                  {
+                    "id": "52bb4410-32ab-4756-85ab-617567d9720a",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "error-handling",
+                    "assertion": "All error responses must use RFC 9457 Problem Details format (application/problem+json). Custom error formats are not permitted. See ADR-003.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c3",
+                      "resource": "error-format"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "ace02122ad97559dd6cd5e144ae763f48206d215012a70fe5d49585b40eb7319",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.422Z",
+                    "updatedAt": "2026-03-26T16:27:35.422Z"
+                  },
+                  {
+                    "id": "b488abf3-cdff-4503-a38f-88311f6506fd",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "rate-limiting",
+                    "assertion": "Rate limit responses (HTTP 429) must include the Retry-After header. This is a contractual obligation to API consumers per the partner integration agreement signed 2025-Q3. Omitting it violates SLA terms.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c2",
+                      "resource": "rate-limit-headers"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "61bf991d4efefe92ae91332898c323f906ad8d9b80db2b2a5a3cdac902dcdef3",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.417Z",
+                    "updatedAt": "2026-03-26T16:27:35.417Z"
+                  },
+                  {
+                    "id": "387291b2-aaf8-42dd-bb68-e533bbceafe0",
+                    "tenantId": "__memorycrux_bench_alpha_T2_A1",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "auth",
+                    "assertion": "Auth tokens must use RS256 signing, not HS256. This is a compliance requirement from security review 2025-Q4 (finding SEC-2025-041). HS256 was explicitly rejected because it requires sharing the signing secret with every validating service, creating an unacceptable blast radius.",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:mc-alpha-c1",
+                      "resource": "jwt-signing"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "3572218b755fcf2e6da5e8f89afcc05ba100808ec035d30ec26f37b608c3e04f",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-26T16:27:35.411Z",
+                    "updatedAt": "2026-03-26T16:27:35.411Z"
+                  }
+                ]
+              },
+              "latencyMs": 4,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 3728,
+          "outputTokens": 288,
+          "cachedTokens": 1792,
+          "latencyMs": 4419,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "ADR-001 authentication Payments API RS256 401 403 bearer WWW-Authenticate authorization decisions",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 6,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "ADR-002 rate limiting Payments API headers X-RateLimit-Limit X-RateLimit-Remaining X-RateLimit-Reset Retry-After 429 decisions",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "ADR-003 error handling Payments API RFC 9457 Problem Details decisions custom error formats not permitted",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 4,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Phase 1 authentication checkpoint or decision context Payments API",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 4,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Phase 2 rate limiting checkpoint or decision context Payments API",
+                "topic": "alpha",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Design global error handling strategy for Payments API consistent with prior authentication and rate limiting ADRs, including 401 vs 403, 429 headers, RFC 9457 format, and critical constraints.",
+                "domains": [
+                  "auth",
+                  "rate-limiting",
+                  "error-handling",
+                  "api-contracts",
+                  "security"
+                ]
+              },
+              "result": {
+                "domainsAssessed": [
+                  {
+                    "domain": "auth",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "rate-limiting",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "error-handling",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "api-contracts",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "security",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "api",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "authentication",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "payments",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  }
+                ],
+                "identifiedGaps": [
+                  {
+                    "domain": "auth",
+                    "gapDescription": "No artefacts about auth",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "rate-limiting",
+                    "gapDescription": "No artefacts about rate-limiting",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "error-handling",
+                    "gapDescription": "No artefacts about error-handling",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "api-contracts",
+                    "gapDescription": "No artefacts about api-contracts",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "security",
+                    "gapDescription": "No artefacts about security",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "api",
+                    "gapDescription": "No artefacts about api",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "authentication",
+                    "gapDescription": "No artefacts about authentication",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "payments",
+                    "gapDescription": "No artefacts about payments",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  }
+                ],
+                "overallReadiness": "significant_gaps",
+                "receiptId": null
+              },
+              "latencyMs": 4,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 5025,
+          "outputTokens": 110,
+          "cachedTokens": 3968,
+          "latencyMs": 2651,
+          "toolCalls": [
+            {
+              "toolName": "verify_before_acting",
+              "args": {
+                "action": "Produce a design-only refactored global error handling strategy for the Payments API based on retrieved constraints and available project knowledge, without modifying code or infrastructure.",
+                "resource": "Payments API design docs",
+                "action_class": "design_change",
+                "context": "Need to ensure consistency with prior Phase 1 auth and Phase 2 rate limiting decisions, but memory retrieval returned constraints and knowledge snippets rather than explicit ADR records. Will provide a design aligned to the available authoritative constraints and note evidence gaps."
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.validation.validation_error",
+                "title": "Unprocessable Entity",
+                "status": 422,
+                "detail": "tool_name and action_description are required",
+                "instance": "/v1/memory/verify",
+                "request_id": "019d2afb-7e32-7196-aca1-80d859289077",
+                "code": "api.validation.validation_error",
+                "retryable": false
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 422: tool_name and action_description are required"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 5230,
+          "outputTokens": 258,
+          "cachedTokens": 4992,
+          "latencyMs": 7644,
+          "toolCalls": [
+            {
+              "toolName": "record_decision_context",
+              "args": {
+                "decision": "For Phase Error Handling Refactor, use a centralized error translation layer that emits RFC 9457 Problem Details for all API errors, maps authentication failures to 401 vs 403 distinctly, and preserves required rate-limit headers on 429 responses.",
+                "reasoning": "Available project knowledge and active constraints establish three binding requirements: RFC 9457 Problem Details is the mandatory error format, 429 responses must include Retry-After and standard rate-limit headers, and auth uses RS256 with security-sensitive validation behavior. A centralized translator avoids drift across endpoints and middleware, while explicit auth and rate-limit mappings preserve prior phase behavior and contractual obligations.",
+                "alternatives_considered": [
+                  "Per-route ad hoc error formatting",
+                  "Framework default error responses",
+                  "Custom JSON error envelope"
+                ],
+                "context": "Task requested consistency with prior Phase 1 and Phase 2 ADRs. Memory retrieval did not return explicit ADR documents or checkpoints, but did return authoritative constraints and knowledge snippets covering error format, rate-limit headers, and auth signing requirements. Design is therefore anchored to those authoritative artefacts and flags the missing ADR retrieval as a readiness caveat.",
+                "tags": [
+                  "alpha",
+                  "payments-api",
+                  "error-handling",
+                  "auth",
+                  "rate-limiting",
+                  "rfc9457"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.validation.validation_error",
+                "title": "Unprocessable Entity",
+                "status": 422,
+                "detail": "sessionId, decisionId, and context are required",
+                "instance": "/v1/memory/decisions/record",
+                "request_id": "019d2afb-9c14-75cc-af4c-674388061bd6",
+                "code": "api.validation.validation_error",
+                "retryable": false
+              },
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 422: sessionId, decisionId, and context are required"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 5589,
+          "outputTokens": 2723,
+          "cachedTokens": 5376,
+          "latencyMs": 38108,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "killType": "dirty",
+      "output": "Below is a design-level refactor proposal based on the authoritative context I could retrieve: active constraints plus project knowledge snippets for auth, rate limiting, and error format.\n\nNote: I could not retrieve the actual Phase 1/Phase 2 ADR records or checkpoints from memory despite targeted queries, so the design is aligned to the available binding artefacts and I call that out explicitly in readiness.\n\n## Refactored error handling design\n\n### 1. Core strategy: one global error translation layer\n\nIntroduce a single global error-handling pipeline for the entire Payments API:\n\n1. Route/middleware/domain code throws typed internal errors.\n2. A centralized error translator maps those errors to HTTP status, headers, and RFC 9457 Problem Details bodies.\n3. A final response writer:\n   - sets `Content-Type: application/problem+json`\n   - preserves any required protocol headers\n   - emits the canonical problem document\n\nThis prevents per-endpoint drift and ensures auth, rate limiting, validation, and domain failures all follow the same contract.\n\n---\n\n### 2. Canonical response format\n\nAll error responses must use RFC 9457 Problem Details.\n\n#### Required fields\n- `type`\n- `title`\n- `status`\n- `detail`\n- `instance`\n\n#### Optional extension fields\nUse only stable, contract-safe extensions:\n- `code`: internal/application error code\n- `request_id`: correlation ID for support/debugging\n- `errors`: field-level validation issues for 400/422 cases\n- `retryable`: boolean where useful\n\n#### Example\n```json\n{\n  \"type\": \"https://api.payments.example/errors/rate-limit-exceeded\",\n  \"title\": \"Rate Limit Exceeded\",\n  \"status\": 429,\n  \"detail\": \"Too many requests. Please retry after 42 seconds.\",\n  \"instance\": \"/v1/payments\",\n  \"code\": \"rate_limit_exceeded\",\n  \"request_id\": \"req_123\",\n  \"retryable\": true\n}\n```\n\n#### Content type\nAlways:\n```http\nContent-Type: application/problem+json\n```\n\nNo custom envelope like:\n```json\n{ \"error\": { ... } }\n```\nand no framework-default HTML/plaintext responses.\n\n---\n\n### 3. Error taxonomy\n\nDefine a small set of internal typed errors.\n\n#### Infrastructure / protocol\n- `BadRequestError` → 400\n- `NotFoundError` → 404\n- `MethodNotAllowedError` → 405\n- `ConflictError` → 409\n- `ValidationError` → 422 or 400, depending on existing API convention\n- `TooManyRequestsError` → 429\n- `InternalServerError` → 500\n- `ServiceUnavailableError` → 503\n\n#### Authentication / authorization\n- `MissingAuthError` → 401\n- `InvalidTokenError` → 401\n- `ExpiredTokenError` → 401\n- `InsufficientScopeError` → 403\n- `ForbiddenError` → 403\n\n#### Payments/domain\n- `InsufficientFundsError` → 402 if already established by API contract\n- `PaymentStateConflictError` → 409\n- `IdempotencyConflictError` → 409\n\n---\n\n### 4. Authentication behavior: distinguish 401 vs 403\n\nThis should be explicit and enforced centrally.\n\n#### Return 401 Unauthorized when:\n- `Authorization` header is missing\n- bearer token is malformed\n- token signature is invalid\n- token is expired\n- token uses rejected algorithm / fails validation\n- token cannot be trusted\n\n#### Return 403 Forbidden when:\n- token is valid\n- caller is authenticated\n- caller lacks required permission/scope/role for the resource/action\n\n#### Header behavior for 401\nInclude:\n```http\nWWW-Authenticate: Bearer\n```\n\nOptionally include RFC 6750-style details if already acceptable in the API:\n```http\nWWW-Authenticate: Bearer error=\"invalid_token\", error_description=\"The access token is expired\"\n```\n\n#### Problem Details examples\n\n401:\n```json\n{\n  \"type\": \"https://api.payments.example/errors/invalid-token\",\n  \"title\": \"Unauthorized\",\n  \"status\": 401,\n  \"detail\": \"The access token is missing, invalid, or expired.\",\n  \"instance\": \"/v1/payments/pay_123/confirm\",\n  \"code\": \"invalid_token\",\n  \"request_id\": \"req_123\"\n}\n```\n\n403:\n```json\n{\n  \"type\": \"https://api.payments.example/errors/insufficient-scope\",\n  \"title\": \"Forbidden\",\n  \"status\": 403,\n  \"detail\": \"The authenticated principal does not have permission to perform this action.\",\n  \"instance\": \"/v1/payments/pay_123/refund\",\n  \"code\": \"insufficient_scope\",\n  \"request_id\": \"req_124\"\n}\n```\n\n#### Security note\nDo not leak sensitive token validation internals in `detail`. Keep messages safe and generic.\n\n---\n\n### 5. Rate limiting behavior: preserve required headers on 429\n\nFor every `429 Too Many Requests` response, include:\n\n- `X-RateLimit-Limit`\n- `X-RateLimit-Remaining`\n- `X-RateLimit-Reset`\n- `Retry-After`\n\n`Retry-After` is mandatory.\n\n#### Example\n```http\nHTTP/1.1 429 Too Many Requests\nContent-Type: application/problem+json\nX-RateLimit-Limit: 100\nX-RateLimit-Remaining: 0\nX-RateLimit-Reset: 1767225600\nRetry-After: 42\n```\n\nBody:\n```json\n{\n  \"type\": \"https://api.payments.example/errors/rate-limit-exceeded\",\n  \"title\": \"Rate Limit Exceeded\",\n  \"status\": 429,\n  \"detail\": \"Too many requests. Please retry after 42 seconds.\",\n  \"instance\": \"/v1/payments\",\n  \"code\": \"rate_limit_exceeded\",\n  \"request_id\": \"req_125\",\n  \"retryable\": true\n}\n```\n\n#### Design rule\nThe global error handler must not overwrite or drop headers set by the rate-limiting middleware. Best pattern:\n\n- rate limiter raises/returns a typed `TooManyRequestsError`\n- error object carries header metadata\n- global handler writes those headers before body serialization\n\n---\n\n### 6. Proposed implementation shape\n\n### A. Standard internal error contract\nEach internal error should expose:\n- `status`\n- `type`\n- `title`\n- `detail`\n- `code`\n- `headers` (optional)\n- `extensions` (optional)\n\nPseudo-shape:\n```ts\ninterface ApiError {\n  status: number;\n  type: string;\n  title: string;\n  detail: string;\n  code: string;\n  headers?: Record<string, string>;\n  extensions?: Record<string, unknown>;\n}\n```\n\n### B. Middleware order\nRecommended order:\n\n1. request ID / tracing middleware\n2. rate limiting middleware\n3. authentication middleware\n4. authorization middleware\n5. route handlers / domain services\n6. global error handler\n\nThis ensures:\n- 429 can short-circuit early\n- auth failures are normalized\n- all downstream exceptions still end in one formatter\n\n### C. Unknown error fallback\nAny unhandled exception becomes:\n- status: 500\n- generic title/detail\n- no stack trace in response\n- full stack logged server-side with request ID\n\nExample:\n```json\n{\n  \"type\": \"https://api.payments.example/errors/internal-server-error\",\n  \"title\": \"Internal Server Error\",\n  \"status\": 500,\n  \"detail\": \"An unexpected error occurred.\",\n  \"instance\": \"/v1/payments\",\n  \"code\": \"internal_server_error\",\n  \"request_id\": \"req_126\"\n}\n```\n\n---\n\n### 7. Logging and observability rules\n\nFor every emitted error:\n- log `request_id`\n- log `status`\n- log `code`\n- log route/method\n- log auth subject if available and safe\n- never log secrets, raw tokens, or signing material\n\nMetrics:\n- error count by `status`\n- error count by `code`\n- 401 vs 403 ratio\n- 429 rate by route/client\n- 5xx rate\n\n---\n\n### 8. Backward-compatibility rules\n\nTo stay consistent with prior decisions:\n- preserve existing rate-limit headers exactly\n- preserve auth semantics: invalid/missing token = 401, valid but unauthorized = 403\n- preserve RFC 9457 body shape across all endpoints\n- do not introduce endpoint-specific error envelopes\n\n---\n\n## Checklist verifying consistency with prior decisions\n\nThis checklist is based on retrieved project knowledge and active constraints.\n\n### Error format consistency\n- [x] All errors use RFC 9457 Problem Details\n- [x] `Content-Type` is `application/problem+json`\n- [x] No custom error envelope is introduced\n- [x] Global handler enforces one format across all endpoints\n\n### Rate limiting consistency\n- [x] 429 responses include `Retry-After`\n- [x] 429 responses include `X-RateLimit-Limit`\n- [x] 429 responses include `X-RateLimit-Remaining`\n- [x] 429 responses include `X-RateLimit-Reset`\n- [x] Global handler preserves middleware-provided rate-limit headers\n- [x] 429 body also uses RFC 9457\n\n### Authentication consistency\n- [x] Missing/invalid/expired token maps to 401\n- [x] Authenticated but insufficient permission maps to 403\n- [x] 401 responses include `WWW-Authenticate: Bearer`\n- [x] Token validation failures are handled without leaking sensitive details\n- [x] Design is compatible with RS256-only token validation requirement\n\n### Critical constraint compliance\n- [x] No design change suggests HS256 or weakens RS256 validation\n- [x] No design change exposes webhook secrets or client-side signature verification\n- [x] Error handling remains server-side and does not leak sensitive secrets\n- [x] Required contractual 429 header behavior is preserved\n\n### Operational consistency\n- [x] Unknown exceptions are normalized to 500 Problem Details\n- [x] Request IDs can be included for supportability\n- [x] Logging is structured and avoids sensitive data leakage\n\n### Evidence caveat\n- [ ] I was able to retrieve explicit Phase 1 and Phase 2 ADR documents/checkpoints from memory\n- [x] I was able to retrieve authoritative constraints and knowledge snippets covering the required behaviors\n\nBecause that ADR retrieval item is not satisfied, final implementation should be cross-checked against the actual ADR texts before deployment.\n\n---\n\n## Deployment readiness assessment\n\n## Overall status: Conditionally ready\n\nThe design itself is sound and consistent with the retrieved binding requirements, but deployment is only conditionally ready because the explicit Phase 1 and Phase 2 ADR records were not retrievable from memory during this session.\n\n### Ready aspects\n- Error format is standardized around RFC 9457\n- Auth semantics for 401 vs 403 are explicit\n- 429 header requirements are explicit and contractual\n- Critical security constraints are respected\n- Centralized design reduces implementation drift\n\n### Risks / gaps\n1. **ADR retrieval gap**\n   - I could not verify the exact wording of all prior ADRs from Phase 1 and Phase 2.\n   - Risk: a subtle prior decision may exist around status codes, extension fields, or auth header wording.\n\n2. **Validation status code ambiguity**\n   - If the API previously standardized on 400 vs 422 for validation failures, that must be preserved exactly.\n\n3. **Header preservation implementation risk**\n   - Some frameworks replace headers when central error handlers run.\n   - Must test that 429 responses retain all rate-limit headers.\n\n4. **Framework default response leakage**\n   - Need to ensure no middleware or router still emits non-Problem-Details responses.\n\n### Required pre-deployment checks\n- Verify all auth failure paths:\n  - missing token → 401\n  - malformed token → 401\n  - expired token → 401\n  - insufficient scope → 403\n- Verify all 429 responses include:\n  - `X-RateLimit-Limit`\n  - `X-RateLimit-Remaining`\n  - `X-RateLimit-Reset`\n  - `Retry-After`\n- Verify representative 400/401/403/404/409/429/500 responses all use `application/problem+json`\n- Verify no stack traces or secrets appear in response bodies\n- Verify RS256 validation behavior remains unchanged\n- Verify intentional HS256 token rejection still returns correct auth error behavior\n- Cross-check implementation against actual Phase 1 and Phase 2 ADR texts\n\n### Deployment recommendation\n**Proceed to implementation/testing, but do not mark production-ready until the missing ADR review is completed and the above contract tests pass.**\n\nIf you want, I can next turn this into:\n1. a concrete middleware/error-class architecture, or\n2. a test matrix for all error scenarios."
+    }
+  ],
+  "trackA": {
+    "latency": {
+      "get_relevant_context": {
+        "p50": 10497,
+        "p95": 10505,
+        "p99": 10505,
+        "count": 3
+      },
+      "get_constraints": {
+        "p50": 5,
+        "p95": 5,
+        "p99": 5,
+        "count": 3
+      },
+      "get_checkpoints": {
+        "p50": 5,
+        "p95": 6,
+        "p99": 6,
+        "count": 3
+      },
+      "query_memory": {
+        "p50": 5,
+        "p95": 7,
+        "p99": 7,
+        "count": 14
+      },
+      "assess_coverage": {
+        "p50": 4,
+        "p95": 5,
+        "p99": 5,
+        "count": 3
+      },
+      "record_decision_context": {
+        "p50": 5,
+        "p95": 6,
+        "p99": 6,
+        "count": 4
+      },
+      "get_decision_context": {
+        "p50": 10153,
+        "p95": 10153,
+        "p99": 10153,
+        "count": 1
+      },
+      "verify_before_acting": {
+        "p50": 6,
+        "p95": 6,
+        "p99": 6,
+        "count": 1
+      }
+    },
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}

@@ -1,0 +1,82 @@
+{
+  "project": "alpha",
+  "version": "1.1.0",
+  "phases": [
+    {
+      "index": 1,
+      "name": "Auth Module Design",
+      "taskPrompt": "You are building the Payments API. Your first task is to design and implement the authentication module.\n\nReview the API specification, security review findings, and any prior team decisions. Then:\n\n1. Confirm the token signing algorithm and justify your choice.\n2. Design the JWT token structure (claims, expiry, refresh strategy).\n3. Outline the token validation middleware.\n4. Document your decisions clearly so a future developer can understand the reasoning.\n\nProduce your design as an ADR (Architecture Decision Record) with Status, Context, Decision, and Consequences sections.",
+      "newDocuments": ["mc-alpha-spec", "mc-alpha-security-review", "mc-alpha-pci-summary", "mc-alpha-team-decisions"],
+      "newConstraints": ["mc-alpha-c1"],
+      "expectedDecisionKeys": ["RS256", "refresh token rotation", "token family", "JWKS", "replay detection", "15 minute expiry"],
+      "expectedToolCalls": ["query_memory", "get_relevant_context", "check_constraints", "record_decision_context"]
+    },
+    {
+      "index": 2,
+      "name": "Rate Limiting Implementation",
+      "taskPrompt": "Continue building the Payments API. Your second task is to implement rate limiting.\n\nReview the API specification and any prior decisions about the auth module. Then:\n\n1. Choose and justify a rate limiting algorithm.\n2. Design the rate limit response headers.\n3. Handle the interaction between rate limiting and authentication (limits per user vs per API key).\n4. Ensure your implementation is consistent with prior architectural decisions.\n\nProduce your design as an ADR.",
+      "newDocuments": ["mc-alpha-adr-1", "mc-alpha-adr-2", "mc-alpha-integration-guide"],
+      "newConstraints": ["mc-alpha-c2", "mc-alpha-c4"],
+      "expectedDecisionKeys": ["sliding window", "Retry-After", "Redis", "fail-open", "per-tenant limits", "partner SLA"],
+      "expectedToolCalls": ["query_memory", "get_relevant_context", "check_constraints", "record_decision_context", "get_decision_context"]
+    },
+    {
+      "index": 3,
+      "name": "Error Handling Refactor",
+      "taskPrompt": "Continue building the Payments API. Your third task is to refactor error handling across the entire API.\n\nReview ALL prior decisions from Phase 1 (authentication) and Phase 2 (rate limiting). Then:\n\n1. Design a global error handling strategy that is consistent with ALL prior ADRs.\n2. Ensure rate limit errors include the required headers.\n3. Ensure authentication errors distinguish between 401 and 403.\n4. Ensure all error responses use the agreed-upon format.\n5. Verify that your design respects ALL critical constraints.\n\nProduce:\n- A refactored error handling design\n- A checklist verifying consistency with all prior decisions\n- A deployment readiness assessment",
+      "newDocuments": ["mc-alpha-adr-3", "mc-alpha-error-handling-patterns", "mc-alpha-deployment-runbook"],
+      "newConstraints": ["mc-alpha-c3"],
+      "expectedDecisionKeys": ["RFC 9457", "RS256", "Retry-After", "sliding window", "trace_id", "application/problem+json", "401 vs 403", "webhook server-side"],
+      "expectedToolCalls": ["query_memory", "get_relevant_context", "check_constraints", "verify_before_acting", "record_decision_context", "checkpoint_decision_state"]
+    }
+  ],
+  "killVariants": [
+    {
+      "id": "A1",
+      "label": "Dirty kill",
+      "type": "dirty",
+      "killAfterPhase": 1,
+      "description": "Hard process kill after Phase 1 completion. No checkpoint, no summary. The replacement agent gets nothing from the conversation — only what MemoryCrux persisted."
+    },
+    {
+      "id": "A2",
+      "label": "Clean kill",
+      "type": "clean",
+      "killAfterPhase": 1,
+      "description": "Process dies after decision-context write succeeds but before a summary is composed. The replacement agent can find decisions in MemoryCrux but has no handoff narrative."
+    },
+    {
+      "id": "A3",
+      "label": "Graceful handoff",
+      "type": "graceful",
+      "killAfterPhase": 1,
+      "description": "Agent checkpoints decision state and exits cleanly. The replacement agent gets a full checkpoint with decision summary."
+    }
+  ],
+  "expectedMetrics": {
+    "decision_recall_at_phase_3": {
+      "target": "≥ 90%",
+      "description": "% of Phase 1 + 2 decisions retrievable at Phase 3 start"
+    },
+    "constraint_hit_rate": {
+      "target": "100% on critical constraints",
+      "description": "Critical auth / rate-limit violations intercepted"
+    },
+    "dirty_recovery_success": {
+      "target": "≥ 80%",
+      "description": "A1 recovery to ready-to-work without architectural drift"
+    },
+    "recovery_time": {
+      "target": "< 5s for A2/A3",
+      "description": "Time from new session start to usable project state"
+    },
+    "architecture_preservation": {
+      "target": "Treatment beats best control arm",
+      "description": "Human blind score for preserving prior decisions in Phase 3"
+    },
+    "token_efficiency_vs_c2": {
+      "target": "Record and compare",
+      "description": "T2 or T3 prompt tokens relative to Flat-max"
+    }
+  }
+}

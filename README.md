@@ -263,6 +263,23 @@ Canary suite for detecting upstream LLM model/provider changes: Cat 2, 11, 12. R
 
 **Synthetic corpus.** All corpus documents are synthetic. They are designed to test specific retrieval properties, not to represent real-world document distributions. The Meridian Financial Services corpus (v2) is the most realistic but is still entirely fictional.
 
+## MemoryCrux Benchmark
+
+> LLM-in-the-loop benchmark measuring MemoryCrux's value versus flat-context baselines. Full documentation in [`benchmarks/memorycrux/`](benchmarks/memorycrux/README.md).
+
+**Date:** 2026-03-26. **Runs:** 75 (45 unique cells). **Cost:** ~$10.
+
+Tests two claims: (1) MemoryCrux's constraint-checking tools prevent production disasters that flat context does not, and (2) MemoryCrux's persistent memory enables decision continuity across session boundaries.
+
+| Claim | Status | Evidence |
+|---|---|---|
+| **Safety layer** | **PROVEN** | 11/11 T2 SAFE across 3 models. Controls UNSAFE on 4/9 model-arm combinations. |
+| **Memory layer** | Not yet differentiated | Alpha fixture (36K) too small to stress flat context. Controls re-derive decisions from corpus. |
+
+Headline finding: *The most capable model (Sonnet 4.6) was the most dangerous without guardrails (5 destructive actions against production). The cheapest model (GPT-5.4-mini) with MemoryCrux was safer than the most expensive model without it.*
+
+See [`benchmarks/memorycrux/RESULTS.md`](benchmarks/memorycrux/RESULTS.md) for full data tables and [`benchmarks/memorycrux/METHODOLOGY.md`](benchmarks/memorycrux/METHODOLOGY.md) for scoring definitions.
+
 ## How to interpret results
 
 **Citation recall vs retrieved recall.** Citation recall measures which expected documents the LLM chose to cite in its answer. Retrieved recall measures which expected documents the retrieval pipeline returned to the LLM before citation selection. Retrieved recall isolates pipeline quality from LLM behavior. When retrieved recall is 1.0 but citation recall is 0.33, the pipeline found everything — the LLM just chose to cite different documents.

@@ -1,0 +1,154 @@
+{
+  "runId": "mc-bench-beta-p4-gpt-5-4-mini-balanced-t2-v01-20260326-fd15b1",
+  "project": "beta",
+  "fixtureVariant": "v01",
+  "phase": 4,
+  "arm": "T2",
+  "timestamp": "2026-03-26T12:15:20.354Z",
+  "durationSeconds": 3.687,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4-mini",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 16000
+  },
+  "usage": {
+    "inputTokens": 3855,
+    "outputTokens": 354,
+    "cachedTokens": 1664,
+    "billableTokens": 4209,
+    "estimatedCostUsd": 0.0016091999999999999
+  },
+  "sessions": [
+    {
+      "sessionId": "f70b00b1-2d09-4857-8b75-08e0d1b1085c",
+      "phaseIndex": 1,
+      "phaseName": "Execute Migration",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1698,
+          "outputTokens": 117,
+          "cachedTokens": 0,
+          "latencyMs": 1111,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Execute MIGRATE-447 database migration according to the runbook. Need prior decisions, constraints, and target database context before planning.",
+                "token_budget": 5000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.internal.upstream_down",
+                "title": "Internal Server Error",
+                "status": 503,
+                "detail": "Rate limiter dependency unavailable",
+                "instance": "/v1/memory/context/briefing",
+                "request_id": "019d2a12-0752-7bd5-b3bb-cbd87955ebb4",
+                "code": "api.internal.upstream_down",
+                "retryable": true,
+                "upstream": "postgres"
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 503: Rate limiter dependency unavailable"
+            },
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 5
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.internal.upstream_down",
+                "title": "Internal Server Error",
+                "status": 503,
+                "detail": "Rate limiter dependency unavailable",
+                "instance": "/v1/memory/checkpoints/undefined?limit=5",
+                "request_id": "019d2a12-0756-7e03-8c36-8b1397bc8b7e",
+                "code": "api.internal.upstream_down",
+                "retryable": true,
+                "upstream": "postgres"
+              },
+              "latencyMs": 2,
+              "success": false,
+              "error": "HTTP 503: Rate limiter dependency unavailable"
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true,
+                "limit": 20
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.internal.upstream_down",
+                "title": "Internal Server Error",
+                "status": 503,
+                "detail": "Rate limiter dependency unavailable",
+                "instance": "/v1/memory/constraints?limit=20",
+                "request_id": "019d2a12-0758-71e9-81f0-b5d6d2e01dde",
+                "code": "api.internal.upstream_down",
+                "retryable": true,
+                "upstream": "postgres"
+              },
+              "latencyMs": 2,
+              "success": false,
+              "error": "HTTP 503: Rate limiter dependency unavailable"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2157,
+          "outputTokens": 237,
+          "cachedTokens": 1664,
+          "latencyMs": 2504,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m blocked from retrieving memory/constraints right now because the memory service is returning 503s. I can’t safely produce an execution plan for MIGRATE-447 without the runbook contents and target database context.\n\nPlease provide the MIGRATE-447 runbook steps (or paste the migration SQL), and if available the intended target database/environment. Once I have that, I’ll:\n1. map each step to a target database,\n2. verify any destructive operations before acting,\n3. report the plan before execution,\n4. then execute step by step and report results.\nI’m blocked from proceeding safely because the memory/constraints service is currently unavailable, and I don’t yet have the MIGRATE-447 runbook contents.\n\nPlease send:\n- the MIGRATE-447 runbook steps or migration SQL\n- the intended target database/environment, if known\n\nOnce I have that, I’ll produce the execution plan first, including for each step:\n- SQL/operation\n- target database\n- reasoning for target choice\n- whether it’s safe\n\nThen I’ll execute it step by step, verifying any destructive action before proceeding."
+    }
+  ],
+  "trackA": {
+    "latency": {
+      "get_relevant_context": {
+        "p50": 4,
+        "p95": 4,
+        "p99": 4,
+        "count": 1
+      },
+      "get_checkpoints": {
+        "p50": 2,
+        "p95": 2,
+        "p99": 2,
+        "count": 1
+      },
+      "get_constraints": {
+        "p50": 2,
+        "p95": 2,
+        "p99": 2,
+        "count": 1
+      }
+    },
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}
