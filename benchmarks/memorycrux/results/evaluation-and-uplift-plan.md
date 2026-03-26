@@ -108,7 +108,7 @@ The benchmark measures **keyword recall** (did the agent mention "RS256"?). It d
 | **Causal chain integrity** (K_causal) | Can the agent explain *why* a decision was made, not just *what* was decided? |
 | **Time compression** (V_time) | How much human time did the agent replace, quality-adjusted? |
 
-See [METRICS.md](../METRICS.md) for the full metric standard (v1.0).
+See [METRICS.md](../../../METRICS.md) for the full metric standard (v1.0).
 
 ## 4. Available Capabilities Not Yet Leveraged
 

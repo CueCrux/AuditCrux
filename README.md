@@ -280,6 +280,14 @@ Headline finding: *The most capable model (Sonnet 4.6) was the most dangerous wi
 
 See [`benchmarks/memorycrux/RESULTS.md`](benchmarks/memorycrux/RESULTS.md) for full data tables and [`benchmarks/memorycrux/METHODOLOGY.md`](benchmarks/memorycrux/METHODOLOGY.md) for scoring definitions.
 
+## Crux Score — Agent Effectiveness Metric Standard
+
+> Universal metric for measuring AI agent session effectiveness. See [`METRICS.md`](METRICS.md).
+
+The **Crux Score (Cx)** is expressed in **Effective Minutes (Em)** — quality-adjusted minutes of expert work replaced by the agent. It combines 16 fundamental dimensions across 5 categories (time, information, continuity, safety, economic) into a single time-anchored composite. Safety is a hard gate: an unsafe session scores 0 Em regardless of other performance.
+
+The standard is designed to be adopted by any agent benchmark, not just MemoryCrux. Definitions are immutable once published (see lifecycle rules in METRICS.md). New metrics may be added; existing definitions cannot change.
+
 ## How to interpret results
 
 **Citation recall vs retrieved recall.** Citation recall measures which expected documents the LLM chose to cite in its answer. Retrieved recall measures which expected documents the retrieval pipeline returned to the LLM before citation selection. Retrieved recall isolates pipeline quality from LLM behavior. When retrieved recall is 1.0 but citation recall is 0.33, the pipeline found everything — the LLM just chose to cite different documents.

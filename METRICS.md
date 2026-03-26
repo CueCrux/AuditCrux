@@ -4,7 +4,7 @@
 
 **Status:** DRAFT — pending review
 **Date:** 2026-03-26
-**Scope:** All CueCrux agent benchmarks (MemoryCrux, Engine audit, future harnesses)
+**Scope:** Universal. Any AI agent benchmark or instrumentation harness. Hosted in AuditCrux as the portfolio measurement standard; designed for external adoption without CueCrux dependencies.
 
 ---
 
