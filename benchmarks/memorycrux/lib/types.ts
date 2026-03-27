@@ -192,4 +192,5 @@ export interface BenchConfig {
   outputDir: string;
   timeoutMs: number;
   maxTurnsPerPhase: number;
+  skipSeed?: boolean;
 }

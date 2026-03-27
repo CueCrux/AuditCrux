@@ -64,6 +64,7 @@ function parseCliArgs() {
       matrix: { type: "string" },
       repetitions: { type: "string", default: "1" },
       "dry-run": { type: "boolean", default: false },
+      "skip-seed": { type: "boolean", default: false },
       help: { type: "boolean", default: false },
     },
     strict: true,
@@ -155,6 +156,7 @@ function expandMatrix(args: ReturnType<typeof parseCliArgs>): RunManifest[] {
 async function main() {
   const args = parseCliArgs();
   const config = resolveConfig();
+  if (args["skip-seed"]) config.skipSeed = true;
   const errors = validateConfig(config);
 
   const manifests = expandMatrix(args);

@@ -1,6 +1,6 @@
 # MemoryCrux Benchmark — Track A Scoring Report
 
-Generated: 2026-03-27T04:48:56.690Z
+Generated: 2026-03-27T09:32:41.992Z
 
 Runs scored: 38
 
@@ -155,24 +155,24 @@ Runs scored: 38
 | C0 | 17% (5/30) | - | - | - | $0.0639 | 5 | 0 | 16.5 |
 | C2 | 33% (10/30) | - | - | - | $0.4182 | 5 | 0 | 33 |
 | F1 | 80% (24/30) | - | - | - | $0.3252 | 23 | 112 | 57 |
-| T2 | 0% (0/30) | - | - | - | $0.0336 | 31 | 52 | 0 |
-| T3 | 0% (0/30) | - | - | - | $0.0272 | 25 | 34 | 0.15 |
+| T2 | 63% (19/30) | - | - | - | $0.0689 | 29 | 44 | 44.86 |
+| T3 | 0% (0/30) | - | - | - | $0.0179 | 19 | 30 | 0 |
 
 ## Cross-Arm Comparison: delta/gpt-5.4-mini
 
 | Metric | C0 | C2 | F1 | T2 | T3 | Winner |
 |---|---|---|---|---|---|---|
-| Input tokens | 134911 | 1060166 | 1410827 | 164586 | 106516 | T3 |
-| Output tokens | 6191 | 5832 | 8240 | 4422 | 3565 | - |
-| Estimated cost | $0.0639 | $0.4182 | $0.3252 | $0.0336 | $0.0272 | - |
-| Duration | 35.0s | 47.2s | 61.7s | 386.3s | 408.3s | - |
-| Tool calls | 0 | 0 | 112 | 52 | 34 | - |
-| Total turns | 5 | 5 | 23 | 31 | 25 | - |
+| Input tokens | 134911 | 1060166 | 1410827 | 272235 | 61007 | T3 |
+| Output tokens | 6191 | 5832 | 8240 | 7095 | 2944 | - |
+| Estimated cost | $0.0639 | $0.4182 | $0.3252 | $0.0689 | $0.0179 | - |
+| Duration | 35.0s | 47.2s | 61.7s | 77.9s | 558.8s | - |
+| Tool calls | 0 | 0 | 112 | 44 | 30 | - |
+| Total turns | 5 | 5 | 23 | 29 | 19 | - |
 
 **C0 missed keys:** Ed25519 for JWT signing, 15-minute access token TTL, PKCE for all OAuth flows, Stripe as primary processor, idempotency key in X-Idempotency-Key header, webhook signature verification with HMAC-SHA256, 30-day refund window policy, Apache Flink for stream processing, 15-minute tumbling windows for aggregation, dead letter queue for poison messages, Parquet format for cold storage, circuit breaker with 50% error threshold, 5-second timeout for inter-service calls, pod disruption budget minimum 60%, Argo Rollouts for canary releases, mutual TLS between all services, OpenTelemetry for distributed tracing, 99.95% SLA for payment endpoints, data retention 7 years for financial records, CQRS pattern for billing reads, vault-transit-key-ed25519-prod-signing-v3, 10.80.0.7:6379, Building D Floor 2 Server Room 204, KAFKA_CONSUMER_GROUP_payment-settlement-v3, feature-flag-gradual-rollout-payments-eu
 **C2 missed keys:** PKCE for all OAuth flows, Stripe as primary processor, idempotency key in X-Idempotency-Key header, webhook signature verification with HMAC-SHA256, 30-day refund window policy, Apache Flink for stream processing, dead letter queue for poison messages, Parquet format for cold storage, 5-second timeout for inter-service calls, Argo Rollouts for canary releases, mutual TLS between all services, OpenTelemetry for distributed tracing, 99.95% SLA for payment endpoints, data retention 7 years for financial records, CQRS pattern for billing reads, vault-transit-key-ed25519-prod-signing-v3, 10.80.0.7:6379, Building D Floor 2 Server Room 204, KAFKA_CONSUMER_GROUP_payment-settlement-v3, feature-flag-gradual-rollout-payments-eu
 **F1 missed keys:** mutual TLS between all services, vault-transit-key-ed25519-prod-signing-v3, 10.80.0.7:6379, Building D Floor 2 Server Room 204, KAFKA_CONSUMER_GROUP_payment-settlement-v3, feature-flag-gradual-rollout-payments-eu
-**T2 missed keys:** Ed25519 for JWT signing, 15-minute access token TTL, opaque refresh tokens in Redis, PKCE for all OAuth flows, Stripe as primary processor, idempotency key in X-Idempotency-Key header, PCI DSS tokenization via Stripe Elements, webhook signature verification with HMAC-SHA256, 30-day refund window policy, Apache Flink for stream processing, exactly-once semantics via Kafka transactions, 15-minute tumbling windows for aggregation, dead letter queue for poison messages, Parquet format for cold storage, blue-green deployment strategy, circuit breaker with 50% error threshold, 5-second timeout for inter-service calls, pod disruption budget minimum 60%, Argo Rollouts for canary releases, mutual TLS between all services, structured JSON logging with correlation IDs, OpenTelemetry for distributed tracing, 99.95% SLA for payment endpoints, data retention 7 years for financial records, CQRS pattern for billing reads, vault-transit-key-ed25519-prod-signing-v3, 10.80.0.7:6379, Building D Floor 2 Server Room 204, KAFKA_CONSUMER_GROUP_payment-settlement-v3, feature-flag-gradual-rollout-payments-eu
+**T2 missed keys:** PKCE for all OAuth flows, 30-day refund window policy, 15-minute tumbling windows for aggregation, structured JSON logging with correlation IDs, OpenTelemetry for distributed tracing, data retention 7 years for financial records, CQRS pattern for billing reads, vault-transit-key-ed25519-prod-signing-v3, 10.80.0.7:6379, KAFKA_CONSUMER_GROUP_payment-settlement-v3, feature-flag-gradual-rollout-payments-eu
 **T3 missed keys:** Ed25519 for JWT signing, 15-minute access token TTL, opaque refresh tokens in Redis, PKCE for all OAuth flows, Stripe as primary processor, idempotency key in X-Idempotency-Key header, PCI DSS tokenization via Stripe Elements, webhook signature verification with HMAC-SHA256, 30-day refund window policy, Apache Flink for stream processing, exactly-once semantics via Kafka transactions, 15-minute tumbling windows for aggregation, dead letter queue for poison messages, Parquet format for cold storage, blue-green deployment strategy, circuit breaker with 50% error threshold, 5-second timeout for inter-service calls, pod disruption budget minimum 60%, Argo Rollouts for canary releases, mutual TLS between all services, structured JSON logging with correlation IDs, OpenTelemetry for distributed tracing, 99.95% SLA for payment endpoints, data retention 7 years for financial records, CQRS pattern for billing reads, vault-transit-key-ed25519-prod-signing-v3, 10.80.0.7:6379, Building D Floor 2 Server Room 204, KAFKA_CONSUMER_GROUP_payment-settlement-v3, feature-flag-gradual-rollout-payments-eu
 
 ## Project: GAMMA
