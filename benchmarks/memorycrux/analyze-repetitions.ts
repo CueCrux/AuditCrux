@@ -3,9 +3,9 @@
 //
 // Usage: npx tsx analyze-repetitions.ts
 
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
-import type { RunSummary } from "./lib/types.js";
+import type { RunSummary, ProjectFixture } from "./lib/types.js";
 import {
   scoreDecisionRecall,
   scoreConstraintDetection,
@@ -13,12 +13,32 @@ import {
   scoreIncidentRecall,
   scoreTokenEfficiency,
 } from "./lib/scoring/track-a.js";
+import { computeCruxScore, type CruxScore } from "./lib/scoring/crux-score.js";
 
 const resultsDir = resolve(import.meta.dirname, "results");
 const fixturesDir = resolve(import.meta.dirname, "fixtures");
 
 function loadScenario(project: string) {
   return JSON.parse(readFileSync(join(fixturesDir, project, "scenario.json"), "utf-8"));
+}
+
+function loadFixture(project: string): ProjectFixture | null {
+  try {
+    const scenario = loadScenario(project);
+    const corpusPath = join(fixturesDir, project, "corpus.json");
+    const corpus = existsSync(corpusPath) ? JSON.parse(readFileSync(corpusPath, "utf-8")) : [];
+    return {
+      project: project as ProjectFixture["project"],
+      version: scenario.version ?? "1.0.0",
+      corpus: Array.isArray(corpus) ? corpus : corpus.documents ?? [],
+      constraints: scenario.constraints ?? [],
+      phases: scenario.phases ?? [],
+      killVariants: scenario.killVariants,
+      expectedMetrics: scenario.expectedMetrics ?? {},
+    };
+  } catch {
+    return null;
+  }
 }
 
 function loadAllSummaries(): RunSummary[] {
@@ -53,6 +73,12 @@ function scoreRun(summary: RunSummary) {
   }
 
   results.tokenEfficiency = scoreTokenEfficiency(summary);
+
+  const fixture = loadFixture(summary.project);
+  if (fixture) {
+    results.cruxScore = computeCruxScore(summary, fixture);
+  }
+
   return results;
 }
 
@@ -107,8 +133,8 @@ const output: string[] = [
 // ---------- Beta repetition analysis ----------
 output.push("## Beta — Safety & Recall (3× where available)");
 output.push("");
-output.push("| Model | Arm | N | Recall (mean±std) | Safe (count) | Incident (count) | Cost (mean) |");
-output.push("|---|---|---|---|---|---|---|");
+output.push("| Model | Arm | N | Recall (mean±std) | Safe (count) | Incident (count) | Cost (mean) | Cx Em (mean±std) |");
+output.push("|---|---|---|---|---|---|---|---|");
 
 const betaCells = [...cellMap.entries()]
   .filter(([k]) => k.startsWith("beta|"))
@@ -139,10 +165,19 @@ for (const [key, runs] of betaCells) {
   const incidentStr = `${incidentCount}/${runs.length}`;
   const costStr = `$${mean(costs).toFixed(4)}`;
 
-  output.push(`| ${model} | ${arm} | ${runs.length} | ${recallStr} | ${safeStr} | ${incidentStr} | ${costStr} |`);
+  const cxValues = scores
+    .map((s) => (s.cruxScore as CruxScore)?.composite.Cx_em)
+    .filter((v): v is number => v != null);
+  const cxStr = cxValues.length > 1
+    ? `${mean(cxValues).toFixed(1)} ± ${std(cxValues).toFixed(1)}`
+    : cxValues.length === 1
+      ? cxValues[0].toFixed(1)
+      : "-";
+
+  output.push(`| ${model} | ${arm} | ${runs.length} | ${recallStr} | ${safeStr} | ${incidentStr} | ${costStr} | ${cxStr} |`);
 
   console.log(
-    `beta/${model}/${arm}/${variant} (n=${runs.length}): recall=${recallStr} safe=${safeStr} incident=${incidentStr} cost=${costStr}`,
+    `beta/${model}/${arm}/${variant} (n=${runs.length}): recall=${recallStr} safe=${safeStr} Cx=${cxStr}Em cost=${costStr}`,
   );
 }
 

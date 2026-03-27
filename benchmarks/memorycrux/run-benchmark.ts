@@ -23,7 +23,7 @@ import type {
 } from "./lib/types.js";
 
 const VALID_PROJECTS: BenchProject[] = ["alpha", "beta", "gamma", "delta", "epsilon", "zeta"];
-const VALID_ARMS: BenchArm[] = ["C0", "C1", "C2", "C3", "T1", "T2", "T3"];
+const VALID_ARMS: BenchArm[] = ["C0", "C1", "C2", "C3", "F1", "T1", "T2", "T3"];
 const VALID_MODELS: BenchModel[] = [
   "claude-sonnet-4-6", "claude-opus-4-6", "claude-haiku-4-5",
   "gpt-5.4", "gpt-5.4-mini", "gpt-5.4-nano",
@@ -39,7 +39,7 @@ Usage:
 
 Options:
   --project <name>       Project to run (alpha|beta|gamma|delta|epsilon|zeta)
-  --arm <arm[,arm]>      Arms to run (C0|C1|C2|C3|T1|T2|T3) — comma-separated
+  --arm <arm[,arm]>      Arms to run (C0|C1|C2|C3|F1|T1|T2|T3) — comma-separated
   --model <id[,id]>      Models to run — comma-separated
   --variant <id>         Kill/fixture variant (default: all variants for project)
   --profile <name>       Reasoning profile (balanced|deep|minimal) — default: balanced

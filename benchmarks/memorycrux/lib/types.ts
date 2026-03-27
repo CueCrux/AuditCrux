@@ -7,6 +7,7 @@ export type BenchArm =
   | "C1"  // Flat-128k
   | "C2"  // Flat-max
   | "C3"  // Flat+provider-compaction
+  | "F1"  // File-based-32k (real alternative)
   | "T1"  // MemoryCrux-8k
   | "T2"  // MemoryCrux-16k (default treatment)
   | "T3"; // MemoryCrux-32k
@@ -21,7 +22,7 @@ export type BenchModel =
 
 export type ReasoningProfile = "balanced" | "deep" | "minimal";
 
-export type ArmMode = "flat" | "memorycrux";
+export type ArmMode = "flat" | "memorycrux" | "compound" | "file_based";
 
 export interface ArmConfig {
   arm: BenchArm;
@@ -72,6 +73,7 @@ export interface SessionRecord {
   killType?: "dirty" | "clean" | "graceful" | "none";
   killAtTurn?: number;
   output: string;
+  firstSubstantiveActionMs?: number; // ms from phase start to first tool call or substantive output
 }
 
 export interface UsageSummary {
@@ -121,6 +123,7 @@ export interface RunSummary {
   trackB: TrackBResults;
   deltaVsControls: Record<string, unknown>;
   receiptChainRoot?: string;
+  cruxScore?: import("./scoring/crux-score.js").CruxScore;
 }
 
 // ---------- Fixture types ----------
@@ -149,10 +152,13 @@ export interface ScenarioPhase {
   index: number;
   name: string;
   taskPrompt: string;
+  T_human_s?: number;            // Human baseline seconds (METRICS.md §4.3)
   newDocuments?: string[];       // IDs added this phase
   newConstraints?: string[];     // IDs added this phase
   expectedDecisionKeys?: string[]; // Key terms agent should preserve
   expectedToolCalls?: string[];  // Tool names agent should invoke (treatment)
+  coverageGaps?: string[];       // Known gaps for A_coverage scoring
+  staleItems?: string[];         // Known stale items for S_stale scoring
 }
 
 export interface KillVariant {

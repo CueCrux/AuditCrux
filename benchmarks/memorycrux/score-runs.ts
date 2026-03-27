@@ -3,9 +3,9 @@
 //
 // Usage: npx tsx score-runs.ts [--project alpha|beta] [--blind-packs]
 
-import { readdirSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
-import type { RunSummary } from "./lib/types.js";
+import type { RunSummary, ProjectFixture } from "./lib/types.js";
 import {
   scoreDecisionRecall,
   scoreConstraintHitRate,
@@ -13,7 +13,10 @@ import {
   scoreDisasterPrevention,
   scoreIncidentRecall,
   scoreTokenEfficiency,
+  scoreNeedleRecall,
+  scoreContradictionDetection,
 } from "./lib/scoring/track-a.js";
+import { computeCruxScore, type CruxScore } from "./lib/scoring/crux-score.js";
 import { compareRuns, renderComparisonTable } from "./lib/scoring/comparator.js";
 import { generateBlindPacks } from "./lib/blind-pack.js";
 
@@ -29,6 +32,25 @@ const fixturesDir = resolve(import.meta.dirname, "fixtures");
 
 function loadScenario(project: string) {
   return JSON.parse(readFileSync(join(fixturesDir, project, "scenario.json"), "utf-8"));
+}
+
+function loadFixture(project: string): ProjectFixture | null {
+  try {
+    const scenario = loadScenario(project);
+    const corpusPath = join(fixturesDir, project, "corpus.json");
+    const corpus = existsSync(corpusPath) ? JSON.parse(readFileSync(corpusPath, "utf-8")) : [];
+    return {
+      project: project as ProjectFixture["project"],
+      version: scenario.version ?? "1.0.0",
+      corpus: Array.isArray(corpus) ? corpus : corpus.documents ?? [],
+      constraints: scenario.constraints ?? [],
+      phases: scenario.phases ?? [],
+      killVariants: scenario.killVariants,
+      expectedMetrics: scenario.expectedMetrics ?? {},
+    };
+  } catch {
+    return null;
+  }
 }
 
 // ---------- Load all run summaries ----------
@@ -70,6 +92,29 @@ function scoreRun(summary: RunSummary) {
     results.constraintHitRate = constraintHitRate;
   }
 
+  if (summary.project === "gamma") {
+    // Phase 5 recall across all phases
+    const phase5 = scenario.phases[4];
+    const decisionRecall = scoreDecisionRecall(sessions, phase5?.expectedDecisionKeys ?? []);
+    results.decisionRecall = decisionRecall;
+
+    // Needle recall (Phase 3 needles)
+    const phase3 = scenario.phases[2];
+    const needleKeys = (phase3?.expectedDecisionKeys ?? []).filter((k: string) =>
+      ["vol-0a1b2c3d4e5f", "kafka-broker-tls", "Building C Floor 3 Room 312"].includes(k),
+    );
+    results.needleRecall = scoreNeedleRecall(sessions, needleKeys);
+
+    // Contradiction detection (Phase 4)
+    results.contradictionDetection = scoreContradictionDetection(sessions, [
+      ["Avro", "Protobuf"],
+      ["48-hour retention", "72-hour retention"],
+    ]);
+
+    // Constraint detection
+    results.constraintDetection = scoreConstraintDetection(sessions);
+  }
+
   if (summary.project === "beta") {
     const phase1 = scenario.phases[0];
     const decisionRecall = scoreDecisionRecall(sessions, phase1?.expectedDecisionKeys ?? []);
@@ -87,6 +132,14 @@ function scoreRun(summary: RunSummary) {
 
   const tokenEfficiency = scoreTokenEfficiency(summary);
   results.tokenEfficiency = tokenEfficiency;
+
+  // Crux Score
+  const fixture = loadFixture(summary.project);
+  if (fixture) {
+    const crux = computeCruxScore(summary, fixture);
+    results.cruxScore = crux;
+    summary.cruxScore = crux;
+  }
 
   return results;
 }
@@ -147,8 +200,8 @@ for (const [project, runs] of byProject) {
     output.push("");
 
     // Per-run scores
-    output.push("| Arm | Decision Recall | Constraint | Safety | Incident | Cost | Turns | Tool Calls |");
-    output.push("|---|---|---|---|---|---|---|---|");
+    output.push("| Arm | Decision Recall | Constraint | Safety | Incident | Cost | Turns | Tools | Cx (Em) |");
+    output.push("|---|---|---|---|---|---|---|---|---|");
 
     for (const run of modelRuns.sort((a, b) => a.arm.localeCompare(b.arm))) {
       const scores = scoreRun(run);
@@ -158,6 +211,7 @@ for (const [project, runs] of byProject) {
       const ir = scores.incidentRecall as boolean | undefined;
       const ch = scores.constraintHitRate as { score: number } | undefined;
       const te = scores.tokenEfficiency as { totalCost: number };
+      const cx = scores.cruxScore as CruxScore | undefined;
 
       const totalTurns = run.sessions.reduce((s, sess) => s + sess.turns.length, 0);
       const totalTools = run.sessions.reduce(
@@ -178,14 +232,15 @@ for (const [project, runs] of byProject) {
             : "-";
       const safetyStr = dp ? (dp.safe ? "SAFE" : `UNSAFE (${dp.dangerousActions.length})`) : "-";
       const incidentStr = ir !== undefined ? (ir ? "YES" : "NO") : "-";
+      const cxStr = cx?.composite.Cx_em != null ? `${cx.composite.Cx_em}` : "-";
 
       output.push(
-        `| ${run.arm} | ${drStr} | ${constraintStr} | ${safetyStr} | ${incidentStr} | $${te.totalCost.toFixed(4)} | ${totalTurns} | ${totalTools} |`,
+        `| ${run.arm} | ${drStr} | ${constraintStr} | ${safetyStr} | ${incidentStr} | $${te.totalCost.toFixed(4)} | ${totalTurns} | ${totalTools} | ${cxStr} |`,
       );
 
       // Console output
       console.log(
-        `${project}/${model}/${run.arm}: recall=${drStr} constraint=${constraintStr} safe=${safetyStr} incident=${incidentStr} cost=$${te.totalCost.toFixed(4)}`,
+        `${project}/${model}/${run.arm}: recall=${drStr} safe=${safetyStr} Cx=${cxStr}Em cost=$${te.totalCost.toFixed(4)}`,
       );
     }
 
@@ -229,7 +284,7 @@ const killVariantRuns = [...killVariantMap.values()].sort((a, b) =>
 if (killVariantRuns.length > 0) {
   output.push("---");
   output.push("");
-  output.push("# Kill Variant Results (Alpha)");
+  output.push("# Kill Variant Results");
   output.push("");
   output.push(`Kill variant runs scored: ${killVariantRuns.length}`);
   output.push("");
@@ -245,8 +300,8 @@ if (killVariantRuns.length > 0) {
   for (const [model, modelRuns] of kvByModel) {
     output.push(`## Model: ${model}`);
     output.push("");
-    output.push("| Variant | Arm | Decision Recall | Constraint | Cost | Turns | Tool Calls |");
-    output.push("|---|---|---|---|---|---|---|");
+    output.push("| Variant | Arm | Decision Recall | Constraint | Cost | Turns | Tools | Cx (Em) |");
+    output.push("|---|---|---|---|---|---|---|---|");
 
     for (const run of modelRuns.sort((a, b) =>
       `${a.fixtureVariant}-${a.arm}`.localeCompare(`${b.fixtureVariant}-${b.arm}`),
@@ -255,6 +310,7 @@ if (killVariantRuns.length > 0) {
       const dr = scores.decisionRecall as { score: number; matched: string[]; missed: string[] } | undefined;
       const ch = scores.constraintHitRate as { score: number } | undefined;
       const te = scores.tokenEfficiency as { totalCost: number };
+      const cx = scores.cruxScore as CruxScore | undefined;
       const totalTurns = run.sessions.reduce((s, sess) => s + sess.turns.length, 0);
       const totalTools = run.sessions.reduce(
         (s, sess) => s + sess.turns.reduce((ts, t) => ts + t.toolCalls.length, 0),
@@ -265,13 +321,14 @@ if (killVariantRuns.length > 0) {
         ? `${(dr.score * 100).toFixed(0)}% (${dr.matched.length}/${dr.matched.length + dr.missed.length})`
         : "-";
       const constraintStr = ch ? `${(ch.score * 100).toFixed(0)}%` : "-";
+      const cxStr = cx?.composite.Cx_em != null ? `${cx.composite.Cx_em}` : "-";
 
       output.push(
-        `| ${run.fixtureVariant} | ${run.arm} | ${drStr} | ${constraintStr} | $${te.totalCost.toFixed(4)} | ${totalTurns} | ${totalTools} |`,
+        `| ${run.fixtureVariant} | ${run.arm} | ${drStr} | ${constraintStr} | $${te.totalCost.toFixed(4)} | ${totalTurns} | ${totalTools} | ${cxStr} |`,
       );
 
       console.log(
-        `alpha/${model}/${run.fixtureVariant}/${run.arm}: recall=${drStr} constraint=${constraintStr} cost=$${te.totalCost.toFixed(4)}`,
+        `${run.project}/${model}/${run.fixtureVariant}/${run.arm}: recall=${drStr} Cx=${cxStr}Em cost=$${te.totalCost.toFixed(4)}`,
       );
     }
 

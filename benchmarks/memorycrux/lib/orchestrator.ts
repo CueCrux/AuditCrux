@@ -3,6 +3,7 @@
 // Core loop: fixture → arm config → LLM conversation → tool proxy → telemetry → output
 
 import { randomUUID } from "node:crypto";
+import { execSync } from "node:child_process";
 import type {
   BenchConfig,
   RunManifest,
@@ -18,12 +19,32 @@ import type {
 import type { LlmAdapter, Message, ToolDef } from "./llm/adapter.js";
 import { createAdapter } from "./llm/factory.js";
 import { estimateCost } from "./llm/cost.js";
-import { getToolDefsForBenchmark } from "./llm/tool-bridge.js";
+import { getToolDefsForBenchmark, getFileToolDefs, getCompoundToolDefs } from "./llm/tool-bridge.js";
 import { McProxy } from "./mc-proxy.js";
+import { FileProxy } from "./file-proxy.js";
+import { CompoundProxy } from "./compound-proxy.js";
 import { seedCorpus } from "./corpus-seeder.js";
 import { buildFlatContext } from "./flat-context.js";
-import { flatContextSystemPrompt, memoryCruxSystemPrompt, BENCHMARK_TOOLS } from "../fixtures/_shared/system-prompts.js";
+import { flatContextSystemPrompt, memoryCruxSystemPrompt, fileBasedSystemPrompt, compoundSystemPrompt, BENCHMARK_TOOLS } from "../fixtures/_shared/system-prompts.js";
 import { getModelProvider } from "./arms.js";
+
+/** Unified interface for tool routing (McProxy or FileProxy) */
+interface ToolRouter {
+  callTool(name: string, args: Record<string, unknown>): Promise<import("./types.js").ToolCallRecord>;
+}
+
+/** Auto-provision benchmark tenant in VaultCrux Postgres (rate limiter FK requires it). */
+async function ensureBenchTenant(_config: BenchConfig, tenantId: string): Promise<void> {
+  try {
+    const sql = `INSERT INTO tenants (id, name) VALUES ('${tenantId}', 'MemoryCrux Benchmark ${tenantId}') ON CONFLICT (id) DO NOTHING;`;
+    execSync(`docker exec vaultcrux-postgres psql -U vaultcrux -d vaultcrux -c "${sql}"`, {
+      timeout: 5000,
+      stdio: "pipe",
+    });
+  } catch (err) {
+    console.warn(`  Warning: could not auto-provision tenant ${tenantId}:`, err instanceof Error ? err.message : err);
+  }
+}
 
 export interface OrchestratorResult {
   summary: RunSummary;
@@ -39,12 +60,17 @@ export async function executeRun(
   const adapter = createAdapter(manifest.model, config);
   const armConfig = manifest.armConfig;
   const isMemoryCrux = armConfig.mode === "memorycrux";
+  const isCompound = armConfig.mode === "compound";
+  const isFileBased = armConfig.mode === "file_based";
+  const needsVaultCrux = isMemoryCrux || isCompound;
 
-  // Prepare MC proxy for treatment arms
+  // Prepare tool router and defs for non-flat arms
+  let toolRouter: ToolRouter | undefined;
   let mcProxy: McProxy | undefined;
+  let fileProxy: FileProxy | undefined;
   let toolDefs: ToolDef[] | undefined;
 
-  if (isMemoryCrux) {
+  if (needsVaultCrux) {
     mcProxy = McProxy.fromConfig(config, `${manifest.project}_${manifest.arm}_${manifest.variant}`);
 
     // Probe VaultCrux
@@ -52,6 +78,9 @@ export async function executeRun(
     if (!alive) {
       throw new Error(`VaultCrux API not reachable at ${config.vaultcruxApiBase}`);
     }
+
+    // Ensure tenant exists (rate limiter FK requires it)
+    await ensureBenchTenant(config, mcProxy.tenantId);
 
     // Seed corpus
     console.log("  Seeding MemoryCrux corpus...");
@@ -61,7 +90,19 @@ export async function executeRun(
       console.warn(`  WARNING: ${seedResult.documentsFailed} doc failures, ${seedResult.constraintsFailed} constraint failures`);
     }
 
-    toolDefs = getToolDefsForBenchmark();
+    if (isCompound) {
+      toolRouter = new CompoundProxy(mcProxy);
+      toolDefs = getCompoundToolDefs();
+      console.log("  Compound arm: 4 smart tools wrapping VaultCrux API");
+    } else {
+      toolRouter = mcProxy;
+      toolDefs = getToolDefsForBenchmark();
+    }
+  } else if (isFileBased) {
+    fileProxy = new FileProxy(fixture);
+    toolRouter = fileProxy;
+    toolDefs = getFileToolDefs();
+    console.log("  File-based arm: corpus materialised as in-memory file tree");
   }
 
   // Determine kill variant
@@ -80,10 +121,14 @@ export async function executeRun(
       manifest,
       adapter,
       mcProxy,
+      toolRouter,
       toolDefs,
       config,
       killVariant,
       isMemoryCrux,
+      isCompound,
+      isFileBased,
+      fileProxy,
     });
 
     sessions.push(session);
@@ -92,7 +137,7 @@ export async function executeRun(
     // Check for kill after this phase
     if (killVariant && killVariant.killAfterPhase === phase.index) {
       console.log(`  [KILL] ${killVariant.label} after phase ${phase.index}`);
-      if (killVariant.type === "graceful" && isMemoryCrux && mcProxy) {
+      if (killVariant.type === "graceful" && needsVaultCrux && mcProxy) {
         // Graceful: checkpoint before kill
         console.log("  [CHECKPOINT] Creating graceful handoff checkpoint...");
         await mcProxy.callTool("checkpoint_decision_state", {
@@ -152,30 +197,51 @@ interface PhaseContext {
   manifest: RunManifest;
   adapter: LlmAdapter;
   mcProxy?: McProxy;
+  toolRouter?: ToolRouter;
   toolDefs?: ToolDef[];
   config: BenchConfig;
   killVariant?: KillVariant;
   isMemoryCrux: boolean;
+  isCompound: boolean;
+  isFileBased: boolean;
+  fileProxy?: FileProxy;
 }
 
 async function executePhase(ctx: PhaseContext): Promise<SessionRecord> {
   const sessionId = randomUUID();
   const turns: TurnTelemetry[] = [];
   const outputParts: string[] = [];
+  const phaseStartTime = Date.now();
+  let firstSubstantiveActionMs: number | undefined;
 
   // Build system prompt
-  const systemPrompt = ctx.isMemoryCrux
-    ? memoryCruxSystemPrompt({
-        capTokens: ctx.manifest.armConfig.contextCapTokens,
-        projectContext: `Project: ${ctx.fixture.project}, Phase: ${ctx.phase.name}`,
-        availableTools: [...BENCHMARK_TOOLS],
-      })
-    : flatContextSystemPrompt({
-        corpus: ctx.fixture.corpus,
-        constraints: ctx.fixture.constraints,
-        capTokens: ctx.manifest.armConfig.contextCapTokens,
-        projectContext: `Project: ${ctx.fixture.project}, Phase: ${ctx.phase.name}`,
-      });
+  const projectContext = `Project: ${ctx.fixture.project}, Phase: ${ctx.phase.name}`;
+  let systemPrompt: string;
+
+  if (ctx.isCompound) {
+    systemPrompt = compoundSystemPrompt({
+      capTokens: ctx.manifest.armConfig.contextCapTokens,
+      projectContext,
+    });
+  } else if (ctx.isMemoryCrux) {
+    systemPrompt = memoryCruxSystemPrompt({
+      capTokens: ctx.manifest.armConfig.contextCapTokens,
+      projectContext,
+      availableTools: [...BENCHMARK_TOOLS],
+    });
+  } else if (ctx.isFileBased && ctx.fileProxy) {
+    systemPrompt = fileBasedSystemPrompt({
+      memoryIndex: ctx.fileProxy.getMemoryIndex(),
+      projectContext,
+    });
+  } else {
+    systemPrompt = flatContextSystemPrompt({
+      corpus: ctx.fixture.corpus,
+      constraints: ctx.fixture.constraints,
+      capTokens: ctx.manifest.armConfig.contextCapTokens,
+      projectContext,
+    });
+  }
 
   // Build initial messages
   const messages: Message[] = [
@@ -188,8 +254,8 @@ async function executePhase(ctx: PhaseContext): Promise<SessionRecord> {
   while (turnIndex < ctx.config.maxTurnsPerPhase) {
     const result = await ctx.adapter.chat(
       messages,
-      ctx.isMemoryCrux ? ctx.toolDefs : undefined,
-      { maxTokens: 4096, temperature: 0.3 },
+      ctx.toolDefs,
+      { maxTokens: 16384, temperature: 0.3 },
     );
 
     const toolCallRecords: ToolCallRecord[] = [];
@@ -210,8 +276,15 @@ async function executePhase(ctx: PhaseContext): Promise<SessionRecord> {
       outputParts.push(result.content);
     }
 
+    // Track first substantive action (tool call or non-trivial content)
+    if (firstSubstantiveActionMs == null) {
+      if (result.toolUse.length > 0 || (result.content && result.content.trim().length > 50)) {
+        firstSubstantiveActionMs = Date.now() - phaseStartTime;
+      }
+    }
+
     // Handle tool calls
-    if (result.toolUse.length > 0 && ctx.mcProxy) {
+    if (result.toolUse.length > 0 && ctx.toolRouter) {
       // Add assistant message with tool calls to conversation
       messages.push({
         role: "assistant",
@@ -219,9 +292,9 @@ async function executePhase(ctx: PhaseContext): Promise<SessionRecord> {
         toolCalls: result.toolUse,
       });
 
-      // Execute each tool call
+      // Execute each tool call via the active router
       for (const tc of result.toolUse) {
-        const record = await ctx.mcProxy.callTool(tc.name, tc.input);
+        const record = await ctx.toolRouter.callTool(tc.name, tc.input);
         toolCallRecords.push(record);
 
         // Add tool result to conversation
@@ -262,6 +335,7 @@ async function executePhase(ctx: PhaseContext): Promise<SessionRecord> {
     turns,
     killType: ctx.killVariant?.type as SessionRecord["killType"],
     output: outputParts.join("\n\n"),
+    firstSubstantiveActionMs,
   };
 }
 

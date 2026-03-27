@@ -207,8 +207,269 @@ export const MEMORYCRUX_TOOL_DEFS: ToolDef[] = [
       required: [],
     },
   },
+  // --- M1: 7 newly wired tools ---
+  {
+    name: "get_freshness_report",
+    description: "Get a freshness report showing how current your knowledge is across topics. Identifies stale information that may need updating.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        limit: { type: "number", description: "Max items to return" },
+        stale_after_days: { type: "number", description: "Days after which knowledge is considered stale" },
+      },
+      required: [],
+    },
+  },
+  {
+    name: "check_claim",
+    description: "Validate a specific claim or statement against memory records. Returns supporting and contradicting evidence.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        claim_text: { type: "string", description: "The claim to verify against memory" },
+        limit: { type: "number", description: "Max evidence items to return" },
+      },
+      required: ["claim_text"],
+    },
+  },
+  {
+    name: "get_contradictions",
+    description: "Detect contradictions across memory records. Surfaces conflicting information that should be resolved before acting.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        limit: { type: "number", description: "Max contradictions to return" },
+      },
+      required: [],
+    },
+  },
+  {
+    name: "get_causal_chain",
+    description: "Retrieve the causal chain (DAG) of a decision — what receipts, cursors, and prior decisions led to it.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        decision_id: { type: "string", description: "Decision ID to trace the causal chain for" },
+      },
+      required: ["decision_id"],
+    },
+  },
+  {
+    name: "reconstruct_knowledge_state",
+    description: "Time-travel: reconstruct what was known at the time a decision was made, including superseded artifacts.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        decision_id: { type: "string", description: "Decision ID to reconstruct state for" },
+        at_timestamp: { type: "string", description: "ISO timestamp to reconstruct state at" },
+        include_superseded: { type: "boolean", description: "Include superseded artifacts (default false)" },
+      },
+      required: ["decision_id"],
+    },
+  },
+  {
+    name: "get_decisions_on_stale_context",
+    description: "Flag decisions that were made on outdated memory. Identifies risky decisions that should be re-evaluated.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        session_id: { type: "string", description: "Session ID to check for stale-context decisions" },
+      },
+      required: ["session_id"],
+    },
+  },
+  {
+    name: "get_correction_chain",
+    description: "Show how a decision was revised or superseded over time. Traces the correction history.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        decision_id: { type: "string", description: "Decision ID to trace corrections for" },
+      },
+      required: ["decision_id"],
+    },
+  },
+];
+
+// ---------- File-based arm tools (F1) ----------
+
+export const FILE_TOOL_DEFS: ToolDef[] = [
+  {
+    name: "search_files",
+    description: "Search for files by name pattern. Returns matching file paths.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        pattern: { type: "string", description: "Substring to match against file paths (case-insensitive)" },
+      },
+      required: ["pattern"],
+    },
+  },
+  {
+    name: "read_file",
+    description: "Read the full contents of a file.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        path: { type: "string", description: "Path to the file to read" },
+      },
+      required: ["path"],
+    },
+  },
+  {
+    name: "search_content",
+    description: "Search across all files for a text query. Returns matching lines with file paths and line numbers.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Text to search for (case-insensitive substring match)" },
+        glob: { type: "string", description: "Optional path filter (e.g., 'constraints' to search only constraint files)" },
+      },
+      required: ["query"],
+    },
+  },
+];
+
+// ---------- Compound arm tools (T3) ----------
+
+export const COMPOUND_TOOL_DEFS: ToolDef[] = [
+  {
+    name: "brief_me",
+    description:
+      "Get a complete briefing for your current task. Returns relevant context, active constraints, prior session checkpoints, coverage gaps, freshness report, and any contradictions — all in one call. Use this at the start of every session.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        task_description: {
+          type: "string",
+          description: "Description of the current task or goal",
+        },
+        token_budget: {
+          type: "number",
+          description: "Max tokens for the context briefing (default 8000)",
+        },
+        session_id: {
+          type: "string",
+          description: "Prior session ID to retrieve checkpoints from (if resuming work)",
+        },
+      },
+      required: ["task_description"],
+    },
+  },
+  {
+    name: "search",
+    description:
+      "Search organisational memory for knowledge, decisions, and documents. Optionally verify a specific claim against memory or browse available topics.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: {
+          type: "string",
+          description: "Natural language search query",
+        },
+        limit: {
+          type: "number",
+          description: "Max results to return (default 10)",
+        },
+        topic: {
+          type: "string",
+          description: "Optional topic filter to narrow results",
+        },
+        verify_claim: {
+          type: "string",
+          description: "A specific claim to verify against memory (returns supporting + contradicting evidence)",
+        },
+        browse_topics: {
+          type: "boolean",
+          description: "Also return available memory topics (default false)",
+        },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "safe_to_proceed",
+    description:
+      "Check whether a planned action is safe. Validates against active constraints and runs a composite safety assessment. Returns a go/no-go verdict. Use this before any destructive, high-risk, or irreversible action.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        action: {
+          type: "string",
+          description: "Description of the planned action",
+        },
+        resource: {
+          type: "string",
+          description: "Target resource (e.g., database name, service, server)",
+        },
+        is_mutation: {
+          type: "boolean",
+          description: "Whether this action modifies state (default false)",
+        },
+      },
+      required: ["action"],
+    },
+  },
+  {
+    name: "save_decision",
+    description:
+      "Record a decision with its reasoning so it persists across session boundaries. Optionally creates a checkpoint of the current session state. Use this after every significant architectural or design decision.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        decision: {
+          type: "string",
+          description: "The decision that was made",
+        },
+        reasoning: {
+          type: "string",
+          description: "Why this decision was made",
+        },
+        alternatives: {
+          type: "array",
+          items: { type: "string" },
+          description: "Alternatives that were considered",
+        },
+        context: {
+          type: "string",
+          description: "Relevant context at time of decision",
+        },
+        tags: {
+          type: "array",
+          items: { type: "string" },
+          description: "Tags for categorisation",
+        },
+        session_id: {
+          type: "string",
+          description: "Current session ID (needed for checkpointing)",
+        },
+        checkpoint: {
+          type: "boolean",
+          description: "Also create a session checkpoint (default false)",
+        },
+        checkpoint_summary: {
+          type: "string",
+          description: "Summary for the checkpoint (defaults to the decision text)",
+        },
+        open_questions: {
+          type: "array",
+          items: { type: "string" },
+          description: "Unresolved questions to carry forward",
+        },
+      },
+      required: ["decision", "reasoning"],
+    },
+  },
 ];
 
 export function getToolDefsForBenchmark(): ToolDef[] {
   return MEMORYCRUX_TOOL_DEFS;
+}
+
+export function getFileToolDefs(): ToolDef[] {
+  return FILE_TOOL_DEFS;
+}
+
+export function getCompoundToolDefs(): ToolDef[] {
+  return COMPOUND_TOOL_DEFS;
 }

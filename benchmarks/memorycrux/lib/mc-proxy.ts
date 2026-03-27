@@ -173,6 +173,56 @@ const TOOL_ROUTES: Record<string, ToolRoute> = {
       return q;
     },
   },
+  // --- M1: 7 newly wired tools ---
+  get_freshness_report: {
+    method: "GET",
+    path: "/v1/memory/freshness",
+    buildQuery: (args) => {
+      const q: Record<string, string> = {};
+      if (args.limit) q.limit = String(args.limit);
+      if (args.stale_after_days) q.stale_after_days = String(args.stale_after_days);
+      return q;
+    },
+  },
+  check_claim: {
+    method: "POST",
+    path: "/v1/memory/claim-check",
+    buildBody: (args) => ({
+      claim_text: args.claim_text,
+      limit: args.limit,
+    }),
+  },
+  get_contradictions: {
+    method: "GET",
+    path: "/v1/memory/contradictions",
+    buildQuery: (args) => {
+      const q: Record<string, string> = {};
+      if (args.limit) q.limit = String(args.limit);
+      return q;
+    },
+  },
+  get_causal_chain: {
+    method: "GET",
+    path: (args) => `/v1/memory/decisions/causal-chain/${encodeURIComponent(String(args.decision_id))}`,
+  },
+  reconstruct_knowledge_state: {
+    method: "GET",
+    path: (args) => `/v1/memory/decisions/reconstruct/${encodeURIComponent(String(args.decision_id))}`,
+    buildQuery: (args) => {
+      const q: Record<string, string> = {};
+      if (args.at_timestamp) q.at_timestamp = String(args.at_timestamp);
+      if (args.include_superseded != null) q.include_superseded = String(args.include_superseded);
+      return q;
+    },
+  },
+  get_decisions_on_stale_context: {
+    method: "GET",
+    path: (args) => `/v1/memory/decisions/stale-context/${encodeURIComponent(String(args.session_id))}`,
+  },
+  get_correction_chain: {
+    method: "GET",
+    path: (args) => `/v1/memory/decisions/correction-chain/${encodeURIComponent(String(args.decision_id))}`,
+  },
 };
 
 export class McProxy {
@@ -312,6 +362,10 @@ export class McProxy {
       console.error(`    seedConstraint ${c.id} error:`, err instanceof Error ? err.message : err);
       return false;
     }
+  }
+
+  get tenantId(): string {
+    return this.config.tenantId;
   }
 
   async probe(): Promise<boolean> {

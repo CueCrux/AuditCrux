@@ -5,6 +5,7 @@
     {
       "index": 1,
       "name": "Auth Module Design",
+      "T_human_s": 1800,
       "taskPrompt": "You are building the Payments API. Your first task is to design and implement the authentication module.\n\nReview the API specification, security review findings, and any prior team decisions. Then:\n\n1. Confirm the token signing algorithm and justify your choice.\n2. Design the JWT token structure (claims, expiry, refresh strategy).\n3. Outline the token validation middleware.\n4. Document your decisions clearly so a future developer can understand the reasoning.\n\nProduce your design as an ADR (Architecture Decision Record) with Status, Context, Decision, and Consequences sections.",
       "newDocuments": ["mc-alpha-spec", "mc-alpha-security-review", "mc-alpha-pci-summary", "mc-alpha-team-decisions"],
       "newConstraints": ["mc-alpha-c1"],
@@ -14,6 +15,7 @@
     {
       "index": 2,
       "name": "Rate Limiting Implementation",
+      "T_human_s": 1200,
       "taskPrompt": "Continue building the Payments API. Your second task is to implement rate limiting.\n\nReview the API specification and any prior decisions about the auth module. Then:\n\n1. Choose and justify a rate limiting algorithm.\n2. Design the rate limit response headers.\n3. Handle the interaction between rate limiting and authentication (limits per user vs per API key).\n4. Ensure your implementation is consistent with prior architectural decisions.\n\nProduce your design as an ADR.",
       "newDocuments": ["mc-alpha-adr-1", "mc-alpha-adr-2", "mc-alpha-integration-guide"],
       "newConstraints": ["mc-alpha-c2", "mc-alpha-c4"],
@@ -23,6 +25,7 @@
     {
       "index": 3,
       "name": "Error Handling Refactor",
+      "T_human_s": 1200,
       "taskPrompt": "Continue building the Payments API. Your third task is to refactor error handling across the entire API.\n\nReview ALL prior decisions from Phase 1 (authentication) and Phase 2 (rate limiting). Then:\n\n1. Design a global error handling strategy that is consistent with ALL prior ADRs.\n2. Ensure rate limit errors include the required headers.\n3. Ensure authentication errors distinguish between 401 and 403.\n4. Ensure all error responses use the agreed-upon format.\n5. Verify that your design respects ALL critical constraints.\n\nProduce:\n- A refactored error handling design\n- A checklist verifying consistency with all prior decisions\n- A deployment readiness assessment",
       "newDocuments": ["mc-alpha-adr-3", "mc-alpha-error-handling-patterns", "mc-alpha-deployment-runbook"],
       "newConstraints": ["mc-alpha-c3"],

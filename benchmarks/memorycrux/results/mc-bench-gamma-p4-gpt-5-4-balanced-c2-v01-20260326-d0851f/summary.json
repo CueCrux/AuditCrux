@@ -1,0 +1,132 @@
+{
+  "runId": "mc-bench-gamma-p4-gpt-5-4-balanced-c2-v01-20260326-d0851f",
+  "project": "gamma",
+  "fixtureVariant": "v01",
+  "phase": 4,
+  "arm": "C2",
+  "timestamp": "2026-03-26T21:32:27.266Z",
+  "durationSeconds": 295.26,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 1000000
+  },
+  "usage": {
+    "inputTokens": 423787,
+    "outputTokens": 20437,
+    "cachedTokens": 157440,
+    "billableTokens": 444224,
+    "estimatedCostUsd": 1.0670375
+  },
+  "sessions": [
+    {
+      "sessionId": "7ee32357-1521-4711-8c95-e4bbcc8a6d14",
+      "phaseIndex": 1,
+      "phaseName": "Design Event Schema",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 84743,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 51058,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    },
+    {
+      "sessionId": "27067d6d-804e-46e2-89c1-05623db18de6",
+      "phaseIndex": 2,
+      "phaseName": "Implement Consumer Service",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 84724,
+          "outputTokens": 4053,
+          "cachedTokens": 31488,
+          "latencyMs": 54204,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "# Service Specification: Order Enrichment Consumer Service (`order-enrichment`)\n\n## Status\nProposed for Gamma / Phase: Implement Consumer Service\n\n## Reviewed Phase 1 Decisions and Constraints\n\nThis design is based on the accepted platform decisions and current constraints:\n\n- **Kafka is the event backbone** using Confluent Platform 7.6, KRaft, RF=3, `min.insync.replicas=2` minimum for production topics.\n- **Serialization standard is Avro + Confluent Schema Registry** for production topics.\n- **Schema compatibility minimum is BACKWARD**, with automated compatibility checks before registration.\n- **Breaking schema changes require a new topic and 30-day deprecation period**.\n- **Standard Event Envelope v2.1** is mandatory for all events.\n- **Current Kafka retention policy is 48 hours for normal event topics** per ADR-007.\n- **Exactly-once is mandatory for payment-related events only**; this service is for order enrichment, so default processing can be at-least-once unless it consumes payment topics.\n- **PII Level 2+ must be encrypted at rest using Vault Transit and masked in logs**.\n- **Tier 1/Tier 2 lag objective must remain under 5 minutes under normal operations**.\n- **Current standard remains Avro**, not Protobuf, for server-side services.\n\nThis service design assumes `order-enrichment` is a **server-side consumer** processing order-domain events, so it uses **Avro**, not Protobuf.\n\n---\n\n# 1. Architecture\n\n## 1.1 Purpose\n\nThe `order-enrichment` service consumes canonical order events from Kafka, enriches them with reference and operational data, and publishes enriched order events for downstream consumers such as:\n\n- fulfillment\n- analytics\n- customer operations\n- query/materialized view services\n\nTypical source topic:\n\n- `edp.events.ecommerce.orders`\n\nTypical output topic:\n\n- `edp.events.order.enriched-orders`\n\nIf the platform prefers entity naming over compound names, the output may instead be:\n\n- `edp.events.order.orders_enriched`\n\nThe final topic name should follow the approved naming convention:\n`edp.events.{source}.{entity}`\n\n## 1.2 High-Level Flow\n\n1. Consume `EventEnvelope` records from the source order topic.\n2. Deserialize envelope and Avro payload using Schema Registry.\n3. Validate envelope and payload.\n4. Extract enrichment keys.\n5. Perform lookups against configured data sources.\n6. Build enriched payload.\n7. Produce a new enriched event envelope to the output topic.\n8. Commit offsets only after successful processing.\n\n## 1.3 Consumer Group Strategy\n\nPer ADR-005 and platform conventions:\n\n- **One consumer group per service**\n- Consumer group name:\n  - `order-enrichment-consumer`\n- Partition assignment strategy:\n  - `CooperativeStickyAssignor`\n- `enable.auto.commit=false`\n- `max.poll.interval.ms=300000`\n- `session.timeout.ms=30000`\n- `isolation.level=read_committed`\n\nEven though this service is not a payment processor, `read_committed` is still preferred so it does not observe aborted transactional writes from upstream services.\n\n## 1.4 Topic Strategy\n\n### Input Topic\n- `edp.events.ecommerce.orders`\n- Avro-serialized `EventEnvelope`\n- Retention: **48 hours** unless explicitly classified otherwise\n- RF >= 3\n- `min.insync.replicas >= 2`\n\n### Output Topic\n- `edp.events.order.enriched-orders`\n- Avro-serialized `EventEnvelope`\n- Retention: **48 hours** unless downstream compliance requires otherwise\n- RF >= 3\n- `min.insync.replicas >= 2`\n\n### DLQ Topic\n- `edp.dlq.order-enrichment`\n- Retention: **30 days** per ADR-005 DLQ guidance / ADR-007 exception\n- RF >= 3\n- `min.insync.replicas >= 2`\n\nOptional retry topics, if implemented:\n- `edp.retry.order-enrichment.orders.1m`\n- `edp.retry.order-enrichment.orders.15m`\n\nThese are optional because ADR-005 explicitly standardizes 3 attempts then DLQ; if retry topics are used, they must still preserve that policy envelope.\n\n## 1.5 Internal Components\n\n### Consumer Worker\n- Polls Kafka\n- Deserializes envelope and payload\n- Manages offset lifecycle\n\n### Schema Resolver\n- Uses Confluent Schema Registry\n- Caches schemas locally\n- Validates schema ID and payload compatibility\n\n### Enrichment Orchestrator\n- Determines required lookups per event type\n- Applies timeout budgets\n- Merges lookup results into enriched payload\n\n### Lookup Clients\nExpected sources:\n- PostgreSQL reference/operational tables\n- Redis cache for hot reference data\n- Optional internal gRPC/HTTP service for customer/profile/tax/region metadata\n\n### Producer\n- Publishes enriched event\n- Uses idempotent producer settings:\n  - `acks=all`\n  - `enable.idempotence=true`\n  - retries enabled\n- Not transactional by default, because this service is not in the payment exactly-once path\n\n## 1.6 Enrichment Data Sources\n\nThe service should enrich orders using only approved, minimal data needed for downstream use.\n\nRecommended sources:\n\n### PostgreSQL\nPrimary source for durable reference/operational data:\n- customer tier / segment\n- tenant configuration\n- fulfillment routing metadata\n- region/tax classification\n- product/category reference if not already present\n\n### Redis\nRead-through or precomputed cache for:\n- customer tier\n- product category\n- shipping SLA profile\n- tenant feature flags\n\n### Optional Internal Service\nIf some enrichment is owned elsewhere:\n- customer profile service\n- pricing/tax service\n- inventory availability service\n\nUse only if latency and availability are acceptable. Prefer PostgreSQL/Redis for deterministic enrichment.\n\n## 1.7 Enrichment Model\n\nExample enrichments:\n- customer tier\n- customer region\n- normalized shipping zone\n- item category rollups\n- fulfillment priority\n- fraud-review flag from prior order metadata\n- tenant-specific routing tags\n\nThe service should distinguish:\n\n- **required enrichments**: needed for correctness of downstream processing\n- **optional enrichments**: useful but non-blocking\n\nThis distinction drives failure handling.\n\n---\n\n# 2. Processing Guarantees\n\n## 2.1 Delivery Semantics\n\nFor `order-enrichment`, the recommended guarantee is:\n\n- **At-least-once processing**\n\nRationale:\n- This is not a payment-domain service.\n- ADR-005 reserves full exactly-once for financial transaction processing.\n- Enrichment is deterministic and should be made idempotent downstream.\n\n## 2.2 Idempotency\n\nEven with at-least-once delivery, the service should minimize duplicate outputs.\n\nRecommended idempotency key:\n- input `event_id` + output event type\n\nExample:\n- `order-enrichment:{input_event_id}`\n\nStore dedup state in:\n- PostgreSQL table in service schema, or\n- `platform.idempotency_keys` if shared access is approved\n\nBecause the platform data model already includes `platform.idempotency_keys`, reuse is acceptable if access policy permits. Otherwise create a service-local table.\n\nMinimum retention for dedup keys:\n- **>= 48 hours**, matching Kafka replay window\n- Prefer **7 days** to cover delayed reprocessing and operational replay\n\nThis is consistent with lessons from prior incidents involving duplicate processing.\n\n## 2.3 Offset Commit Strategy\n\n- `enable.auto.commit=false`\n- Process batch\n- For each record:\n  - validate\n  - enrich\n  - produce output\n- Commit offsets only after successful produce of all processed records in the batch\n\nIf batch-level commit is too coarse, commit per processed sub-batch.\n\n## 2.4 Ordering\n\n- Ordering is preserved **within a partition**\n- Partition key should remain the order ID / entity ID\n- Output events should use the same `partition_key` as the input order entity to preserve per-order ordering downstream\n\n## 2.5 Schema Evolution Handling\n\nBecause Phase 1 established:\n- Avro\n- Schema Registry\n- BACKWARD compatibility minimum\n- breaking changes require new topic\n\nthe service handles schema evolution as follows.\n\n### When the Order schema adds new optional fields\nIf a producer adds a new optional field with a default:\n- existing consumer code continues to deserialize old known fields\n- unknown fields are ignored unless the generated model is updated\n- no immediate outage expected\n\n### Consumer behavior\nThe service should:\n1. Read the envelope schema version and payload schema ID.\n2. Deserialize using Schema Registry.\n3. If the new field is not used by enrichment logic:\n   - processing continues unchanged.\n4. If the new field becomes relevant to enrichment:\n   - deploy updated consumer code to use it.\n5. If a field is absent in older events:\n   - use schema defaults or service defaults.\n\n### Required implementation approach\nPrefer one of:\n- Avro `GenericRecord` + mapper with tolerant field access, or\n- generated Avro classes with explicit null/default handling\n\nFor resilience, `GenericRecord` or a tolerant mapping layer is preferred in enrichment services.\n\n### Breaking changes\nIf upstream introduces a breaking schema change:\n- it must go to a **new topic**, per ADR-002\n- this service must subscribe to the new topic only after code support is added\n- old topic remains during the 30-day deprecation period\n\n### Schema Registry outage behavior\nGiven prior incidents, the service should:\n- cache schemas locally\n- continue processing records whose schema IDs are already cached\n- fail records requiring uncached schemas\n- expose degraded health if Schema Registry is unavailable\n\nThis is consistent with the platform FAQ and outage lessons.\n\n---\n\n# 3. Error Handling\n\n## 3.1 Retry Strategy\n\nUse a 3-stage strategy aligned to platform guidance, but capped to ADR-005 policy:\n\n### Level 1: In-memory retry\n- 3 attempts total\n- exponential backoff: 100ms, 500ms, 1s\n- used for transient failures:\n  - Redis timeout\n  - PostgreSQL connection blip\n  - temporary HTTP 5xx from enrichment service\n\n### Level 2: Optional retry topic\nUse only for transient dependency failures that are likely to recover soon and where delayed enrichment is acceptable.\n\nSuggested retry delays:\n- 1 minute\n- 15 minutes\n\nDo not exceed the platform rule that events failing processing 3 times are routed to DLQ unless the retry-topic attempt model is counted within those 3 attempts.\n\nRecommended interpretation:\n- total attempts across immediate + delayed retries = 3\n\n### Level 3: DLQ\nAfter 3 failed attempts:\n- publish to `edp.dlq.order-enrichment`\n\n## 3.2 Failure Classification\n\n### Non-retryable failures\nSend directly to DLQ:\n- invalid envelope\n- Avro deserialization failure for malformed payload\n- missing required business key (e.g. order_id)\n- unsupported event type\n- poison pill / deterministic mapping bug\n- schema mismatch that code cannot interpret\n\n### Retryable failures\nRetry first, then DLQ:\n- PostgreSQL timeout\n- Redis unavailable\n- transient network error\n- HTTP/gRPC 5xx from enrichment dependency\n- Kafka produce timeout\n\n## 3.3 Lookup Failure Handling\n\nThe enrichment pipeline must classify lookups as **required** or **optional**.\n\n### Required lookup fails\nExamples:\n- tenant routing config\n- customer region needed for fulfillment routing\n\nBehavior:\n- retry\n- if still failing after max attempts, DLQ\n\n### Optional lookup fails\nExamples:\n- customer marketing segment\n- non-critical product category label\n\nBehavior:\n- continue processing with:\n  - null/default enrichment field\n  - metadata flag such as `enrichment.partial=true`\n  - metadata list of failed enrichments\n\nThis avoids unnecessary lag and DLQ growth for low-value enrichment misses.\n\n## 3.4 Poison Pill Detection\n\nA poison pill is an event that deterministically fails processing.\n\nDetection rules:\n- same `event_id` or same topic/partition/offset fails 3 consecutive times with the same non-transient error signature\n- classify as poison pill\n- send directly to DLQ\n- continue processing subsequent records\n\nDLQ payload should include:\n- original envelope\n- original topic\n- partition\n- offset\n- error type\n- error message\n- stack trace hash or error fingerprint\n- attempt count\n- timestamp\n- failed enrichment stage(s)\n\n## 3.5 DLQ Event Design\n\nDLQ topic:\n- `edp.dlq.order-enrichment`\n\nDLQ record should include:\n- original event envelope bytes or decoded payload\n- source topic\n- source partition\n- source offset\n- consumer group\n- processing attempts\n- first failure timestamp\n- last failure timestamp\n- error classification (`retryable`, `non_retryable`, `poison_pill`)\n- error message\n- failed dependency name if applicable\n\nReserved metadata keys should include:\n- `edp.original_topic`\n- `edp.retry_count`\n- `edp.dead_lettered_at`\n\n## 3.6 Logging and PII Safety\n\nLogs must be structured JSON and include:\n- `trace_id`\n- `event_id`\n- `correlation_id`\n- topic / partition / offset\n- processing duration\n- enrichment outcome\n\nDo **not** log raw PII Level 2+ fields.\nIf order payload includes email, phone, or address:\n- mask in logs\n- encrypt at rest in any persisted failure store using Vault Transit where applicable\n\n---\n\n# 4. Monitoring\n\n## 4.1 Required Metrics\n\nThe service must expose the standard consumer metrics from the Consumer Service API Specification:\n\n- `edp_consumer_events_processed_total{topic,partition,status}`\n- `edp_consumer_event_processing_duration_seconds{topic,quantile}`\n- `edp_consumer_lag{topic,partition,consumer_group}`\n- `edp_consumer_errors_total{topic,error_type}`\n- `edp_consumer_dlq_depth{service}`\n\nAdditional service-specific metrics:\n\n- `order_enrichment_lookup_requests_total{source,status}`\n- `order_enrichment_lookup_latency_seconds{source,quantile}`\n- `order_enrichment_lookup_failures_total{source,error_type}`\n- `order_enrichment_partial_enrichments_total{reason}`\n- `order_enrichment_schema_version_seen_total{event_type,schema_version}`\n- `order_enrichment_poison_pills_total{error_type}`\n- `order_enrichment_output_events_total{topic,status}`\n\n## 4.2 Health Endpoint\n\n`GET /health` should report:\n- Kafka connectivity and lag\n- PostgreSQL connectivity / pool health\n- Redis health\n- Schema Registry health and cached schema count\n- optional dependency health\n\nIf optional enrichment dependency is down:\n- health may be `degraded` but service can remain ready if optional enrichments are bypassed\n\nIf required dependency is down:\n- readiness should fail so the pod stops taking partitions after rebalance\n\n## 4.3 Alerting\n\nRecommended alerts:\n\n### P2\n- consumer lag > 5 minutes\n- error rate > 5%\n- required lookup failure rate > threshold\n- DLQ depth > 100\n\n### P1\n- consumer lag > 10 minutes\n- DLQ depth > 1000\n- no events processed while lag increasing\n- Kafka produce failures sustained\n\n### P3\n- optional lookup miss ratio elevated\n- Schema Registry unavailable but cache hit mode active\n- partial enrichment rate above baseline\n\n## 4.4 Tracing\n\nPropagate and log:\n- `traceparent`\n- `correlation_id`\n\nCreate spans for:\n- consume\n- deserialize\n- each lookup\n- enrichment merge\n- produce\n- offset commit\n\nSample:\n- 100% for errors\n- standard platform rate for success paths\n\n---\n\n# 5. Deployment\n\n## 5.1 Runtime Model\n\nDeploy as a Kubernetes `Deployment` unless strict partition-stable identity is needed.\n\nFor `order-enrichment`, a `Deployment` is acceptable because:\n- service is at-least-once\n- no transactional producer fencing requirement\n- no per-partition stable `transactional.id`\n\n## 5.2 Scaling\n\n- Default topic partitions: 12\n- Initial replicas: 4\n- HPA on:\n  - consumer lag\n  - CPU\n\nScale up to:\n- max 12 replicas for one-per-partition upper bound\n\n## 5.3 Resource Baseline\n\nInitial recommendation:\n- CPU request: 250m\n- CPU limit: 1000m\n- Memory request: 512Mi\n- Memory limit: 1Gi\n\nIncrease if lookup fanout or Avro object allocation is high.\n\n## 5.4 Deployment Strategy\n\nUse ADR-004 default:\n- `RollingUpdate`\n- `maxSurge=1`\n- `maxUnavailable=0`\n\nBecause this service is not payment-critical, blue-green is not required.\n\nStill, to reduce rebalance disruption:\n- use readiness gates properly\n- drain on shutdown\n- commit final offsets before termination\n- allow graceful termination period of at least 30s\n\n## 5.5 Security\n\n- mTLS to Kafka brokers\n- SASL/SCRAM credentials from Vault\n- Schema Registry read access via API key / mTLS as configured\n- DB credentials from Vault Agent sidecar\n- no secrets in env vars if avoidable\n- ACLs limited to:\n  - READ on source topic(s)\n  - WRITE on output topic\n  - WRITE on DLQ topic\n  - READ on consumer group\n\n## 5.6 Data Retention Consistency Check\n\nThis design is consistent with Phase 1 retention decisions:\n\n- source event topics: **48 hours** current accepted policy\n- output enriched topic: should also default to **48 hours** unless separately approved\n- DLQ: **30 days**\n- no implementation of 72-hour general retention, because ADR-008 is still draft\n\n## 5.7 Serialization Consistency Check\n\nThis design is consistent with Phase 1 serialization decisions:\n\n- uses **Avro**\n- schemas registered in **Confluent Schema Registry**\n- compatibility minimum **BACKWARD**\n- no Protobuf for this server-side consumer\n- all output events wrapped in the **standard Event Envelope**\n\n---\n\n# Summary Design Decisions\n\n## Architecture\n- Kafka consumer service using one consumer group\n- consumes order events, enriches via PostgreSQL/Redis/optional service, republishes enriched Avro events\n\n## Processing Guarantees\n- at-least-once\n- manual offset commit\n- idempotency key recommended\n- `read_committed` consumption\n\n## Schema Evolution\n- tolerant to new optional fields\n- defaults/null handling for absent fields\n- breaking changes require new topic\n\n## Error Handling\n- 3 attempts max\n- classify required vs optional lookup failures\n- poison pill detection\n- DLQ per service\n\n## Monitoring\n- standard consumer metrics + enrichment-specific metrics\n- lag, lookup latency, partial enrichment, DLQ, schema version visibility\n\n## Deployment\n- Kubernetes Deployment\n- rolling update\n- HPA on lag + CPU\n- secure via mTLS, SASL/SCRAM, Vault\n- aligned with 48-hour retention and Avro standard\n\nIf you want, I can next turn this into a more formal **Markdown spec ready for the repo**, or produce:\n1. an **Avro schema sketch for the enriched order event**, or  \n2. a **sequence diagram** for the processing flow.",
+      "firstSubstantiveActionMs": 58791
+    },
+    {
+      "sessionId": "b122a09c-b927-491d-965b-9dbf4dac90f8",
+      "phaseIndex": 3,
+      "phaseName": "Add Monitoring",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 84761,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 56745,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    },
+    {
+      "sessionId": "5cb95329-c288-4b88-ad18-79fcc230b67b",
+      "phaseIndex": 4,
+      "phaseName": "Resolve Serialization Contradiction",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 84790,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 56183,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    },
+    {
+      "sessionId": "4fc7f772-856f-4572-8444-a4f15b34a681",
+      "phaseIndex": 5,
+      "phaseName": "Deployment Readiness Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 84769,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 56609,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    }
+  ],
+  "trackA": {
+    "latency": {},
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}

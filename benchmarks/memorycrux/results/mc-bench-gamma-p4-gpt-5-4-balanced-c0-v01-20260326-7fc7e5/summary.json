@@ -1,0 +1,131 @@
+{
+  "runId": "mc-bench-gamma-p4-gpt-5-4-balanced-c0-v01-20260326-7fc7e5",
+  "project": "gamma",
+  "fixtureVariant": "v01",
+  "phase": 4,
+  "arm": "C0",
+  "timestamp": "2026-03-26T21:27:31.997Z",
+  "durationSeconds": 323.553,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 32000
+  },
+  "usage": {
+    "inputTokens": 162392,
+    "outputTokens": 20480,
+    "cachedTokens": 0,
+    "billableTokens": 182872,
+    "estimatedCostUsd": 0.61078
+  },
+  "sessions": [
+    {
+      "sessionId": "74bcc8f4-0dc1-4a91-bed3-085af2fc0a63",
+      "phaseIndex": 1,
+      "phaseName": "Design Event Schema",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32464,
+          "outputTokens": 4096,
+          "cachedTokens": 0,
+          "latencyMs": 58395,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    },
+    {
+      "sessionId": "11bcbeb0-9745-4ef6-851c-4fc2c3dab665",
+      "phaseIndex": 2,
+      "phaseName": "Implement Consumer Service",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32445,
+          "outputTokens": 4096,
+          "cachedTokens": 0,
+          "latencyMs": 59515,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    },
+    {
+      "sessionId": "29662c8a-a94a-426c-8ebd-941e59c955a0",
+      "phaseIndex": 3,
+      "phaseName": "Add Monitoring",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32482,
+          "outputTokens": 4096,
+          "cachedTokens": 0,
+          "latencyMs": 63830,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    },
+    {
+      "sessionId": "10111aa2-857b-43c5-8fe3-0120defc90a1",
+      "phaseIndex": 4,
+      "phaseName": "Resolve Serialization Contradiction",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32511,
+          "outputTokens": 4096,
+          "cachedTokens": 0,
+          "latencyMs": 61821,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    },
+    {
+      "sessionId": "8e64d0b4-2975-4c49-b133-f6145b9b2ab8",
+      "phaseIndex": 5,
+      "phaseName": "Deployment Readiness Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32490,
+          "outputTokens": 4096,
+          "cachedTokens": 0,
+          "latencyMs": 57296,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "output": ""
+    }
+  ],
+  "trackA": {
+    "latency": {},
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}

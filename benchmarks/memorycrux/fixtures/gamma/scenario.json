@@ -1,0 +1,136 @@
+{
+  "project": "gamma",
+  "version": "1.0.0",
+  "phases": [
+    {
+      "index": 1,
+      "name": "Design Event Schema",
+      "T_human_s": 2400,
+      "taskPrompt": "You are the lead architect designing the event schema for the Enterprise Data Platform migration.\n\nReview the available documentation about the EDP — ADRs, technical specs, compliance requirements, and team conventions. Then:\n\n1. Design the canonical event schema for the Order entity. Include all required fields, types, and validation rules.\n2. Choose the serialization format (Avro vs Protobuf) and justify your decision based on the existing architecture and team discussions.\n3. Define the schema evolution strategy (compatibility level, allowed changes, review process).\n4. Specify the retention policy for Order events, considering both operational and compliance requirements.\n5. Document any contradictions or ambiguities you find in the existing documentation.\n\nProduce your design as a Technical Design Document with sections: Context, Decision, Constraints Considered, Schema Definition, Evolution Rules, and Open Questions.",
+      "expectedDecisionKeys": ["Avro", "BACKWARD compatibility", "48-hour retention", "12 partitions", "event envelope", "idempotency key", "schema evolution", "order_id partition key"],
+      "coverageGaps": ["serialization format contradiction", "retention policy ambiguity"],
+      "staleItems": ["gamma-stale-topology"],
+      "expectedToolCalls": ["query_memory", "get_relevant_context", "check_constraints", "get_contradictions", "record_decision_context"]
+    },
+    {
+      "index": 2,
+      "name": "Implement Consumer Service",
+      "T_human_s": 1800,
+      "taskPrompt": "Continue the Enterprise Data Platform design. Your second task is to design the Order Enrichment consumer service.\n\nReview ALL prior decisions from Phase 1 (event schema design). Then:\n\n1. Design the consumer service architecture, including consumer group strategy and processing guarantees.\n2. Specify how the consumer handles schema evolution (what happens when the Order schema adds new fields?).\n3. Design the enrichment pipeline: what data sources are needed, how to handle lookup failures.\n4. Define error handling: retry strategy, DLQ design, poison pill detection.\n5. Verify your design is consistent with the serialization format and retention decisions from Phase 1.\n\nProduce a Service Specification document with sections: Architecture, Processing Guarantees, Error Handling, Monitoring, and Deployment.",
+      "expectedDecisionKeys": ["CooperativeStickyAssignor", "at-least-once", "idempotent consumer", "Redis dedup", "3-level retry", "enrichment lookup cache", "exactly-once for payments"],
+      "expectedToolCalls": ["query_memory", "get_relevant_context", "get_decision_context", "check_constraints", "record_decision_context"]
+    },
+    {
+      "index": 3,
+      "name": "Add Monitoring",
+      "T_human_s": 1200,
+      "taskPrompt": "Continue the Enterprise Data Platform design. Your third task is to design the monitoring and alerting stack.\n\nReview ALL prior decisions and the existing documentation. Then:\n\n1. Define the key metrics for the entire event pipeline (ingestion, transformation, consumption, data lake).\n2. Design the alerting strategy with severity tiers (P1-P4) and escalation procedures.\n3. Create SLO definitions for the ingestion service (availability, latency, data loss).\n4. Specify the on-call procedures and runbook requirements.\n\nIMPORTANT: There is a critical operational detail buried in the infrastructure documentation about broker-3's EBS volume serial number. Find it and include it in your monitoring design.\n\nAlso important: Find the Kubernetes secret name used for Kafka broker TLS certificates and include it in your deployment monitoring section.\n\nProduce a Monitoring Design Document with sections: Metrics, Alerts, SLOs, Dashboards, On-Call, and Operational Notes.",
+      "expectedDecisionKeys": ["vol-0a1b2c3d4e5f", "kafka-broker-tls", "99.95% availability", "p99 latency 200ms", "multi-window burn rate", "consumer lag alerting", "structured JSON logging"],
+      "coverageGaps": ["broker-3 EBS volume", "K8s TLS secret name"],
+      "expectedToolCalls": ["query_memory", "get_relevant_context", "get_freshness_report", "record_decision_context", "assess_coverage"]
+    },
+    {
+      "index": 4,
+      "name": "Resolve Serialization Contradiction",
+      "T_human_s": 900,
+      "taskPrompt": "Continue the Enterprise Data Platform design. A critical issue has been raised.\n\nThe team has discovered conflicting documentation about the serialization format:\n- ADR-002 mandates Apache Avro for all event schemas\n- A newer proposal (SPEC-PROTO-001) suggests switching to Protocol Buffers\n- Meeting notes discuss allowing both formats for different use cases\n\nAdditionally, there is a contradiction in the retention policy:\n- ADR-007 specifies 48-hour retention\n- ADR-008 (DRAFT) proposes 72-hour retention\n\nYour task:\n1. Find and analyze ALL contradictory documents in the corpus.\n2. For each contradiction, recommend a resolution that considers all stakeholders.\n3. Verify your Phase 1 decisions are still valid given these contradictions.\n4. If any Phase 1 decisions need to be revised, document the revision with full rationale.\n5. Check if any documents in the corpus are stale or outdated.\n\nProduce a Contradiction Resolution Report with sections: Contradictions Found, Analysis, Resolutions, Impact on Prior Decisions, and Stale Document Inventory.",
+      "expectedDecisionKeys": ["Avro for server-side", "Protobuf for mobile only", "48h operational retention", "72h for CDC topics", "7d for financial topics", "tiered retention", "ADR-008 supersedes for specific topics"],
+      "staleItems": ["gamma-stale-topology", "gamma-adr-008-stale"],
+      "expectedToolCalls": ["query_memory", "get_contradictions", "get_freshness_report", "get_decision_context", "reconstruct_knowledge_state", "record_decision_context"]
+    },
+    {
+      "index": 5,
+      "name": "Deployment Readiness Review",
+      "T_human_s": 3600,
+      "taskPrompt": "Final task: Conduct a comprehensive deployment readiness review for the Enterprise Data Platform.\n\nReview ALL decisions from ALL prior phases (1-4). Recall every design choice, constraint, and resolution. Then:\n\n1. Create a deployment checklist covering: infrastructure, schema registry, Kafka cluster, consumer services, monitoring, and security.\n2. Verify ALL critical constraints are met (GDPR, PCI-DSS, SOC 2 requirements).\n3. Verify ALL architectural decisions from Phases 1-4 are consistent with each other.\n4. Identify any remaining gaps in the design (missing runbooks, untested failure scenarios, capacity concerns).\n5. Produce a risk register for go-live with mitigation strategies.\n6. Reference the physical location of the disaster recovery documentation (it's mentioned in a compliance doc — find the exact room number).\n\nProduce a Deployment Readiness Report with sections: Decision Consistency Matrix, Compliance Checklist, Risk Register, Go-Live Checklist, and Remaining Gaps.",
+      "expectedDecisionKeys": ["RS256", "Avro", "BACKWARD compatibility", "48h retention", "tiered retention", "12 partitions", "CooperativeStickyAssignor", "at-least-once", "exactly-once for payments", "99.95% availability", "consumer lag alerting", "vol-0a1b2c3d4e5f", "kafka-broker-tls", "Building C Floor 3 Room 312", "mTLS", "3-level retry"],
+      "coverageGaps": ["DR documentation location", "physical safe room number"],
+      "expectedToolCalls": ["query_memory", "get_relevant_context", "get_decision_context", "check_constraints", "verify_before_acting", "assess_coverage", "get_freshness_report", "checkpoint_decision_state"]
+    }
+  ],
+  "killVariants": [
+    {
+      "id": "G1",
+      "label": "Dirty kill after Phase 1",
+      "type": "dirty",
+      "killAfterPhase": 1,
+      "description": "Hard process kill after Phase 1 (event schema design). No checkpoint. The replacement agent must recall schema decisions, serialization format choice, and retention policy from MemoryCrux alone."
+    },
+    {
+      "id": "G2",
+      "label": "Clean kill after Phase 2",
+      "type": "clean",
+      "killAfterPhase": 2,
+      "description": "Process dies after Phase 2 decision-context writes succeed but before summary. Agent has 2 phases of decisions in MemoryCrux but no handoff narrative. Tests recall of generated decisions across kill boundary."
+    },
+    {
+      "id": "G3",
+      "label": "Dirty kill after Phase 3",
+      "type": "dirty",
+      "killAfterPhase": 3,
+      "description": "Hard kill after monitoring design. 3 phases of decisions lost from conversation. Tests deep recall: schema + consumer + monitoring decisions plus needle documents."
+    },
+    {
+      "id": "G4",
+      "label": "Graceful handoff after Phase 3",
+      "type": "graceful",
+      "killAfterPhase": 3,
+      "description": "Agent checkpoints all decisions from Phases 1-3 before exiting. Tests whether checkpoint + MemoryCrux enables full recall of generated decisions for Phases 4-5."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "gamma-c1",
+      "assertion": "All event schemas must be registered in Confluent Schema Registry with BACKWARD compatibility as the minimum level.",
+      "severity": "critical"
+    },
+    {
+      "id": "gamma-c2",
+      "assertion": "Payment-related events (edp.events.payments.*) must use exactly-once processing semantics per PCI-DSS requirements.",
+      "severity": "critical"
+    },
+    {
+      "id": "gamma-c3",
+      "assertion": "PII fields (Level 2+) must be encrypted at rest using Vault Transit and masked in logs.",
+      "severity": "critical"
+    },
+    {
+      "id": "gamma-c4",
+      "assertion": "All Kafka topics must have replication factor >= 3 and min.insync.replicas >= 2.",
+      "severity": "critical"
+    },
+    {
+      "id": "gamma-c5",
+      "assertion": "Event retention must not exceed GDPR storage limitation principle — data retained only as long as necessary for its stated purpose.",
+      "severity": "high"
+    },
+    {
+      "id": "gamma-c6",
+      "assertion": "Consumer lag for Tier 1 services must not exceed 5 minutes under normal operations.",
+      "severity": "high"
+    },
+    {
+      "id": "gamma-c7",
+      "assertion": "All schema changes must pass automated compatibility checks before registration. Breaking changes require 30-day deprecation period.",
+      "severity": "high"
+    }
+  ],
+  "expectedMetrics": {
+    "decision_recall_at_phase_5": {
+      "target": "≥ 75%",
+      "description": "Phase 5 must recall at least 75% of all decision keys from Phases 1-4"
+    },
+    "needle_recall": {
+      "target": "3/3 (100%)",
+      "description": "All 3 needle facts (EBS volume, K8s secret, physical room) must be found"
+    },
+    "contradiction_detection": {
+      "target": "2/2 (100%)",
+      "description": "Both contradictions (Avro/Protobuf, 48h/72h retention) must be identified"
+    },
+    "generated_decision_persistence": {
+      "target": "≥ 60%",
+      "description": "After kill variants, at least 60% of Phase 1 generated decisions recalled in subsequent phases"
+    }
+  }
+}

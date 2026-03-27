@@ -1,0 +1,136 @@
+{
+  "runId": "mc-bench-gamma-p4-gpt-5-4-balanced-c0-G4-20260326-480475",
+  "project": "gamma",
+  "fixtureVariant": "G4",
+  "phase": 4,
+  "arm": "C0",
+  "timestamp": "2026-03-26T23:05:07.066Z",
+  "durationSeconds": 274.445,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 32000
+  },
+  "usage": {
+    "inputTokens": 162392,
+    "outputTokens": 20480,
+    "cachedTokens": 157440,
+    "billableTokens": 182872,
+    "estimatedCostUsd": 0.41398
+  },
+  "sessions": [
+    {
+      "sessionId": "96d14fb6-54d5-4093-9b65-d1d033be40f1",
+      "phaseIndex": 1,
+      "phaseName": "Design Event Schema",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32464,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 48825,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "killType": "graceful",
+      "output": ""
+    },
+    {
+      "sessionId": "eca4774e-ab58-49d2-b308-8ce7afe2f4a1",
+      "phaseIndex": 2,
+      "phaseName": "Implement Consumer Service",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32445,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 52938,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "killType": "graceful",
+      "output": ""
+    },
+    {
+      "sessionId": "4a12d189-4441-43ae-9014-9e0aa663c003",
+      "phaseIndex": 3,
+      "phaseName": "Add Monitoring",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32482,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 47317,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "killType": "graceful",
+      "output": ""
+    },
+    {
+      "sessionId": "e0b9825a-2daf-4271-b847-52ba8b1ad566",
+      "phaseIndex": 4,
+      "phaseName": "Resolve Serialization Contradiction",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32511,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 51912,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "killType": "graceful",
+      "output": ""
+    },
+    {
+      "sessionId": "d95a1da1-1d7b-4a06-ab59-85e43218dcec",
+      "phaseIndex": 5,
+      "phaseName": "Deployment Readiness Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 32490,
+          "outputTokens": 4096,
+          "cachedTokens": 31488,
+          "latencyMs": 53428,
+          "toolCalls": [],
+          "stopReason": "length"
+        }
+      ],
+      "killType": "graceful",
+      "output": ""
+    }
+  ],
+  "trackA": {
+    "latency": {},
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}
