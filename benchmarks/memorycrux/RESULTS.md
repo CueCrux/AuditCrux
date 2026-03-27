@@ -172,7 +172,7 @@ T2 uses 4-10x more input tokens than C0 due to multi-turn tool conversations. Fo
 
 ## 5. Evaluation Summary
 
-### What the data proves
+### What the data shows
 
 1. **MemoryCrux prevents production disasters.** 11/11 T2 SAFE. Controls produced unsafe actions on 4/9 model-arm combinations. The safety mechanism is model-agnostic -- it works on the cheapest model.
 

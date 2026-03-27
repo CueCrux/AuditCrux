@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 // MemoryCrux Benchmark — Track A scoring + cross-arm comparison + blind-pack generation
 //
-// Usage: npx tsx score-runs.ts [--project alpha|beta] [--blind-packs]
+// Usage: npx tsx score-runs.ts [--project alpha|beta] [--blind-packs] [--semantic]
 
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
@@ -20,6 +20,11 @@ import {
 import { computeCruxScore, type CruxScore } from "./lib/scoring/crux-score.js";
 import { compareRuns, renderComparisonTable } from "./lib/scoring/comparator.js";
 import { generateBlindPacks } from "./lib/blind-pack.js";
+import {
+  scoreSemanticRecall,
+  computeScorerAgreement,
+  type ScorerAgreement,
+} from "./lib/scoring/semantic-scorer.js";
 
 const resultsDir = resolve(import.meta.dirname, "results");
 
@@ -27,6 +32,7 @@ const resultsDir = resolve(import.meta.dirname, "results");
 const args = process.argv.slice(2);
 const projectFilter = args.includes("--project") ? args[args.indexOf("--project") + 1] : undefined;
 const doBlindPacks = args.includes("--blind-packs");
+const doSemantic = args.includes("--semantic");
 
 // ---------- Load scenarios ----------
 const fixturesDir = resolve(import.meta.dirname, "fixtures");
@@ -71,6 +77,37 @@ function loadSummaries(): RunSummary[] {
 
   return summaries;
 }
+
+// ---------- Extract expected keys for a run (mirrors scoreRun logic) ----------
+function getExpectedKeys(summary: RunSummary): string[] {
+  const scenario = loadScenario(summary.project);
+  if (summary.project === "alpha") {
+    const phase3 = scenario.phases[2];
+    return phase3?.expectedDecisionKeys ?? [];
+  }
+  if (summary.project === "gamma" || summary.project === "delta") {
+    const phase5 = scenario.phases[4];
+    return phase5?.expectedDecisionKeys ?? [];
+  }
+  if (summary.project === "beta") {
+    const phase1 = scenario.phases[0];
+    return phase1?.expectedDecisionKeys ?? [];
+  }
+  return [];
+}
+
+// ---------- Agreement data for --semantic ----------
+interface AgreementRow {
+  project: string;
+  model: string;
+  arm: string;
+  keys: number;
+  substringScore: number;
+  semanticScore: number;
+  agreementRate: number;
+  agreement: ScorerAgreement;
+}
+const agreementRows: AgreementRow[] = [];
 
 // ---------- Score a single run ----------
 function scoreRun(summary: RunSummary) {
@@ -174,6 +211,7 @@ function scoreRun(summary: RunSummary) {
 }
 
 // ---------- Main ----------
+(async () => {
 const allSummaries = loadSummaries();
 
 // Filter to only canonical runs (latest per project/arm/model combination, variant=v01)
@@ -192,6 +230,7 @@ const summaries = [...canonicalMap.values()]
   .sort((a, b) => `${a.project}-${a.llm.model}-${a.arm}`.localeCompare(`${b.project}-${b.llm.model}-${b.arm}`));
 
 console.log(`\n=== MemoryCrux Benchmark — Track A Scoring ===\n`);
+if (doSemantic) console.log(`Semantic scoring ENABLED\n`);
 console.log(`Loaded ${summaries.length} canonical runs\n`);
 
 // ---------- Per-run scores ----------
@@ -201,6 +240,7 @@ const output: string[] = [
   `Generated: ${new Date().toISOString()}`,
   "",
   `Runs scored: ${summaries.length}`,
+  ...(doSemantic ? ["", "Semantic scoring: **enabled**"] : []),
   "",
 ];
 
@@ -274,6 +314,36 @@ for (const [project, runs] of byProject) {
       output.push(
         `| ${run.arm} | ${drStr} | ${constraintStr} | ${safetyStr} | ${incidentStr} | $${te.totalCost.toFixed(4)} | ${totalTurns} | ${totalTools} | ${cxStr} |`,
       );
+
+      // Semantic scoring (side-by-side)
+      if (doSemantic && dr) {
+        const expectedKeys = getExpectedKeys(run);
+        if (expectedKeys.length > 0) {
+          const runId = (run as RunSummary & { runId?: string }).runId ?? `${run.llm.model}-${run.arm}`;
+          const semanticResult = await scoreSemanticRecall(run.sessions, expectedKeys, {
+            cacheDir: join(resultsDir, ".semantic-cache"),
+            runId,
+          });
+          const agreement = computeScorerAgreement(
+            { matched: dr.matched, missed: dr.missed },
+            semanticResult,
+            expectedKeys,
+          );
+          agreementRows.push({
+            project,
+            model,
+            arm: run.arm,
+            keys: expectedKeys.length,
+            substringScore: dr.score,
+            semanticScore: semanticResult.score,
+            agreementRate: agreement.agreementRate,
+            agreement,
+          });
+          console.log(
+            `  [semantic] ${project}/${model}/${run.arm}: semantic=${(semanticResult.score * 100).toFixed(0)}% agreement=${(agreement.agreementRate * 100).toFixed(0)}% (${agreement.agreeing}/${agreement.totalKeys})`,
+          );
+        }
+      }
 
       // Console output
       const tieredSuffix = tr ? ` core=${coreStr} needle=${needleNStr}` : "";
@@ -423,6 +493,46 @@ if (killVariantRuns.length > 0) {
   }
 }
 
+// ---------- Scorer Agreement section (--semantic) ----------
+if (doSemantic && agreementRows.length > 0) {
+  output.push("---");
+  output.push("");
+  output.push("## Scorer Agreement");
+  output.push("");
+  output.push("| Project | Model | Arm | Keys | Substring | Semantic | Agreement |");
+  output.push("|---|---|---|---|---|---|---|");
+
+  for (const row of agreementRows) {
+    output.push(
+      `| ${row.project} | ${row.model} | ${row.arm} | ${row.keys} | ${(row.substringScore * 100).toFixed(0)}% | ${(row.semanticScore * 100).toFixed(0)}% | ${(row.agreementRate * 100).toFixed(0)}% (${row.agreement.agreeing}/${row.agreement.totalKeys}) |`,
+    );
+  }
+  output.push("");
+
+  // Disagreement details
+  const allDisagreements = agreementRows.filter((r) => r.agreement.disagreements.length > 0);
+  if (allDisagreements.length > 0) {
+    output.push("### Disagreements");
+    output.push("");
+    for (const row of allDisagreements) {
+      output.push(`**${row.project}/${row.model}/${row.arm}:**`);
+      for (const d of row.agreement.disagreements) {
+        const subStr = d.substring ? "HIT" : "MISS";
+        const semStr = d.semantic ? "HIT" : "MISS";
+        output.push(`- \`${d.key}\`: substring=${subStr}, semantic=${semStr}`);
+      }
+      output.push("");
+    }
+  }
+
+  // Overall agreement summary
+  const totalKeys = agreementRows.reduce((s, r) => s + r.agreement.totalKeys, 0);
+  const totalAgreeing = agreementRows.reduce((s, r) => s + r.agreement.agreeing, 0);
+  const overallRate = totalKeys > 0 ? totalAgreeing / totalKeys : 1.0;
+  output.push(`**Overall agreement:** ${(overallRate * 100).toFixed(1)}% (${totalAgreeing}/${totalKeys} keys)`);
+  output.push("");
+}
+
 // ---------- Write report ----------
 const reportPath = join(resultsDir, "track-a-scoring-report.md");
 writeFileSync(reportPath, output.join("\n"));
@@ -439,3 +549,4 @@ if (doBlindPacks) {
 }
 
 console.log("\nDone.");
+})();

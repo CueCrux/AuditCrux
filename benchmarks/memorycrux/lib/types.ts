@@ -124,6 +124,10 @@ export interface RunSummary {
   deltaVsControls: Record<string, unknown>;
   receiptChainRoot?: string;
   cruxScore?: import("./scoring/crux-score.js").CruxScore;
+  // Reproducibility metadata (v3.0+)
+  fixtureHash?: string;
+  harnessVersion?: string;
+  scoringVersion?: string;
 }
 
 // ---------- Fixture types ----------

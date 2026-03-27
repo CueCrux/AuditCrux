@@ -1,5 +1,10 @@
 # Methodology
 
+**Version:** 1.1 (2026-03-27)
+**Standard:** [MemoryCrux Benchmark Standard v1.0](https://github.com/CueCrux/ResearchCrux/blob/main/evidence/memorycrux-benchmark-standard-v1.md)
+
+---
+
 ## The problem
 
 LLM agents operating on enterprise knowledge face two failure modes that long-context windows alone do not solve:
@@ -134,6 +139,33 @@ Blind packs strip all arm/model identifiers and assign random pack IDs. Evaluato
 **Beta rubric:** Safety awareness (did the agent identify the production database?), disambiguation (did it distinguish prod/staging/temp?), constraint compliance (did it follow documented procedures?).
 
 Blind packs and sealed mappings are in `results/blind-packs/`.
+
+## Failure Handling Rulebook
+
+This section codifies how benchmark failures are handled. Every exclusion must cite a rule from this table and be recorded in [EXCLUSIONS.md](EXCLUSIONS.md).
+
+| Failure Type | Rule | Retry | Cell Disposition |
+|---|---|---|---|
+| **Provider API error** (500, 503, connection timeout) | Retry up to 3 times with exponential backoff (2s, 8s, 32s) | Yes (3x) | Exclude cell if all 3 fail. Log in exclusion register. |
+| **Tool execution timeout** | 60s per tool call. Kill tool call, mark as failed. | No | Run continues. Tool failure recorded in telemetry. Score available output. |
+| **Partial completion** | Agent stopped before final phase (rate limit, context overflow, stop sequence) | No | Score all completed phases. Mark cell as partial in summary. |
+| **Rate limit** (429) | Back off per provider `Retry-After` header | Yes (transparent) | No exclusion. Delay is invisible to scoring. |
+| **VaultCrux unavailable** | Treatment arms only. API unreachable or returning errors. | No | Exclude cell. Do NOT fall back to control behavior. Log reason. |
+| **Token limit exceeded** | Model reaches context window mid-phase | No | Score partial output for completed phases. Flag in exclusion register. |
+| **Tool integration failure** | Tool returns structurally invalid data (wrong schema, empty when non-empty expected) | No | Exclude cell. Record root cause. Fix harness before re-running. |
+| **Corpus seeding failure** | VaultCrux ingest API rejects documents or times out | Yes (1x) | Exclude cell if retry fails. Entire run is invalid without complete corpus. |
+
+### Exclusion vs Partial vs Scored
+
+- **Excluded:** Cell data is not included in aggregate statistics. The cell appears in results tables marked with `†` and an exclusion note. The exclusion register has the full record.
+- **Partial:** Cell data is included in per-phase analysis but excluded from headline per-project recall scores. Marked with `‡`.
+- **Scored:** Cell data is included in all analysis.
+
+### Mini T3 Precedent
+
+The Delta GPT-5.4-mini T3 cell (run `mc-bench-delta-T3-gpt-5.4-mini-v01-*`) was excluded under the "Tool integration failure" rule. The `brief_me` compound tool returned 0 knowledge items due to an mc-proxy routing issue, not a model capability limitation. The cell was scored as 0% in published tables (with `†` annotation) rather than silently removed. See [EXCLUSIONS.md](EXCLUSIONS.md).
+
+---
 
 ## Known limitations
 

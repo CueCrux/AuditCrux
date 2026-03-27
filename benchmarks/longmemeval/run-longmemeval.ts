@@ -1,0 +1,230 @@
+#!/usr/bin/env tsx
+// LongMemEval External Benchmark — CLI Entry Point
+//
+// Usage:
+//   npx tsx run-longmemeval.ts --dataset s --arm T2 --model claude-sonnet-4-6
+//   npx tsx run-longmemeval.ts --dataset s --arm C0,C2,F1,T2 --model claude-sonnet-4-6 --pilot 10
+//   npx tsx run-longmemeval.ts --dataset m --arm F1,T2 --model claude-sonnet-4-6
+//   npx tsx run-longmemeval.ts --dataset s --arm T2 --model gpt-5.4 --questions q001,q002
+//   npx tsx run-longmemeval.ts --dataset s --arm T2 --model gpt-5.4 --budget-limit 50
+//   npx tsx run-longmemeval.ts --dataset s --arm T2 --model gpt-5.4 --dry-run
+//   npx tsx run-longmemeval.ts --dataset s --arm T2 --model gpt-5.4 --skip-seed
+
+import { randomBytes } from "node:crypto";
+import { resolve } from "node:path";
+import { McProxy } from "../memorycrux/lib/mc-proxy.js";
+import { resolveConfig } from "../memorycrux/lib/config.js";
+import { createAdapter } from "../memorycrux/lib/llm/factory.js";
+import { MEMORYCRUX_TOOL_DEFS } from "../memorycrux/lib/llm/tool-bridge.js";
+import type { BenchModel, BenchConfig } from "../memorycrux/lib/types.js";
+import { loadDataset, loadProblems, stratifiedSample } from "./lib/dataset-loader.js";
+import { getArmConfig, filterToolDefs } from "./lib/arms.js";
+import { executeRun } from "./lib/orchestrator.js";
+import { writeHypotheses, writeRunSummary, writeReport } from "./lib/hypothesis-writer.js";
+import type { LmeArm, LmeDataset, LmeRunManifest } from "./lib/types.js";
+
+// ── CLI argument parsing ──
+
+function parseArgs(): {
+  dataset: LmeDataset;
+  arms: LmeArm[];
+  models: string[];
+  pilot?: number;
+  questions?: string[];
+  budgetLimit?: number;
+  dryRun: boolean;
+  skipSeed: boolean;
+} {
+  const args = process.argv.slice(2);
+  const get = (flag: string): string | undefined => {
+    const idx = args.indexOf(flag);
+    return idx >= 0 && idx + 1 < args.length ? args[idx + 1] : undefined;
+  };
+  const has = (flag: string): boolean => args.includes(flag);
+
+  const dataset = (get("--dataset") ?? "s") as LmeDataset;
+  if (dataset !== "s" && dataset !== "m") {
+    console.error("--dataset must be 's' or 'm'");
+    process.exit(1);
+  }
+
+  const armStr = get("--arm") ?? "T2";
+  const arms = armStr.split(",") as LmeArm[];
+  for (const a of arms) {
+    if (!["C0", "C2", "F1", "T2"].includes(a)) {
+      console.error(`Unknown arm: ${a}. Must be C0, C2, F1, or T2.`);
+      process.exit(1);
+    }
+  }
+
+  const modelStr = get("--model") ?? "claude-sonnet-4-6";
+  const models = modelStr.split(",");
+
+  const pilotStr = get("--pilot");
+  const pilot = pilotStr ? parseInt(pilotStr, 10) : undefined;
+
+  const questionsStr = get("--questions");
+  const questions = questionsStr ? questionsStr.split(",") : undefined;
+
+  const budgetStr = get("--budget-limit");
+  const budgetLimit = budgetStr ? parseFloat(budgetStr) : undefined;
+
+  return {
+    dataset,
+    arms,
+    models,
+    pilot,
+    questions,
+    budgetLimit,
+    dryRun: has("--dry-run"),
+    skipSeed: has("--skip-seed"),
+  };
+}
+
+// ── Main ──
+
+async function main() {
+  const opts = parseArgs();
+  const benchConfig = resolveConfig();
+
+  // Load dataset
+  console.log(`Loading LongMemEval_${opts.dataset.toUpperCase()}...`);
+  let problems = opts.questions
+    ? loadProblems(opts.dataset, opts.questions)
+    : loadDataset(opts.dataset);
+
+  console.log(`Loaded ${problems.length} problems`);
+
+  // Apply pilot filter
+  if (opts.pilot) {
+    // Stratified sample: N per type for even coverage
+    const perType = Math.max(1, Math.ceil(opts.pilot / 6)); // 6 question types
+    problems = stratifiedSample(problems, perType).slice(0, opts.pilot);
+    console.log(`Pilot mode: ${problems.length} problems (${perType}/type)`);
+  }
+
+  // Expand matrix: arms × models
+  const matrix: Array<{ arm: LmeArm; model: string }> = [];
+  for (const arm of opts.arms) {
+    for (const model of opts.models) {
+      // C2 not supported for LongMemEval_M (exceeds context windows)
+      if (opts.dataset === "m" && arm === "C2") {
+        console.log(`Skipping ${arm}/${model}: C2 not supported for LongMemEval_M (corpus exceeds context windows)`);
+        continue;
+      }
+      matrix.push({ arm, model });
+    }
+  }
+
+  if (opts.dryRun) {
+    console.log("\n[dry-run] Would execute the following runs:");
+    for (const cell of matrix) {
+      console.log(`  - ${cell.arm} / ${cell.model} / ${problems.length} questions`);
+    }
+    console.log(`\nTotal cells: ${matrix.length}`);
+    return;
+  }
+
+  // Validate API keys (after dry-run check)
+  const errors = [];
+  for (const model of opts.models) {
+    const provider = model.startsWith("claude") ? "anthropic" : "openai";
+    if (provider === "anthropic" && !benchConfig.anthropicApiKey) {
+      errors.push("ANTHROPIC_API_KEY required for " + model);
+    }
+    if (provider === "openai" && !benchConfig.openaiApiKey) {
+      errors.push("OPENAI_API_KEY required for " + model);
+    }
+  }
+  if (errors.length > 0) {
+    console.error("Configuration errors:\n  " + errors.join("\n  "));
+    process.exit(1);
+  }
+
+  // Execute each cell
+  const resultsBase = resolve(
+    import.meta.dirname ?? new URL(".", import.meta.url).pathname,
+    "results",
+  );
+
+  for (const cell of matrix) {
+    const runId = `lme-${opts.dataset}-${shortModel(cell.model)}-${cell.arm}-${timestamp()}-${randomBytes(3).toString("hex")}`;
+    const armConfig = getArmConfig(cell.arm);
+
+    const manifest: LmeRunManifest = {
+      runId,
+      dataset: opts.dataset,
+      arm: cell.arm,
+      armConfig,
+      model: cell.model,
+      startedAt: new Date().toISOString(),
+      pilotSize: opts.pilot,
+      questionFilter: opts.questions,
+      budgetLimitUsd: opts.budgetLimit,
+      skipSeed: opts.skipSeed,
+    };
+
+    // Create LLM adapter
+    const adapter = createAdapter(cell.model as BenchModel, benchConfig);
+
+    // Probe VaultCrux for treatment arms
+    if (armConfig.needsVaultCrux) {
+      if (!benchConfig.vaultcruxApiBase || !benchConfig.vaultcruxApiKey) {
+        console.error(`VaultCrux config required for arm ${cell.arm}. Set BENCH_VAULTCRUX_API_BASE and BENCH_VAULTCRUX_API_KEY.`);
+        process.exit(1);
+      }
+      const probeProxy = new McProxy({
+        apiBase: benchConfig.vaultcruxApiBase,
+        apiKey: benchConfig.vaultcruxApiKey,
+        tenantId: "__longmemeval_probe",
+        agentId: "longmemeval-bench",
+        timeoutMs: benchConfig.timeoutMs,
+      });
+
+      const healthy = await probeProxy.probe();
+      if (!healthy) {
+        console.error(`VaultCrux is not reachable at ${benchConfig.vaultcruxApiBase}`);
+        process.exit(1);
+      }
+      console.log(`VaultCrux healthy at ${benchConfig.vaultcruxApiBase}`);
+    }
+
+    // Filter tool definitions based on arm
+    const toolDefs = filterToolDefs(MEMORYCRUX_TOOL_DEFS, armConfig.toolSet);
+
+    // Execute — orchestrator creates per-problem McProxy instances internally
+    const summary = await executeRun(problems, {
+      adapter,
+      toolDefs,
+      armConfig,
+      manifest,
+      benchConfig,
+    });
+
+    // Write outputs
+    const outDir = resolve(resultsBase, runId);
+    writeHypotheses(summary.answers, resolve(outDir, "hypotheses.jsonl"));
+    writeRunSummary(summary, resolve(outDir, "summary.json"));
+    writeReport(summary, resolve(outDir, "report.md"));
+
+    console.log(`\n[output] Results written to ${outDir}`);
+  }
+}
+
+// ── Helpers ──
+
+function shortModel(model: string): string {
+  return model
+    .replace("claude-", "")
+    .replace("gpt-", "")
+    .replace(/\./g, "");
+}
+
+function timestamp(): string {
+  return new Date().toISOString().replace(/[-:T]/g, "").slice(0, 12);
+}
+
+main().catch((err) => {
+  console.error("Fatal:", err);
+  process.exit(1);
+});

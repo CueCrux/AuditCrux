@@ -8,18 +8,21 @@
 
 import { parseArgs } from "node:util";
 import { resolve } from "node:path";
+import { readdirSync, readFileSync } from "node:fs";
 import { resolveConfig, validateConfig } from "./lib/config.js";
 import { getArmConfig, getModelProvider, HEADLINE_ARMS, HEADLINE_MODELS } from "./lib/arms.js";
 import { generateRunId } from "./lib/run-id.js";
 import { executeRun } from "./lib/orchestrator.js";
 import { loadFixture } from "./fixtures/_shared/fixture-schema.js";
 import { writeRunReport } from "./lib/report.js";
+import { generateReproducibilityMetadata, verifyFixtureIntegrity } from "./lib/reproducibility.js";
 import type {
   BenchArm,
   BenchModel,
   BenchProject,
   ReasoningProfile,
   RunManifest,
+  RunSummary,
 } from "./lib/types.js";
 
 const VALID_PROJECTS: BenchProject[] = ["alpha", "beta", "gamma", "delta", "epsilon", "zeta"];
@@ -46,6 +49,7 @@ Options:
   --phase <n>            MemoryCrux phase (1-4) — default: 4
   --matrix <preset>      Run a preset matrix: headline
   --repetitions <n>      Repetitions per cell (default: 1)
+  --rerun <run-id>     Re-execute a previous run with identical parameters
   --dry-run              Print config and manifest, don't call LLMs
   --help                 Show this help
 `);
@@ -62,6 +66,7 @@ function parseCliArgs() {
       profile: { type: "string", default: "balanced" },
       phase: { type: "string", default: "4" },
       matrix: { type: "string" },
+      rerun: { type: "string" },
       repetitions: { type: "string", default: "1" },
       "dry-run": { type: "boolean", default: false },
       "skip-seed": { type: "boolean", default: false },
@@ -153,11 +158,87 @@ function expandMatrix(args: ReturnType<typeof parseCliArgs>): RunManifest[] {
   return manifests;
 }
 
+/**
+ * Locate a previous run directory by run-id prefix, load its summary,
+ * and verify fixture integrity.
+ */
+function loadRerunSummary(runIdPrefix: string, outputDir: string): {
+  summary: RunSummary;
+  dirName: string;
+} {
+  const resultsDir = outputDir;
+  let entries: string[];
+  try {
+    entries = readdirSync(resultsDir);
+  } catch {
+    console.error(`Error: results directory not found at ${resultsDir}`);
+    process.exit(1);
+  }
+
+  const matches = entries.filter(
+    (e) => e.startsWith("mc-bench-") && e.includes(runIdPrefix),
+  );
+
+  if (matches.length === 0) {
+    console.error(`Error: no run directory found matching run-id "${runIdPrefix}"`);
+    process.exit(1);
+  }
+  if (matches.length > 1) {
+    console.error(`Error: ambiguous run-id "${runIdPrefix}" matches ${matches.length} directories:`);
+    for (const m of matches) console.error(`  ${m}`);
+    process.exit(1);
+  }
+
+  const dirName = matches[0];
+  const summaryPath = resolve(resultsDir, dirName, "summary.json");
+  let summary: RunSummary;
+  try {
+    summary = JSON.parse(readFileSync(summaryPath, "utf-8"));
+  } catch {
+    console.error(`Error: could not read ${summaryPath}`);
+    process.exit(1);
+  }
+
+  // Verify fixture integrity
+  const integrity = verifyFixtureIntegrity(summary, summary.project);
+  if (integrity === null) {
+    console.warn(`  Warning: original run has no fixture hash (pre-v3.0 run)`);
+  } else if (!integrity.valid) {
+    console.warn(`  Warning: fixture hash mismatch for project "${summary.project}"`);
+    console.warn(`    Recorded: ${integrity.recordedHash}`);
+    console.warn(`    Current:  ${integrity.currentHash}`);
+    console.warn(`  Fixtures have changed since the original run. Continuing anyway.`);
+  } else {
+    console.log(`  Fixture integrity verified (hash: ${integrity.currentHash.slice(0, 12)}...)`);
+  }
+
+  return { summary, dirName };
+}
+
 async function main() {
   const args = parseCliArgs();
   const config = resolveConfig();
   if (args["skip-seed"]) config.skipSeed = true;
   const errors = validateConfig(config);
+
+  // Handle --rerun: load previous run summary and override CLI args
+  if (args.rerun) {
+    console.log(`Rerun mode: looking up run-id "${args.rerun}"...\n`);
+    const { summary: prevSummary, dirName } = loadRerunSummary(args.rerun, config.outputDir);
+    console.log(`  Found: ${dirName}`);
+    console.log(`  Project: ${prevSummary.project}, Arm: ${prevSummary.arm}, Model: ${prevSummary.llm.model}`);
+    console.log(`  Variant: ${prevSummary.fixtureVariant}, Phase: ${prevSummary.phase}\n`);
+
+    // Override args with parameters from the previous run
+    args.project = prevSummary.project;
+    args.arm = prevSummary.arm;
+    args.model = prevSummary.llm.model;
+    args.variant = prevSummary.fixtureVariant;
+    args.phase = String(prevSummary.phase);
+    args.profile = prevSummary.llm.reasoningProfile;
+    args.matrix = undefined;
+    args.repetitions = "1";
+  }
 
   const manifests = expandMatrix(args);
 
@@ -187,6 +268,14 @@ async function main() {
   console.log();
 
   if (args["dry-run"]) {
+    // Show fixture hashes for each project in the matrix
+    const projects = Array.from(new Set(manifests.map((m) => m.project)));
+    for (const proj of projects) {
+      const meta = generateReproducibilityMetadata(proj);
+      console.log(`Fixture hash (${proj}): ${meta.fixtureHash}`);
+      console.log(`Harness version: ${meta.harnessVersion}, Scoring version: ${meta.scoringVersion}`);
+    }
+    console.log();
     console.log("[DRY RUN] Would execute the above matrix. Exiting.");
     process.exit(0);
   }
@@ -226,8 +315,17 @@ async function main() {
     }
     const fixture = fixtureCache[manifest.project];
 
+    // Generate reproducibility metadata for this project
+    const reproMeta = generateReproducibilityMetadata(manifest.project);
+
     try {
       const { summary } = await executeRun(manifest, fixture, config);
+
+      // Attach reproducibility metadata
+      summary.fixtureHash = reproMeta.fixtureHash;
+      summary.harnessVersion = reproMeta.harnessVersion;
+      summary.scoringVersion = reproMeta.scoringVersion;
+
       const { jsonPath, mdPath } = writeRunReport(summary, config.outputDir);
       console.log(`  Done: ${summary.durationSeconds.toFixed(1)}s, $${summary.usage.estimatedCostUsd.toFixed(4)}`);
       console.log(`  Report: ${mdPath}`);

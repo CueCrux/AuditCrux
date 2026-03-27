@@ -1,6 +1,6 @@
 # MemoryCrux Benchmark
 
-> LLM-in-the-loop benchmark proving that tool-mediated memory outperforms long-context injection for agentic workflows — across safety, decision recall, and production-scale retrieval.
+> LLM-in-the-loop benchmark measuring whether tool-mediated memory outperforms long-context injection for agentic workflows — across safety, decision recall, and production-scale retrieval.
 
 Part of [AuditCrux](../../README.md). Measures whether MemoryCrux provides measurable advantages over dumping everything into the prompt.
 
@@ -8,9 +8,9 @@ Part of [AuditCrux](../../README.md). Measures whether MemoryCrux provides measu
 
 Frontier LLMs now offer 400K–1M token context windows. Why use a memory system when you can dump everything into the prompt?
 
-**Answer: because it doesn't work.**
+**This benchmark measures where and by how much.**
 
-At production-realistic corpus sizes (2M+ tokens), context-stuffing achieves 8–44% architectural recall. Tool-mediated retrieval achieves 96–100%. Context-stuffing is also 5–20× more expensive and actively degrades the strongest models' performance.
+At production-realistic corpus sizes (2M+ tokens), context-stuffing achieves 8–44% architectural recall. Tool-mediated retrieval achieves 96–100%. Context-stuffing is also 5–20× more expensive and actively degrades the strongest models' performance. Results are directional (N=1 per cell for most arms); see the [Benchmark Standard](https://github.com/CueCrux/ResearchCrux/blob/main/evidence/memorycrux-benchmark-standard-v1.md) for statistical requirements.
 
 ## Headline Results
 
@@ -135,7 +135,7 @@ The stepping stone between Alpha and Delta. F1 leads (88% Sonnet), T2 second (69
 | **Kill variants** | D1 (dirty after phase 2), D2 (graceful after phase 3) |
 | **Tests** | Production-scale retrieval under massive noise |
 
-The stress test. 3,300 documents across auth, payments, data pipeline, infrastructure, and compliance. 10 stale documents, 4 contradiction pairs, 5 needle facts buried in noise. Context-stuffing breaks down completely here — this is where MemoryCrux proves its value.
+The stress test. 3,300 documents across auth, payments, data pipeline, infrastructure, and compliance. 10 stale documents, 4 contradiction pairs, 5 needle facts buried in noise. Context-stuffing breaks down completely here — this is where tool-mediated retrieval shows the largest advantage.
 
 **Tiered scoring:** The 30 keys are split into core (25 architectural decisions) and needle (5 buried implementation facts). Core recall is the primary metric. See `results/delta-summary.md` for the full analysis.
 
@@ -298,6 +298,9 @@ benchmarks/memorycrux/
 
 ## Key Reports
 
+- [Benchmark Standard v1.0](https://github.com/CueCrux/ResearchCrux/blob/main/evidence/memorycrux-benchmark-standard-v1.md) — Normative spec: arms, scoring, controls, reproducibility, governance
 - [Delta Summary](results/delta-summary.md) — Full 15-cell matrix, tiered scoring, cost analysis
+- [Cost Analysis](results/cost-analysis.md) — Subscription breakeven, TCO, quality-adjusted cost
 - [Track A Scoring Report](results/track-a-scoring-report.md) — Auto-generated per-arm scores
-- [Methodology](METHODOLOGY.md) — Scoring definitions, experimental design, limitations
+- [Methodology](METHODOLOGY.md) — Scoring definitions, experimental design, failure handling
+- [Exclusion Register](EXCLUSIONS.md) — Excluded/partial cells with root causes

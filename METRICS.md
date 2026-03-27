@@ -2,8 +2,8 @@
 
 > Canonical metric definitions for measuring AI agent session effectiveness. Immutable once published: new metrics may be added, existing definitions must never change.
 
-**Status:** DRAFT — pending review
-**Date:** 2026-03-26
+**Status:** Published — v1.0
+**Date:** 2026-03-27 (published), 2026-03-26 (drafted)
 **Scope:** Universal. Any AI agent benchmark or instrumentation harness. Hosted in AuditCrux as the portfolio measurement standard; designed for external adoption without CueCrux dependencies.
 
 ---
