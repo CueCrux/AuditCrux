@@ -200,10 +200,50 @@
       "actionClass": "data_lifecycle"
     }
   ],
+  "keyTiers": {
+    "core": [
+      "Ed25519 for JWT signing",
+      "15-minute access token TTL",
+      "opaque refresh tokens in Redis",
+      "PKCE for all OAuth flows",
+      "Stripe as primary processor",
+      "idempotency key in X-Idempotency-Key header",
+      "PCI DSS tokenization via Stripe Elements",
+      "webhook signature verification with HMAC-SHA256",
+      "30-day refund window policy",
+      "Apache Flink for stream processing",
+      "exactly-once semantics via Kafka transactions",
+      "15-minute tumbling windows for aggregation",
+      "dead letter queue for poison messages",
+      "Parquet format for cold storage",
+      "blue-green deployment strategy",
+      "circuit breaker with 50% error threshold",
+      "5-second timeout for inter-service calls",
+      "pod disruption budget minimum 60%",
+      "Argo Rollouts for canary releases",
+      "mutual TLS between all services",
+      "structured JSON logging with correlation IDs",
+      "OpenTelemetry for distributed tracing",
+      "99.95% SLA for payment endpoints",
+      "data retention 7 years for financial records",
+      "CQRS pattern for billing reads"
+    ],
+    "needle": [
+      "vault-transit-key-ed25519-prod-signing-v3",
+      "10.80.0.7:6379",
+      "Building D Floor 2 Server Room 204",
+      "KAFKA_CONSUMER_GROUP_payment-settlement-v3",
+      "feature-flag-gradual-rollout-payments-eu"
+    ]
+  },
   "expectedMetrics": {
     "decision_recall_at_phase_5": {
       "target": "≥ 60%",
       "description": "Phase 5 must recall at least 60% of the 30 decision keys from prior phases"
+    },
+    "core_recall": {
+      "target": "≥ 72% (18/25)",
+      "description": "At least 72% of 25 core architectural decision keys"
     },
     "needle_recall": {
       "target": "≥ 3/5 (60%)",

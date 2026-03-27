@@ -15,6 +15,7 @@ import {
   scoreTokenEfficiency,
   scoreNeedleRecall,
   scoreContradictionDetection,
+  scoreTieredRecall,
 } from "./lib/scoring/track-a.js";
 import { computeCruxScore, type CruxScore } from "./lib/scoring/crux-score.js";
 import { compareRuns, renderComparisonTable } from "./lib/scoring/comparator.js";
@@ -114,6 +115,12 @@ function scoreRun(summary: RunSummary) {
     }
 
     if (summary.project === "delta") {
+      // Tiered recall — core (25 architectural) vs needle (5 buried facts)
+      const keyTiers = scenario.keyTiers as { core: string[]; needle: string[] } | undefined;
+      if (keyTiers) {
+        results.tieredRecall = scoreTieredRecall(sessions, phase5?.expectedDecisionKeys ?? [], keyTiers);
+      }
+
       // Needle recall — 5 needles across corpus
       const needleKeys = [
         "vault-transit-key-ed25519-prod-signing-v3",
@@ -256,13 +263,22 @@ for (const [project, runs] of byProject) {
       const incidentStr = ir !== undefined ? (ir ? "YES" : "NO") : "-";
       const cxStr = cx?.composite.Cx_em != null ? `${cx.composite.Cx_em}` : "-";
 
+      // Tiered recall for table
+      const tr = scores.tieredRecall as {
+        core: { score: number; matched: string[]; missed: string[] };
+        needle: { score: number; matched: string[]; missed: string[] };
+      } | undefined;
+      const coreStr = tr ? `${(tr.core.score * 100).toFixed(0)}% (${tr.core.matched.length}/${tr.core.matched.length + tr.core.missed.length})` : "";
+      const needleNStr = tr ? `${(tr.needle.score * 100).toFixed(0)}% (${tr.needle.matched.length}/${tr.needle.matched.length + tr.needle.missed.length})` : "";
+
       output.push(
         `| ${run.arm} | ${drStr} | ${constraintStr} | ${safetyStr} | ${incidentStr} | $${te.totalCost.toFixed(4)} | ${totalTurns} | ${totalTools} | ${cxStr} |`,
       );
 
       // Console output
+      const tieredSuffix = tr ? ` core=${coreStr} needle=${needleNStr}` : "";
       console.log(
-        `${project}/${model}/${run.arm}: recall=${drStr} safe=${safetyStr} Cx=${cxStr}Em cost=$${te.totalCost.toFixed(4)}`,
+        `${project}/${model}/${run.arm}: recall=${drStr}${tieredSuffix} safe=${safetyStr} Cx=${cxStr}Em cost=$${te.totalCost.toFixed(4)}`,
       );
     }
 
@@ -279,6 +295,17 @@ for (const [project, runs] of byProject) {
       const dr = scores.decisionRecall as { missed: string[] } | undefined;
       if (dr && dr.missed.length > 0) {
         output.push(`**${run.arm} missed keys:** ${dr.missed.join(", ")}`);
+      }
+      // Tiered recall breakdown for Delta
+      const tr = scores.tieredRecall as {
+        overall: { score: number; matched: string[]; missed: string[] };
+        core: { score: number; matched: string[]; missed: string[] };
+        needle: { score: number; matched: string[]; missed: string[] };
+      } | undefined;
+      if (tr) {
+        const coreStr = `${(tr.core.score * 100).toFixed(0)}% (${tr.core.matched.length}/${tr.core.matched.length + tr.core.missed.length})`;
+        const needleStr = `${(tr.needle.score * 100).toFixed(0)}% (${tr.needle.matched.length}/${tr.needle.matched.length + tr.needle.missed.length})`;
+        output.push(`**${run.arm} tiered recall:** core=${coreStr} needle=${needleStr}`);
       }
     }
     output.push("");

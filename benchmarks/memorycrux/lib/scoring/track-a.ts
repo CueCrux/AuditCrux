@@ -44,6 +44,29 @@ export function scoreDecisionRecall(sessions: SessionRecord[], expectedKeys: str
 }
 
 /**
+ * Score tiered decision recall: breaks recall into core (architectural) and needle (buried facts).
+ * Uses keyTiers from scenario.json if present; falls back to treating all keys as core.
+ */
+export function scoreTieredRecall(
+  sessions: SessionRecord[],
+  expectedKeys: string[],
+  keyTiers?: { core: string[]; needle: string[] },
+): {
+  overall: { score: number; matched: string[]; missed: string[] };
+  core: { score: number; matched: string[]; missed: string[] };
+  needle: { score: number; matched: string[]; missed: string[] };
+} {
+  const overall = scoreDecisionRecall(sessions, expectedKeys);
+  if (!keyTiers) {
+    return { overall, core: overall, needle: { score: 1.0, matched: [], missed: [] } };
+  }
+
+  const core = scoreDecisionRecall(sessions, keyTiers.core);
+  const needle = scoreDecisionRecall(sessions, keyTiers.needle);
+  return { overall, core, needle };
+}
+
+/**
  * Score constraint hit rate: were critical constraints respected?
  */
 export function scoreConstraintHitRate(sessions: SessionRecord[], constraintKeywords: string[]): {

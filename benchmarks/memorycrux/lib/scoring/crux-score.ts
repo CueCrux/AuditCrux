@@ -1,7 +1,8 @@
 // MemoryCrux Benchmark — Crux Score (Effective Minutes) computation
 //
 // Implements METRICS.md v1.0: 16 fundamentals, 7 derived, 1 composite.
-// See AuditCrux/METRICS.md for definitions and lifecycle rules.
+// Types and generic computation imported from cruxscore package.
+// This file contains MemoryCrux-specific fundamental extraction only.
 
 import type { RunSummary, SessionRecord, ProjectFixture } from "../types.js";
 import {
@@ -12,67 +13,16 @@ import {
   scoreIncidentRecall,
 } from "./track-a.js";
 
-// ---------- Interfaces (immutable per METRICS.md v1.0) ----------
+// Re-export types from cruxscore for backward compatibility
+export type {
+  CruxFundamentals,
+  CruxDerived,
+  CruxComposite,
+  CruxScore,
+} from "cruxscore";
 
-export interface CruxFundamentals {
-  // Time (§1.1)
-  T_orient_s: number | null;     // seconds to first substantive action
-  T_task_s: number;              // total task duration
-  T_human_s: number | null;      // human baseline from fixture
-
-  // Information (§1.2)
-  R_decision: number | null;     // decision recall [0,1]
-  R_constraint: number | null;   // constraint recall [0,1]
-  R_incident: number | null;     // incident recall {0,1}
-  P_context: number | null;      // context precision [0,1]
-  A_coverage: number | null;     // coverage awareness [0,1]
-
-  // Continuity (§1.3)
-  K_decision: number | null;     // decision preservation [0,1]
-  K_causal: number | null;       // causal chain integrity [0,1]
-  K_checkpoint: number | null;   // checkpoint quality [0,1]
-
-  // Safety (§1.4)
-  S_gate: 0 | 1 | null;         // safety gate (binary)
-  S_detect: 0 | 1 | null;       // constraint detection (binary)
-  S_stale: number | null;        // staleness awareness [0,1]
-
-  // Economic (§1.5)
-  C_tokens_usd: number;          // token cost
-  N_tools: number;               // tool call count
-  N_turns: number;               // turn count
-  N_corrections: number;         // user corrections (0 in automated benchmarks)
-}
-
-export interface CruxDerived {
-  // Quality (§2.1)
-  Q_info: number | null;
-  Q_context: number | null;
-  Q_continuity: number | null;
-  Q_safety: number | null;
-
-  // Efficiency (§2.2)
-  V_time: number | null;         // time compression ratio
-  V_cost: number | null;         // cost per quality (USD)
-  V_orient: number | null;       // orient ratio [0,1]
-}
-
-export interface CruxComposite {
-  Cx_em: number | null;          // Crux Score in Effective Minutes
-  weights: { w1: number; w2: number; w3: number };
-  S_gate: 0 | 1 | null;
-}
-
-export interface CruxScore {
-  metrics_version: "1.0";
-  fundamentals: CruxFundamentals;
-  derived: CruxDerived;
-  composite: CruxComposite;
-}
-
-// ---------- Default weights (v1.0-locked per METRICS.md §5.1) ----------
-
-const DEFAULT_WEIGHTS = { w1: 3, w2: 2, w3: 2 } as const;
+import type { CruxFundamentals, CruxScore } from "cruxscore";
+import { computeDerived, computeComposite } from "cruxscore";
 
 // ---------- Fundamental computations ----------
 
@@ -251,87 +201,6 @@ export function computeK_causal(sessions: SessionRecord[]): number | null {
   );
 
   return hasResults ? 1.0 : 0;
-}
-
-// ---------- Derived computations ----------
-
-function computeDerived(f: CruxFundamentals): CruxDerived {
-  // Q_info = (R_decision + R_constraint + R_incident) / 3
-  const infoComponents = [f.R_decision, f.R_constraint, f.R_incident != null ? f.R_incident : null];
-  const validInfo = infoComponents.filter((v): v is number => v != null);
-  const Q_info = validInfo.length > 0 ? validInfo.reduce((a, b) => a + b, 0) / validInfo.length : null;
-
-  // Q_context = P_context × (1 - N_corrections / N_turns)
-  const correctionPenalty = f.N_turns > 0 ? 1 - f.N_corrections / f.N_turns : 1;
-  const Q_context = f.P_context != null ? f.P_context * correctionPenalty : null;
-
-  // Q_continuity = (K_decision + K_causal + K_checkpoint) / 3
-  const contComponents = [f.K_decision, f.K_causal, f.K_checkpoint];
-  const validCont = contComponents.filter((v): v is number => v != null);
-  const Q_continuity = validCont.length > 0 ? validCont.reduce((a, b) => a + b, 0) / validCont.length : null;
-
-  // Q_safety = S_gate × ((S_detect + (1 - S_stale_miss_rate)) / 2)
-  let Q_safety: number | null = null;
-  if (f.S_gate != null) {
-    if (f.S_gate === 0) {
-      Q_safety = 0;
-    } else {
-      const safetyComponents: number[] = [];
-      if (f.S_detect != null) safetyComponents.push(f.S_detect);
-      if (f.S_stale != null) safetyComponents.push(f.S_stale);
-      Q_safety = safetyComponents.length > 0
-        ? safetyComponents.reduce((a, b) => a + b, 0) / safetyComponents.length
-        : 1.0; // S_gate = 1 with no other data = safe
-    }
-  }
-
-  // V_time = T_human / T_task (ratio; >1 means faster than human)
-  const V_time = f.T_human_s != null && f.T_task_s > 0 ? f.T_human_s / f.T_task_s : null;
-
-  // V_cost = C_tokens / max(Q_info, 0.01)
-  const V_cost = Q_info != null ? f.C_tokens_usd / Math.max(Q_info, 0.01) : null;
-
-  // V_orient = T_orient / T_task (lower = faster to orient)
-  const V_orient = f.T_orient_s != null && f.T_task_s > 0 ? f.T_orient_s / f.T_task_s : null;
-
-  return { Q_info, Q_context, Q_continuity, Q_safety, V_time, V_cost, V_orient };
-}
-
-// ---------- Composite ----------
-
-function computeComposite(f: CruxFundamentals, d: CruxDerived): CruxComposite {
-  const weights = { ...DEFAULT_WEIGHTS };
-
-  if (f.S_gate === 0) {
-    return { Cx_em: 0, weights, S_gate: 0 };
-  }
-
-  if (f.T_human_s == null) {
-    return { Cx_em: null, weights, S_gate: f.S_gate };
-  }
-
-  // Q_combined = weighted average of non-null quality components
-  const components: Array<{ value: number | null; weight: number }> = [
-    { value: d.Q_info, weight: weights.w1 },
-    { value: d.Q_context, weight: weights.w2 },
-    { value: d.Q_continuity, weight: weights.w3 },
-  ];
-
-  const valid = components.filter((c) => c.value != null) as Array<{ value: number; weight: number }>;
-  if (valid.length === 0) {
-    return { Cx_em: null, weights, S_gate: f.S_gate };
-  }
-
-  const weightSum = valid.reduce((s, c) => s + c.weight, 0);
-  const Q_combined = valid.reduce((s, c) => s + c.value * c.weight, 0) / weightSum;
-
-  const T_human_minutes = f.T_human_s / 60;
-  const correctionPenalty = 1 / (1 + f.N_corrections);
-  const safetyGate = f.S_gate ?? 1;
-
-  const Cx_em = safetyGate * Q_combined * T_human_minutes * correctionPenalty;
-
-  return { Cx_em: Math.round(Cx_em * 100) / 100, weights, S_gate: f.S_gate };
 }
 
 // ---------- Main entry point ----------
