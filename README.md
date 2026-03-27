@@ -4,6 +4,22 @@
 
 Part of [CueCrux](../README.md) — measures and verifies Engine retrieval quality.
 
+## Contents
+
+- [Why this exists](#why-this-exists)
+- [Prerequisites](#prerequisites)
+- [Quickstart](#quickstart)
+- [Current Status — Phase 7.4](#current-status----phase-74-v740)
+- [What each category tests](#what-each-category-tests)
+- [Regression Suites](#regression-suites)
+- [Known limitations](#known-limitations)
+- [MemoryCrux Benchmark](#memorycrux-benchmark)
+- [Crux Score — Agent Effectiveness Metric Standard](#crux-score--agent-effectiveness-metric-standard)
+- [How to interpret results](#how-to-interpret-results)
+- [Contributing](#contributing)
+- [Public Evidence Layer](#public-evidence-layer)
+- [Key Links](#key-links)
+
 ## Why this exists
 
 Most retrieval-augmented generation systems ship without a reproducible quality benchmark. You get a demo, a vague claim about accuracy, and a suggestion to "tune your prompts." There is no published methodology for measuring whether a retrieval engine correctly handles document supersession, causal chain traversal, format heterogeneity, or corpus degradation under scale. This suite exists to fill that gap. Every number has a run ID. Every claim can be reproduced.
@@ -265,20 +281,32 @@ Canary suite for detecting upstream LLM model/provider changes: Cat 2, 11, 12. R
 
 ## MemoryCrux Benchmark
 
-> LLM-in-the-loop benchmark measuring MemoryCrux's value versus flat-context baselines. Full documentation in [`benchmarks/memorycrux/`](benchmarks/memorycrux/README.md).
+> LLM-in-the-loop benchmark proving that tool-mediated memory outperforms long-context injection for agentic workflows — across safety, decision recall, and production-scale retrieval. Full documentation in [`benchmarks/memorycrux/`](benchmarks/memorycrux/README.md).
 
-**Date:** 2026-03-26. **Runs:** 75 (45 unique cells). **Cost:** ~$10.
+**Date:** 2026-03-27. **Cells:** ~80 (Alpha 18 + Beta 18 + Gamma ~30 + Delta 15). **Cost:** ~$55.
 
-Tests two claims: (1) MemoryCrux's constraint-checking tools prevent production disasters that flat context does not, and (2) MemoryCrux's persistent memory enables decision continuity across session boundaries.
+Tests two claims across 4 projects (Alpha→Delta), 5 arms (C0/C2/F1/T2/T3), and 3 models (Sonnet 4.6, GPT-5.4, GPT-5.4-mini):
 
 | Claim | Status | Evidence |
 |---|---|---|
-| **Safety layer** | **PROVEN** | 11/11 T2 SAFE across 3 models. Controls UNSAFE on 4/9 model-arm combinations. |
-| **Memory layer** | Not yet differentiated | Alpha fixture (36K) too small to stress flat context. Controls re-derive decisions from corpus. |
+| **Safety layer** | **PROVEN** | All T2 arms SAFE across 3 models (Beta). Sonnet C0/C2 UNSAFE — most capable model was most dangerous without guardrails. |
+| **Retrieval at scale** | **PROVEN** | At 2M+ tokens (Delta), tool arms achieve 96–100% core recall. Context-stuffing achieves 8–44% — worse than bare control. |
 
-Headline finding: *The most capable model (Sonnet 4.6) was the most dangerous without guardrails (5 destructive actions against production). The cheapest model (GPT-5.4-mini) with MemoryCrux was safer than the most expensive model without it.*
+### Delta Headline (2M+ token stress test)
 
-See [`benchmarks/memorycrux/RESULTS.md`](benchmarks/memorycrux/RESULTS.md) for full data tables and [`benchmarks/memorycrux/METHODOLOGY.md`](benchmarks/memorycrux/METHODOLOGY.md) for scoring definitions.
+| Arm | Sonnet 4.6 | GPT-5.4 | GPT-5.4-mini |
+|-----|-----------|---------|-------------|
+| **C0** (bare) | 44% | 28% | 20% |
+| **C2** (context-stuffed) | 28% | 8% | 40% |
+| **F1** (raw tools) | **100%** | **100%** | 96% |
+| **T2** (MCP tools) | **100%** | 80% | 72% |
+| **T3** (compound tools) | 96% | **100%** | 0%* |
+
+*mini T3 suffered a tool integration failure — excluded from analysis.
+
+**Key findings:** Context-stuffing (C2) is worse than bare (C0) on the strongest models at 2M scale — the models drown in noise. C2 costs $10–13 per run vs $1–6 for tool arms. Tool-mediated retrieval is both cheaper and dramatically more effective.
+
+See [`benchmarks/memorycrux/results/delta-summary.md`](benchmarks/memorycrux/results/delta-summary.md) for the full 15-cell analysis and [`benchmarks/memorycrux/METHODOLOGY.md`](benchmarks/memorycrux/METHODOLOGY.md) for scoring definitions.
 
 ## Crux Score — Agent Effectiveness Metric Standard
 
