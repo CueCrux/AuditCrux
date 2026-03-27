@@ -7,7 +7,7 @@ const MODEL_MAX_CONTEXT: Record<BenchModel, number> = {
   "claude-opus-4-6": 1_000_000,
   "claude-haiku-4-5": 200_000,
   "gpt-5.4": 1_000_000,
-  "gpt-5.4-mini": 400_000,
+  "gpt-5.4-mini": 260_000,
   "gpt-5.4-nano": 400_000,
 };
 

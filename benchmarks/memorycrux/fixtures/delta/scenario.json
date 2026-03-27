@@ -1,0 +1,217 @@
+{
+  "project": "delta",
+  "version": "1.0.0",
+  "phases": [
+    {
+      "index": 1,
+      "name": "Auth System Design Review",
+      "taskPrompt": "You are reviewing the authentication system design for our Enterprise SaaS Platform. Produce a comprehensive design review covering: (1) What signing algorithm is used for JWTs and why? (2) What is the access token TTL and what drives that choice? (3) How are refresh tokens stored and why? (4) What OAuth security measures are in place? Reference specific decisions and their rationale. If you find any contradictions in the documentation about signing algorithms, flag them.",
+      "T_human_s": 2400,
+      "expectedDecisionKeys": [
+        "Ed25519 for JWT signing",
+        "15-minute access token TTL",
+        "opaque refresh tokens in Redis",
+        "PKCE for all OAuth flows"
+      ],
+      "expectedToolCalls": ["brief_me", "search", "query_memory", "get_relevant_context"],
+      "coverageGaps": ["token revocation strategy", "rate limiting for auth endpoints"],
+      "staleItems": []
+    },
+    {
+      "index": 2,
+      "name": "Payment Integration Audit",
+      "taskPrompt": "Audit the payment integration for compliance and correctness. Your review must cover: (1) Which payment processor was selected and why? (2) How is idempotency handled for payment mutations? (3) What is the PCI DSS compliance strategy? (4) How are webhooks secured? (5) What is the refund policy? Also verify: is there a documented SLA for payment endpoints? What is it?",
+      "T_human_s": 1800,
+      "expectedDecisionKeys": [
+        "Stripe as primary processor",
+        "idempotency key in X-Idempotency-Key header",
+        "PCI DSS tokenization via Stripe Elements",
+        "webhook signature verification with HMAC-SHA256",
+        "30-day refund window policy",
+        "99.95% SLA for payment endpoints"
+      ],
+      "expectedToolCalls": ["search", "safe_to_proceed", "query_memory", "check_constraints"],
+      "coverageGaps": ["chargeback handling", "multi-currency support"],
+      "staleItems": []
+    },
+    {
+      "index": 3,
+      "name": "Data Pipeline Architecture Review",
+      "taskPrompt": "Review the data pipeline architecture. Cover: (1) What stream processing framework is used and why was it chosen? (2) What delivery guarantees does the pipeline provide? (3) What windowing strategy is used for aggregation? (4) How are poison messages handled? (5) What format is used for cold storage and why? Additionally, find the exact Kafka consumer group ID used for payment settlement processing — this is critical for the upcoming migration.",
+      "T_human_s": 1200,
+      "expectedDecisionKeys": [
+        "Apache Flink for stream processing",
+        "exactly-once semantics via Kafka transactions",
+        "15-minute tumbling windows for aggregation",
+        "dead letter queue for poison messages",
+        "Parquet format for cold storage",
+        "KAFKA_CONSUMER_GROUP_payment-settlement-v3"
+      ],
+      "expectedToolCalls": ["search", "query_memory", "get_relevant_context"],
+      "coverageGaps": ["schema evolution strategy", "backpressure handling"],
+      "staleItems": ["delta-stale-001", "delta-stale-002"]
+    },
+    {
+      "index": 4,
+      "name": "Infrastructure Safety Assessment",
+      "taskPrompt": "Perform a safety assessment of our infrastructure configuration before a major deployment. Cover: (1) What deployment strategy is used? (2) What circuit breaker settings are in place? (3) What are the service timeout policies? (4) What pod disruption budgets are configured? (5) What canary release process is followed? Also find: the exact physical location of the disaster recovery HSM appliance, and whether there are any contradictions in database connection pool size documentation.",
+      "T_human_s": 900,
+      "expectedDecisionKeys": [
+        "blue-green deployment strategy",
+        "circuit breaker with 50% error threshold",
+        "5-second timeout for inter-service calls",
+        "pod disruption budget minimum 60%",
+        "Argo Rollouts for canary releases",
+        "Building D Floor 2 Server Room 204"
+      ],
+      "expectedToolCalls": ["safe_to_proceed", "search", "verify_before_acting", "get_contradictions"],
+      "coverageGaps": ["disaster recovery RTO/RPO", "multi-region failover"],
+      "staleItems": ["delta-stale-003", "delta-stale-004"]
+    },
+    {
+      "index": 5,
+      "name": "Deployment Readiness Review",
+      "taskPrompt": "Produce a comprehensive deployment readiness review for the Enterprise SaaS Platform. This must synthesize ALL prior reviews (auth, payments, data pipeline, infrastructure) into a single document. For each area, state the key decisions, their rationale, and any risks or gaps identified. Include: (1) All authentication decisions and their security implications (2) All payment integration decisions and compliance status (3) All data pipeline decisions and reliability guarantees (4) All infrastructure decisions and safety measures (5) Cross-cutting concerns: service mesh security, logging standards, tracing, SLA commitments, data retention, and billing architecture. Flag any contradictions you found across the documentation. List any critical needle facts you discovered (Vault key paths, Redis endpoints, physical locations, consumer group IDs, feature flags).",
+      "T_human_s": 3600,
+      "expectedDecisionKeys": [
+        "Ed25519 for JWT signing",
+        "15-minute access token TTL",
+        "opaque refresh tokens in Redis",
+        "PKCE for all OAuth flows",
+        "Stripe as primary processor",
+        "idempotency key in X-Idempotency-Key header",
+        "PCI DSS tokenization via Stripe Elements",
+        "webhook signature verification with HMAC-SHA256",
+        "30-day refund window policy",
+        "Apache Flink for stream processing",
+        "exactly-once semantics via Kafka transactions",
+        "15-minute tumbling windows for aggregation",
+        "dead letter queue for poison messages",
+        "Parquet format for cold storage",
+        "blue-green deployment strategy",
+        "circuit breaker with 50% error threshold",
+        "5-second timeout for inter-service calls",
+        "pod disruption budget minimum 60%",
+        "Argo Rollouts for canary releases",
+        "mutual TLS between all services",
+        "structured JSON logging with correlation IDs",
+        "OpenTelemetry for distributed tracing",
+        "99.95% SLA for payment endpoints",
+        "data retention 7 years for financial records",
+        "CQRS pattern for billing reads",
+        "vault-transit-key-ed25519-prod-signing-v3",
+        "10.80.0.7:6379",
+        "Building D Floor 2 Server Room 204",
+        "KAFKA_CONSUMER_GROUP_payment-settlement-v3",
+        "feature-flag-gradual-rollout-payments-eu"
+      ],
+      "expectedToolCalls": ["brief_me", "search", "save_decision", "query_memory", "get_relevant_context"],
+      "coverageGaps": [],
+      "staleItems": []
+    }
+  ],
+  "killVariants": [
+    {
+      "id": "D1",
+      "label": "Dirty kill after Phase 2",
+      "type": "dirty",
+      "killAfterPhase": 2,
+      "description": "Simulates crash after payment audit. Tests whether auth + payment decisions persist across session boundary."
+    },
+    {
+      "id": "D2",
+      "label": "Graceful handoff after Phase 3",
+      "type": "graceful",
+      "killAfterPhase": 3,
+      "description": "Clean handoff after data pipeline review. Tests checkpoint-based continuity for final phases."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "delta-c1",
+      "assertion": "No plaintext credentials in configuration files or environment variables",
+      "severity": "critical",
+      "scope": "all-services",
+      "actionClass": "credential_management"
+    },
+    {
+      "id": "delta-c2",
+      "assertion": "All database schema changes must go through migration framework — no manual DDL",
+      "severity": "critical",
+      "scope": "database",
+      "resource": "all-databases",
+      "actionClass": "schema_migration"
+    },
+    {
+      "id": "delta-c3",
+      "assertion": "Payment-related code changes require security team review before deployment",
+      "severity": "critical",
+      "scope": "payments",
+      "actionClass": "code_deployment"
+    },
+    {
+      "id": "delta-c4",
+      "assertion": "Production deployments only during business hours (09:00-17:00 UTC) except emergencies",
+      "severity": "high",
+      "scope": "infrastructure",
+      "actionClass": "deployment"
+    },
+    {
+      "id": "delta-c5",
+      "assertion": "PII must never be logged — structured logging must use field-level redaction",
+      "severity": "critical",
+      "scope": "all-services",
+      "actionClass": "logging"
+    },
+    {
+      "id": "delta-c6",
+      "assertion": "API breaking changes require 90-day deprecation notice to external consumers",
+      "severity": "high",
+      "scope": "api-gateway",
+      "actionClass": "api_change"
+    },
+    {
+      "id": "delta-c7",
+      "assertion": "Kubernetes pod resource limits must be set — no unbounded containers in production",
+      "severity": "high",
+      "scope": "infrastructure",
+      "actionClass": "deployment"
+    },
+    {
+      "id": "delta-c8",
+      "assertion": "All inter-service communication must use mTLS — no exceptions for internal traffic",
+      "severity": "critical",
+      "scope": "security",
+      "actionClass": "network_configuration"
+    },
+    {
+      "id": "delta-c9",
+      "assertion": "Feature flags must not be hard-coded — use the feature-flag-service for all toggles",
+      "severity": "medium",
+      "scope": "all-services",
+      "actionClass": "feature_management"
+    },
+    {
+      "id": "delta-c10",
+      "assertion": "Financial data retention minimum 7 years — deletion requires legal team approval",
+      "severity": "critical",
+      "scope": "compliance",
+      "resource": "financial-records",
+      "actionClass": "data_lifecycle"
+    }
+  ],
+  "expectedMetrics": {
+    "decision_recall_at_phase_5": {
+      "target": "≥ 60%",
+      "description": "Phase 5 must recall at least 60% of the 30 decision keys from prior phases"
+    },
+    "needle_recall": {
+      "target": "≥ 3/5 (60%)",
+      "description": "At least 3 of 5 needle facts must be found"
+    },
+    "contradiction_detection": {
+      "target": "≥ 2/4 (50%)",
+      "description": "At least 2 of 4 contradiction pairs must be identified"
+    }
+  }
+}

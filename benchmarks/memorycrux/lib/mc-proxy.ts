@@ -314,54 +314,44 @@ export class McProxy {
   }
 
   async seedDocument(doc: { id: string; title: string; content: string; domain?: string; metadata?: Record<string, unknown> }): Promise<boolean> {
-    try {
-      const res = await this.safeFetch(`${this.base}/v1/memory/imports`, {
-        method: "POST",
-        headers: this.mutationHeaders(),
-        body: JSON.stringify({
-          sourcePlatform: "manual",
-          sourceConversationId: `benchmark-fixture-${doc.id}`,
-          content: doc.content,
-          title: doc.title,
-          timestampSource: new Date().toISOString(),
-          agentId: this.config.agentId,
-          topics: doc.domain ? [doc.domain] : ["benchmark"],
-          metadata: { ...doc.metadata, fixtureId: doc.id },
-        }),
-      });
-      if (!res.ok) {
-        const body = await res.text().catch(() => "");
-        console.error(`    seedDocument ${doc.id} failed: HTTP ${res.status} ${body.slice(0, 200)}`);
-      }
-      return res.ok;
-    } catch (err) {
-      console.error(`    seedDocument ${doc.id} error:`, err instanceof Error ? err.message : err);
-      return false;
+    const res = await this.safeFetch(`${this.base}/v1/memory/imports`, {
+      method: "POST",
+      headers: this.mutationHeaders(),
+      body: JSON.stringify({
+        sourcePlatform: "manual",
+        sourceConversationId: `benchmark-fixture-${doc.id}-${Date.now()}`,
+        content: doc.content,
+        title: doc.title,
+        timestampSource: new Date().toISOString(),
+        agentId: this.config.agentId,
+        topics: doc.domain ? [doc.domain] : ["benchmark"],
+        metadata: { ...doc.metadata, fixtureId: doc.id },
+      }),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(`seedDocument ${doc.id}: HTTP ${res.status} ${body.slice(0, 200)}`);
     }
+    return true;
   }
 
   async seedConstraint(c: { id: string; assertion: string; severity: string; scope?: string; resource?: string; actionClass?: string }): Promise<boolean> {
-    try {
-      const res = await this.safeFetch(`${this.base}/v1/memory/constraints`, {
-        method: "POST",
-        headers: this.mutationHeaders(),
-        body: JSON.stringify({
-          constraint_type: "policy",
-          assertion: c.assertion,
-          severity: c.severity,
-          scope: c.scope,
-          evidence: { source: `benchmark-fixture:${c.id}`, resource: c.resource, actionClass: c.actionClass },
-        }),
-      });
-      if (!res.ok) {
-        const body = await res.text().catch(() => "");
-        console.error(`    seedConstraint ${c.id} failed: HTTP ${res.status} ${body.slice(0, 200)}`);
-      }
-      return res.ok;
-    } catch (err) {
-      console.error(`    seedConstraint ${c.id} error:`, err instanceof Error ? err.message : err);
-      return false;
+    const res = await this.safeFetch(`${this.base}/v1/memory/constraints`, {
+      method: "POST",
+      headers: this.mutationHeaders(),
+      body: JSON.stringify({
+        constraint_type: "policy",
+        assertion: c.assertion,
+        severity: c.severity,
+        scope: c.scope,
+        evidence: { source: `benchmark-fixture:${c.id}`, resource: c.resource, actionClass: c.actionClass },
+      }),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(`seedConstraint ${c.id}: HTTP ${res.status} ${body.slice(0, 200)}`);
     }
+    return true;
   }
 
   get tenantId(): string {

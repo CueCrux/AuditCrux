@@ -1,0 +1,1101 @@
+{
+  "runId": "mc-bench-delta-p4-gpt-5-4-mini-balanced-t3-v01-20260327-451f7c",
+  "project": "delta",
+  "fixtureVariant": "v01",
+  "phase": 4,
+  "arm": "T3",
+  "timestamp": "2026-03-27T04:28:15.543Z",
+  "durationSeconds": 79.116,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4-mini",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 32000
+  },
+  "usage": {
+    "inputTokens": 47857,
+    "outputTokens": 2744,
+    "cachedTokens": 26368,
+    "billableTokens": 50601,
+    "estimatedCostUsd": 0.0156228
+  },
+  "sessions": [
+    {
+      "sessionId": "32979014-1827-42bd-a754-5094b8d93f75",
+      "phaseIndex": 1,
+      "phaseName": "Auth System Design Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1098,
+          "outputTokens": 79,
+          "cachedTokens": 0,
+          "latencyMs": 905,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Comprehensive design review of the authentication system for Enterprise SaaS Platform. Need to determine JWT signing algorithm and rationale, access token TTL and rationale, refresh token storage and rationale, OAuth security measures, and flag any contradictions in documentation about signing algorithms. Reference specific decisions and their rationale.",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: HTTP 429: Rate limit exceeded",
+                  "constraints: HTTP 429: Rate limit exceeded"
+                ]
+              },
+              "latencyMs": 15,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1213,
+          "outputTokens": 142,
+          "cachedTokens": 0,
+          "latencyMs": 1032,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "authentication system design JWT signing algorithm access token TTL refresh token storage OAuth security measures decisions rationale",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 7,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "signing algorithm JWT contradictions documentation auth system",
+                "limit": 10,
+                "topic": "auth",
+                "verify_claim": "The documentation consistently specifies one JWT signing algorithm for the authentication system."
+              },
+              "result": null,
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "access token TTL refresh token storage OAuth PKCE state nonce auth decisions",
+                "limit": 10,
+                "topic": "auth"
+              },
+              "result": null,
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1368,
+          "outputTokens": 41,
+          "cachedTokens": 1152,
+          "latencyMs": 685,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "authentication system design JWT signing algorithm access token TTL refresh token storage OAuth security measures decisions rationale",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 1420,
+          "outputTokens": 48,
+          "cachedTokens": 1152,
+          "latencyMs": 879,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "signing algorithm JWT contradictions documentation auth system",
+                "limit": 10,
+                "topic": "auth",
+                "verify_claim": "The documentation consistently specifies one JWT signing algorithm for the authentication system."
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 1479,
+          "outputTokens": 36,
+          "cachedTokens": 1152,
+          "latencyMs": 1218,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "access token TTL refresh token storage OAuth PKCE state nonce auth decisions",
+                "limit": 10,
+                "topic": "auth"
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 5,
+          "role": "assistant",
+          "inputTokens": 1526,
+          "outputTokens": 186,
+          "cachedTokens": 0,
+          "latencyMs": 1234,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m sorry, but I can’t produce a reliable design review from the current memory state because the briefing/search tools returned no usable content due to rate limiting, so I don’t have the underlying decisions or documentation to cite.\n\nWhat I can confirm:\n- I attempted to retrieve the auth-system briefing and search the memory for:\n  - JWT signing algorithm\n  - access token TTL\n  - refresh token storage\n  - OAuth security measures\n  - contradictions about signing algorithms\n- The memory system returned only rate-limit/null responses, so I can’t safely infer or invent the design.\n\nIf you want, I can try again once the memory system is available, and then I’ll produce the full review with:\n1. signing algorithm and rationale,\n2. access token TTL and rationale,\n3. refresh token storage and rationale,\n4. OAuth security measures,\n5. any contradictions in signing-algorithm documentation.",
+      "firstSubstantiveActionMs": 912
+    },
+    {
+      "sessionId": "34c371c9-5cd4-4d8b-beac-b59d3e98bcbf",
+      "phaseIndex": 2,
+      "phaseName": "Payment Integration Audit",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1086,
+          "outputTokens": 77,
+          "cachedTokens": 0,
+          "latencyMs": 809,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Audit the payment integration for compliance and correctness. Need to determine: selected payment processor and rationale; idempotency handling for payment mutations; PCI DSS compliance strategy; webhook security; refund policy; and verify whether there is a documented SLA for payment endpoints and what it is.",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: HTTP 429: Rate limit exceeded",
+                  "constraints: HTTP 429: Rate limit exceeded"
+                ]
+              },
+              "latencyMs": 13,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1199,
+          "outputTokens": 122,
+          "cachedTokens": 0,
+          "latencyMs": 1022,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment processor selected rationale idempotency PCI DSS webhooks refund policy SLA payment endpoints",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment integration audit processor idempotency PCI DSS webhook refund SLA",
+                "limit": 10,
+                "topic": "payment integration"
+              },
+              "result": null,
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "verify_claim": "There is a documented SLA for payment endpoints.",
+                "query": "documented SLA payment endpoints",
+                "limit": 10
+              },
+              "result": null,
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1341,
+          "outputTokens": 36,
+          "cachedTokens": 1152,
+          "latencyMs": 511,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment integration audit processor idempotency PCI DSS webhook refund SLA",
+                "limit": 20,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 1388,
+          "outputTokens": 35,
+          "cachedTokens": 0,
+          "latencyMs": 500,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment processor selected rationale idempotency PCI DSS webhooks refund policy SLA payment endpoints",
+                "limit": 20
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 1434,
+          "outputTokens": 36,
+          "cachedTokens": 1152,
+          "latencyMs": 648,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "verify_claim": "There is a documented SLA for payment endpoints.",
+                "query": "documented SLA payment endpoints",
+                "limit": 20
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 5,
+          "role": "assistant",
+          "inputTokens": 1481,
+          "outputTokens": 166,
+          "cachedTokens": 1152,
+          "latencyMs": 1247,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m unable to complete the audit from the available memory right now because the briefing/search tools are returning rate-limit failures, so I don’t have the underlying project context or documents to verify the payment integration details.\n\nWhat I can confirm:\n- I could not reliably determine:\n  - which payment processor was selected,\n  - how idempotency is implemented,\n  - the PCI DSS strategy,\n  - webhook security measures,\n  - refund policy,\n  - whether a documented SLA exists for payment endpoints.\n\nCurrent blocker:\n- The organisational memory tools are returning HTTP 429 / null responses, so I can’t substantiate any claims without risking inaccuracy.\n\nIf you want, I can try again later, or you can provide the relevant docs/configs and I’ll produce a full compliance/correctness audit from them.",
+      "firstSubstantiveActionMs": 810
+    },
+    {
+      "sessionId": "0087098b-a8fa-450b-aa7f-228fd04818ec",
+      "phaseIndex": 3,
+      "phaseName": "Data Pipeline Architecture Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1095,
+          "outputTokens": 114,
+          "cachedTokens": 0,
+          "latencyMs": 900,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Review the data pipeline architecture. Cover: (1) What stream processing framework is used and why was it chosen? (2) What delivery guarantees does the pipeline provide? (3) What windowing strategy is used for aggregation? (4) How are poison messages handled? (5) What format is used for cold storage and why? Additionally, find the exact Kafka consumer group ID used for payment settlement processing — this is critical for the upcoming migration.",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: HTTP 429: Rate limit exceeded",
+                  "constraints: HTTP 429: Rate limit exceeded"
+                ]
+              },
+              "latencyMs": 12,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1245,
+          "outputTokens": 126,
+          "cachedTokens": 1152,
+          "latencyMs": 804,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "data pipeline architecture stream processing framework chosen delivery guarantees windowing poison messages cold storage format payment settlement Kafka consumer group ID",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 8,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment settlement processing Kafka consumer group ID",
+                "limit": 10,
+                "topic": "Kafka"
+              },
+              "result": null,
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "stream processing framework chosen why delivery guarantees windowing aggregation poison messages cold storage format",
+                "limit": 10,
+                "topic": "data pipeline architecture"
+              },
+              "result": null,
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1391,
+          "outputTokens": 50,
+          "cachedTokens": 1152,
+          "latencyMs": 778,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment settlement processing Kafka consumer group ID",
+                "limit": 10,
+                "topic": "Kafka",
+                "verify_claim": "The exact Kafka consumer group ID used for payment settlement processing is known in memory."
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 1452,
+          "outputTokens": 30,
+          "cachedTokens": 1152,
+          "latencyMs": 590,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment settlement processing Kafka consumer group ID",
+                "limit": 10,
+                "topic": "Kafka"
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 1493,
+          "outputTokens": 41,
+          "cachedTokens": 1152,
+          "latencyMs": 630,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "data pipeline architecture stream processing framework chosen delivery guarantees windowing poison messages cold storage format",
+                "limit": 10,
+                "topic": "data pipeline architecture"
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 5,
+          "role": "assistant",
+          "inputTokens": 1545,
+          "outputTokens": 34,
+          "cachedTokens": 1152,
+          "latencyMs": 519,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "stream processing framework chosen why delivery guarantees windowing aggregation poison messages cold storage format",
+                "limit": 10
+              },
+              "result": null,
+              "latencyMs": 11,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 6,
+          "role": "assistant",
+          "inputTokens": 1590,
+          "outputTokens": 191,
+          "cachedTokens": 1152,
+          "latencyMs": 1472,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I couldn’t retrieve any architecture memory for this session because the briefing/search system is currently rate-limited, and the searches returned no usable results. So I can’t reliably answer the architecture questions or identify the exact Kafka consumer group ID without risking a guess.\n\nWhat I need to proceed:\n- A document, design note, or repo path for the data pipeline architecture\n- Or permission to retry once the memory system is available again\n\nIf you can share any of the following, I can extract the exact answers quickly:\n- architecture doc / ADR\n- stream processing code/module name\n- Kafka topic or service name for payment settlement\n- any mention of the consumer group naming convention\n\nCurrent status:\n- Stream processing framework: not verified\n- Delivery guarantees: not verified\n- Windowing strategy: not verified\n- Poison message handling: not verified\n- Cold storage format: not verified\n- Payment settlement Kafka consumer group ID: not found",
+      "firstSubstantiveActionMs": 901
+    },
+    {
+      "sessionId": "87667968-4ca6-4d5b-9d0b-56a3d4b218eb",
+      "phaseIndex": 4,
+      "phaseName": "Infrastructure Safety Assessment",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1097,
+          "outputTokens": 101,
+          "cachedTokens": 0,
+          "latencyMs": 854,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Perform a safety assessment of our infrastructure configuration before a major deployment. Cover: (1) deployment strategy used, (2) circuit breaker settings, (3) service timeout policies, (4) pod disruption budgets, (5) canary release process. Also find the exact physical location of the disaster recovery HSM appliance, and whether there are any contradictions in database connection pool size documentation.",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: HTTP 429: Rate limit exceeded",
+                  "constraints: HTTP 429: Rate limit exceeded"
+                ]
+              },
+              "latencyMs": 12,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1234,
+          "outputTokens": 119,
+          "cachedTokens": 1152,
+          "latencyMs": 1002,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "deployment strategy circuit breaker timeout policy pod disruption budget canary release infrastructure configuration major deployment",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 7,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "disaster recovery HSM appliance physical location exact location",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "database connection pool size documentation contradiction pool size docs verify claim",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1373,
+          "outputTokens": 40,
+          "cachedTokens": 1152,
+          "latencyMs": 673,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "deployment strategy circuit breaker timeout policy pod disruption budget canary release infrastructure configuration major deployment",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 8,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 1424,
+          "outputTokens": 34,
+          "cachedTokens": 0,
+          "latencyMs": 464,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "disaster recovery HSM appliance physical location exact location",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 8,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 1469,
+          "outputTokens": 35,
+          "cachedTokens": 1152,
+          "latencyMs": 581,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "database connection pool size documentation contradiction pool size docs verify claim",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 7,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 5,
+          "role": "assistant",
+          "inputTokens": 1515,
+          "outputTokens": 201,
+          "cachedTokens": 1152,
+          "latencyMs": 1418,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m unable to complete the assessment from the organizational memory right now because the briefing/search system is returning rate-limit failures (`HTTP 429`) and no usable results were returned.\n\nWhat I could determine:\n- The requested safety assessment topics are clear:\n  1. deployment strategy\n  2. circuit breaker settings\n  3. service timeout policies\n  4. pod disruption budgets\n  5. canary release process\n  6. exact physical location of the DR HSM appliance\n  7. contradictions in DB connection pool size documentation\n\nWhat blocked me:\n- `brief_me` returned only a rate-limit warning.\n- All `search` attempts returned `null`, so I have no evidence to report without guessing.\n\nIf you want, I can retry once the memory service is available, and then I’ll produce a proper assessment with:\n- a concise findings summary,\n- any contradictions or gaps,\n- and a risk-oriented recommendation for the major deployment.",
+      "firstSubstantiveActionMs": 854
+    },
+    {
+      "sessionId": "e9db986c-c8d1-4ae0-a68f-484293df3117",
+      "phaseIndex": 5,
+      "phaseName": "Deployment Readiness Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1160,
+          "outputTokens": 115,
+          "cachedTokens": 0,
+          "latencyMs": 845,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Produce a comprehensive deployment readiness review for the Enterprise SaaS Platform by synthesizing all prior reviews (auth, payments, data pipeline, infrastructure) into a single document. Need key decisions, rationale, risks/gaps, contradictions, and critical needle facts (Vault key paths, Redis endpoints, physical locations, consumer group IDs, feature flags). Also cover cross-cutting concerns: service mesh security, logging standards, tracing, SLA commitments, data retention, billing architecture.",
+                "token_budget": 12000
+              },
+              "result": {
+                "context": {
+                  "items": [
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] api-gateway: # Technical Specification: job-scheduler Performance Requirements **Version:** 3.0 **Last Updated:** 2026-09-02 **Owner:** Mobile **Reviewers:** Mobile, Observability ## Overview This document describes the design of file-upload for the SRE team. The service handles 2559 events per second at peak. ## Requirements ### Functional Requirements 1. The system must handle 4442 requests per second 2. Response latency p99 must be under 50ms 3. Data must be replicated across 2 availability zones ### Non-Functional Requirements 1. Availability target: 99.9% 2. Recovery time objective: 15 minutes 3. Recovery point objective: 0 (zero data loss) ## Architecture This document describes the design of file-upload for the SRE team. The service handles 2559 events per second at p...",
+                      "detail": "Confidence: 0.6799983920425037",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] search: proval ### Section 2: Data Handling 1. PII must be encrypted at rest using AES-256-GCM 2. Data in transit must use TLS 1.3 only 3. Logs must not contain PII ### Section 3: Monitoring & Audit 1. All access to financial systems must be logged 2. Audit logs must be retained for 7 years 3. Anomalous access patterns must trigger alerts within 15 minutes ## Enforcement Violations of this policy may result in: - First offense: Written warning and mandatory security training - Second offense: Access revocation pending review - Third offense: Disciplinary action up to termination ## Exceptions Exceptions require written approval from VP Engineering and must be reviewed quarterly. ## References - CCPA Section 10 - Internal Security Handbook v3.1 - Vendor Security Assessment Fr...",
+                      "detail": "Confidence: 0.6629403547656312",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] frontend: oval ### Section 2: Data Handling 1. PII must be encrypted at rest using ChaCha20-Poly1305 2. Data in transit must use TLS 1.3 only 3. Logs must not contain credentials ### Section 3: Monitoring & Audit 1. All access to production systems must be logged 2. Audit logs must be retained for 1 year 3. Anomalous access patterns must trigger alerts within 15 minutes ## Enforcement Violations of this policy may result in: - First offense: Written warning and mandatory security training - Second offense: Access revocation pending review - Third offense: Disciplinary action up to termination ## Exceptions Exceptions require written approval from VP Engineering and must be reviewed quarterly. ## References - GDPR Section 12 - Internal Security Handbook v4.0 - Vendor Security...",
+                      "detail": "Confidence: 0.6458809973555776",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] notifications: # Technical Specification: job-scheduler Data Model **Version:** 2.0 **Last Updated:** 2026-06-28 **Owner:** Mobile **Reviewers:** Observability, Payments ## Overview This document describes the implementation of push-notifier for the Growth team. The service handles 1823 requests per second at peak. ## Requirements ### Functional Requirements 1. The system must handle 2577 requests per second 2. Response latency p99 must be under 500ms 3. Data must be replicated across 2 availability zones ### Non-Functional Requirements 1. Availability target: 99.95% 2. Recovery time objective: 5 minutes 3. Recovery point objective: 0 (zero data loss) ## Architecture This document describes the implementation of push-notifier for the Growth team. The service handles 1823 req...",
+                      "detail": "Confidence: 0.6287007904157729",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] search: r approval ### Section 2: Data Handling 1. PII must be encrypted at rest using AES-256-GCM 2. Data in transit must use TLS 1.2+ 3. Logs must not contain PII ### Section 3: Monitoring & Audit 1. All access to production systems must be logged 2. Audit logs must be retained for 3 years 3. Anomalous access patterns must trigger alerts within 15 minutes ## Enforcement Violations of this policy may result in: - First offense: Written warning and mandatory security training - Second offense: Access revocation pending review - Third offense: Disciplinary action up to termination ## Exceptions Exceptions require written approval from VP Engineering and must be reviewed quarterly. ## References - GDPR Section 5 - Internal Security Handbook v4.0 - Vendor Security Assessment Fr...",
+                      "detail": "Confidence: 0.6117633571425596",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] devex: proval ### Section 2: Data Handling 1. PII must be encrypted at rest using AES-256-GCM 2. Data in transit must use TLS 1.3 only 3. Logs must not contain PII ### Section 3: Monitoring & Audit 1. All access to production systems must be logged 2. Audit logs must be retained for 1 year 3. Anomalous access patterns must trigger alerts within 15 minutes ## Enforcement Violations of this policy may result in: - First offense: Written warning and mandatory security training - Second offense: Access revocation pending review - Third offense: Disciplinary action up to termination ## Exceptions Exceptions require written approval from VP Engineering and must be reviewed quarterly. ## References - FedRAMP Moderate Section 5 - Internal Security Handbook v3.1 - Vendor Security Ass...",
+                      "detail": "Confidence: 0.5945834099127933",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] frontend: manager approval ### Section 2: Data Handling 1. PII must be encrypted at rest using ChaCha20-Poly1305 2. Data in transit must use TLS 1.2+ 3. Logs must not contain credentials ### Section 3: Monitoring & Audit 1. All access to production systems must be logged 2. Audit logs must be retained for 7 years 3. Anomalous access patterns must trigger alerts within 15 minutes ## Enforcement Violations of this policy may result in: - First offense: Written warning and mandatory security training - Second offense: Access revocation pending review - Third offense: Disciplinary action up to termination ## Exceptions Exceptions require written approval from VP Engineering and must be reviewed quarterly. ## References - HIPAA Section 9 - Internal Security Handbook v4.0 - Vendor...",
+                      "detail": "Confidence: 0.577645879210045",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] devex: al ### Section 2: Data Handling 1. PII must be encrypted at rest using ChaCha20-Poly1305 2. Data in transit must use TLS 1.3 only 3. Logs must not contain credentials ### Section 3: Monitoring & Audit 1. All access to PII systems must be logged 2. Audit logs must be retained for 7 years 3. Anomalous access patterns must trigger alerts within 15 minutes ## Enforcement Violations of this policy may result in: - First offense: Written warning and mandatory security training - Second offense: Access revocation pending review - Third offense: Disciplinary action up to termination ## Exceptions Exceptions require written approval from VP Engineering and must be reviewed quarterly. ## References - HIPAA Section 10 - Internal Security Handbook v3.0 - Vendor Security Assessmen...",
+                      "detail": "Confidence: 0.5604656475911827",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] ml-platform: pproval ### Section 2: Data Handling 1. PII must be encrypted at rest using AES-256-GCM 2. Data in transit must use TLS 1.3 only 3. Logs must not contain credentials ### Section 3: Monitoring & Audit 1. All access to production systems must be logged 2. Audit logs must be retained for 3 years 3. Anomalous access patterns must trigger alerts within 5 minutes ## Enforcement Violations of this policy may result in: - First offense: Written warning and mandatory security training - Second offense: Access revocation pending review - Third offense: Disciplinary action up to termination ## Exceptions Exceptions require written approval from VP Engineering and must be reviewed quarterly. ## References - HIPAA Section 2 - Internal Security Handbook v4.0 - Vendor Security...",
+                      "detail": "Confidence: 0.5435285550282988",
+                      "estimatedTokens": 200
+                    },
+                    {
+                      "source": "knowledge",
+                      "priority": "low",
+                      "riskIfMissed": "low",
+                      "summary": "[Knowledge] infrastructure: r approval ### Section 2: Data Handling 1. PII must be encrypted at rest using AES-256-GCM 2. Data in transit must use TLS 1.2+ 3. Logs must not contain PII ### Section 3: Monitoring & Audit 1. All access to production systems must be logged 2. Audit logs must be retained for 7 years 3. Anomalous access patterns must trigger alerts within 15 minutes ## Enforcement Violations of this policy may result in: - First offense: Written warning and mandatory security training - Second offense: Access revocation pending review - Third offense: Disciplinary action up to termination ## Exceptions Exceptions require written approval from VP Engineering and must be reviewed quarterly. ## References - ISO 27001 Section 2 - Internal Security Handbook v3.1 - Vendor Security ...",
+                      "detail": "Confidence: 0.5264694827625735",
+                      "estimatedTokens": 200
+                    }
+                  ],
+                  "totalTokensUsed": 2000,
+                  "tokenBudget": 12000,
+                  "truncated": false,
+                  "sourcesQueried": [
+                    "constraints",
+                    "alerts",
+                    "freshness",
+                    "knowledge"
+                  ],
+                  "sourcesUnavailable": [],
+                  "receiptId": null
+                },
+                "constraints": {
+                  "constraints": []
+                },
+                "coverage_gaps": {
+                  "domainsAssessed": [
+                    {
+                      "domain": "deployment",
+                      "artefactCount": 0,
+                      "freshness": {
+                        "medianAgeDays": 0,
+                        "stalestArtefactAgeDays": 0,
+                        "freshCount": 0,
+                        "staleCount": 0
+                      },
+                      "topicDensity": 0,
+                      "activeConstraints": 0,
+                      "activeAlerts": 0,
+                      "coverageSignal": "empty"
+                    },
+                    {
+                      "domain": "infrastructure",
+                      "artefactCount": 0,
+                      "freshness": {
+                        "medianAgeDays": 0,
+                        "stalestArtefactAgeDays": 0,
+                        "freshCount": 0,
+                        "staleCount": 0
+                      },
+                      "topicDensity": 0,
+                      "activeConstraints": 0,
+                      "activeAlerts": 0,
+                      "coverageSignal": "empty"
+                    },
+                    {
+                      "domain": "logging",
+                      "artefactCount": 0,
+                      "freshness": {
+                        "medianAgeDays": 0,
+                        "stalestArtefactAgeDays": 0,
+                        "freshCount": 0,
+                        "staleCount": 0
+                      },
+                      "topicDensity": 0,
+                      "activeConstraints": 0,
+                      "activeAlerts": 0,
+                      "coverageSignal": "empty"
+                    },
+                    {
+                      "domain": "security",
+                      "artefactCount": 0,
+                      "freshness": {
+                        "medianAgeDays": 0,
+                        "stalestArtefactAgeDays": 0,
+                        "freshCount": 0,
+                        "staleCount": 0
+                      },
+                      "topicDensity": 0,
+                      "activeConstraints": 0,
+                      "activeAlerts": 0,
+                      "coverageSignal": "empty"
+                    },
+                    {
+                      "domain": "billing",
+                      "artefactCount": 0,
+                      "freshness": {
+                        "medianAgeDays": 0,
+                        "stalestArtefactAgeDays": 0,
+                        "freshCount": 0,
+                        "staleCount": 0
+                      },
+                      "topicDensity": 0,
+                      "activeConstraints": 0,
+                      "activeAlerts": 0,
+                      "coverageSignal": "empty"
+                    },
+                    {
+                      "domain": "payments",
+                      "artefactCount": 0,
+                      "freshness": {
+                        "medianAgeDays": 0,
+                        "stalestArtefactAgeDays": 0,
+                        "freshCount": 0,
+                        "staleCount": 0
+                      },
+                      "topicDensity": 0,
+                      "activeConstraints": 0,
+                      "activeAlerts": 0,
+                      "coverageSignal": "empty"
+                    }
+                  ],
+                  "identifiedGaps": [
+                    {
+                      "domain": "deployment",
+                      "gapDescription": "No artefacts about deployment",
+                      "inferredFrom": "task_analysis",
+                      "riskIfMissed": "medium"
+                    },
+                    {
+                      "domain": "infrastructure",
+                      "gapDescription": "No artefacts about infrastructure",
+                      "inferredFrom": "task_analysis",
+                      "riskIfMissed": "medium"
+                    },
+                    {
+                      "domain": "logging",
+                      "gapDescription": "No artefacts about logging",
+                      "inferredFrom": "task_analysis",
+                      "riskIfMissed": "medium"
+                    },
+                    {
+                      "domain": "security",
+                      "gapDescription": "No artefacts about security",
+                      "inferredFrom": "task_analysis",
+                      "riskIfMissed": "medium"
+                    },
+                    {
+                      "domain": "billing",
+                      "gapDescription": "No artefacts about billing",
+                      "inferredFrom": "task_analysis",
+                      "riskIfMissed": "medium"
+                    },
+                    {
+                      "domain": "payments",
+                      "gapDescription": "No artefacts about payments",
+                      "inferredFrom": "task_analysis",
+                      "riskIfMissed": "medium"
+                    }
+                  ],
+                  "overallReadiness": "significant_gaps",
+                  "receiptId": null
+                },
+                "freshness": {
+                  "items": []
+                },
+                "contradictions": {
+                  "items": []
+                }
+              },
+              "latencyMs": 10206,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 4048,
+          "outputTokens": 195,
+          "cachedTokens": 0,
+          "latencyMs": 1323,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "Enterprise SaaS Platform auth review decisions security implications Vault key paths feature flags service mesh logging tracing SLA data retention billing architecture contradictions needle facts",
+                "limit": 20,
+                "browse_topics": true
+              },
+              "result": {
+                "results": {
+                  "results": []
+                },
+                "topics": {
+                  "items": []
+                }
+              },
+              "latencyMs": 9,
+              "success": true
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "Enterprise SaaS Platform payments review decisions compliance status PCI billing architecture consumer group IDs Redis endpoints physical locations needle facts",
+                "limit": 20,
+                "browse_topics": true
+              },
+              "result": {
+                "results": {
+                  "results": []
+                },
+                "topics": {
+                  "items": []
+                }
+              },
+              "latencyMs": 6,
+              "success": true
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "Enterprise SaaS Platform data pipeline review decisions reliability guarantees consumer group IDs Redis endpoints feature flags data retention tracing logging contradictions",
+                "limit": 20,
+                "browse_topics": true
+              },
+              "result": {
+                "results": {
+                  "results": []
+                },
+                "topics": {
+                  "items": []
+                }
+              },
+              "latencyMs": 7,
+              "success": true
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "Enterprise SaaS Platform infrastructure review decisions safety measures service mesh security logging standards tracing SLA commitments physical locations Vault key paths contradictions",
+                "limit": 20,
+                "browse_topics": true
+              },
+              "result": {
+                "results": {
+                  "results": []
+                },
+                "topics": {
+                  "items": []
+                }
+              },
+              "latencyMs": 6,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 4322,
+          "outputTokens": 40,
+          "cachedTokens": 3712,
+          "latencyMs": 688,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "Enterprise SaaS Platform prior reviews auth payments data pipeline infrastructure deployment readiness review",
+                "limit": 50,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 400: body/limit must be <= 20"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 4371,
+          "outputTokens": 274,
+          "cachedTokens": 4224,
+          "latencyMs": 1747,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m sorry, but I can’t produce a truthful “comprehensive deployment readiness review” from the memory available right now.\n\nWhat I found:\n- The briefing indicates **significant gaps** across all requested domains:\n  - auth/security\n  - payments\n  - data pipeline\n  - infrastructure\n  - logging\n  - billing\n- The memory search returned **no prior review artefacts** for the Enterprise SaaS Platform in those areas.\n- No contradictions or needle facts were available from memory for:\n  - Vault key paths\n  - Redis endpoints\n  - physical locations\n  - consumer group IDs\n  - feature flags\n\nSo I can’t safely synthesize “all prior reviews” because the underlying reviews are not present in the accessible organisational memory.\n\nIf you want, I can do one of these next:\n1. Draft a **readiness review template** with explicit placeholders for each section.\n2. Produce a **gap analysis / missing-evidence report** for leadership.\n3. Continue searching if you can provide:\n   - session ID,\n   - document names,\n   - review owners,\n   - or any known keywords from the prior auth/payments/data/infrastructure reviews.\n\nIf you’d like, I can also generate a **best-effort review skeleton** that clearly marks every unsupported claim as “not found in memory.”",
+      "firstSubstantiveActionMs": 845
+    }
+  ],
+  "trackA": {
+    "latency": {
+      "brief_me": {
+        "p50": 13,
+        "p95": 10206,
+        "p99": 10206,
+        "count": 5
+      },
+      "search": {
+        "p50": 6,
+        "p95": 9,
+        "p99": 11,
+        "count": 30
+      }
+    },
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}

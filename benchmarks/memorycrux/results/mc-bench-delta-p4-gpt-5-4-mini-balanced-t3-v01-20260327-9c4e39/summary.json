@@ -1,0 +1,713 @@
+{
+  "runId": "mc-bench-delta-p4-gpt-5-4-mini-balanced-t3-v01-20260327-9c4e39",
+  "project": "delta",
+  "fixtureVariant": "v01",
+  "phase": 4,
+  "arm": "T3",
+  "timestamp": "2026-03-27T04:27:00.732Z",
+  "durationSeconds": 70.098,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4-mini",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 32000
+  },
+  "usage": {
+    "inputTokens": 31647,
+    "outputTokens": 2315,
+    "cachedTokens": 19584,
+    "billableTokens": 33962,
+    "estimatedCostUsd": 0.0104876
+  },
+  "sessions": [
+    {
+      "sessionId": "c22afb26-19aa-465a-b175-cf5595a52735",
+      "phaseIndex": 1,
+      "phaseName": "Auth System Design Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1098,
+          "outputTokens": 78,
+          "cachedTokens": 0,
+          "latencyMs": 800,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Comprehensive design review of the authentication system for Enterprise SaaS Platform. Need specifics on JWT signing algorithm and rationale, access token TTL and rationale, refresh token storage and rationale, OAuth security measures, and contradictions in documentation about signing algorithms. Reference specific decisions and their rationale.",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: fetch failed",
+                  "constraints: fetch failed"
+                ]
+              },
+              "latencyMs": 2,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1201,
+          "outputTokens": 47,
+          "cachedTokens": 0,
+          "latencyMs": 647,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "authentication system design JWT signing algorithm access token TTL refresh token storage OAuth security measures decision rationale contradiction signing algorithm",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 2,
+              "success": false,
+              "error": "fetch failed"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1256,
+          "outputTokens": 32,
+          "cachedTokens": 1152,
+          "latencyMs": 617,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "JWT signing algorithm access token TTL refresh token storage OAuth security measures",
+                "limit": 20
+              },
+              "result": null,
+              "latencyMs": 47,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 1298,
+          "outputTokens": 56,
+          "cachedTokens": 1152,
+          "latencyMs": 793,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "signing algorithm JWT RS256 ES256 HS256 auth system design review enterprise SaaS platform",
+                "limit": 20,
+                "verify_claim": "The documentation uses a single consistent JWT signing algorithm across all auth design docs."
+              },
+              "result": null,
+              "latencyMs": 7,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 1365,
+          "outputTokens": 137,
+          "cachedTokens": 1152,
+          "latencyMs": 1026,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m sorry, but I can’t produce a reliable design review from the available memory because the briefing fetch failed and the search tool returned no results. I also can’t verify the JWT signing algorithm contradiction claim without source material.\n\nIf you can provide the relevant design docs or a session ID / memory access that works, I can immediately produce the review covering:\n\n1. JWT signing algorithm and rationale  \n2. Access token TTL and rationale  \n3. Refresh token storage and rationale  \n4. OAuth security measures  \n5. Any contradictions in signing-algorithm documentation\n\nIf helpful, paste the auth design excerpts here and I’ll turn them into a comprehensive review with contradictions flagged.",
+      "firstSubstantiveActionMs": 806
+    },
+    {
+      "sessionId": "83761886-71d0-4077-85d7-9eefefa78b9e",
+      "phaseIndex": 2,
+      "phaseName": "Payment Integration Audit",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1086,
+          "outputTokens": 92,
+          "cachedTokens": 0,
+          "latencyMs": 776,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Audit the payment integration for compliance and correctness. Determine: (1) which payment processor was selected and why, (2) idempotency handling for payment mutations, (3) PCI DSS compliance strategy, (4) webhook security, (5) refund policy. Also verify whether there is a documented SLA for payment endpoints and what it is.",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: HTTP 429: Rate limit exceeded",
+                  "constraints: HTTP 429: Rate limit exceeded"
+                ]
+              },
+              "latencyMs": 20,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1214,
+          "outputTokens": 119,
+          "cachedTokens": 0,
+          "latencyMs": 927,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment processor selected why idempotency PCI DSS webhooks refund policy SLA payment endpoints",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 7,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment integration audit processor idempotency PCI DSS webhook refund SLA",
+                "limit": 10,
+                "topic": "payment integration"
+              },
+              "result": null,
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "verify_claim": "There is a documented SLA for payment endpoints.",
+                "limit": 5
+              },
+              "result": null,
+              "latencyMs": 2,
+              "success": false,
+              "error": "HTTP 400: body/query must NOT have fewer than 1 characters"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1348,
+          "outputTokens": 36,
+          "cachedTokens": 1152,
+          "latencyMs": 597,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment integration audit processor idempotency PCI DSS webhook refund SLA",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 8,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 1395,
+          "outputTokens": 40,
+          "cachedTokens": 1152,
+          "latencyMs": 560,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment processor selected why idempotency PCI DSS webhooks refund policy SLA payment endpoints",
+                "limit": 10,
+                "topic": "payment integration"
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 1446,
+          "outputTokens": 28,
+          "cachedTokens": 1152,
+          "latencyMs": 445,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "verify_claim": "There is a documented SLA for payment endpoints.",
+                "limit": 5
+              },
+              "result": null,
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 400: body/query must NOT have fewer than 1 characters"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 5,
+          "role": "assistant",
+          "inputTokens": 1485,
+          "outputTokens": 147,
+          "cachedTokens": 1152,
+          "latencyMs": 1110,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m unable to complete the audit from the organisational memory right now because the briefing/search tools are returning rate-limit failures and no retrievable project context.\n\nWhat I could verify:\n- I could not confirm which payment processor was selected.\n- I could not confirm idempotency handling, PCI DSS strategy, webhook security, refund policy, or any documented SLA for payment endpoints.\n\nCurrent blocker:\n- `brief_me` returned `HTTP 429: Rate limit exceeded`\n- Subsequent `search` and `verify_claim` calls returned no usable results\n\nIf you want, I can retry once the memory system is available, or you can provide the relevant design docs / PRs / ADRs and I’ll audit them directly.",
+      "firstSubstantiveActionMs": 776
+    },
+    {
+      "sessionId": "ceceb278-e8ac-49b1-acfb-0cb1412e3306",
+      "phaseIndex": 3,
+      "phaseName": "Data Pipeline Architecture Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1095,
+          "outputTokens": 114,
+          "cachedTokens": 0,
+          "latencyMs": 859,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Review the data pipeline architecture. Cover: (1) What stream processing framework is used and why was it chosen? (2) What delivery guarantees does the pipeline provide? (3) What windowing strategy is used for aggregation? (4) How are poison messages handled? (5) What format is used for cold storage and why? Additionally, find the exact Kafka consumer group ID used for payment settlement processing — this is critical for the upcoming migration.",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: HTTP 429: Rate limit exceeded",
+                  "constraints: HTTP 429: Rate limit exceeded"
+                ]
+              },
+              "latencyMs": 16,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1245,
+          "outputTokens": 126,
+          "cachedTokens": 1152,
+          "latencyMs": 946,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "data pipeline architecture stream processing framework chosen delivery guarantees windowing poison messages cold storage format payment settlement Kafka consumer group ID",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment settlement processing Kafka consumer group ID",
+                "limit": 10,
+                "topic": "Kafka"
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "stream processing framework chosen why delivery guarantees windowing strategy poison messages cold storage format",
+                "limit": 10,
+                "topic": "data pipeline architecture"
+              },
+              "result": null,
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1391,
+          "outputTokens": 50,
+          "cachedTokens": 1152,
+          "latencyMs": 756,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payment settlement processing Kafka consumer group ID",
+                "limit": 10,
+                "topic": "Kafka",
+                "verify_claim": "The exact Kafka consumer group ID used for payment settlement processing is known in memory."
+              },
+              "result": null,
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 1452,
+          "outputTokens": 205,
+          "cachedTokens": 1152,
+          "latencyMs": 1213,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m sorry, but I couldn’t retrieve the architecture details from memory because the briefing/search backend is currently rate-limited, and the search results returned no usable context.\n\nWhat I can confirm right now:\n- I do **not** have a verified answer for:\n  1. stream processing framework and rationale\n  2. delivery guarantees\n  3. windowing strategy\n  4. poison message handling\n  5. cold storage format and rationale\n  6. the exact Kafka consumer group ID for payment settlement processing\n\nBecause the consumer group ID is critical for migration, I don’t want to guess.\n\nIf you want, I can try again once the memory system is available, or you can provide any of:\n- a design doc / ADR title\n- a service name\n- a repo path\n- a snippet of config\n- the Kafka topic name for payment settlement\n\nWith that, I can likely pinpoint the exact group ID and the rest of the architecture details.",
+      "firstSubstantiveActionMs": 859
+    },
+    {
+      "sessionId": "ebfc471c-ebd8-4662-a3f2-efcbf226cc7a",
+      "phaseIndex": 4,
+      "phaseName": "Infrastructure Safety Assessment",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1097,
+          "outputTokens": 103,
+          "cachedTokens": 0,
+          "latencyMs": 759,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Perform a safety assessment of our infrastructure configuration before a major deployment. Cover: (1) deployment strategy used, (2) circuit breaker settings, (3) service timeout policies, (4) pod disruption budgets configured, (5) canary release process followed. Also find the exact physical location of the disaster recovery HSM appliance, and whether there are any contradictions in database connection pool size documentation.",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: HTTP 429: Rate limit exceeded",
+                  "constraints: HTTP 429: Rate limit exceeded"
+                ]
+              },
+              "latencyMs": 122,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1236,
+          "outputTokens": 127,
+          "cachedTokens": 1152,
+          "latencyMs": 1038,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "deployment strategy circuit breaker timeout pod disruption budget canary release infrastructure configuration major deployment",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "disaster recovery HSM appliance physical location exact location",
+                "limit": 10
+              },
+              "result": null,
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "database connection pool size documentation contradiction pool size max connections hikari c3p0 datasource",
+                "limit": 10,
+                "verify_claim": "There are contradictions in database connection pool size documentation."
+              },
+              "result": null,
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1383,
+          "outputTokens": 39,
+          "cachedTokens": 1152,
+          "latencyMs": 643,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "deployment strategy circuit breaker timeout pod disruption budget canary release infrastructure configuration major deployment",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 1433,
+          "outputTokens": 29,
+          "cachedTokens": 1152,
+          "latencyMs": 624,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "disaster recovery HSM appliance physical location exact location",
+                "limit": 10
+              },
+              "result": null,
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 1473,
+          "outputTokens": 49,
+          "cachedTokens": 1152,
+          "latencyMs": 607,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "database connection pool size documentation contradiction pool size max connections hikari c3p0 datasource",
+                "limit": 10,
+                "verify_claim": "There are contradictions in database connection pool size documentation."
+              },
+              "result": null,
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 5,
+          "role": "assistant",
+          "inputTokens": 1533,
+          "outputTokens": 147,
+          "cachedTokens": 1152,
+          "latencyMs": 1125,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m unable to complete the assessment from the available memory right now because the briefing/search subsystem is returning rate-limit failures and no results.\n\nWhat I need to finish this safely:\n- deployment strategy used\n- circuit breaker settings\n- service timeout policies\n- pod disruption budgets\n- canary release process\n- exact physical location of the DR HSM appliance\n- verification of any contradictions in DB connection pool size docs\n\nCurrent blocker:\n- `brief_me` returned `HTTP 429: Rate limit exceeded`\n- follow-up `search` calls also returned no usable results\n\nIf you want, I can retry once the memory service is available, or you can provide the relevant config/docs and I’ll assess them directly.",
+      "firstSubstantiveActionMs": 759
+    },
+    {
+      "sessionId": "dddd3113-1f8b-4948-a0cc-7b832755eabc",
+      "phaseIndex": 5,
+      "phaseName": "Deployment Readiness Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 1160,
+          "outputTokens": 177,
+          "cachedTokens": 0,
+          "latencyMs": 1064,
+          "toolCalls": [
+            {
+              "toolName": "brief_me",
+              "args": {
+                "task_description": "Produce a comprehensive deployment readiness review for the Enterprise SaaS Platform. Synthesize ALL prior reviews (auth, payments, data pipeline, infrastructure) into a single document. For each area, state the key decisions, their rationale, and any risks or gaps identified. Include: (1) All authentication decisions and their security implications (2) All payment integration decisions and compliance status (3) All data pipeline decisions and reliability guarantees (4) All infrastructure decisions and safety measures (5) Cross-cutting concerns: service mesh security, logging standards, tracing, SLA commitments, data retention, and billing architecture. Flag any contradictions found across the documentation. List any critical needle facts you discovered (Vault key paths, Redis endpoints, physical locations, consumer group IDs, feature flags).",
+                "token_budget": 12000
+              },
+              "result": {
+                "_warnings": [
+                  "context: HTTP 429: Rate limit exceeded",
+                  "constraints: HTTP 429: Rate limit exceeded"
+                ]
+              },
+              "latencyMs": 57,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 1373,
+          "outputTokens": 187,
+          "cachedTokens": 1152,
+          "latencyMs": 1213,
+          "toolCalls": [
+            {
+              "toolName": "search",
+              "args": {
+                "query": "Enterprise SaaS Platform prior reviews auth payments data pipeline infrastructure deployment readiness review decisions rationale risks gaps contradictions",
+                "limit": 10,
+                "browse_topics": true
+              },
+              "result": null,
+              "latencyMs": 25,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "auth review decisions security implications Vault key paths feature flags service mesh logging tracing SLA data retention billing architecture",
+                "limit": 10
+              },
+              "result": null,
+              "latencyMs": 10,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "payments review decisions compliance status PCI SOC2 billing architecture payment integration risks gaps",
+                "limit": 10
+              },
+              "result": null,
+              "latencyMs": 10,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "data pipeline review decisions reliability guarantees consumer group IDs Redis endpoints physical locations risks gaps",
+                "limit": 10
+              },
+              "result": null,
+              "latencyMs": 37,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "search",
+              "args": {
+                "query": "infrastructure review decisions safety measures service mesh security logging standards tracing SLA commitments risks gaps",
+                "limit": 10
+              },
+              "result": null,
+              "latencyMs": 20,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 1584,
+          "outputTokens": 150,
+          "cachedTokens": 1152,
+          "latencyMs": 1164,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m sorry, but I can’t produce a reliable “comprehensive deployment readiness review” from the available memory because the required briefing/search tools are currently rate-limited and returned no usable content.\n\nWhat I was able to confirm:\n- The mandatory initial briefing call hit a rate limit (`HTTP 429`).\n- Parallel searches also returned no results.\n\nBecause of that, I can’t safely synthesize:\n- prior auth / payments / data pipeline / infrastructure decisions,\n- contradictions across documentation,\n- or the requested needle facts like Vault paths, Redis endpoints, consumer group IDs, and feature flags.\n\nIf you want, I can try again once the memory system is available, and then I’ll produce the full review in one consolidated document.",
+      "firstSubstantiveActionMs": 1064
+    }
+  ],
+  "trackA": {
+    "latency": {
+      "brief_me": {
+        "p50": 20,
+        "p95": 122,
+        "p99": 122,
+        "count": 5
+      },
+      "search": {
+        "p50": 5,
+        "p95": 37,
+        "p99": 47,
+        "count": 24
+      }
+    },
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}

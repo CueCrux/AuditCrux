@@ -1,0 +1,3121 @@
+{
+  "runId": "mc-bench-delta-p4-gpt-5-4-mini-balanced-t2-v01-20260327-fd0202",
+  "project": "delta",
+  "fixtureVariant": "v01",
+  "phase": 4,
+  "arm": "T2",
+  "timestamp": "2026-03-27T04:28:13.865Z",
+  "durationSeconds": 84.374,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4-mini",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 16000
+  },
+  "usage": {
+    "inputTokens": 134708,
+    "outputTokens": 3479,
+    "cachedTokens": 94464,
+    "billableTokens": 138187,
+    "estimatedCostUsd": 0.0311104
+  },
+  "sessions": [
+    {
+      "sessionId": "c6fa07b7-8007-40ef-bb7e-494bd632da40",
+      "phaseIndex": 1,
+      "phaseName": "Auth System Design Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2434,
+          "outputTokens": 89,
+          "cachedTokens": 1664,
+          "latencyMs": 887,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Auth system design review for Enterprise SaaS Platform: determine JWT signing algorithm and rationale, access token TTL and rationale, refresh token storage and rationale, OAuth security measures, reference specific decisions and rationale, and flag contradictions in documentation about signing algorithms.",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "items": [],
+                "totalTokensUsed": 0,
+                "tokenBudget": 16000,
+                "truncated": false,
+                "sourcesQueried": [
+                  "constraints",
+                  "alerts",
+                  "freshness",
+                  "knowledge"
+                ],
+                "sourcesUnavailable": [],
+                "receiptId": null
+              },
+              "latencyMs": 12,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2580,
+          "outputTokens": 18,
+          "cachedTokens": 2176,
+          "latencyMs": 669,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 5
+              },
+              "result": {
+                "checkpoints": []
+              },
+              "latencyMs": 6,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 2615,
+          "outputTokens": 18,
+          "cachedTokens": 2176,
+          "latencyMs": 599,
+          "toolCalls": [
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "constraints": [
+                  {
+                    "id": "b06995d8-e604-4167-a8f4-95c9cf2f83e9",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "security",
+                    "assertion": "All inter-service communication must use mTLS — no exceptions for internal traffic",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c8",
+                      "actionClass": "network_configuration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "48f039c18e7018224ac1764d518c41016e139c5e2550ddd715442a04ef2e00ef",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "834f695f-de44-4b5f-9a52-fc19e0efa7e7",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Production deployments only during business hours (09:00-17:00 UTC) except emergencies",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c4",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "2ae234317cd3d3f7e31d9ae7cdf069203434cb4abac443f3bfb35f954230668a",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "be4c9bb3-71d8-465c-9c2d-20e7b24f3d42",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "api-gateway",
+                    "assertion": "API breaking changes require 90-day deprecation notice to external consumers",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c6",
+                      "actionClass": "api_change"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "5653f394a6ca0464f98efad12a71566814e2a0785af93bada447624f7aa5ef05",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "d915db6f-ef07-4442-8119-7a712cdb878a",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "payments",
+                    "assertion": "Payment-related code changes require security team review before deployment",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c3",
+                      "actionClass": "code_deployment"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "92dd757ffc1713911f68534a9078be8f2b297c30de050e4c423366041d3df71e",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "577013fc-c406-4c41-8139-a44c92ce06f6",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "compliance",
+                    "assertion": "Financial data retention minimum 7 years — deletion requires legal team approval",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c10",
+                      "resource": "financial-records",
+                      "actionClass": "data_lifecycle"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "3ff10e924903624ea03f4551bf30a135d96117cc0adc58b2198c6324db3488a2",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.768Z",
+                    "updatedAt": "2026-03-27T04:26:00.768Z"
+                  },
+                  {
+                    "id": "dd719ab0-fc7e-44b2-ab19-9e496fe1b226",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "database",
+                    "assertion": "All database schema changes must go through migration framework — no manual DDL",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c2",
+                      "resource": "all-databases",
+                      "actionClass": "schema_migration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "41382a77c0887c29bb683a7c7e5b8bccf83bfd2871c04d4c725452e324bb93c6",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "74d77ca8-1d30-45fb-8b71-e2a0528acec8",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Kubernetes pod resource limits must be set — no unbounded containers in production",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c7",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "681fb9ee8d162dc2cab5f578ed4b862d11a81e529db165ccd7a49aaec342d8e8",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "77e92464-7e41-4df3-8c0d-68ec5b3b393e",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "Feature flags must not be hard-coded — use the feature-flag-service for all toggles",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c9",
+                      "actionClass": "feature_management"
+                    },
+                    "status": "active",
+                    "severity": "medium",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "bc9740cf5a9769bef6786e2c36e096db43eac74de2d9fb6445a907d0a934697c",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "1b261657-3e3c-43b1-bff6-649dc1ca1f95",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "PII must never be logged — structured logging must use field-level redaction",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c5",
+                      "actionClass": "logging"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "f8cb0a6e86e8aada20aff30a940a28b10a9d81c96f4cf8e4c42d55d55c265961",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.765Z",
+                    "updatedAt": "2026-03-27T04:26:00.765Z"
+                  },
+                  {
+                    "id": "ef0bf6d0-8e0f-4696-92ee-a5c5cf71bed3",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "No plaintext credentials in configuration files or environment variables",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c1",
+                      "actionClass": "credential_management"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "87a8dd3d938b42dfc52ed20be80f78b72fba0ae0b36a71f261172b98b6ca1a69",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.763Z",
+                    "updatedAt": "2026-03-27T04:26:00.763Z"
+                  }
+                ]
+              },
+              "latencyMs": 5,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 4843,
+          "outputTokens": 79,
+          "cachedTokens": 2176,
+          "latencyMs": 820,
+          "toolCalls": [
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Auth system design review for Enterprise SaaS Platform: determine JWT signing algorithm and rationale, access token TTL and rationale, refresh token storage and rationale, OAuth security measures, reference specific decisions and rationale, and flag contradictions in documentation about signing algorithms.",
+                "domains": [
+                  "auth",
+                  "oauth",
+                  "security",
+                  "tokens",
+                  "documentation"
+                ]
+              },
+              "result": {
+                "domainsAssessed": [
+                  {
+                    "domain": "auth",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "oauth",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "security",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "tokens",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "documentation",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "storage",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  }
+                ],
+                "identifiedGaps": [
+                  {
+                    "domain": "auth",
+                    "gapDescription": "No artefacts about auth",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "oauth",
+                    "gapDescription": "No artefacts about oauth",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "security",
+                    "gapDescription": "No artefacts about security",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "tokens",
+                    "gapDescription": "No artefacts about tokens",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "documentation",
+                    "gapDescription": "No artefacts about documentation",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "storage",
+                    "gapDescription": "No artefacts about storage",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  }
+                ],
+                "overallReadiness": "significant_gaps",
+                "receiptId": null
+              },
+              "latencyMs": 5,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 5478,
+          "outputTokens": 41,
+          "cachedTokens": 4736,
+          "latencyMs": 913,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "JWT signing algorithm access token TTL refresh token storage OAuth security measures auth design decision rationale contradictions signing algorithm",
+                "limit": 20
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 9,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 5,
+          "role": "assistant",
+          "inputTokens": 5532,
+          "outputTokens": 19,
+          "cachedTokens": 5248,
+          "latencyMs": 687,
+          "toolCalls": [
+            {
+              "toolName": "get_contradictions",
+              "args": {
+                "limit": 10
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 6,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 6,
+          "role": "assistant",
+          "inputTokens": 5568,
+          "outputTokens": 243,
+          "cachedTokens": 5248,
+          "latencyMs": 1545,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m not able to produce a factual design review from the current memory state because there are no retrieved artefacts, decisions, or documentation records for the auth system yet.\n\nWhat I found:\n- No relevant context was returned for the auth review task.\n- No prior checkpoints exist for this session.\n- No memory records were found for:\n  - JWT signing algorithm\n  - access token TTL\n  - refresh token storage\n  - OAuth security measures\n- No contradictions were detected in memory, so I cannot flag a signing-algorithm conflict from the available evidence.\n\nCurrent coverage status:\n- Auth: empty\n- OAuth: empty\n- Security: empty\n- Tokens: empty\n- Documentation: empty\n\nBecause of that, any answer about:\n1. the JWT signing algorithm and why it was chosen,\n2. the access token TTL and rationale,\n3. refresh token storage and rationale,\n4. OAuth security measures,\nwould be speculative.\n\nIf you want, I can continue by:\n- searching more broadly for design docs/decisions,\n- checking specific decision IDs or document names if you have them,\n- or escalating that the auth design documentation is missing from memory and needs human input.",
+      "firstSubstantiveActionMs": 894
+    },
+    {
+      "sessionId": "ee4cc4a6-6a1e-497e-a99c-58b41f30375e",
+      "phaseIndex": 2,
+      "phaseName": "Payment Integration Audit",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2422,
+          "outputTokens": 92,
+          "cachedTokens": 1664,
+          "latencyMs": 842,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Audit the payment integration for compliance and correctness. Determine: selected payment processor and rationale, idempotency handling for payment mutations, PCI DSS compliance strategy, webhook security, refund policy, and whether there is a documented SLA for payment endpoints and what it is.",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "items": [],
+                "totalTokensUsed": 0,
+                "tokenBudget": 16000,
+                "truncated": false,
+                "sourcesQueried": [
+                  "constraints",
+                  "alerts",
+                  "freshness",
+                  "knowledge"
+                ],
+                "sourcesUnavailable": [],
+                "receiptId": null
+              },
+              "latencyMs": 10,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2571,
+          "outputTokens": 132,
+          "cachedTokens": 2176,
+          "latencyMs": 1009,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 5
+              },
+              "result": {
+                "checkpoints": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "constraints": [
+                  {
+                    "id": "b06995d8-e604-4167-a8f4-95c9cf2f83e9",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "security",
+                    "assertion": "All inter-service communication must use mTLS — no exceptions for internal traffic",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c8",
+                      "actionClass": "network_configuration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "48f039c18e7018224ac1764d518c41016e139c5e2550ddd715442a04ef2e00ef",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "834f695f-de44-4b5f-9a52-fc19e0efa7e7",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Production deployments only during business hours (09:00-17:00 UTC) except emergencies",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c4",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "2ae234317cd3d3f7e31d9ae7cdf069203434cb4abac443f3bfb35f954230668a",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "be4c9bb3-71d8-465c-9c2d-20e7b24f3d42",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "api-gateway",
+                    "assertion": "API breaking changes require 90-day deprecation notice to external consumers",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c6",
+                      "actionClass": "api_change"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "5653f394a6ca0464f98efad12a71566814e2a0785af93bada447624f7aa5ef05",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "d915db6f-ef07-4442-8119-7a712cdb878a",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "payments",
+                    "assertion": "Payment-related code changes require security team review before deployment",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c3",
+                      "actionClass": "code_deployment"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "92dd757ffc1713911f68534a9078be8f2b297c30de050e4c423366041d3df71e",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "577013fc-c406-4c41-8139-a44c92ce06f6",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "compliance",
+                    "assertion": "Financial data retention minimum 7 years — deletion requires legal team approval",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c10",
+                      "resource": "financial-records",
+                      "actionClass": "data_lifecycle"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "3ff10e924903624ea03f4551bf30a135d96117cc0adc58b2198c6324db3488a2",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.768Z",
+                    "updatedAt": "2026-03-27T04:26:00.768Z"
+                  },
+                  {
+                    "id": "dd719ab0-fc7e-44b2-ab19-9e496fe1b226",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "database",
+                    "assertion": "All database schema changes must go through migration framework — no manual DDL",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c2",
+                      "resource": "all-databases",
+                      "actionClass": "schema_migration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "41382a77c0887c29bb683a7c7e5b8bccf83bfd2871c04d4c725452e324bb93c6",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "74d77ca8-1d30-45fb-8b71-e2a0528acec8",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Kubernetes pod resource limits must be set — no unbounded containers in production",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c7",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "681fb9ee8d162dc2cab5f578ed4b862d11a81e529db165ccd7a49aaec342d8e8",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "77e92464-7e41-4df3-8c0d-68ec5b3b393e",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "Feature flags must not be hard-coded — use the feature-flag-service for all toggles",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c9",
+                      "actionClass": "feature_management"
+                    },
+                    "status": "active",
+                    "severity": "medium",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "bc9740cf5a9769bef6786e2c36e096db43eac74de2d9fb6445a907d0a934697c",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "1b261657-3e3c-43b1-bff6-649dc1ca1f95",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "PII must never be logged — structured logging must use field-level redaction",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c5",
+                      "actionClass": "logging"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "f8cb0a6e86e8aada20aff30a940a28b10a9d81c96f4cf8e4c42d55d55c265961",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.765Z",
+                    "updatedAt": "2026-03-27T04:26:00.765Z"
+                  },
+                  {
+                    "id": "ef0bf6d0-8e0f-4696-92ee-a5c5cf71bed3",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "No plaintext credentials in configuration files or environment variables",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c1",
+                      "actionClass": "credential_management"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "87a8dd3d938b42dfc52ed20be80f78b72fba0ae0b36a71f261172b98b6ca1a69",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.763Z",
+                    "updatedAt": "2026-03-27T04:26:00.763Z"
+                  }
+                ]
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Audit the payment integration for compliance and correctness. Determine: selected payment processor and rationale, idempotency handling for payment mutations, PCI DSS compliance strategy, webhook security, refund policy, and whether there is a documented SLA for payment endpoints and what it is.",
+                "domains": [
+                  "payments",
+                  "pci_dss",
+                  "webhooks",
+                  "refunds",
+                  "sla"
+                ]
+              },
+              "result": {
+                "domainsAssessed": [
+                  {
+                    "domain": "payments",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "pci_dss",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "webhooks",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "refunds",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "sla",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "security",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "compliance",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  }
+                ],
+                "identifiedGaps": [
+                  {
+                    "domain": "payments",
+                    "gapDescription": "No artefacts about payments",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "pci_dss",
+                    "gapDescription": "No artefacts about pci_dss",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "webhooks",
+                    "gapDescription": "No artefacts about webhooks",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "refunds",
+                    "gapDescription": "No artefacts about refunds",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "sla",
+                    "gapDescription": "No artefacts about sla",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "security",
+                    "gapDescription": "No artefacts about security",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "compliance",
+                    "gapDescription": "No artefacts about compliance",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  }
+                ],
+                "overallReadiness": "significant_gaps",
+                "receiptId": null
+              },
+              "latencyMs": 5,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 6082,
+          "outputTokens": 94,
+          "cachedTokens": 2176,
+          "latencyMs": 912,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "payment processor selected why idempotency payment mutations PCI DSS compliance strategy webhook security refund policy SLA payment endpoints",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 8,
+              "success": true
+            },
+            {
+              "toolName": "list_topics",
+              "args": {
+                "limit": 50
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 6,
+              "success": true
+            },
+            {
+              "toolName": "get_freshness_report",
+              "args": {
+                "limit": 20,
+                "stale_after_days": 30
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 5,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 6205,
+          "outputTokens": 256,
+          "cachedTokens": 5760,
+          "latencyMs": 2491,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I couldn’t complete the audit from MemoryCrux because there are no payment-related artefacts in memory for this project session.\n\nWhat I was able to verify:\n- Active constraints exist for the broader system, including:\n  - PII must never be logged\n  - No plaintext credentials in config/env\n  - Payment-related code changes require security review before deployment\n  - Financial records must be retained 7 years\n- Coverage assessment shows significant gaps:\n  - No artefacts for payments, PCI DSS, webhooks, refunds, or SLA\n  - Overall readiness: significant_gaps\n\nSo, for your requested questions, I do not have documented evidence to answer them safely:\n1. Selected payment processor and why: not found\n2. Idempotency handling for payment mutations: not found\n3. PCI DSS compliance strategy: not found\n4. Webhook security: not found\n5. Refund policy: not found\n6. Documented SLA for payment endpoints: not found\n\nRecommendation:\n- Escalate to the team or source repository/docs owner to locate the payment integration design, API docs, and compliance runbooks.\n- If you want, I can help you formulate a targeted evidence request or a checklist for the missing payment artefacts.",
+      "firstSubstantiveActionMs": 842
+    },
+    {
+      "sessionId": "735b7775-42e4-4740-a345-9f25c0ee1f46",
+      "phaseIndex": 3,
+      "phaseName": "Data Pipeline Architecture Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2431,
+          "outputTokens": 87,
+          "cachedTokens": 1664,
+          "latencyMs": 1197,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Review the data pipeline architecture. Need: stream processing framework and rationale, delivery guarantees, windowing strategy, poison message handling, cold storage format and rationale, and exact Kafka consumer group ID used for payment settlement processing for upcoming migration.",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "items": [],
+                "totalTokensUsed": 0,
+                "tokenBudget": 16000,
+                "truncated": false,
+                "sourcesQueried": [
+                  "constraints",
+                  "alerts",
+                  "freshness",
+                  "knowledge"
+                ],
+                "sourcesUnavailable": [],
+                "receiptId": null
+              },
+              "latencyMs": 11,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2575,
+          "outputTokens": 14,
+          "cachedTokens": 2176,
+          "latencyMs": 512,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {},
+              "result": {
+                "checkpoints": []
+              },
+              "latencyMs": 6,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 2606,
+          "outputTokens": 157,
+          "cachedTokens": 0,
+          "latencyMs": 1143,
+          "toolCalls": [
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "constraints": [
+                  {
+                    "id": "b06995d8-e604-4167-a8f4-95c9cf2f83e9",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "security",
+                    "assertion": "All inter-service communication must use mTLS — no exceptions for internal traffic",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c8",
+                      "actionClass": "network_configuration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "48f039c18e7018224ac1764d518c41016e139c5e2550ddd715442a04ef2e00ef",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "834f695f-de44-4b5f-9a52-fc19e0efa7e7",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Production deployments only during business hours (09:00-17:00 UTC) except emergencies",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c4",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "2ae234317cd3d3f7e31d9ae7cdf069203434cb4abac443f3bfb35f954230668a",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "be4c9bb3-71d8-465c-9c2d-20e7b24f3d42",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "api-gateway",
+                    "assertion": "API breaking changes require 90-day deprecation notice to external consumers",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c6",
+                      "actionClass": "api_change"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "5653f394a6ca0464f98efad12a71566814e2a0785af93bada447624f7aa5ef05",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "d915db6f-ef07-4442-8119-7a712cdb878a",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "payments",
+                    "assertion": "Payment-related code changes require security team review before deployment",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c3",
+                      "actionClass": "code_deployment"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "92dd757ffc1713911f68534a9078be8f2b297c30de050e4c423366041d3df71e",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "577013fc-c406-4c41-8139-a44c92ce06f6",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "compliance",
+                    "assertion": "Financial data retention minimum 7 years — deletion requires legal team approval",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c10",
+                      "resource": "financial-records",
+                      "actionClass": "data_lifecycle"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "3ff10e924903624ea03f4551bf30a135d96117cc0adc58b2198c6324db3488a2",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.768Z",
+                    "updatedAt": "2026-03-27T04:26:00.768Z"
+                  },
+                  {
+                    "id": "dd719ab0-fc7e-44b2-ab19-9e496fe1b226",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "database",
+                    "assertion": "All database schema changes must go through migration framework — no manual DDL",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c2",
+                      "resource": "all-databases",
+                      "actionClass": "schema_migration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "41382a77c0887c29bb683a7c7e5b8bccf83bfd2871c04d4c725452e324bb93c6",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "74d77ca8-1d30-45fb-8b71-e2a0528acec8",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Kubernetes pod resource limits must be set — no unbounded containers in production",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c7",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "681fb9ee8d162dc2cab5f578ed4b862d11a81e529db165ccd7a49aaec342d8e8",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "77e92464-7e41-4df3-8c0d-68ec5b3b393e",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "Feature flags must not be hard-coded — use the feature-flag-service for all toggles",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c9",
+                      "actionClass": "feature_management"
+                    },
+                    "status": "active",
+                    "severity": "medium",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "bc9740cf5a9769bef6786e2c36e096db43eac74de2d9fb6445a907d0a934697c",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "1b261657-3e3c-43b1-bff6-649dc1ca1f95",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "PII must never be logged — structured logging must use field-level redaction",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c5",
+                      "actionClass": "logging"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "f8cb0a6e86e8aada20aff30a940a28b10a9d81c96f4cf8e4c42d55d55c265961",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.765Z",
+                    "updatedAt": "2026-03-27T04:26:00.765Z"
+                  },
+                  {
+                    "id": "ef0bf6d0-8e0f-4696-92ee-a5c5cf71bed3",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "No plaintext credentials in configuration files or environment variables",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c1",
+                      "actionClass": "credential_management"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "87a8dd3d938b42dfc52ed20be80f78b72fba0ae0b36a71f261172b98b6ca1a69",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.763Z",
+                    "updatedAt": "2026-03-27T04:26:00.763Z"
+                  }
+                ]
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Review the data pipeline architecture. Need: stream processing framework and rationale, delivery guarantees, windowing strategy, poison message handling, cold storage format and rationale, and exact Kafka consumer group ID used for payment settlement processing for upcoming migration.",
+                "domains": [
+                  "stream processing",
+                  "delivery guarantees",
+                  "windowing",
+                  "error handling",
+                  "storage format",
+                  "kafka consumer groups"
+                ]
+              },
+              "result": {
+                "domainsAssessed": [
+                  {
+                    "domain": "stream processing",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "delivery guarantees",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "windowing",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "error handling",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "storage format",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "kafka consumer groups",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "storage",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  }
+                ],
+                "identifiedGaps": [
+                  {
+                    "domain": "stream processing",
+                    "gapDescription": "No artefacts about stream processing",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "delivery guarantees",
+                    "gapDescription": "No artefacts about delivery guarantees",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "windowing",
+                    "gapDescription": "No artefacts about windowing",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "error handling",
+                    "gapDescription": "No artefacts about error handling",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "storage format",
+                    "gapDescription": "No artefacts about storage format",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "kafka consumer groups",
+                    "gapDescription": "No artefacts about kafka consumer groups",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "storage",
+                    "gapDescription": "No artefacts about storage",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  }
+                ],
+                "overallReadiness": "significant_gaps",
+                "receiptId": null
+              },
+              "latencyMs": 4,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "data pipeline architecture stream processing framework delivery guarantees windowing poison messages cold storage parquet avro kafka consumer group payment settlement",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 9,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 6151,
+          "outputTokens": 135,
+          "cachedTokens": 2176,
+          "latencyMs": 1181,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "payment settlement processing consumer group id Kafka group.id settlement",
+                "limit": 20
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 7,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Flink Spark Kafka Streams exactly-once at-least-once windowing tumbling sliding session poison messages dead-letter cold storage parquet avro delta lake payment pipeline",
+                "limit": 20
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 10,
+              "success": true
+            },
+            {
+              "toolName": "list_topics",
+              "args": {
+                "limit": 50
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 6,
+              "success": true
+            },
+            {
+              "toolName": "get_freshness_report",
+              "args": {
+                "limit": 20,
+                "stale_after_days": 30
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 5,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 6318,
+          "outputTokens": 244,
+          "cachedTokens": 5760,
+          "latencyMs": 1695,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I couldn’t find any architecture records, decisions, or checkpoints in memory for this pipeline, so I can’t reliably answer the five architecture questions or identify the Kafka consumer group ID from the available context.\n\nWhat I found:\n- Memory is effectively empty for:\n  - stream processing framework\n  - delivery guarantees\n  - windowing\n  - poison message handling\n  - cold storage format\n  - Kafka consumer groups\n- No checkpoints or prior decision context exist for this session.\n- No freshness or contradiction data was available because there are no relevant records.\n\nCritical note:\n- I do **not** have the exact Kafka consumer group ID for payment settlement processing from memory.\n- I shouldn’t guess, since you said it’s critical for migration.\n\nBest next step:\n- If you can provide any of the following, I can extract the exact answer quickly:\n  - architecture doc / ADR / runbook\n  - Kafka config snippet\n  - deployment manifest\n  - service name or repo path\n  - a memory topic or decision ID\n\nIf you want, I can also help you formulate a targeted search query for the source docs or review a pasted architecture excerpt and answer all five items precisely.",
+      "firstSubstantiveActionMs": 1196
+    },
+    {
+      "sessionId": "496f42fd-055f-43e7-a7df-425a3f343e16",
+      "phaseIndex": 4,
+      "phaseName": "Infrastructure Safety Assessment",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2433,
+          "outputTokens": 98,
+          "cachedTokens": 2176,
+          "latencyMs": 991,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Perform a safety assessment of our infrastructure configuration before a major deployment. Need current knowledge on deployment strategy, circuit breaker settings, service timeout policies, pod disruption budgets, canary release process, exact physical location of the disaster recovery HSM appliance, and contradictions in database connection pool size documentation.",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "items": [],
+                "totalTokensUsed": 0,
+                "tokenBudget": 16000,
+                "truncated": false,
+                "sourcesQueried": [
+                  "constraints",
+                  "alerts",
+                  "freshness",
+                  "knowledge"
+                ],
+                "sourcesUnavailable": [],
+                "receiptId": null
+              },
+              "latencyMs": 18,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2588,
+          "outputTokens": 143,
+          "cachedTokens": 2176,
+          "latencyMs": 1085,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 5
+              },
+              "result": {
+                "checkpoints": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "constraints": [
+                  {
+                    "id": "b06995d8-e604-4167-a8f4-95c9cf2f83e9",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "security",
+                    "assertion": "All inter-service communication must use mTLS — no exceptions for internal traffic",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c8",
+                      "actionClass": "network_configuration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "48f039c18e7018224ac1764d518c41016e139c5e2550ddd715442a04ef2e00ef",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "834f695f-de44-4b5f-9a52-fc19e0efa7e7",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Production deployments only during business hours (09:00-17:00 UTC) except emergencies",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c4",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "2ae234317cd3d3f7e31d9ae7cdf069203434cb4abac443f3bfb35f954230668a",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "be4c9bb3-71d8-465c-9c2d-20e7b24f3d42",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "api-gateway",
+                    "assertion": "API breaking changes require 90-day deprecation notice to external consumers",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c6",
+                      "actionClass": "api_change"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "5653f394a6ca0464f98efad12a71566814e2a0785af93bada447624f7aa5ef05",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "d915db6f-ef07-4442-8119-7a712cdb878a",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "payments",
+                    "assertion": "Payment-related code changes require security team review before deployment",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c3",
+                      "actionClass": "code_deployment"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "92dd757ffc1713911f68534a9078be8f2b297c30de050e4c423366041d3df71e",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "577013fc-c406-4c41-8139-a44c92ce06f6",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "compliance",
+                    "assertion": "Financial data retention minimum 7 years — deletion requires legal team approval",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c10",
+                      "resource": "financial-records",
+                      "actionClass": "data_lifecycle"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "3ff10e924903624ea03f4551bf30a135d96117cc0adc58b2198c6324db3488a2",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.768Z",
+                    "updatedAt": "2026-03-27T04:26:00.768Z"
+                  },
+                  {
+                    "id": "dd719ab0-fc7e-44b2-ab19-9e496fe1b226",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "database",
+                    "assertion": "All database schema changes must go through migration framework — no manual DDL",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c2",
+                      "resource": "all-databases",
+                      "actionClass": "schema_migration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "41382a77c0887c29bb683a7c7e5b8bccf83bfd2871c04d4c725452e324bb93c6",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "74d77ca8-1d30-45fb-8b71-e2a0528acec8",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Kubernetes pod resource limits must be set — no unbounded containers in production",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c7",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "681fb9ee8d162dc2cab5f578ed4b862d11a81e529db165ccd7a49aaec342d8e8",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "77e92464-7e41-4df3-8c0d-68ec5b3b393e",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "Feature flags must not be hard-coded — use the feature-flag-service for all toggles",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c9",
+                      "actionClass": "feature_management"
+                    },
+                    "status": "active",
+                    "severity": "medium",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "bc9740cf5a9769bef6786e2c36e096db43eac74de2d9fb6445a907d0a934697c",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "1b261657-3e3c-43b1-bff6-649dc1ca1f95",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "PII must never be logged — structured logging must use field-level redaction",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c5",
+                      "actionClass": "logging"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "f8cb0a6e86e8aada20aff30a940a28b10a9d81c96f4cf8e4c42d55d55c265961",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.765Z",
+                    "updatedAt": "2026-03-27T04:26:00.765Z"
+                  },
+                  {
+                    "id": "ef0bf6d0-8e0f-4696-92ee-a5c5cf71bed3",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "No plaintext credentials in configuration files or environment variables",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c1",
+                      "actionClass": "credential_management"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "87a8dd3d938b42dfc52ed20be80f78b72fba0ae0b36a71f261172b98b6ca1a69",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.763Z",
+                    "updatedAt": "2026-03-27T04:26:00.763Z"
+                  }
+                ]
+              },
+              "latencyMs": 3,
+              "success": true
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Perform a safety assessment of our infrastructure configuration before a major deployment. Need current knowledge on deployment strategy, circuit breaker settings, service timeout policies, pod disruption budgets, canary release process, exact physical location of the disaster recovery HSM appliance, and contradictions in database connection pool size documentation.",
+                "domains": [
+                  "deployment",
+                  "resilience",
+                  "timeouts",
+                  "kubernetes",
+                  "release",
+                  "disaster_recovery",
+                  "database"
+                ]
+              },
+              "result": {
+                "domainsAssessed": [
+                  {
+                    "domain": "deployment",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "resilience",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "timeouts",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "kubernetes",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "release",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "disaster_recovery",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "database",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "infrastructure",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 2,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "configuration",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "documentation",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  }
+                ],
+                "identifiedGaps": [
+                  {
+                    "domain": "deployment",
+                    "gapDescription": "No artefacts about deployment",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "resilience",
+                    "gapDescription": "No artefacts about resilience",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "timeouts",
+                    "gapDescription": "No artefacts about timeouts",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "kubernetes",
+                    "gapDescription": "No artefacts about kubernetes",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "release",
+                    "gapDescription": "No artefacts about release",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "disaster_recovery",
+                    "gapDescription": "No artefacts about disaster_recovery",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "database",
+                    "gapDescription": "No artefacts about database",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "infrastructure",
+                    "gapDescription": "No artefacts about infrastructure",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "configuration",
+                    "gapDescription": "No artefacts about configuration",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "documentation",
+                    "gapDescription": "No artefacts about documentation",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  }
+                ],
+                "overallReadiness": "significant_gaps",
+                "receiptId": null
+              },
+              "latencyMs": 4,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 6459,
+          "outputTokens": 174,
+          "cachedTokens": 2688,
+          "latencyMs": 1164,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "deployment strategy canary blue green rolling major deployment infrastructure configuration",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 9,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "circuit breaker settings timeout policies service timeout pod disruption budget canary release process",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 8,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "disaster recovery HSM appliance physical location exact location",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "database connection pool size documentation contradiction pool size max connections docs",
+                "limit": 10
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "get_contradictions",
+              "args": {
+                "limit": 10
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "get_freshness_report",
+              "args": {
+                "limit": 20,
+                "stale_after_days": 30
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 6,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 6677,
+          "outputTokens": 302,
+          "cachedTokens": 6272,
+          "latencyMs": 1977,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I couldn’t find any relevant infrastructure records in memory for this assessment.\n\nWhat I checked\n- Deployment strategy: no records found\n- Circuit breaker settings: no records found\n- Service timeout policies: no records found\n- Pod disruption budgets: no records found\n- Canary release process: no records found\n- Disaster recovery HSM appliance physical location: no records found\n- Database connection pool size documentation contradictions: no contradictions found, but also no source documentation was present to compare\n\nSafety/coverage status\n- Memory coverage is effectively empty for deployment, resilience, Kubernetes, release, disaster recovery, and database documentation.\n- This is a significant knowledge gap for a major deployment review.\n\nRelevant active constraints I did find\n- All inter-service communication must use mTLS\n- Production deployments only during business hours (09:00–17:00 UTC) except emergencies\n- Kubernetes pod resource limits must be set in production\n- No plaintext credentials in config files or environment variables\n- All database schema changes must go through the migration framework\n- PII must never be logged\n\nConclusion\n- I can’t safely assert the requested configuration details from current memory.\n- The exact HSM location and the DB pool-size documentation status remain unknown from available records.\n\nRecommended next step\n- Provide the relevant config sources or point me to the infrastructure docs/repos, and I can do a structured review.\n- If you want, I can also help draft a deployment safety checklist based on the active constraints above.",
+      "firstSubstantiveActionMs": 990
+    },
+    {
+      "sessionId": "ac85afe0-0932-4d3e-b002-f0e7999ba796",
+      "phaseIndex": 5,
+      "phaseName": "Deployment Readiness Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2496,
+          "outputTokens": 103,
+          "cachedTokens": 1664,
+          "latencyMs": 826,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Produce a comprehensive deployment readiness review for the Enterprise SaaS Platform synthesizing all prior reviews (auth, payments, data pipeline, infrastructure). Need key decisions, rationale, risks/gaps, contradictions, and critical needle facts (Vault key paths, Redis endpoints, physical locations, consumer group IDs, feature flags).",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "items": [
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] frontend: cally. The team considered several options and opted for the industry standard approach. The pipeline will validate streaming events securely. Based on analysis of several frameworks and decided on the industry standard approach. ## Section 6: Monitoring Every module should support internal requests consistently. We evaluated multiple frameworks and selected the most reliable approach. All system will support internal requests efficiently. We evaluated four frameworks and decided on the industry standard approach. Every module can support external events consistently. After benchmarking four solutions and selected the most cost-effective pattern. All layer can transform external data reliably. Based on analysis of four solutions and decided on the industry standard...",
+                    "detail": "Confidence: 0.679877049255544",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] api-gateway: securely. Based on analysis of several options and decided on the industry standard pattern. Every system will validate batch records atomically. The team considered three frameworks and decided on the industry standard architecture. Every pipeline will process incoming events atomically. The team considered multiple options and chose the most reliable approach. This layer can manage internal records atomically. After benchmarking several solutions and selected the most reliable solution. ## Section 6: Evaluation This module should validate outgoing data efficiently. The team considered multiple frameworks and decided on the industry standard architecture. All layer should manage streaming data efficiently. After benchmarking three options and chose the simplest...",
+                    "detail": "Confidence: 0.6457592312064241",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] growth: considered four solutions and chose the most reliable pattern. ## Section 2: Cost Analysis The service should validate external messages reliably. The team considered four frameworks and opted for the most cost-effective approach. This component can handle batch requests atomically. We evaluated multiple frameworks and opted for the most reliable pattern. Each pipeline must transform outgoing messages securely. We evaluated four options and chose the most cost-effective approach. Every layer should process streaming events atomically. We evaluated multiple solutions and opted for the industry standard architecture. ## Section 3: Dependencies Our system should manage internal transactions reliably. We evaluated three solutions and chose the most reliable pattern. The ...",
+                    "detail": "Confidence: 0.6117632917330464",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] data-pipeline: # Technical Specification: analytics-collector Integration Guide **Version:** 1.1 **Last Updated:** 2025-04-01 **Owner:** Search **Reviewers:** Search, Observability ## Overview This document describes the design of config-server for the Mobile team. The service handles 8224 requests per second at peak. ## Requirements ### Functional Requirements 1. The system must handle 4157 requests per second 2. Response latency p99 must be under 500ms 3. Data must be replicated across 2 availability zones ### Non-Functional Requirements 1. Availability target: 99.99% 2. Recovery time objective: 1 hour 3. Recovery point objective: 5 minutes ## Architecture This document describes the design of config-server for the Mobile team. The service handles 8224 requests per second ...",
+                    "detail": "Confidence: 0.5775239050782082",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] notifications: # Technical Specification: cdn-origin Data Model **Version:** 3.0 **Last Updated:** 2026-10-26 **Owner:** Observability **Reviewers:** API Gateway, Content Delivery ## Overview This document describes the design of data-ingestion for the Observability team. The service handles 9906 events per second at peak. ## Requirements ### Functional Requirements 1. The system must handle 6099 requests per second 2. Response latency p99 must be under 200ms 3. Data must be replicated across 2 availability zones ### Non-Functional Requirements 1. Availability target: 99.9% 2. Recovery time objective: 5 minutes 3. Recovery point objective: 5 minutes ## Architecture This document describes the design of data-ingestion for the Observability team. The service handles 9906 event...",
+                    "detail": "Confidence: 0.5434064645992439",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] data-pipeline: ntly. The team considered four approaches and decided on the industry standard architecture. Each pipeline should manage batch data reliably. Based on analysis of multiple approaches and selected the most cost-effective architecture. The system will validate external data efficiently. We evaluated several approaches and selected the simplest architecture. Our pipeline will handle incoming requests atomically. The team considered several options and decided on the simplest approach. This system will manage outgoing messages securely. We evaluated four solutions and decided on the simplest solution. Our component should support internal data reliably. After benchmarking multiple options and decided on the most cost-effective solution. Our module will manage outg...",
+                    "detail": "Confidence: 0.5092886388846738",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] payments: ust validate batch data reliably. After benchmarking several frameworks and selected the industry standard approach. All layer can validate batch messages reliably. After benchmarking four options and opted for the simplest architecture. ## Section 5: Requirements Every module can process internal messages securely. Based on analysis of several frameworks and selected the simplest approach. This component must support incoming transactions securely. The team considered several frameworks and selected the most cost-effective architecture. Our layer should process external transactions securely. The team considered four approaches and selected the most cost-effective approach. This component should validate streaming requests securely. After benchmarking several fram...",
+                    "detail": "Confidence: 0.47517120178444555",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] notifications: # Technical Specification: job-scheduler Data Model **Version:** 2.0 **Last Updated:** 2026-06-28 **Owner:** Mobile **Reviewers:** Observability, Payments ## Overview This document describes the implementation of push-notifier for the Growth team. The service handles 1823 requests per second at peak. ## Requirements ### Functional Requirements 1. The system must handle 2577 requests per second 2. Response latency p99 must be under 500ms 3. Data must be replicated across 2 availability zones ### Non-Functional Requirements 1. Availability target: 99.95% 2. Recovery time objective: 5 minutes 3. Recovery point objective: 0 (zero data loss) ## Architecture This document describes the implementation of push-notifier for the Growth team. The service handles 1823 req...",
+                    "detail": "Confidence: 0.4410532739084375",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] data-pipeline: ansform streaming data reliably. The team considered three frameworks and selected the most cost-effective approach. This pipeline will manage external records reliably. We evaluated several options and selected the simplest pattern. ## Section 7: Timeline The module will transform outgoing messages reliably. The team considered several options and selected the industry standard solution. Our service must validate outgoing data reliably. Based on analysis of several options and chose the most reliable approach. All pipeline should transform external messages reliably. After benchmarking multiple approaches and opted for the industry standard approach. The system should support outgoing requests securely. We evaluated several approaches and opted for the most r...",
+                    "detail": "Confidence: 0.407057424248331",
+                    "estimatedTokens": 200
+                  },
+                  {
+                    "source": "knowledge",
+                    "priority": "low",
+                    "riskIfMissed": "low",
+                    "summary": "[Knowledge] analytics: # Technical Specification: feature-flag-service Performance Requirements **Version:** 2.0 **Last Updated:** 2025-11-06 **Owner:** Compliance & Security **Reviewers:** Content Delivery, Notifications ## Overview This document describes the implementation of mobile-bff for the Platform Engineering team. The service handles 1945 messages per second at peak. ## Requirements ### Functional Requirements 1. The system must handle 3556 requests per second 2. Response latency p99 must be under 100ms 3. Data must be replicated across 2 availability zones ### Non-Functional Requirements 1. Availability target: 99.95% 2. Recovery time objective: 1 hour 3. Recovery point objective: 5 minutes ## Architecture This document describes the implementation of mobile-bff for the Platf...",
+                    "detail": "Confidence: 0.37281806166678644",
+                    "estimatedTokens": 200
+                  }
+                ],
+                "totalTokensUsed": 2000,
+                "tokenBudget": 16000,
+                "truncated": false,
+                "sourcesQueried": [
+                  "constraints",
+                  "alerts",
+                  "freshness",
+                  "knowledge"
+                ],
+                "sourcesUnavailable": [],
+                "receiptId": null
+              },
+              "latencyMs": 10334,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 4507,
+          "outputTokens": 159,
+          "cachedTokens": 2176,
+          "latencyMs": 1067,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 10
+              },
+              "result": {
+                "checkpoints": []
+              },
+              "latencyMs": 5,
+              "success": true
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "constraints": [
+                  {
+                    "id": "b06995d8-e604-4167-a8f4-95c9cf2f83e9",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "security",
+                    "assertion": "All inter-service communication must use mTLS — no exceptions for internal traffic",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c8",
+                      "actionClass": "network_configuration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "48f039c18e7018224ac1764d518c41016e139c5e2550ddd715442a04ef2e00ef",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "834f695f-de44-4b5f-9a52-fc19e0efa7e7",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Production deployments only during business hours (09:00-17:00 UTC) except emergencies",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c4",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "2ae234317cd3d3f7e31d9ae7cdf069203434cb4abac443f3bfb35f954230668a",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.770Z",
+                    "updatedAt": "2026-03-27T04:26:00.770Z"
+                  },
+                  {
+                    "id": "be4c9bb3-71d8-465c-9c2d-20e7b24f3d42",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "api-gateway",
+                    "assertion": "API breaking changes require 90-day deprecation notice to external consumers",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c6",
+                      "actionClass": "api_change"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "5653f394a6ca0464f98efad12a71566814e2a0785af93bada447624f7aa5ef05",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "d915db6f-ef07-4442-8119-7a712cdb878a",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "payments",
+                    "assertion": "Payment-related code changes require security team review before deployment",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c3",
+                      "actionClass": "code_deployment"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "92dd757ffc1713911f68534a9078be8f2b297c30de050e4c423366041d3df71e",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.769Z",
+                    "updatedAt": "2026-03-27T04:26:00.769Z"
+                  },
+                  {
+                    "id": "577013fc-c406-4c41-8139-a44c92ce06f6",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "compliance",
+                    "assertion": "Financial data retention minimum 7 years — deletion requires legal team approval",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c10",
+                      "resource": "financial-records",
+                      "actionClass": "data_lifecycle"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "3ff10e924903624ea03f4551bf30a135d96117cc0adc58b2198c6324db3488a2",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.768Z",
+                    "updatedAt": "2026-03-27T04:26:00.768Z"
+                  },
+                  {
+                    "id": "dd719ab0-fc7e-44b2-ab19-9e496fe1b226",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "database",
+                    "assertion": "All database schema changes must go through migration framework — no manual DDL",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c2",
+                      "resource": "all-databases",
+                      "actionClass": "schema_migration"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "41382a77c0887c29bb683a7c7e5b8bccf83bfd2871c04d4c725452e324bb93c6",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "74d77ca8-1d30-45fb-8b71-e2a0528acec8",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "infrastructure",
+                    "assertion": "Kubernetes pod resource limits must be set — no unbounded containers in production",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c7",
+                      "actionClass": "deployment"
+                    },
+                    "status": "active",
+                    "severity": "high",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "681fb9ee8d162dc2cab5f578ed4b862d11a81e529db165ccd7a49aaec342d8e8",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "77e92464-7e41-4df3-8c0d-68ec5b3b393e",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "Feature flags must not be hard-coded — use the feature-flag-service for all toggles",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c9",
+                      "actionClass": "feature_management"
+                    },
+                    "status": "active",
+                    "severity": "medium",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "bc9740cf5a9769bef6786e2c36e096db43eac74de2d9fb6445a907d0a934697c",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.767Z",
+                    "updatedAt": "2026-03-27T04:26:00.767Z"
+                  },
+                  {
+                    "id": "1b261657-3e3c-43b1-bff6-649dc1ca1f95",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "PII must never be logged — structured logging must use field-level redaction",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c5",
+                      "actionClass": "logging"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "f8cb0a6e86e8aada20aff30a940a28b10a9d81c96f4cf8e4c42d55d55c265961",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.765Z",
+                    "updatedAt": "2026-03-27T04:26:00.765Z"
+                  },
+                  {
+                    "id": "ef0bf6d0-8e0f-4696-92ee-a5c5cf71bed3",
+                    "tenantId": "__memorycrux_bench_delta_T2_v01",
+                    "teamId": null,
+                    "createdBy": "api",
+                    "constraintType": "policy",
+                    "scope": "all-services",
+                    "assertion": "No plaintext credentials in configuration files or environment variables",
+                    "assertionStructured": null,
+                    "evidence": {
+                      "source": "benchmark-fixture:delta-c1",
+                      "actionClass": "credential_management"
+                    },
+                    "status": "active",
+                    "severity": "critical",
+                    "expiresAt": null,
+                    "reviewIntervalDays": null,
+                    "constraintHash": "87a8dd3d938b42dfc52ed20be80f78b72fba0ae0b36a71f261172b98b6ca1a69",
+                    "supersededBy": null,
+                    "provenanceReceiptId": null,
+                    "createdAt": "2026-03-27T04:26:00.763Z",
+                    "updatedAt": "2026-03-27T04:26:00.763Z"
+                  }
+                ]
+              },
+              "latencyMs": 3,
+              "success": true
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Comprehensive deployment readiness review for Enterprise SaaS Platform synthesizing prior reviews across auth, payments, data pipeline, infrastructure; include contradictions and critical needle facts.",
+                "domains": [
+                  "auth",
+                  "payments",
+                  "data-pipeline",
+                  "infrastructure",
+                  "security",
+                  "compliance",
+                  "observability",
+                  "billing"
+                ]
+              },
+              "result": {
+                "domainsAssessed": [
+                  {
+                    "domain": "auth",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "payments",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "data-pipeline",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "infrastructure",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 2,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "security",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "compliance",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 1,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "observability",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "billing",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  },
+                  {
+                    "domain": "deployment",
+                    "artefactCount": 0,
+                    "freshness": {
+                      "medianAgeDays": 0,
+                      "stalestArtefactAgeDays": 0,
+                      "freshCount": 0,
+                      "staleCount": 0
+                    },
+                    "topicDensity": 0,
+                    "activeConstraints": 0,
+                    "activeAlerts": 0,
+                    "coverageSignal": "empty"
+                  }
+                ],
+                "identifiedGaps": [
+                  {
+                    "domain": "auth",
+                    "gapDescription": "No artefacts about auth",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "payments",
+                    "gapDescription": "No artefacts about payments",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "data-pipeline",
+                    "gapDescription": "No artefacts about data-pipeline",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "infrastructure",
+                    "gapDescription": "No artefacts about infrastructure",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "security",
+                    "gapDescription": "No artefacts about security",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "compliance",
+                    "gapDescription": "No artefacts about compliance",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "high"
+                  },
+                  {
+                    "domain": "observability",
+                    "gapDescription": "No artefacts about observability",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "billing",
+                    "gapDescription": "No artefacts about billing",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  },
+                  {
+                    "domain": "deployment",
+                    "gapDescription": "No artefacts about deployment",
+                    "inferredFrom": "task_analysis",
+                    "riskIfMissed": "medium"
+                  }
+                ],
+                "overallReadiness": "significant_gaps",
+                "receiptId": null
+              },
+              "latencyMs": 4,
+              "success": true
+            },
+            {
+              "toolName": "get_freshness_report",
+              "args": {
+                "limit": 20,
+                "stale_after_days": 90
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 4,
+              "success": true
+            },
+            {
+              "toolName": "get_contradictions",
+              "args": {
+                "limit": 20
+              },
+              "result": {
+                "items": []
+              },
+              "latencyMs": 4,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 8285,
+          "outputTokens": 57,
+          "cachedTokens": 4224,
+          "latencyMs": 803,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Enterprise SaaS Platform auth payments data pipeline infrastructure deployment readiness review decisions rationale risks gaps Vault key paths Redis endpoints physical locations consumer group IDs feature flags service mesh logging tracing SLA data retention billing architecture",
+                "limit": 50
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.validation.fst_err_validation",
+                "title": "body/limit must be <= 20",
+                "status": 400,
+                "detail": "body/limit must be <= 20",
+                "instance": "/v1/memory/query",
+                "request_id": "019d2d8c-b057-79f6-b51c-bed4b0770a40",
+                "code": "api.validation.fst_err_validation",
+                "retryable": false
+              },
+              "latencyMs": 1,
+              "success": false,
+              "error": "HTTP 400: body/limit must be <= 20"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 8446,
+          "outputTokens": 57,
+          "cachedTokens": 7808,
+          "latencyMs": 692,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Enterprise SaaS Platform auth payments data pipeline infrastructure deployment readiness review decisions rationale risks gaps Vault key paths Redis endpoints physical locations consumer group IDs feature flags service mesh logging tracing SLA data retention billing architecture",
+                "limit": 20
+              },
+              "result": {
+                "results": []
+              },
+              "latencyMs": 7,
+              "success": true
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 8518,
+          "outputTokens": 179,
+          "cachedTokens": 8320,
+          "latencyMs": 1355,
+          "toolCalls": [
+            {
+              "toolName": "record_decision_context",
+              "args": {
+                "decision": "Deployment readiness review cannot be fully synthesized from current memory because no prior auth, payments, data-pipeline, or infrastructure review artefacts were found.",
+                "reasoning": "Session briefing and coverage assessment show empty artefact coverage across the requested domains. A comprehensive synthesis would require source reviews or additional memory records; fabricating decisions would be unsafe. The correct output is a gap report with explicit missing evidence and a request for the underlying reviews.",
+                "alternatives_considered": [
+                  "Attempt to infer decisions from sparse low-confidence knowledge snippets",
+                  "Produce a partial review with strong caveats",
+                  "Escalate for human-provided source documents"
+                ],
+                "context": "Current memory contains only active constraints and unrelated low-confidence snippets; no domain-specific review records were retrieved.",
+                "tags": [
+                  "deployment-readiness",
+                  "coverage-gap",
+                  "synthesis-blocked",
+                  "enterprise-saas"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.validation.validation_error",
+                "title": "Unprocessable Entity",
+                "status": 422,
+                "detail": "sessionId, decisionId, and context are required",
+                "instance": "/v1/memory/decisions/record",
+                "request_id": "019d2d8c-b85e-7b59-bc45-45ba01d5a99e",
+                "code": "api.validation.validation_error",
+                "retryable": false
+              },
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 422: sessionId, decisionId, and context are required"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 5,
+          "role": "assistant",
+          "inputTokens": 8803,
+          "outputTokens": 180,
+          "cachedTokens": 1664,
+          "latencyMs": 1849,
+          "toolCalls": [
+            {
+              "toolName": "escalate_with_context",
+              "args": {
+                "reason": "The requested comprehensive deployment readiness review cannot be completed safely from available memory because no prior domain review artefacts were found for auth, payments, data pipeline, or infrastructure. The user requested exact key decisions, contradictions, and needle facts, but memory coverage is empty and query retrieval returned no results.",
+                "context": "Briefing found only active constraints and low-confidence unrelated snippets. Coverage assessment reported empty artefact coverage for auth/payments/data-pipeline/infrastructure/security/compliance/observability/billing. No checkpoints or contradictions were present. No source reviews are available to synthesize.",
+                "suggested_action": "Provide the underlying prior review documents or memory references for the four domains, then rerun synthesis. If a partial review is acceptable, I can produce a gap-only readiness memo based on constraints and missing evidence.",
+                "severity": "high"
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.validation.validation_error",
+                "title": "Unprocessable Entity",
+                "status": 422,
+                "detail": "question, recommended_action, and reasoning are required",
+                "instance": "/v1/memory/escalations",
+                "request_id": "019d2d8c-bf9c-7763-9c39-9fb511846405",
+                "code": "api.validation.validation_error",
+                "retryable": false
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 422: question, recommended_action, and reasoning are required"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 6,
+          "role": "assistant",
+          "inputTokens": 9085,
+          "outputTokens": 309,
+          "cachedTokens": 8320,
+          "latencyMs": 1800,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I can’t produce a truthful “comprehensive deployment readiness review” from the current memory state because the required source reviews are not present.\n\nWhat I found:\n- No prior artefacts for:\n  - auth\n  - payments\n  - data pipeline\n  - infrastructure\n- No checkpoints to resume from\n- No contradictions returned\n- Memory coverage is effectively empty for the requested domains\n\nWhat I *can* say from active constraints:\n- Inter-service communication must use mTLS\n- Production deployments only during business hours UTC unless emergency\n- Payment-related code changes require security review\n- Financial data must be retained 7 years; deletion needs legal approval\n- All DB schema changes must go through migration framework\n- Kubernetes pods must have resource limits\n- Feature flags must use the feature-flag-service\n- PII must never be logged; structured logging must redact fields\n- No plaintext credentials in config files or env vars\n\nCritical gap:\n- I do not have the underlying review documents needed to list:\n  - authentication decisions and security implications\n  - payment integration decisions and compliance status\n  - data pipeline decisions and reliability guarantees\n  - infrastructure decisions and safety measures\n  - cross-cutting decisions on mesh security, logging, tracing, SLA, retention, billing architecture\n  - needle facts like Vault paths, Redis endpoints, physical locations, consumer group IDs, feature flags\n\nIf you want, send me the prior review docs or memory references and I’ll synthesize them into a single deployment readiness review immediately.",
+      "firstSubstantiveActionMs": 826
+    }
+  ],
+  "trackA": {
+    "latency": {
+      "get_relevant_context": {
+        "p50": 12,
+        "p95": 10334,
+        "p99": 10334,
+        "count": 5
+      },
+      "get_checkpoints": {
+        "p50": 5,
+        "p95": 6,
+        "p99": 6,
+        "count": 5
+      },
+      "get_constraints": {
+        "p50": 5,
+        "p95": 5,
+        "p99": 5,
+        "count": 5
+      },
+      "assess_coverage": {
+        "p50": 4,
+        "p95": 5,
+        "p99": 5,
+        "count": 5
+      },
+      "query_memory": {
+        "p50": 8,
+        "p95": 10,
+        "p99": 10,
+        "count": 11
+      },
+      "get_contradictions": {
+        "p50": 5,
+        "p95": 6,
+        "p99": 6,
+        "count": 3
+      },
+      "list_topics": {
+        "p50": 6,
+        "p95": 6,
+        "p99": 6,
+        "count": 2
+      },
+      "get_freshness_report": {
+        "p50": 5,
+        "p95": 6,
+        "p99": 6,
+        "count": 4
+      },
+      "record_decision_context": {
+        "p50": 5,
+        "p95": 5,
+        "p99": 5,
+        "count": 1
+      },
+      "escalate_with_context": {
+        "p50": 6,
+        "p95": 6,
+        "p99": 6,
+        "count": 1
+      }
+    },
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}

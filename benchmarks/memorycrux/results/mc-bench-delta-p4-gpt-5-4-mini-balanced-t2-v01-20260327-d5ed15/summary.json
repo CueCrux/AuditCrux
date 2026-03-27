@@ -1,0 +1,991 @@
+{
+  "runId": "mc-bench-delta-p4-gpt-5-4-mini-balanced-t2-v01-20260327-d5ed15",
+  "project": "delta",
+  "fixtureVariant": "v01",
+  "phase": 4,
+  "arm": "T2",
+  "timestamp": "2026-03-27T04:23:50.995Z",
+  "durationSeconds": 34.9,
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-5.4-mini",
+    "reasoningProfile": "balanced",
+    "providerSettings": {},
+    "contextCapTokens": 16000
+  },
+  "usage": {
+    "inputTokens": 58486,
+    "outputTokens": 2290,
+    "cachedTokens": 33920,
+    "billableTokens": 60776,
+    "estimatedCostUsd": 0.016882400000000002
+  },
+  "sessions": [
+    {
+      "sessionId": "cd6f9477-2cb3-4793-be24-26c60e56c58d",
+      "phaseIndex": 1,
+      "phaseName": "Auth System Design Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2434,
+          "outputTokens": 84,
+          "cachedTokens": 0,
+          "latencyMs": 1134,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Auth system design review for Enterprise SaaS Platform: determine JWT signing algorithm and rationale, access token TTL and rationale, refresh token storage and rationale, OAuth security measures, reference specific decisions and flag contradictions about signing algorithms.",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/context/briefing",
+                "request_id": "019d2d88-6b9f-7b18-99a4-aa6e009cce50",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2618,
+          "outputTokens": 159,
+          "cachedTokens": 2176,
+          "latencyMs": 1282,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {},
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/checkpoints/undefined",
+                "request_id": "019d2d88-70a5-7719-a25c-f79c0a67fc3e",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {},
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/constraints",
+                "request_id": "019d2d88-70a7-76ab-aa74-1e0ed4970adb",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Auth system design review for Enterprise SaaS Platform: determine JWT signing algorithm and rationale, access token TTL and rationale, refresh token storage and rationale, OAuth security measures, reference specific decisions and flag contradictions about signing algorithms.",
+                "domains": [
+                  "auth",
+                  "security",
+                  "oauth",
+                  "jwt"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/coverage/assess",
+                "request_id": "019d2d88-70ab-7239-88e8-6ea6fa661dfb",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "get_contradictions",
+              "args": {
+                "limit": 10
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/contradictions?limit=10",
+                "request_id": "019d2d88-70ae-7732-91d3-f92de22e3f03",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "authentication system design JWT signing algorithm access token TTL refresh token storage OAuth security measures",
+                "limit": 10
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/query",
+                "request_id": "019d2d88-70b2-7abe-b29e-14c46a83fb0d",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 3,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 3282,
+          "outputTokens": 156,
+          "cachedTokens": 2688,
+          "latencyMs": 1210,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m blocked by MemoryCrux rate limiting, so I can’t safely produce a memory-backed design review yet.\n\nWhat I attempted:\n- Session briefing\n- Checkpoints / constraints / coverage\n- Contradiction scan\n- Memory search for auth decisions\n\nAll returned 429 rate-limit errors.\n\nWhat I need next:\n- Retry the memory calls after the rate limit clears, or\n- Provide the relevant design docs / decision IDs directly, and I can synthesize the review from those.\n\nOnce access is available, I’ll produce a review covering:\n1. JWT signing algorithm and rationale\n2. Access token TTL and rationale\n3. Refresh token storage and rationale\n4. OAuth security measures\n5. Any contradictions about signing algorithms, explicitly flagged with evidence",
+      "firstSubstantiveActionMs": 1143
+    },
+    {
+      "sessionId": "e7818c91-2a60-4c2b-9c69-eb5f864bf5b3",
+      "phaseIndex": 2,
+      "phaseName": "Payment Integration Audit",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2422,
+          "outputTokens": 92,
+          "cachedTokens": 0,
+          "latencyMs": 1749,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Audit the payment integration for compliance and correctness. Determine: selected payment processor and rationale, idempotency handling for payment mutations, PCI DSS compliance strategy, webhook security, refund policy, and whether there is a documented SLA for payment endpoints and what it is.",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/context/briefing",
+                "request_id": "019d2d88-7c45-7945-9bb9-8bd7f95aeb6d",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2615,
+          "outputTokens": 132,
+          "cachedTokens": 2176,
+          "latencyMs": 982,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 5
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/checkpoints/undefined?limit=5",
+                "request_id": "019d2d88-8020-7e71-9c4f-4b99139bc276",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/constraints",
+                "request_id": "019d2d88-8026-7da9-b455-f98048e74c9d",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Audit the payment integration for compliance and correctness. Determine: selected payment processor and rationale, idempotency handling for payment mutations, PCI DSS compliance strategy, webhook security, refund policy, and whether there is a documented SLA for payment endpoints and what it is.",
+                "domains": [
+                  "payments",
+                  "pci_dss",
+                  "webhooks",
+                  "refunds",
+                  "sla"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/coverage/assess",
+                "request_id": "019d2d88-802a-7082-b630-f1b9adfe7231",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 3056,
+          "outputTokens": 39,
+          "cachedTokens": 2688,
+          "latencyMs": 1314,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "payment processor selected rationale idempotency payment mutations PCI DSS compliance webhook security refund policy SLA payment endpoints",
+                "limit": 10
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/query",
+                "request_id": "019d2d88-8551-75b9-b333-03ef7b178ff9",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 3187,
+          "outputTokens": 134,
+          "cachedTokens": 2688,
+          "latencyMs": 1557,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m blocked by repeated rate limits from the memory system, so I can’t reliably retrieve the audit evidence right now.\n\nWhat I need to verify:\n1. Selected payment processor and rationale\n2. Idempotency handling for payment mutations\n3. PCI DSS compliance strategy\n4. Webhook security\n5. Refund policy\n6. Whether there is a documented SLA for payment endpoints, and its value\n\nBecause I can’t access the project memory without errors, I shouldn’t guess.\n\nIf you want, I can:\n- retry after a short delay, or\n- you can provide the relevant docs/code snippets, and I’ll audit them directly.",
+      "firstSubstantiveActionMs": 1749
+    },
+    {
+      "sessionId": "3fa19389-049e-4b3c-8ee1-6b233e7faecb",
+      "phaseIndex": 3,
+      "phaseName": "Data Pipeline Architecture Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2431,
+          "outputTokens": 90,
+          "cachedTokens": 0,
+          "latencyMs": 802,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Review the data pipeline architecture. Need: stream processing framework used and rationale, delivery guarantees, windowing strategy for aggregation, poison message handling, cold storage format and rationale, and exact Kafka consumer group ID used for payment settlement processing for upcoming migration.",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/context/briefing",
+                "request_id": "019d2d88-8e8e-75c4-aa34-d1fb20fde4fe",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 7,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2619,
+          "outputTokens": 128,
+          "cachedTokens": 0,
+          "latencyMs": 1894,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 5
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/checkpoints/undefined?limit=5",
+                "request_id": "019d2d88-95fc-76f5-aa7d-02a1b00e9e47",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 8,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/constraints",
+                "request_id": "019d2d88-9603-764b-ae90-0bcb7ec7e4f9",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Review the data pipeline architecture. Need: stream processing framework used and rationale, delivery guarantees, windowing strategy for aggregation, poison message handling, cold storage format and rationale, and exact Kafka consumer group ID used for payment settlement processing.",
+                "domains": [
+                  "stream processing",
+                  "Kafka",
+                  "windowing",
+                  "error handling",
+                  "storage",
+                  "migration"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/coverage/assess",
+                "request_id": "019d2d88-9608-7973-98df-7db5b85947f3",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 3062,
+          "outputTokens": 42,
+          "cachedTokens": 2176,
+          "latencyMs": 672,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "data pipeline architecture stream processing framework delivery guarantees windowing poison messages cold storage parquet avro payment settlement consumer group id",
+                "limit": 10
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/query",
+                "request_id": "019d2d88-98ad-7665-835e-342491c30ddc",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 3195,
+          "outputTokens": 153,
+          "cachedTokens": 2688,
+          "latencyMs": 1223,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m blocked by MemoryCrux rate limiting right now, so I can’t reliably retrieve or verify the architecture details or the Kafka consumer group ID without risking inaccuracies.\n\nWhat I need to do next once the memory service is available:\n- retrieve the pipeline architecture context\n- verify the exact consumer group ID for payment settlement processing\n- confirm:\n  1. stream processing framework and rationale\n  2. delivery guarantees\n  3. windowing strategy\n  4. poison message handling\n  5. cold storage format and rationale\n\nIf you want, I can:\n- retry in a moment, or\n- help you draft a precise search query / checklist for the architecture docs so you can locate the consumer group ID quickly.",
+      "firstSubstantiveActionMs": 803
+    },
+    {
+      "sessionId": "38a9cbc0-edc5-4aa6-b491-94dcc3cf1431",
+      "phaseIndex": 4,
+      "phaseName": "Infrastructure Safety Assessment",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2433,
+          "outputTokens": 91,
+          "cachedTokens": 0,
+          "latencyMs": 858,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Safety assessment of infrastructure configuration before a major deployment. Need deployment strategy, circuit breaker settings, service timeout policies, pod disruption budgets, canary release process, exact physical location of disaster recovery HSM appliance, and contradictions in database connection pool size documentation.",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/context/briefing",
+                "request_id": "019d2d88-a0d5-7b19-98ed-ca1e1516f092",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 10,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2622,
+          "outputTokens": 133,
+          "cachedTokens": 2176,
+          "latencyMs": 1025,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {},
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/checkpoints/undefined",
+                "request_id": "019d2d88-a4e0-7ce0-bbfb-85f546fbbaf6",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/constraints",
+                "request_id": "019d2d88-a4e5-7a7b-998b-24a7ba4bf460",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Safety assessment of infrastructure configuration before a major deployment. Need deployment strategy, circuit breaker settings, service timeout policies, pod disruption budgets, canary release process, exact physical location of disaster recovery HSM appliance, and contradictions in database connection pool size documentation.",
+                "domains": [
+                  "deployment",
+                  "resilience",
+                  "timeouts",
+                  "kubernetes",
+                  "release",
+                  "disaster_recovery",
+                  "database"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/coverage/assess",
+                "request_id": "019d2d88-a4ea-7b46-a894-b499281101b2",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 3062,
+          "outputTokens": 41,
+          "cachedTokens": 2688,
+          "latencyMs": 699,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "deployment strategy circuit breaker timeout policy pod disruption budget canary release disaster recovery HSM appliance database connection pool size",
+                "limit": 10
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/query",
+                "request_id": "019d2d88-a7aa-79a3-8860-9d087b385875",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 3195,
+          "outputTokens": 162,
+          "cachedTokens": 0,
+          "latencyMs": 1249,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m blocked by a MemoryCrux rate-limit issue, so I can’t safely retrieve the infrastructure records needed for a reliable assessment right now.\n\nWhat I attempted:\n- Session briefing\n- Checkpoints / constraints / coverage\n- Memory search for the requested infrastructure items\n\nAll of those calls returned 429 “Too Many Requests.”\n\nWhat I need to complete the assessment:\n1. Deployment strategy used\n2. Circuit breaker settings\n3. Service timeout policies\n4. Pod disruption budgets\n5. Canary release process\n6. Exact physical location of the disaster recovery HSM appliance\n7. Contradictions in database connection pool size documentation\n\nIf you want, I can retry once the memory service is available again, or you can provide the relevant config/docs and I’ll assess them directly.",
+      "firstSubstantiveActionMs": 858
+    },
+    {
+      "sessionId": "93ab692b-827f-4220-9b5f-3cd765ba026a",
+      "phaseIndex": 5,
+      "phaseName": "Deployment Readiness Review",
+      "turns": [
+        {
+          "turnIndex": 0,
+          "role": "assistant",
+          "inputTokens": 2496,
+          "outputTokens": 103,
+          "cachedTokens": 0,
+          "latencyMs": 972,
+          "toolCalls": [
+            {
+              "toolName": "get_relevant_context",
+              "args": {
+                "task_description": "Produce a comprehensive deployment readiness review for the Enterprise SaaS Platform synthesizing all prior reviews (auth, payments, data pipeline, infrastructure). Need key decisions, rationale, risks/gaps, contradictions, and critical needle facts (Vault key paths, Redis endpoints, physical locations, consumer group IDs, feature flags).",
+                "token_budget": 16000,
+                "include_constraints": true,
+                "include_alerts": true,
+                "include_knowledge": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/context/briefing",
+                "request_id": "019d2d88-b05d-7515-b652-3a54653672ea",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 7,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 1,
+          "role": "assistant",
+          "inputTokens": 2694,
+          "outputTokens": 209,
+          "cachedTokens": 2176,
+          "latencyMs": 1261,
+          "toolCalls": [
+            {
+              "toolName": "get_checkpoints",
+              "args": {
+                "limit": 10
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/checkpoints/undefined?limit=10",
+                "request_id": "019d2d88-b551-7e64-a9bb-33617ae3cd45",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 5,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "get_constraints",
+              "args": {
+                "active_only": true
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/constraints",
+                "request_id": "019d2d88-b555-7126-a464-a06a171bc1b6",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "assess_coverage",
+              "args": {
+                "task_description": "Produce a comprehensive deployment readiness review for the Enterprise SaaS Platform synthesizing all prior reviews (auth, payments, data pipeline, infrastructure). Need key decisions, rationale, risks/gaps, contradictions, and critical needle facts (Vault key paths, Redis endpoints, physical locations, consumer group IDs, feature flags).",
+                "domains": [
+                  "auth",
+                  "payments",
+                  "data pipeline",
+                  "infrastructure",
+                  "service mesh",
+                  "logging",
+                  "tracing",
+                  "sla",
+                  "data retention",
+                  "billing architecture"
+                ]
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/coverage/assess",
+                "request_id": "019d2d88-b559-7dad-b019-c2c522676b55",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "get_freshness_report",
+              "args": {
+                "limit": 20,
+                "stale_after_days": 30
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/freshness?limit=20&stale_after_days=30",
+                "request_id": "019d2d88-b55d-72dc-a43e-5f2686325539",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "get_contradictions",
+              "args": {
+                "limit": 20
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/contradictions?limit=20",
+                "request_id": "019d2d88-b561-7a24-88e1-87ae8019abfc",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            },
+            {
+              "toolName": "list_topics",
+              "args": {
+                "limit": 50
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/topics?limit=50",
+                "request_id": "019d2d88-b565-7cc6-97b4-cc7e49f36cf0",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 4,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 2,
+          "role": "assistant",
+          "inputTokens": 3512,
+          "outputTokens": 55,
+          "cachedTokens": 2688,
+          "latencyMs": 758,
+          "toolCalls": [
+            {
+              "toolName": "query_memory",
+              "args": {
+                "query": "Enterprise SaaS Platform deployment readiness review auth payments data pipeline infrastructure service mesh logging tracing SLA data retention billing architecture Vault key paths Redis endpoints physical locations consumer group IDs feature flags",
+                "limit": 20
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/query",
+                "request_id": "019d2d88-b860-7e23-931c-f739882fa65e",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 3,
+          "role": "assistant",
+          "inputTokens": 3655,
+          "outputTokens": 141,
+          "cachedTokens": 3200,
+          "latencyMs": 1264,
+          "toolCalls": [
+            {
+              "toolName": "escalate_with_context",
+              "args": {
+                "reason": "MemoryCrux is rate-limiting all retrieval attempts, preventing access to the prior reviews needed to synthesize an accurate deployment readiness review and verify contradictions/needle facts.",
+                "context": "Requested deliverable requires synthesis of prior reviews across auth, payments, data pipeline, and infrastructure, plus cross-cutting concerns and critical needle facts. Required session boot retrievals and query attempts all returned 429 rate_limit_exceeded. No reliable source context is currently available.",
+                "suggested_action": "Please retry after rate limit reset or provide the prior review documents directly so I can synthesize them into a single readiness review.",
+                "severity": "high"
+              },
+              "result": {
+                "type": "https://errors.cuecrux.com/api.flow.rate_limited",
+                "title": "Too Many Requests",
+                "status": 429,
+                "detail": "Rate limit exceeded",
+                "instance": "/v1/memory/escalations",
+                "request_id": "019d2d88-bd55-7afc-9c5b-f5ca7a5db717",
+                "code": "api.flow.rate_limited",
+                "retryable": true
+              },
+              "latencyMs": 6,
+              "success": false,
+              "error": "HTTP 429: Rate limit exceeded"
+            }
+          ],
+          "stopReason": "tool_calls"
+        },
+        {
+          "turnIndex": 4,
+          "role": "assistant",
+          "inputTokens": 3896,
+          "outputTokens": 146,
+          "cachedTokens": 3712,
+          "latencyMs": 1656,
+          "toolCalls": [],
+          "stopReason": "stop"
+        }
+      ],
+      "output": "I’m blocked by MemoryCrux rate limits, so I can’t safely synthesize the prior reviews or verify contradictions/needle facts right now.\n\nWhat I attempted:\n- Session boot retrievals for relevant context, checkpoints, constraints, coverage, freshness, contradictions, and topics\n- Direct memory query for the Enterprise SaaS Platform review corpus\n\nAll returned 429 rate-limit errors, so I don’t have trustworthy source material to produce the comprehensive review you requested.\n\nIf you want, I can proceed in either of these ways:\n1. Retry later once the memory service is available, or\n2. Paste/provide the prior review documents here, and I’ll synthesize them into the single deployment readiness review immediately.",
+      "firstSubstantiveActionMs": 972
+    }
+  ],
+  "trackA": {
+    "latency": {
+      "get_relevant_context": {
+        "p50": 7,
+        "p95": 10,
+        "p99": 10,
+        "count": 5
+      },
+      "get_checkpoints": {
+        "p50": 6,
+        "p95": 8,
+        "p99": 8,
+        "count": 5
+      },
+      "get_constraints": {
+        "p50": 4,
+        "p95": 4,
+        "p99": 4,
+        "count": 5
+      },
+      "assess_coverage": {
+        "p50": 4,
+        "p95": 5,
+        "p99": 5,
+        "count": 5
+      },
+      "get_contradictions": {
+        "p50": 4,
+        "p95": 4,
+        "p99": 4,
+        "count": 2
+      },
+      "query_memory": {
+        "p50": 6,
+        "p95": 6,
+        "p99": 6,
+        "count": 5
+      },
+      "get_freshness_report": {
+        "p50": 4,
+        "p95": 4,
+        "p99": 4,
+        "count": 1
+      },
+      "list_topics": {
+        "p50": 4,
+        "p95": 4,
+        "p99": 4,
+        "count": 1
+      },
+      "escalate_with_context": {
+        "p50": 6,
+        "p95": 6,
+        "p99": 6,
+        "count": 1
+      }
+    },
+    "receiptIntegrity": {
+      "chainIntact": true,
+      "signaturesValid": true,
+      "totalReceipts": 0
+    },
+    "retrieval": {},
+    "allTargetsMet": false
+  },
+  "trackB": {
+    "primary": {},
+    "secondary": {},
+    "evaluators": []
+  },
+  "deltaVsControls": {}
+}

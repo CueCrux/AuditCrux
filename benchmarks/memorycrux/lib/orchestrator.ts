@@ -90,6 +90,13 @@ export async function executeRun(
       console.warn(`  WARNING: ${seedResult.documentsFailed} doc failures, ${seedResult.constraintsFailed} constraint failures`);
     }
 
+    // Cooldown after heavy seeding to let VaultCrux rate limiter window reset
+    if (fixture.corpus.length > 100) {
+      const cooldownSec = 30;
+      console.log(`  Rate limit cooldown: ${cooldownSec}s after seeding ${fixture.corpus.length} docs...`);
+      await new Promise((r) => setTimeout(r, cooldownSec * 1000));
+    }
+
     if (isCompound) {
       toolRouter = new CompoundProxy(mcProxy);
       toolDefs = getCompoundToolDefs();

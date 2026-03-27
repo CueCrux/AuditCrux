@@ -92,24 +92,46 @@ function scoreRun(summary: RunSummary) {
     results.constraintHitRate = constraintHitRate;
   }
 
-  if (summary.project === "gamma") {
+  if (summary.project === "gamma" || summary.project === "delta") {
     // Phase 5 recall across all phases
     const phase5 = scenario.phases[4];
     const decisionRecall = scoreDecisionRecall(sessions, phase5?.expectedDecisionKeys ?? []);
     results.decisionRecall = decisionRecall;
 
-    // Needle recall (Phase 3 needles)
-    const phase3 = scenario.phases[2];
-    const needleKeys = (phase3?.expectedDecisionKeys ?? []).filter((k: string) =>
-      ["vol-0a1b2c3d4e5f", "kafka-broker-tls", "Building C Floor 3 Room 312"].includes(k),
-    );
-    results.needleRecall = scoreNeedleRecall(sessions, needleKeys);
+    if (summary.project === "gamma") {
+      // Needle recall (Phase 3 needles)
+      const phase3 = scenario.phases[2];
+      const needleKeys = (phase3?.expectedDecisionKeys ?? []).filter((k: string) =>
+        ["vol-0a1b2c3d4e5f", "kafka-broker-tls", "Building C Floor 3 Room 312"].includes(k),
+      );
+      results.needleRecall = scoreNeedleRecall(sessions, needleKeys);
 
-    // Contradiction detection (Phase 4)
-    results.contradictionDetection = scoreContradictionDetection(sessions, [
-      ["Avro", "Protobuf"],
-      ["48-hour retention", "72-hour retention"],
-    ]);
+      // Contradiction detection (Phase 4)
+      results.contradictionDetection = scoreContradictionDetection(sessions, [
+        ["Avro", "Protobuf"],
+        ["48-hour retention", "72-hour retention"],
+      ]);
+    }
+
+    if (summary.project === "delta") {
+      // Needle recall — 5 needles across corpus
+      const needleKeys = [
+        "vault-transit-key-ed25519-prod-signing-v3",
+        "10.80.0.7:6379",
+        "Building D Floor 2 Server Room 204",
+        "KAFKA_CONSUMER_GROUP_payment-settlement-v3",
+        "feature-flag-gradual-rollout-payments-eu",
+      ];
+      results.needleRecall = scoreNeedleRecall(sessions, needleKeys);
+
+      // Contradiction detection — 4 pairs
+      results.contradictionDetection = scoreContradictionDetection(sessions, [
+        ["RS256", "Ed25519"],
+        ["3 retries", "5 retries"],
+        ["30 days", "72 hours"],
+        ["20 connections", "50 connections"],
+      ]);
+    }
 
     // Constraint detection
     results.constraintDetection = scoreConstraintDetection(sessions);
