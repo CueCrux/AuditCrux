@@ -90,11 +90,23 @@ export async function executeRun(
       console.warn(`  WARNING: ${seedResult.documentsFailed} doc failures, ${seedResult.constraintsFailed} constraint failures`);
     }
 
-    // Cooldown after heavy seeding to let VaultCrux rate limiter window reset
+    // Cooldown after heavy seeding to let rate limiter reset + embeddings process
     if (fixture.corpus.length > 100) {
-      const cooldownSec = 30;
-      console.log(`  Rate limit cooldown: ${cooldownSec}s after seeding ${fixture.corpus.length} docs...`);
+      // Larger corpus needs more time for embedding worker to process
+      const cooldownSec = fixture.corpus.length > 1000 ? 120 : 30;
+      console.log(`  Post-seed cooldown: ${cooldownSec}s (${fixture.corpus.length} docs, waiting for embeddings)...`);
       await new Promise((r) => setTimeout(r, cooldownSec * 1000));
+
+      // Verify retrieval returns results before proceeding
+      if (fixture.corpus.length > 1000) {
+        console.log("  Verifying embedding readiness...");
+        const testResult = await mcProxy.callTool("query_memory", { query: "test retrieval readiness", limit: 1 });
+        const hasResults = testResult.result && JSON.stringify(testResult.result).includes("chunkId");
+        if (!hasResults) {
+          console.log("  Embeddings not ready, waiting 60s more...");
+          await new Promise((r) => setTimeout(r, 60_000));
+        }
+      }
     }
 
     if (isCompound) {
