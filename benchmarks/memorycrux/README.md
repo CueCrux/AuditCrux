@@ -53,6 +53,8 @@ Core architectural recall across a 2M+ token, 3,300-document corpus:
 | Budget | F1 | GPT-5.4-mini | 96% | $0.33 |
 | Minimum viable | T2 | GPT-5.4-mini | 72% | $0.07 |
 
+For full cost analysis including subscription breakeven, total cost of ownership, and quality-adjusted cost per decision, see [Cost Analysis](results/cost-analysis.md).
+
 ## Architecture
 
 ```
