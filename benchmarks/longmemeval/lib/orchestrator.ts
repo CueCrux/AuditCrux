@@ -22,6 +22,7 @@ interface OrchestratorConfig {
   armConfig: LmeArmConfig;
   manifest: LmeRunManifest;
   benchConfig: BenchConfig; // For creating per-problem proxies
+  concurrency?: number;
   onAnswer?: (answer: LmeAnswer) => void;
 }
 
@@ -86,16 +87,15 @@ export async function executeRun(
     provisionTenants(problems, config.manifest.dataset);
   }
 
-  for (let i = 0; i < problems.length; i++) {
+  const concurrency = config.concurrency ?? 1;
+  let budgetExceeded = false;
+  let completedCount = 0;
+
+  async function processProblem(i: number): Promise<LmeAnswer | null> {
     const problem = problems[i];
 
-    // Budget guard
-    if (config.manifest.budgetLimitUsd && totalCost >= config.manifest.budgetLimitUsd) {
-      console.log(`[run] Budget limit reached ($${totalCost.toFixed(2)} >= $${config.manifest.budgetLimitUsd}). Stopping.`);
-      break;
-    }
-
-    console.log(`[${i + 1}/${problems.length}] ${problem.problemId} (${problem.questionType})`);
+    // Budget guard (approximate — checked per-completion, not per-start)
+    if (budgetExceeded) return null;
 
     // Create per-problem proxy for treatment arms
     let proxy: McProxy | undefined;
@@ -110,32 +110,70 @@ export async function executeRun(
       });
 
       if (!config.manifest.skipSeed) {
-        console.log(`  [ingest] Seeding ${problem.sessions.length} sessions to tenant ${tenantId}...`);
+        console.log(`[${i + 1}/${problems.length}] ${problem.problemId} — seeding ${problem.sessions.length} sessions...`);
         const result = await ingestProblem(proxy, problem);
-        console.log(`  [ingest] Done: ${result.seeded}/${result.totalSessions} seeded in ${(result.durationMs / 1000).toFixed(1)}s`);
+        console.log(`[${i + 1}/${problems.length}] ${problem.problemId} — ${result.seeded}/${result.totalSessions} seeded in ${(result.durationMs / 1000).toFixed(1)}s`);
 
         if (result.failed > 0) {
-          console.warn(`  [ingest] WARNING: ${result.failed} sessions failed to ingest`);
+          console.warn(`[${i + 1}/${problems.length}] ${problem.problemId} — WARNING: ${result.failed} sessions failed`);
         }
 
         await waitForEmbeddings(problem.sessions.length);
 
-        // Verify retrieval works
         const verified = await verifyIngestion(proxy, problem.question);
         if (!verified) {
-          console.warn(`  [ingest] WARNING: verification query returned no results`);
+          console.warn(`[${i + 1}/${problems.length}] ${problem.problemId} — WARNING: verification returned no results`);
         }
       }
     }
 
     // Answer the question
     const answer = await answerQuestion(problem, config, proxy);
-    answers.push(answer);
-    totalCost += answer.costUsd;
-    config.onAnswer?.(answer);
+    completedCount++;
 
-    console.log(`  → ${answer.hypothesis.slice(0, 80)}${answer.hypothesis.length > 80 ? "..." : ""}`);
-    console.log(`  [${answer.turns} turns, ${answer.toolCalls} tools, $${answer.costUsd.toFixed(4)}]`);
+    console.log(`[${completedCount}/${problems.length}] ${problem.problemId} (${problem.questionType}) → ${answer.hypothesis.slice(0, 60)}... [${answer.turns}t, ${answer.toolCalls}tc, $${answer.costUsd.toFixed(4)}]`);
+    return answer;
+  }
+
+  if (concurrency <= 1) {
+    // Serial execution (original behaviour)
+    for (let i = 0; i < problems.length; i++) {
+      if (config.manifest.budgetLimitUsd && totalCost >= config.manifest.budgetLimitUsd) {
+        console.log(`[run] Budget limit reached ($${totalCost.toFixed(2)} >= $${config.manifest.budgetLimitUsd}). Stopping.`);
+        break;
+      }
+      const answer = await processProblem(i);
+      if (answer) {
+        answers.push(answer);
+        totalCost += answer.costUsd;
+        config.onAnswer?.(answer);
+      }
+    }
+  } else {
+    // Concurrent execution with worker pool
+    console.log(`[run] Concurrency: ${concurrency} workers\n`);
+    let nextIndex = 0;
+
+    async function worker(): Promise<void> {
+      while (nextIndex < problems.length && !budgetExceeded) {
+        const i = nextIndex++;
+        if (i >= problems.length) break;
+
+        const answer = await processProblem(i);
+        if (answer) {
+          answers.push(answer);
+          totalCost += answer.costUsd;
+          config.onAnswer?.(answer);
+
+          if (config.manifest.budgetLimitUsd && totalCost >= config.manifest.budgetLimitUsd) {
+            console.log(`[run] Budget limit reached ($${totalCost.toFixed(2)} >= $${config.manifest.budgetLimitUsd}). Stopping.`);
+            budgetExceeded = true;
+          }
+        }
+      }
+    }
+
+    await Promise.all(Array.from({ length: concurrency }, () => worker()));
   }
 
   const durationSeconds = Math.round((Date.now() - startTime) / 1000);

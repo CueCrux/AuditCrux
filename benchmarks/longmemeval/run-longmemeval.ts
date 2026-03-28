@@ -34,6 +34,7 @@ function parseArgs(): {
   budgetLimit?: number;
   dryRun: boolean;
   skipSeed: boolean;
+  concurrency: number;
 } {
   const args = process.argv.slice(2);
   const get = (flag: string): string | undefined => {
@@ -69,6 +70,9 @@ function parseArgs(): {
   const budgetStr = get("--budget-limit");
   const budgetLimit = budgetStr ? parseFloat(budgetStr) : undefined;
 
+  const concurrencyStr = get("--concurrency");
+  const concurrency = concurrencyStr ? parseInt(concurrencyStr, 10) : 1;
+
   return {
     dataset,
     arms,
@@ -78,6 +82,7 @@ function parseArgs(): {
     budgetLimit,
     dryRun: has("--dry-run"),
     skipSeed: has("--skip-seed"),
+    concurrency,
   };
 }
 
@@ -199,6 +204,7 @@ async function main() {
       armConfig,
       manifest,
       benchConfig,
+      concurrency: opts.concurrency,
     });
 
     // Write outputs
