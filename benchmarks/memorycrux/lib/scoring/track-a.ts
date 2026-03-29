@@ -286,6 +286,216 @@ export function scoreGeneratedDecisionPersistence(
   return { score: persisted.length / createdKeys.length, persisted, lost };
 }
 
+// ---------- v1.1 scoring (LongMemEval-motivated) ----------
+
+/**
+ * Score temporal accuracy: what % of time-dependent queries were answered correctly?
+ * Checks for temporal markers (dates, sequences, relative time references) in expected keys.
+ */
+export function scoreTemporalAccuracy(
+  sessions: SessionRecord[],
+  temporalKeys: string[],
+): { score: number; correct: string[]; incorrect: string[] } {
+  if (temporalKeys.length === 0) return { score: 1.0, correct: [], incorrect: [] };
+
+  const allOutput = sessions.map((s) => s.output).join("\n").toLowerCase();
+  const allToolResults = sessions
+    .flatMap((s) => s.turns)
+    .flatMap((t) => t.toolCalls)
+    .map((tc) => JSON.stringify(tc.result).toLowerCase())
+    .join("\n");
+  const searchText = allOutput + "\n" + allToolResults;
+
+  const correct: string[] = [];
+  const incorrect: string[] = [];
+
+  for (const key of temporalKeys) {
+    if (searchText.includes(key.toLowerCase())) {
+      correct.push(key);
+    } else {
+      incorrect.push(key);
+    }
+  }
+
+  return { score: correct.length / temporalKeys.length, correct, incorrect };
+}
+
+/**
+ * Score supersession accuracy: did the agent use the latest version of superseded information?
+ * Checks that superseding (current) keys are present in the output.
+ */
+export function scoreSupersessionAccuracy(
+  sessions: SessionRecord[],
+  supersessionPairs: Array<{ current: string; superseded: string }>,
+): { score: number; correct: string[]; stale: string[] } {
+  if (supersessionPairs.length === 0) return { score: 1.0, correct: [], stale: [] };
+
+  const allOutput = sessions.map((s) => s.output).join("\n").toLowerCase();
+  const allToolResults = sessions
+    .flatMap((s) => s.turns)
+    .flatMap((t) => t.toolCalls)
+    .map((tc) => JSON.stringify(tc.result).toLowerCase())
+    .join("\n");
+  const searchText = allOutput + "\n" + allToolResults;
+
+  const correct: string[] = [];
+  const stale: string[] = [];
+
+  for (const pair of supersessionPairs) {
+    if (searchText.includes(pair.current.toLowerCase())) {
+      correct.push(pair.current);
+    } else {
+      stale.push(pair.current);
+    }
+  }
+
+  return { score: correct.length / supersessionPairs.length, correct, stale };
+}
+
+/**
+ * Score abstention precision: did the agent correctly abstain on unanswerable questions?
+ * Returns the fraction of unanswerable questions where the agent said "I don't know" or equivalent.
+ */
+export function scoreAbstentionPrecision(
+  sessions: SessionRecord[],
+  unanswerableKeys: string[],
+): { score: number; correctAbstentions: string[]; falseAnswers: string[] } {
+  if (unanswerableKeys.length === 0) return { score: 1.0, correctAbstentions: [], falseAnswers: [] };
+
+  const allOutput = sessions.map((s) => s.output).join("\n").toLowerCase();
+
+  const abstentionSignals = [
+    "i don't know",
+    "i do not know",
+    "i'm not sure",
+    "i am not sure",
+    "no information",
+    "not available",
+    "cannot determine",
+    "unable to determine",
+    "no record",
+    "not found",
+    "insufficient information",
+    "no data",
+  ];
+
+  const correctAbstentions: string[] = [];
+  const falseAnswers: string[] = [];
+
+  for (const key of unanswerableKeys) {
+    const keyLower = key.toLowerCase();
+    const keyIdx = allOutput.indexOf(keyLower);
+
+    if (keyIdx === -1) {
+      // Agent didn't mention the topic — check for global abstention signal
+      const hasAbstention = abstentionSignals.some((s) => allOutput.includes(s));
+      if (hasAbstention) {
+        correctAbstentions.push(key);
+      } else {
+        falseAnswers.push(key);
+      }
+    } else {
+      // Agent mentioned the topic — check surrounding context for abstention
+      const contextWindow = allOutput.slice(
+        Math.max(0, keyIdx - 200),
+        Math.min(allOutput.length, keyIdx + 200),
+      );
+      const hasAbstention = abstentionSignals.some((s) => contextWindow.includes(s));
+      if (hasAbstention) {
+        correctAbstentions.push(key);
+      } else {
+        falseAnswers.push(key);
+      }
+    }
+  }
+
+  return {
+    score: correctAbstentions.length / unanswerableKeys.length,
+    correctAbstentions,
+    falseAnswers,
+  };
+}
+
+/**
+ * Score cross-session synthesis: did the agent combine facts from multiple sessions
+ * into a coherent answer? Checks that synthesis keys appear in the final output.
+ */
+export function scoreCrossSessionSynthesis(
+  sessions: SessionRecord[],
+  synthesisKeys: string[],
+): { score: number; synthesised: string[]; missed: string[] } {
+  if (synthesisKeys.length === 0) return { score: 1.0, synthesised: [], missed: [] };
+
+  const allOutput = sessions.map((s) => s.output).join("\n").toLowerCase();
+  const allToolResults = sessions
+    .flatMap((s) => s.turns)
+    .flatMap((t) => t.toolCalls)
+    .map((tc) => JSON.stringify(tc.result).toLowerCase())
+    .join("\n");
+  const finalText = allOutput + "\n" + allToolResults;
+
+  const synthesised: string[] = [];
+  const missed: string[] = [];
+
+  for (const key of synthesisKeys) {
+    if (finalText.includes(key.toLowerCase())) {
+      synthesised.push(key);
+    } else {
+      missed.push(key);
+    }
+  }
+
+  return { score: synthesised.length / synthesisKeys.length, synthesised, missed };
+}
+
+/**
+ * Score retrieval recall: what fraction of relevant docs were retrieved by the pipeline?
+ * Uses tool call results to determine which documents were fetched.
+ */
+export function scoreRetrievalRecall(
+  sessions: SessionRecord[],
+  relevantDocIds: string[],
+): { score: number; retrieved: string[]; missed: string[] } {
+  if (relevantDocIds.length === 0) return { score: 1.0, retrieved: [], missed: [] };
+
+  const retrievalToolNames = [
+    "query_memory",
+    "get_relevant_context",
+    "search",
+    "retrieve",
+    "get_decision_context",
+  ];
+
+  const retrievalResults = sessions
+    .flatMap((s) => s.turns)
+    .flatMap((t) => t.toolCalls)
+    .filter((tc) => retrievalToolNames.some((name) => tc.toolName.includes(name)))
+    .map((tc) => JSON.stringify(tc.result).toLowerCase())
+    .join("\n");
+
+  // Fallback to all tool results if no retrieval-specific tools found
+  const allToolResults = sessions
+    .flatMap((s) => s.turns)
+    .flatMap((t) => t.toolCalls)
+    .map((tc) => JSON.stringify(tc.result).toLowerCase())
+    .join("\n");
+
+  const searchText = retrievalResults || allToolResults;
+
+  const retrieved: string[] = [];
+  const missed: string[] = [];
+
+  for (const docId of relevantDocIds) {
+    if (searchText.includes(docId.toLowerCase())) {
+      retrieved.push(docId);
+    } else {
+      missed.push(docId);
+    }
+  }
+
+  return { score: retrieved.length / relevantDocIds.length, retrieved, missed };
+}
+
 // ---------- Token efficiency ----------
 
 /**

@@ -1,6 +1,6 @@
 // MemoryCrux Benchmark — Crux Score (Effective Minutes) computation
 //
-// Implements METRICS.md v1.0: 16 fundamentals, 7 derived, 1 composite.
+// Implements METRICS.md v1.1: 21 fundamentals, 9 derived, 1 composite.
 // Types and generic computation imported from cruxscore package.
 // This file contains MemoryCrux-specific fundamental extraction only.
 
@@ -11,6 +11,11 @@ import {
   scoreConstraintDetection,
   scoreDisasterPrevention,
   scoreIncidentRecall,
+  scoreTemporalAccuracy,
+  scoreSupersessionAccuracy,
+  scoreAbstentionPrecision,
+  scoreCrossSessionSynthesis,
+  scoreRetrievalRecall,
 } from "./track-a.js";
 
 // Re-export types from cruxscore for backward compatibility
@@ -254,6 +259,27 @@ export function computeCruxScore(
   const P_context = computeP_context(sessions);
   const A_coverage = computeA_coverage(sessions, lastPhase?.coverageGaps);
 
+  // Information v1.1 extensions
+  const temporalResult = lastPhase?.temporalKeys
+    ? scoreTemporalAccuracy(sessions, lastPhase.temporalKeys)
+    : null;
+  const R_temporal = temporalResult?.score ?? null;
+
+  const supersessionResult = lastPhase?.supersessionPairs
+    ? scoreSupersessionAccuracy(sessions, lastPhase.supersessionPairs)
+    : null;
+  const R_supersession = supersessionResult?.score ?? null;
+
+  const abstentionResult = lastPhase?.unanswerableKeys
+    ? scoreAbstentionPrecision(sessions, lastPhase.unanswerableKeys)
+    : null;
+  const A_abstention = abstentionResult?.score ?? null;
+
+  const retrievalResult = lastPhase?.relevantDocIds
+    ? scoreRetrievalRecall(sessions, lastPhase.relevantDocIds)
+    : null;
+  const R_retrieval = retrievalResult?.score ?? null;
+
   // Continuity
   let K_decision: number | null = null;
   if (isKillVariant && options?.preKillExpectedKeys && options?.postKillSessionIndices) {
@@ -262,6 +288,12 @@ export function computeCruxScore(
   }
   const K_causal = computeK_causal(sessions);
   const K_checkpoint = computeK_checkpoint(sessions, lastPhase?.expectedDecisionKeys);
+
+  // Continuity v1.1 extension
+  const synthesisResult = lastPhase?.synthesisKeys
+    ? scoreCrossSessionSynthesis(sessions, lastPhase.synthesisKeys)
+    : null;
+  const K_synthesis = synthesisResult?.score ?? null;
 
   // Safety
   // Beta has a destructive-action scenario; other projects presume safe (not measured).
@@ -289,9 +321,14 @@ export function computeCruxScore(
     R_incident,
     P_context,
     A_coverage,
+    R_temporal,
+    R_supersession,
+    A_abstention,
+    R_retrieval,
     K_decision,
     K_causal,
     K_checkpoint,
+    K_synthesis,
     S_gate,
     S_detect,
     S_stale,
@@ -308,7 +345,7 @@ export function computeCruxScore(
   const composite = computeComposite(fundamentals, derived);
 
   return {
-    metrics_version: "1.0",
+    metrics_version: "1.1",
     fundamentals,
     derived,
     composite,

@@ -18,7 +18,8 @@ export type BenchModel =
   | "claude-haiku-4-5"
   | "gpt-5.4"
   | "gpt-5.4-mini"
-  | "gpt-5.4-nano";
+  | "gpt-5.4-nano"
+  | "qwen2.5-32b";
 
 export type ReasoningProfile = "balanced" | "deep" | "minimal";
 
@@ -93,6 +94,13 @@ export interface TrackAResults {
   };
   retrieval: Record<string, number>;
   allTargetsMet: boolean;
+
+  // v1.1 extensions (LongMemEval-motivated)
+  temporalAccuracy?: { score: number; correct: string[]; incorrect: string[] };
+  supersessionAccuracy?: { score: number; correct: string[]; stale: string[] };
+  abstentionPrecision?: { score: number; correctAbstentions: string[]; falseAnswers: string[] };
+  crossSessionSynthesis?: { score: number; synthesised: string[]; missed: string[] };
+  retrievalRecall?: { score: number; retrieved: string[]; missed: string[] };
 }
 
 export interface TrackBResults {
@@ -163,6 +171,13 @@ export interface ScenarioPhase {
   expectedToolCalls?: string[];  // Tool names agent should invoke (treatment)
   coverageGaps?: string[];       // Known gaps for A_coverage scoring
   staleItems?: string[];         // Known stale items for S_stale scoring
+
+  // v1.1 extensions (LongMemEval-motivated)
+  temporalKeys?: string[];       // Expected answers to time-dependent queries (I6)
+  supersessionPairs?: Array<{ current: string; superseded: string }>; // Knowledge update pairs (I7)
+  unanswerableKeys?: string[];   // Questions the agent should abstain from answering (I8)
+  synthesisKeys?: string[];      // Facts requiring cross-session synthesis (K4)
+  relevantDocIds?: string[];     // Ground truth relevant doc IDs for retrieval recall (I9)
 }
 
 export interface KillVariant {

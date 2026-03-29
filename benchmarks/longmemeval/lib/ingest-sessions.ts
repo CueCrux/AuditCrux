@@ -49,16 +49,56 @@ function parseDate(dateStr: string): string {
 }
 
 /**
+ * Format a date string for display in content.
+ * "2023/05/20 (Sat) 02:21" → "2023-05-20"
+ */
+function formatDateForContent(dateStr: string): string {
+  const cleaned = dateStr.replace(/\s*\([^)]+\)\s*/, " ").trim();
+  const datePart = cleaned.split(" ")[0];
+  return datePart ? datePart.replace(/\//g, "-") : "unknown-date";
+}
+
+/**
  * Flatten a session's turns into a single text document for ingestion.
- * Format: "User: ...\nAssistant: ...\n" — preserves turn structure for retrieval.
+ *
+ * Three improvements over v1:
+ * 1. Date prefix: "[Date: 2023-05-20]" so the LLM sees when the session happened.
+ * 2. Turn-pair grouping: User→Assistant exchanges stay together as atomic units,
+ *    separated by "---" between pairs. This keeps conversational context intact
+ *    when VaultCrux chunks at ~900 chars, so "what did the assistant recommend?"
+ *    queries can match the assistant response alongside the user's question.
+ * 3. System turns are standalone blocks.
  */
 function flattenSession(session: LmeSession): string {
-  return session.turns
-    .map((t) => {
-      const speaker = t.role === "user" ? "User" : t.role === "assistant" ? "Assistant" : "System";
-      return `${speaker}: ${t.content}`;
-    })
-    .join("\n\n");
+  const dateLabel = formatDateForContent(session.date);
+  const header = `[Date: ${dateLabel}] [Session: ${session.sessionId}]`;
+
+  // Group turns into user→assistant pairs
+  const blocks: string[] = [];
+  let i = 0;
+  while (i < session.turns.length) {
+    const turn = session.turns[i];
+    if (turn.role === "user") {
+      // Look ahead for assistant response
+      let block = `User: ${turn.content}`;
+      if (i + 1 < session.turns.length && session.turns[i + 1].role === "assistant") {
+        block += `\nAssistant: ${session.turns[i + 1].content}`;
+        i += 2;
+      } else {
+        i += 1;
+      }
+      blocks.push(block);
+    } else if (turn.role === "assistant") {
+      // Orphaned assistant turn (no preceding user turn)
+      blocks.push(`Assistant: ${turn.content}`);
+      i += 1;
+    } else {
+      blocks.push(`System: ${turn.content}`);
+      i += 1;
+    }
+  }
+
+  return `${header}\n\n${blocks.join("\n\n---\n\n")}`;
 }
 
 /**
@@ -126,12 +166,12 @@ async function ingestSession(
         title: `Session ${session.sessionId}`,
         content,
         domain: "longmemeval",
+        timestampSource: timestamp,
         metadata: {
           benchmark: "longmemeval",
           problemId: problem.problemId,
           sessionId: session.sessionId,
           sessionDate: session.date,
-          timestampSource: timestamp,
           turnCount: session.turns.length,
         },
       });

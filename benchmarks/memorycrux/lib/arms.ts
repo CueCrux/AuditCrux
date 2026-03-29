@@ -9,6 +9,7 @@ const MODEL_MAX_CONTEXT: Record<BenchModel, number> = {
   "gpt-5.4": 1_000_000,
   "gpt-5.4-mini": 260_000,
   "gpt-5.4-nano": 400_000,
+  "qwen2.5-32b": 32_768,
 };
 
 const ARM_DEFS: Record<BenchArm, Omit<ArmConfig, "contextCapTokens"> & { contextCapTokens: number | "model_max" }> = {
@@ -35,7 +36,8 @@ export function getModelMaxContext(model: BenchModel): number {
 }
 
 export function getModelProvider(model: BenchModel): "anthropic" | "openai" {
-  return model.startsWith("claude") ? "anthropic" : "openai";
+  if (model.startsWith("claude")) return "anthropic";
+  return "openai"; // OpenAI SDK works for vLLM and other OpenAI-compatible endpoints
 }
 
 export const ALL_ARMS: BenchArm[] = ["C0", "C1", "C2", "C3", "F1", "T1", "T2", "T3"];

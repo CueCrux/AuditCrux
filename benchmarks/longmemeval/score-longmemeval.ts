@@ -142,6 +142,37 @@ if (rows.length === 0) {
   process.exit(0);
 }
 
+// ── Map to CruxScore v1.1 fundamentals ──
+
+interface CruxV11Fundamentals {
+  R_temporal: number | null;      // I6: temporal-reasoning accuracy
+  R_supersession: number | null;  // I7: knowledge-update accuracy
+  A_abstention: number | null;    // I8: abstention precision (unanswerable subset)
+  K_synthesis: number | null;     // K4: multi-session synthesis accuracy
+  R_retrieval: number | null;     // I9: not directly available from LME eval
+}
+
+const cruxMappings: Array<{ runId: string; arm: string; model: string; fundamentals: CruxV11Fundamentals }> = [];
+
+for (const row of rows) {
+  const tr = row.byType["temporal-reasoning"];
+  const ku = row.byType["knowledge-update"];
+  const ms = row.byType["multi-session"];
+
+  cruxMappings.push({
+    runId: row.runId,
+    arm: row.arm,
+    model: row.model,
+    fundamentals: {
+      R_temporal: tr ? tr.accuracy : null,
+      R_supersession: ku ? ku.accuracy : null,
+      A_abstention: null, // LME eval doesn't tag abstention questions separately
+      K_synthesis: ms ? ms.accuracy : null,
+      R_retrieval: null,  // Recall@k not available from auto-eval (requires retrieval logs)
+    },
+  });
+}
+
 // ── Print comparison table ──
 
 console.log("\n╔══════════════════════════════════════════════════════════════╗");
@@ -177,6 +208,30 @@ for (const row of rows.sort((a, b) => a.arm.localeCompare(b.arm))) {
     console.log(`  ${type}: ${stats.correct}/${stats.total} (${pct(stats.accuracy)})`);
   }
 }
+
+// ── CruxScore v1.1 Mapping ──
+
+console.log("\n╔══════════════════════════════════════════════════════════════╗");
+console.log("║           CruxScore v1.1 Fundamental Mapping               ║");
+console.log("╚══════════════════════════════════════════════════════════════╝\n");
+
+const cruxHeader = ["Arm", "Model", "R_temporal", "R_supersession", "K_synthesis"];
+console.log(cruxHeader.map((h) => h.padEnd(16)).join(""));
+console.log("-".repeat(cruxHeader.length * 16));
+
+for (const mapping of cruxMappings.sort((a, b) => a.arm.localeCompare(b.arm))) {
+  const f = mapping.fundamentals;
+  const cols = [
+    mapping.arm,
+    shortModel(mapping.model),
+    f.R_temporal != null ? pct(f.R_temporal) : "null",
+    f.R_supersession != null ? pct(f.R_supersession) : "null",
+    f.K_synthesis != null ? pct(f.K_synthesis) : "null",
+  ];
+  console.log(cols.map((c) => c.padEnd(16)).join(""));
+}
+
+console.log("\nNote: A_abstention and R_retrieval require additional data not available from auto-eval.\n");
 
 // ── Helpers ──
 

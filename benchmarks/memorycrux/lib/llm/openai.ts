@@ -7,10 +7,12 @@ const MODEL_MAP: Record<string, string> = {
   "gpt-5.4": "gpt-5.4",
   "gpt-5.4-mini": "gpt-5.4-mini",
   "gpt-5.4-nano": "gpt-5.4-nano",
+  "qwen2.5-32b": "Qwen/Qwen2.5-32B-Instruct-AWQ",
 };
 
 export function createOpenAIAdapter(modelKey: string, apiKey: string): LlmAdapter {
-  const client = new OpenAI({ apiKey });
+  const baseURL = process.env.OPENAI_BASE_URL; // vLLM / local inference override
+  const client = new OpenAI({ apiKey, ...(baseURL ? { baseURL } : {}) });
   const resolvedModel = MODEL_MAP[modelKey] ?? modelKey;
 
   return {

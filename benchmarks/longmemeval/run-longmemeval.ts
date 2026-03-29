@@ -137,8 +137,8 @@ async function main() {
     if (provider === "anthropic" && !benchConfig.anthropicApiKey) {
       errors.push("ANTHROPIC_API_KEY required for " + model);
     }
-    if (provider === "openai" && !benchConfig.openaiApiKey) {
-      errors.push("OPENAI_API_KEY required for " + model);
+    if (provider === "openai" && !benchConfig.openaiApiKey && !process.env.OPENAI_BASE_URL) {
+      errors.push("OPENAI_API_KEY required for " + model + " (or set OPENAI_BASE_URL for local inference)");
     }
   }
   if (errors.length > 0) {

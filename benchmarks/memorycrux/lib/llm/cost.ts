@@ -16,6 +16,7 @@ const PRICING: Record<BenchModel, ModelPricing> = {
   "gpt-5.4": { inputPer1M: 2.50, outputPer1M: 10.0, cachedInputPer1M: 1.25 },
   "gpt-5.4-mini": { inputPer1M: 0.40, outputPer1M: 1.60, cachedInputPer1M: 0.10 },
   "gpt-5.4-nano": { inputPer1M: 0.10, outputPer1M: 0.40, cachedInputPer1M: 0.025 },
+  "qwen2.5-32b": { inputPer1M: 0, outputPer1M: 0, cachedInputPer1M: 0 }, // local inference
 };
 
 export function estimateCost(

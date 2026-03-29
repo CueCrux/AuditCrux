@@ -313,7 +313,7 @@ export class McProxy {
     return { ...this.headers, "x-idempotency-key": randomUUID() };
   }
 
-  async seedDocument(doc: { id: string; title: string; content: string; domain?: string; metadata?: Record<string, unknown> }): Promise<boolean> {
+  async seedDocument(doc: { id: string; title: string; content: string; domain?: string; metadata?: Record<string, unknown>; timestampSource?: string }): Promise<boolean> {
     const res = await this.safeFetch(`${this.base}/v1/memory/imports`, {
       method: "POST",
       headers: this.mutationHeaders(),
@@ -322,7 +322,7 @@ export class McProxy {
         sourceConversationId: `benchmark-fixture-${doc.id}-${Date.now()}`,
         content: doc.content,
         title: doc.title,
-        timestampSource: new Date().toISOString(),
+        timestampSource: doc.timestampSource ?? new Date().toISOString(),
         agentId: this.config.agentId,
         topics: doc.domain ? [doc.domain] : ["benchmark"],
         metadata: { ...doc.metadata, fixtureId: doc.id },
