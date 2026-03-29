@@ -14,7 +14,8 @@ export const MEMORYCRUX_TOOL_DEFS: ToolDef[] = [
       properties: {
         query: { type: "string", description: "Natural language search query" },
         topic: { type: "string", description: "Optional topic filter" },
-        limit: { type: "number", description: "Max results (default 10)" },
+        limit: { type: "number", description: "Max results (1-50, default 8). Use 24-30 for aggregation queries." },
+        scoring_profile: { type: "string", enum: ["balanced", "recall", "recency"], description: "Scoring profile: 'balanced' (default), 'recall' (aggregation/enumeration), 'recency' (knowledge updates)" },
       },
       required: ["query"],
     },
