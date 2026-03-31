@@ -61,6 +61,11 @@ const RETRIEVAL_TOOLS = new Set([
   "check_claim",
   "get_contradictions",
   "assess_coverage",
+  // Local benchmark tools (handled in orchestrator)
+  "research_memory",
+  "date_diff",
+  "get_session_by_id",
+  "structured_query",
 ]);
 
 export function filterToolDefs<T extends { name: string }>(

@@ -463,6 +463,59 @@ export const COMPOUND_TOOL_DEFS: ToolDef[] = [
   },
 ];
 
+// ── Local benchmark tools (handled in orchestrator, not on VaultCrux) ──
+
+export const LOCAL_BENCHMARK_TOOL_DEFS: ToolDef[] = [
+  {
+    name: "research_memory",
+    description: "Deep research tool — iteratively searches memory with multiple query strategies, deduplicates results, and returns a comprehensive evidence set. Use this for aggregation questions ('how many', 'how much', 'total'), multi-session questions, or when a single query_memory call is unlikely to find all relevant information. More thorough but slower than query_memory.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        question: { type: "string", description: "The full question to research" },
+        strategy: { type: "string", enum: ["broad", "aggregation", "temporal"], description: "Search strategy: 'broad' (default), 'aggregation' (for counting/summing), 'temporal' (for time-ordered events)" },
+        max_rounds: { type: "number", description: "Max search rounds (1-5, default 3)" },
+      },
+      required: ["question"],
+    },
+  },
+  {
+    name: "date_diff",
+    description: "Calculate the difference between two dates. Returns the difference in the requested unit (days, weeks, months, years). Use this instead of doing date arithmetic yourself — it's more reliable.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        from_date: { type: "string", description: "Start date (ISO 8601 or YYYY-MM-DD)" },
+        to_date: { type: "string", description: "End date (ISO 8601 or YYYY-MM-DD)" },
+        unit: { type: "string", enum: ["days", "weeks", "months", "years"], description: "Unit for the result (default: days)" },
+      },
+      required: ["from_date", "to_date"],
+    },
+  },
+  {
+    name: "get_session_by_id",
+    description: "Fetch memory content by document/session ID. Use this when a retrieved result references another session or document that you want to inspect directly.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        doc_id: { type: "string", description: "The document or session ID to fetch" },
+      },
+      required: ["doc_id"],
+    },
+  },
+  {
+    name: "structured_query",
+    description: "Query the entity knowledge graph for structured answers. Use this FIRST for: counting/aggregation questions ('how many X'), temporal ordering ('what order did I do X'), current state ('what is my current X'), and time-based questions ('how many days since X'). Returns structured entity data with confidence scores. If confidence is low, fall back to query_memory.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        question: { type: "string", description: "The full question to query the entity graph with" },
+      },
+      required: ["question"],
+    },
+  },
+];
+
 export function getToolDefsForBenchmark(): ToolDef[] {
   return MEMORYCRUX_TOOL_DEFS;
 }

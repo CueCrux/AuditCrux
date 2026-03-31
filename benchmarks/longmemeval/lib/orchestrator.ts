@@ -13,8 +13,234 @@ import type { BenchModel, BenchConfig } from "../../memorycrux/lib/types.js";
 import type { LmeAnswer, LmeArmConfig, LmeProblem, LmeRunManifest, LmeRunSummary } from "./types.js";
 import { buildSystemPrompt } from "./system-prompts.js";
 import { ingestProblem, waitForEmbeddings, verifyIngestion } from "./ingest-sessions.js";
+import { routeQuery, type RouterResult } from "./entity-router.js";
 
-const MAX_TURNS_PER_QUESTION = 10;
+const MAX_TURNS_PER_QUESTION = 12;
+
+// ── Local tool handlers (run in benchmark process, not on VaultCrux) ──
+
+/**
+ * date_diff — compute the difference between two dates.
+ * Eliminates LLM arithmetic errors on temporal questions.
+ */
+function handleDateDiff(args: Record<string, unknown>): Record<string, unknown> {
+  const from = String(args.from_date ?? "");
+  const to = String(args.to_date ?? "");
+  const unit = String(args.unit ?? "days");
+
+  const fromMs = Date.parse(from);
+  const toMs = Date.parse(to);
+
+  if (!Number.isFinite(fromMs) || !Number.isFinite(toMs)) {
+    return { error: `Invalid date(s): from="${from}", to="${to}"` };
+  }
+
+  const diffMs = toMs - fromMs;
+  const diffDays = diffMs / 86_400_000;
+
+  let value: number;
+  switch (unit) {
+    case "weeks":
+      value = Math.round(diffDays / 7 * 10) / 10;
+      break;
+    case "months":
+      value = Math.round(diffDays / 30.44 * 10) / 10;
+      break;
+    case "years":
+      value = Math.round(diffDays / 365.25 * 10) / 10;
+      break;
+    default:
+      value = Math.round(diffDays);
+  }
+
+  return {
+    from_date: from,
+    to_date: to,
+    difference: value,
+    unit,
+    raw_days: Math.round(diffDays),
+  };
+}
+
+/**
+ * research_memory — iterative plan/search/reflect loop.
+ * Issues multiple query_memory calls with different strategies,
+ * assesses completeness, and retries until confident or max rounds hit.
+ */
+async function handleResearchMemory(
+  args: Record<string, unknown>,
+  proxy: McProxy,
+): Promise<Record<string, unknown>> {
+  const question = String(args.question ?? "");
+  const maxRounds = Math.min(Number(args.max_rounds) || 3, 5);
+  const strategy = String(args.strategy ?? "broad");
+
+  const allResults: Array<Record<string, unknown>> = [];
+  const seenChunkIds = new Set<string>();
+  const queries: string[] = [];
+
+  // Round 1: primary query with high limit
+  const r1 = await proxy.callTool("query_memory", {
+    query: question,
+    limit: 30,
+    scoring_profile: strategy === "aggregation" ? "recall" : "balanced",
+  });
+  if (r1.success && r1.result) {
+    const items = extractItems(r1.result);
+    for (const item of items) {
+      const cid = String((item as Record<string, unknown>).chunkId ?? (item as Record<string, unknown>).chunk_id ?? "");
+      if (cid && !seenChunkIds.has(cid)) {
+        seenChunkIds.add(cid);
+        allResults.push(item as Record<string, unknown>);
+      }
+    }
+  }
+  queries.push(question);
+
+  // Rounds 2+: generate reformulated queries based on what we found
+  const keyEntities = extractEntities(question);
+  const reformulations = [
+    ...keyEntities.map((e) => e), // search individual entities
+    question.replace(/how many|how much|total|what is the/gi, "").trim(), // strip quantifiers
+  ].filter((q) => q.length > 3 && !queries.includes(q));
+
+  for (let round = 1; round < maxRounds && reformulations.length > 0; round++) {
+    const nextQuery = reformulations.shift()!;
+    queries.push(nextQuery);
+
+    const rN = await proxy.callTool("query_memory", {
+      query: nextQuery,
+      limit: 20,
+      scoring_profile: strategy === "aggregation" ? "recall" : "balanced",
+    });
+    if (rN.success && rN.result) {
+      const items = extractItems(rN.result);
+      let newFound = 0;
+      for (const item of items) {
+        const cid = String((item as Record<string, unknown>).chunkId ?? (item as Record<string, unknown>).chunk_id ?? "");
+        if (cid && !seenChunkIds.has(cid)) {
+          seenChunkIds.add(cid);
+          allResults.push(item as Record<string, unknown>);
+          newFound++;
+        }
+      }
+      // Stop if no new results found (convergence)
+      if (newFound === 0) break;
+    }
+  }
+
+  return {
+    total_results: allResults.length,
+    unique_chunks: seenChunkIds.size,
+    rounds_used: queries.length,
+    queries_issued: queries,
+    results: allResults.slice(0, 50), // cap to avoid token explosion
+  };
+}
+
+function extractItems(result: unknown): unknown[] {
+  if (!result || typeof result !== "object") return [];
+  const r = result as Record<string, unknown>;
+  if (Array.isArray(r.results)) return r.results;
+  if (Array.isArray(r.items)) return r.items;
+  if (r.data && typeof r.data === "object") {
+    const d = r.data as Record<string, unknown>;
+    if (Array.isArray(d.results)) return d.results;
+    if (Array.isArray(d.items)) return d.items;
+  }
+  return [];
+}
+
+function extractEntities(question: string): string[] {
+  // Extract quoted strings and capitalized noun phrases as entity candidates
+  const entities: string[] = [];
+  const quoted = question.match(/"([^"]+)"|'([^']+)'/g);
+  if (quoted) {
+    for (const q of quoted) entities.push(q.replace(/['"]/g, ""));
+  }
+  // Extract capitalized words that aren't at sentence start
+  const words = question.split(/\s+/);
+  for (let i = 1; i < words.length; i++) {
+    const w = words[i]!.replace(/[^a-zA-Z]/g, "");
+    if (w.length > 2 && w[0] === w[0]!.toUpperCase() && w[0] !== w[0]!.toLowerCase()) {
+      entities.push(w);
+    }
+  }
+  return [...new Set(entities)].slice(0, 3);
+}
+
+/**
+ * get_session_by_id — direct doc/session content lookup by document ID.
+ * When the model finds a reference to another session, it can fetch it directly.
+ */
+async function handleGetSessionById(
+  args: Record<string, unknown>,
+  proxy: McProxy,
+): Promise<Record<string, unknown>> {
+  const docId = String(args.doc_id ?? "");
+  if (!docId) return { error: "doc_id is required" };
+
+  // Use query_memory with a doc-specific search
+  const result = await proxy.callTool("query_memory", {
+    query: docId,
+    limit: 10,
+  });
+  return result.result as Record<string, unknown> ?? { error: "No results" };
+}
+
+const ENTITY_DB_URL = process.env.ENTITY_DB_URL ?? "postgres://vaultcrux:Et-lpNvPE-wdOKG1K3neNqLeFoinBmES-1a1aBPxkU19@100.75.64.43:5432/vaultcrux";
+
+/**
+ * structured_query — routes to entity index for aggregation/temporal/state queries.
+ * Uses the bidirectional matrix: forward graph query + backward session verification.
+ */
+async function handleStructuredQuery(
+  args: Record<string, unknown>,
+  dataset: string,
+  problemId: string,
+): Promise<Record<string, unknown>> {
+  const question = String(args.question ?? "");
+  if (!question) return { error: "question is required" };
+
+  try {
+    const result = await routeQuery(question, {
+      databaseUrl: ENTITY_DB_URL,
+      tenantId: problemId,
+      dataset,
+    });
+
+    if (result.tier <= 2 && result.answer) {
+      return {
+        tier: result.tier,
+        confidence: result.confidence,
+        answer: result.answer,
+        method: result.method,
+        entity_count: result.entities.length,
+        session_count: result.sessionCount,
+        entities: result.entities.slice(0, 20).map(e => ({
+          name: e.entity_name,
+          type: e.entity_type,
+          predicate: e.predicate,
+          value: e.object_value,
+          date: e.occurred_at?.slice(0, 10),
+        })),
+      };
+    }
+
+    return {
+      tier: 3,
+      confidence: 0,
+      answer: null,
+      method: result.method,
+      note: "Entity index insufficient — use query_memory for vector search",
+    };
+  } catch (err) {
+    return { error: `structured_query failed: ${err instanceof Error ? err.message : String(err)}` };
+  }
+}
+
+/** Check if a tool should be handled locally (not sent to VaultCrux) */
+const LOCAL_TOOLS = new Set(["date_diff", "research_memory", "get_session_by_id", "structured_query"]);
 
 interface OrchestratorConfig {
   adapter: LlmAdapter;
@@ -245,18 +471,39 @@ async function answerQuestion(
 
       for (const tc of result.toolUse) {
         toolCallCount++;
-        const record = await proxy.callTool(tc.name, tc.input);
 
-        // Capture receipt chain IDs from VaultCrux responses
-        if (record.success && record.result) {
-          const r = record.result as { receiptId?: string; receipt_id?: string };
-          const receiptId = r.receiptId ?? r.receipt_id;
-          if (receiptId) receiptChainIds.push(receiptId);
+        let toolResult: unknown;
+
+        // Handle local tools (run in benchmark process, not on VaultCrux)
+        if (LOCAL_TOOLS.has(tc.name)) {
+          if (tc.name === "date_diff") {
+            toolResult = handleDateDiff(tc.input);
+          } else if (tc.name === "research_memory" && proxy) {
+            toolResult = await handleResearchMemory(tc.input, proxy);
+          } else if (tc.name === "get_session_by_id" && proxy) {
+            toolResult = await handleGetSessionById(tc.input, proxy);
+          } else if (tc.name === "structured_query") {
+            toolResult = await handleStructuredQuery(tc.input, config.manifest.dataset, problem.problemId);
+          } else {
+            toolResult = { error: `Local tool ${tc.name} requires proxy` };
+          }
+        } else if (proxy) {
+          const record = await proxy.callTool(tc.name, tc.input);
+          toolResult = record.result ?? record.error ?? "";
+
+          // Capture receipt chain IDs from VaultCrux responses
+          if (record.success && record.result) {
+            const r = record.result as { receiptId?: string; receipt_id?: string };
+            const receiptId = r.receiptId ?? r.receipt_id;
+            if (receiptId) receiptChainIds.push(receiptId);
+          }
+        } else {
+          toolResult = { error: "No proxy available" };
         }
 
         messages.push({
           role: "tool",
-          content: JSON.stringify(record.result ?? record.error ?? ""),
+          content: JSON.stringify(toolResult),
           toolCallId: tc.id,
         });
       }
