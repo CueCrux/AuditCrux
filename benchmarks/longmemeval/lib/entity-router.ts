@@ -231,16 +231,16 @@ export async function routeQuery(
   const tenantId = `__longmemeval_${config.dataset}_${config.tenantId}`;
   const keywords = extractEntityKeywords(question);
 
-  // Only route aggregation questions to entity index.
-  // Temporal, knowledge-update, and simple recall go straight to VaultCrux vector search.
-  if (intent !== "aggregation") {
+  // Simple recall → always vector search (no entity structure needed)
+  // All other intents try entity index with answer-first verification
+  if (intent === "simple_recall") {
     return {
       tier: 3,
       answer: null,
       confidence: 0,
       entities: [],
       sessionCount: 0,
-      method: `tier3_passthrough(${intent})`,
+      method: "tier3_passthrough(simple_recall)",
     };
   }
 

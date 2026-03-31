@@ -14,6 +14,7 @@ import type { LmeAnswer, LmeArmConfig, LmeProblem, LmeRunManifest, LmeRunSummary
 import { buildSystemPrompt } from "./system-prompts.js";
 import { ingestProblem, waitForEmbeddings, verifyIngestion } from "./ingest-sessions.js";
 import { routeQuery, type RouterResult } from "./entity-router.js";
+import { verifiedQuery, matchQATemplate, type VerifiedResult } from "./verified-query.js";
 
 const MAX_TURNS_PER_QUESTION = 12;
 
@@ -191,48 +192,56 @@ async function handleGetSessionById(
 const ENTITY_DB_URL = process.env.ENTITY_DB_URL ?? "postgres://vaultcrux:Et-lpNvPE-wdOKG1K3neNqLeFoinBmES-1a1aBPxkU19@100.75.64.43:5432/vaultcrux";
 
 /**
- * structured_query — routes to entity index for aggregation/temporal/state queries.
- * Uses the bidirectional matrix: forward graph query + backward session verification.
+ * structured_query — Phase 5+6: verified query with answer-first approach.
+ * Proposes candidate from entity index, verifies against chunks, returns
+ * only verified facts. Falls back to vector search when verification fails.
  */
 async function handleStructuredQuery(
   args: Record<string, unknown>,
   dataset: string,
   problemId: string,
+  proxy?: McProxy,
 ): Promise<Record<string, unknown>> {
   const question = String(args.question ?? "");
   if (!question) return { error: "question is required" };
 
   try {
-    const result = await routeQuery(question, {
+    const result = await verifiedQuery(question, {
       databaseUrl: ENTITY_DB_URL,
       tenantId: problemId,
       dataset,
-    });
+    }, proxy);
 
-    if (result.tier <= 2 && result.answer) {
+    if (!result.useFallback && result.answer) {
       return {
-        tier: result.tier,
+        intent: result.intent,
         confidence: result.confidence,
         answer: result.answer,
+        verified: result.verified,
         method: result.method,
-        entity_count: result.entities.length,
-        session_count: result.sessionCount,
-        entities: result.entities.slice(0, 20).map(e => ({
-          name: e.entity_name,
-          type: e.entity_type,
-          predicate: e.predicate,
-          value: e.object_value,
-          date: e.occurred_at?.slice(0, 10),
-        })),
+        entities: result.candidate?.entities?.slice(0, 20) ?? [],
+      };
+    }
+
+    // Entity index didn't have an answer — try QA template matching
+    const tenantId = `__longmemeval_${dataset}_${problemId}`;
+    const qaMatch = await matchQATemplate(question, tenantId, ENTITY_DB_URL);
+    if (qaMatch.matched && qaMatch.confidence >= 0.6) {
+      return {
+        intent: result.intent,
+        confidence: qaMatch.confidence,
+        answer: qaMatch.answer,
+        method: qaMatch.method,
+        verified: false,
       };
     }
 
     return {
-      tier: 3,
+      intent: result.intent,
       confidence: 0,
       answer: null,
-      method: result.method,
-      note: "Entity index insufficient — use query_memory for vector search",
+      method: result.method + (qaMatch.method !== "qa_template_no_match" ? "+" + qaMatch.method : ""),
+      note: "Entity index and QA templates insufficient — use query_memory for vector search",
     };
   } catch (err) {
     return { error: `structured_query failed: ${err instanceof Error ? err.message : String(err)}` };
@@ -483,7 +492,7 @@ async function answerQuestion(
           } else if (tc.name === "get_session_by_id" && proxy) {
             toolResult = await handleGetSessionById(tc.input, proxy);
           } else if (tc.name === "structured_query") {
-            toolResult = await handleStructuredQuery(tc.input, config.manifest.dataset, problem.problemId);
+            toolResult = await handleStructuredQuery(tc.input, config.manifest.dataset, problem.problemId, proxy);
           } else {
             toolResult = { error: `Local tool ${tc.name} requires proxy` };
           }
