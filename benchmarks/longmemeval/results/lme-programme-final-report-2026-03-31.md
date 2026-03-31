@@ -241,6 +241,31 @@ This confirms the 78% plateau is a blend of extraction quality (~30% of remainin
 
 ---
 
+## Sonnet Extraction Results (Late Addition)
+
+Sonnet-quality entity extraction on the 40 abstention failures recovered 9 questions:
+- 3 multi-session (camping trips, food delivery, dinner parties)
+- 4 temporal (charity events, artist discovery, Rack Fest timing, bird watching duration)
+- 2 knowledge-update (MCU films, bird species)
+
+**Projected with Sonnet abstention recovery: 80.0% (400/500)**
+
+This confirms extraction quality as the primary remaining lever. Sonnet finds implicit facts, indirect references, and contextual entities that Haiku misses.
+
+## Phase 8 Plan: Retrieval Parity
+
+Competitive analysis identified seven techniques used by top LongMemEval systems (Hindsight 91.4%, agentmemory 96.2%) that MemoryCrux has partially or not at all. Ordered by ROI:
+
+1. Cross-encoder reranking (already on GPU-1, needs wiring)
+2. Four-way parallel retrieval + RRF fusion
+3. Entity-linked graph edges (CoreCrux graph_expand ready)
+4. Temporal decay on graph edges
+5. Coreference resolution at ingest
+6. Spreading activation from semantic entry points
+7. Opinion vs fact separation
+
+ExecPlan: `PlanCrux/.agent/execplans/lme-phase8-retrieval-parity.md`
+
 ## Conclusion
 
 The LongMemEval programme delivered a confirmed +7.2pp accuracy gain (71.0% to 78.2%) across three days at a total cost of ~$330. The work produced:
