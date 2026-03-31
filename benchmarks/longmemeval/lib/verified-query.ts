@@ -14,6 +14,7 @@
 import pg from "pg";
 import { McProxy } from "../../../memorycrux/lib/mc-proxy.js";
 import { queryCount, queryTimeline, queryCurrentState, queryCalendar, type CachedAnswer } from "./answer-cache.js";
+import { projectionCount, projectionTimeline, projectionCurrentState, type ProjectionResult } from "./projection-query.js";
 import { detectIntent, extractEntityKeywords, type QueryIntent } from "./entity-router.js";
 
 interface VerifiedQueryConfig {
@@ -65,18 +66,35 @@ export async function verifiedQuery(
       return { intent, candidate: null, verified: false, answer: "", confidence: 0, method: `no_coverage(${intent})`, useFallback: true };
     }
 
-    // Step 2: Get candidate from entity index
+    // Step 2: Get candidate from MATERIALISED PROJECTIONS (not ad-hoc SQL)
+    // Projections are pre-computed, deduplicated, and sorted — more reliable than raw index queries
     let candidate: CachedAnswer | null = null;
 
     if (intent === "aggregation") {
-      candidate = await queryCount(pool, tenantId, keywords);
-    } else if (intent === "temporal_ordering") {
-      candidate = await queryTimeline(pool, tenantId, keywords);
-    } else if (intent === "temporal_arithmetic") {
-      // Try to extract date range from question for calendar lookup
-      candidate = await queryTimeline(pool, tenantId, keywords); // Use timeline as fallback
+      const proj = await projectionCount(pool, tenantId, keywords);
+      if (proj.type !== "none") {
+        candidate = { type: "count", answer: proj.answer, confidence: proj.confidence, entities: proj.items.map(i => ({ name: i.name, predicate: "", value: i.value, date: i.date })) };
+      }
+      if (!candidate || candidate.confidence < 0.7) {
+        // Fallback to ad-hoc query if projection didn't match
+        candidate = await queryCount(pool, tenantId, keywords);
+      }
+    } else if (intent === "temporal_ordering" || intent === "temporal_arithmetic") {
+      const proj = await projectionTimeline(pool, tenantId, keywords);
+      if (proj.type !== "none") {
+        candidate = { type: "timeline", answer: proj.answer, confidence: proj.confidence, entities: proj.items.map(i => ({ name: i.name, predicate: "", value: i.value, date: i.date })) };
+      }
+      if (!candidate || candidate.confidence < 0.6) {
+        candidate = await queryTimeline(pool, tenantId, keywords);
+      }
     } else if (intent === "current_state") {
-      candidate = await queryCurrentState(pool, tenantId, keywords);
+      const proj = await projectionCurrentState(pool, tenantId, keywords);
+      if (proj.type !== "none") {
+        candidate = { type: "current_state", answer: proj.answer, confidence: proj.confidence, entities: proj.items.map(i => ({ name: i.name, predicate: "", value: i.value, date: i.date })) };
+      }
+      if (!candidate || candidate.confidence < 0.6) {
+        candidate = await queryCurrentState(pool, tenantId, keywords);
+      }
     }
 
     if (!candidate || candidate.type === "none" || candidate.entities.length === 0) {
