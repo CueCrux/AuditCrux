@@ -20,7 +20,7 @@ import type { BenchModel, BenchConfig } from "../memorycrux/lib/types.js";
 import { loadDataset, loadProblems, stratifiedSample } from "./lib/dataset-loader.js";
 import { getArmConfig, filterToolDefs } from "./lib/arms.js";
 import { executeRun } from "./lib/orchestrator.js";
-import { writeHypotheses, writeRunSummary, writeReport } from "./lib/hypothesis-writer.js";
+import { writeHypotheses, writeRunSummary, writeReport, writeTrace } from "./lib/hypothesis-writer.js";
 import type { LmeArm, LmeDataset, LmeRunManifest } from "./lib/types.js";
 
 // ── CLI argument parsing ──
@@ -222,6 +222,10 @@ async function main() {
     writeHypotheses(summary.answers, resolve(outDir, "hypotheses.jsonl"));
     writeRunSummary(summary, resolve(outDir, "summary.json"));
     writeReport(summary, resolve(outDir, "report.md"));
+    // Write agent trace if any answers have trace data
+    if (summary.answers.some((a) => a.toolTrace?.length)) {
+      writeTrace(summary.answers, resolve(outDir, "agent-trace.md"));
+    }
 
     console.log(`\n[output] Results written to ${outDir}`);
   }

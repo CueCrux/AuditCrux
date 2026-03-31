@@ -10,7 +10,7 @@ import type { LlmAdapter, Message, ToolDef } from "../../memorycrux/lib/llm/adap
 import { McProxy } from "../../memorycrux/lib/mc-proxy.js";
 import { estimateCost } from "../../memorycrux/lib/llm/cost.js";
 import type { BenchModel, BenchConfig } from "../../memorycrux/lib/types.js";
-import type { LmeAnswer, LmeArmConfig, LmeProblem, LmeRunManifest, LmeRunSummary } from "./types.js";
+import type { LmeAnswer, LmeArmConfig, LmeProblem, LmeRunManifest, LmeRunSummary, LmeToolStep, LmeReflection } from "./types.js";
 import { buildSystemPrompt } from "./system-prompts.js";
 import { ingestProblem, waitForEmbeddings, verifyIngestion } from "./ingest-sessions.js";
 import { routeQuery, type RouterResult } from "./entity-router.js";
@@ -434,8 +434,23 @@ export async function executeRun(
   return summary;
 }
 
+const ENABLE_TRACE = process.env.BENCH_TRACE !== "0"; // on by default
+const ENABLE_REFLECTION = process.env.BENCH_REFLECTION !== "0"; // on by default
+
+const REFLECTION_PROMPT = `PAUSE. Before giving your final answer, reflect on what you just found:
+
+1. WHAT DID I SEARCH FOR? List every query/tool you used.
+2. WHAT DID I FIND? Summarize the key facts retrieved.
+3. WHAT MIGHT I HAVE MISSED? Are there sessions or facts I didn't search for?
+4. IS MY COUNT COMPLETE? If this is a counting question, enumerate every item explicitly.
+5. AM I CONFIDENT? Rate 1-10. If below 7, describe what additional search would help.
+
+If you are confident (7+), give your final answer now.
+If not confident, use one more tool call to fill the gap, then answer.`;
+
 /**
  * Answer a single question using the configured arm.
+ * Now with full tool trace capture and optional reflection loop.
  */
 async function answerQuestion(
   problem: LmeProblem,
@@ -457,6 +472,11 @@ async function answerQuestion(
   let toolCallCount = 0;
   let turnCount = 0;
   const receiptChainIds: string[] = [];
+  const toolTrace: LmeToolStep[] = [];
+  let reflection: LmeReflection | undefined;
+
+  let draftHypothesis: string | null = null;
+  let reflected = false;
 
   for (let turn = 0; turn < MAX_TURNS_PER_QUESTION; turn++) {
     const result = await config.adapter.chat(messages, tools, {
@@ -472,6 +492,9 @@ async function answerQuestion(
 
     // Handle tool calls
     if (result.toolUse.length > 0 && proxy) {
+      // Capture agent reasoning (text before/alongside tool calls)
+      const agentReasoning = result.content.trim();
+
       messages.push({
         role: "assistant",
         content: result.content,
@@ -480,6 +503,7 @@ async function answerQuestion(
 
       for (const tc of result.toolUse) {
         toolCallCount++;
+        const toolStart = Date.now();
 
         let toolResult: unknown;
 
@@ -510,6 +534,20 @@ async function answerQuestion(
           toolResult = { error: "No proxy available" };
         }
 
+        const toolDurationMs = Date.now() - toolStart;
+
+        // Capture tool trace
+        if (ENABLE_TRACE) {
+          toolTrace.push({
+            turn: turnCount,
+            toolName: tc.name,
+            toolArgs: tc.input,
+            toolResult: truncateForTrace(toolResult),
+            agentReasoning,
+            durationMs: toolDurationMs,
+          });
+        }
+
         messages.push({
           role: "tool",
           content: JSON.stringify(toolResult),
@@ -520,15 +558,156 @@ async function answerQuestion(
       continue; // Loop back for model to process tool results
     }
 
-    // No tool calls — this is the final answer
+    // No tool calls — this is a text-only response (draft or final answer)
     const hypothesis = extractHypothesis(result.content);
-    const costUsd = estimateCost(
-      config.manifest.model as BenchModel,
-      totalInputTokens,
-      totalOutputTokens,
-      totalCachedTokens,
-    );
 
+    // Reflection: after first draft answer, inject self-critique prompt
+    if (ENABLE_REFLECTION && !reflected && toolCallCount > 0 && tools) {
+      reflected = true;
+      draftHypothesis = hypothesis;
+
+      // Inject reflection prompt
+      messages.push({
+        role: "assistant",
+        content: result.content,
+      });
+      messages.push({
+        role: "user",
+        content: REFLECTION_PROMPT,
+      });
+
+      // Get reflection response
+      const reflectionResult = await config.adapter.chat(messages, tools, {
+        temperature: 0.2,
+        maxTokens: 1024,
+      });
+
+      totalInputTokens += reflectionResult.inputTokens;
+      totalOutputTokens += reflectionResult.outputTokens;
+      totalCachedTokens += reflectionResult.cachedTokens;
+      totalLatencyMs += reflectionResult.latencyMs;
+      turnCount++;
+
+      const critique = reflectionResult.content.trim();
+      const continuedSearching = reflectionResult.toolUse.length > 0;
+
+      if (continuedSearching && proxy) {
+        // Agent wants to search more — process tool calls
+        messages.push({
+          role: "assistant",
+          content: reflectionResult.content,
+          toolCalls: reflectionResult.toolUse,
+        });
+
+        for (const tc of reflectionResult.toolUse) {
+          toolCallCount++;
+          const toolStart = Date.now();
+
+          let toolResult: unknown;
+          if (LOCAL_TOOLS.has(tc.name)) {
+            if (tc.name === "date_diff") toolResult = handleDateDiff(tc.input);
+            else if (tc.name === "research_memory" && proxy) toolResult = await handleResearchMemory(tc.input, proxy);
+            else if (tc.name === "get_session_by_id" && proxy) toolResult = await handleGetSessionById(tc.input, proxy);
+            else if (tc.name === "structured_query") toolResult = await handleStructuredQuery(tc.input, config.manifest.dataset, problem.problemId, proxy);
+            else toolResult = { error: `Local tool ${tc.name} requires proxy` };
+          } else if (proxy) {
+            const record = await proxy.callTool(tc.name, tc.input);
+            toolResult = record.result ?? record.error ?? "";
+          } else {
+            toolResult = { error: "No proxy available" };
+          }
+
+          if (ENABLE_TRACE) {
+            toolTrace.push({
+              turn: turnCount,
+              toolName: tc.name,
+              toolArgs: tc.input,
+              toolResult: truncateForTrace(toolResult),
+              agentReasoning: `[REFLECTION] ${critique.slice(0, 200)}`,
+              durationMs: Date.now() - toolStart,
+            });
+          }
+
+          messages.push({
+            role: "tool",
+            content: JSON.stringify(toolResult),
+            toolCallId: tc.id,
+          });
+        }
+
+        // Get final answer after reflection search
+        const finalResult = await config.adapter.chat(messages, undefined, {
+          temperature: 0.3,
+          maxTokens: 1024,
+        });
+
+        totalInputTokens += finalResult.inputTokens;
+        totalOutputTokens += finalResult.outputTokens;
+        totalCachedTokens += finalResult.cachedTokens;
+        totalLatencyMs += finalResult.latencyMs;
+        turnCount++;
+
+        const revisedAnswer = extractHypothesis(finalResult.content);
+
+        reflection = {
+          draftAnswer: draftHypothesis!,
+          reflectionPrompt: REFLECTION_PROMPT,
+          critique,
+          continuedSearching: true,
+          revisedAnswer,
+        };
+
+        const costUsd = estimateCost(config.manifest.model as BenchModel, totalInputTokens, totalOutputTokens, totalCachedTokens);
+        return {
+          questionId: problem.problemId,
+          questionType: problem.questionType,
+          hypothesis: revisedAnswer,
+          receiptChainIds,
+          toolCalls: toolCallCount,
+          inputTokens: totalInputTokens,
+          outputTokens: totalOutputTokens,
+          cachedTokens: totalCachedTokens,
+          latencyMs: totalLatencyMs,
+          costUsd,
+          turns: turnCount,
+          toolTrace: ENABLE_TRACE ? toolTrace : undefined,
+          reflection,
+        };
+      }
+
+      // Agent was confident — reflection didn't trigger more searches
+      // Check if the reflection itself contains a revised answer
+      const revisedAnswer = extractHypothesis(critique);
+      const answerChanged = revisedAnswer.length > 20 && revisedAnswer !== critique;
+
+      reflection = {
+        draftAnswer: draftHypothesis!,
+        reflectionPrompt: REFLECTION_PROMPT,
+        critique,
+        continuedSearching: false,
+        revisedAnswer: answerChanged ? revisedAnswer : draftHypothesis!,
+      };
+
+      const costUsd = estimateCost(config.manifest.model as BenchModel, totalInputTokens, totalOutputTokens, totalCachedTokens);
+      return {
+        questionId: problem.problemId,
+        questionType: problem.questionType,
+        hypothesis: reflection.revisedAnswer,
+        receiptChainIds,
+        toolCalls: toolCallCount,
+        inputTokens: totalInputTokens,
+        outputTokens: totalOutputTokens,
+        cachedTokens: totalCachedTokens,
+        latencyMs: totalLatencyMs,
+        costUsd,
+        turns: turnCount,
+        toolTrace: ENABLE_TRACE ? toolTrace : undefined,
+        reflection,
+      };
+    }
+
+    // No reflection (C0/C2 arms or reflection disabled) — return directly
+    const costUsd = estimateCost(config.manifest.model as BenchModel, totalInputTokens, totalOutputTokens, totalCachedTokens);
     return {
       questionId: problem.problemId,
       questionType: problem.questionType,
@@ -541,6 +720,7 @@ async function answerQuestion(
       latencyMs: totalLatencyMs,
       costUsd,
       turns: turnCount,
+      toolTrace: ENABLE_TRACE ? toolTrace : undefined,
     };
   }
 
@@ -560,14 +740,30 @@ async function answerQuestion(
     outputTokens: totalOutputTokens,
     cachedTokens: totalCachedTokens,
     latencyMs: totalLatencyMs,
-    costUsd: estimateCost(
-      config.manifest.model as BenchModel,
-      totalInputTokens,
-      totalOutputTokens,
-      totalCachedTokens,
-    ),
+    costUsd: estimateCost(config.manifest.model as BenchModel, totalInputTokens, totalOutputTokens, totalCachedTokens),
     turns: turnCount,
+    toolTrace: ENABLE_TRACE ? toolTrace : undefined,
   };
+}
+
+/** Truncate tool results for trace storage — keep structure but cap content length */
+function truncateForTrace(result: unknown): unknown {
+  if (!result || typeof result !== "object") return result;
+  const str = JSON.stringify(result);
+  if (str.length <= 2000) return result;
+  // Truncate individual content fields to keep trace manageable
+  const r = result as Record<string, unknown>;
+  const truncated: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(r)) {
+    if (typeof v === "string" && v.length > 500) {
+      truncated[k] = v.slice(0, 500) + `... [truncated, ${v.length} chars total]`;
+    } else if (Array.isArray(v) && v.length > 10) {
+      truncated[k] = [...v.slice(0, 10), `... [${v.length} items total]`];
+    } else {
+      truncated[k] = v;
+    }
+  }
+  return truncated;
 }
 
 /**

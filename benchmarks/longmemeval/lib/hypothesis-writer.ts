@@ -35,6 +35,75 @@ export function writeRunSummary(summary: LmeRunSummary, outputPath: string): voi
 }
 
 /**
+ * Write detailed agent trace for each question — tool calls, reasoning, reflection.
+ * Human-readable markdown for auditing what the agent saw and did.
+ */
+export function writeTrace(answers: LmeAnswer[], outputPath: string): void {
+  mkdirSync(dirname(outputPath), { recursive: true });
+
+  const lines: string[] = [];
+  lines.push(`# Agent Trace Report`);
+  lines.push(``);
+  lines.push(`Generated: ${new Date().toISOString()}`);
+  lines.push(`Questions: ${answers.length}`);
+  lines.push(``);
+
+  for (const a of answers) {
+    lines.push(`---`);
+    lines.push(``);
+    lines.push(`## ${a.questionId} (${a.questionType})`);
+    lines.push(``);
+    lines.push(`**Turns:** ${a.turns} | **Tool calls:** ${a.toolCalls} | **Cost:** $${a.costUsd.toFixed(4)}`);
+    lines.push(``);
+
+    if (a.toolTrace && a.toolTrace.length > 0) {
+      lines.push(`### Tool Trace`);
+      lines.push(``);
+      for (let i = 0; i < a.toolTrace.length; i++) {
+        const step = a.toolTrace[i]!;
+        lines.push(`#### Step ${i + 1}: \`${step.toolName}\` (turn ${step.turn}, ${step.durationMs}ms)`);
+        lines.push(``);
+        if (step.agentReasoning) {
+          lines.push(`**Agent reasoning:**`);
+          lines.push(`> ${step.agentReasoning.slice(0, 500).replace(/\n/g, "\n> ")}`);
+          lines.push(``);
+        }
+        lines.push(`**Args:** \`${JSON.stringify(step.toolArgs).slice(0, 300)}\``);
+        lines.push(``);
+        const resultStr = JSON.stringify(step.toolResult);
+        lines.push(`**Result:** ${resultStr.length > 500 ? resultStr.slice(0, 500) + "..." : resultStr}`);
+        lines.push(``);
+      }
+    }
+
+    if (a.reflection) {
+      lines.push(`### Reflection`);
+      lines.push(``);
+      lines.push(`**Draft answer:**`);
+      lines.push(`> ${a.reflection.draftAnswer.slice(0, 300).replace(/\n/g, "\n> ")}`);
+      lines.push(``);
+      lines.push(`**Self-critique:**`);
+      lines.push(`> ${a.reflection.critique.slice(0, 500).replace(/\n/g, "\n> ")}`);
+      lines.push(``);
+      lines.push(`**Continued searching:** ${a.reflection.continuedSearching ? "YES" : "NO"}`);
+      lines.push(``);
+      if (a.reflection.revisedAnswer !== a.reflection.draftAnswer) {
+        lines.push(`**Revised answer:**`);
+        lines.push(`> ${a.reflection.revisedAnswer.slice(0, 300).replace(/\n/g, "\n> ")}`);
+        lines.push(``);
+      }
+    }
+
+    lines.push(`**Final hypothesis:**`);
+    lines.push(`> ${a.hypothesis.slice(0, 400).replace(/\n/g, "\n> ")}`);
+    lines.push(``);
+  }
+
+  writeFileSync(outputPath, lines.join("\n"), "utf-8");
+  console.log(`[trace] Wrote agent trace for ${answers.length} questions to ${outputPath}`);
+}
+
+/**
  * Write a human-readable markdown report.
  */
 export function writeReport(summary: LmeRunSummary, outputPath: string): void {

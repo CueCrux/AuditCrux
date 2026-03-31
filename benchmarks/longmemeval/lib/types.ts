@@ -82,6 +82,30 @@ export interface LmeRunManifest {
   skipSeed: boolean;
 }
 
+export interface LmeToolStep {
+  turn: number;
+  toolName: string;
+  toolArgs: Record<string, unknown>;
+  toolResult: unknown;
+  /** What the agent said BEFORE making this tool call (its plan/reasoning) */
+  agentReasoning: string;
+  /** Milliseconds for this tool call */
+  durationMs: number;
+}
+
+export interface LmeReflection {
+  /** The draft answer before reflection */
+  draftAnswer: string;
+  /** The reflection prompt injected */
+  reflectionPrompt: string;
+  /** The agent's self-critique response */
+  critique: string;
+  /** Did the agent decide to search more? */
+  continuedSearching: boolean;
+  /** Final answer after reflection (may be same as draft) */
+  revisedAnswer: string;
+}
+
 export interface LmeAnswer {
   questionId: string;
   questionType: LmeQuestionType;
@@ -94,6 +118,10 @@ export interface LmeAnswer {
   latencyMs: number;
   costUsd: number;
   turns: number;
+  /** Full tool trace — every tool call with args, results, and agent reasoning */
+  toolTrace?: LmeToolStep[];
+  /** Reflection — self-critique and optional retry */
+  reflection?: LmeReflection;
 }
 
 export interface LmeRunSummary {
