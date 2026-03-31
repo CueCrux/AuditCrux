@@ -65,6 +65,8 @@ FOCUS ON:
 - Temporal events: activities with specific dates or time references
 - State values: current therapist, job, address, frequency of activity
 - Numeric facts: prices, quantities, distances, durations, ages
+- NEGATIVE assertions: "I don't have", "I never", "I stopped" → use predicate "NOT_owns", "NOT_visited", "stopped"
+- STATE CHANGES: "I switched from X to Y", "I changed my X" → capture both old and new values
 
 SKIP: opinions, feelings, greetings, generic discussion, questions without factual answers.
 

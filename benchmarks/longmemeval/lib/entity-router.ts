@@ -8,6 +8,7 @@
  */
 
 import pg from "pg";
+import { queryCount, queryTimeline, queryCurrentState, queryCalendar, queryNegative, type CachedAnswer } from "./answer-cache.js";
 
 interface EntityRouterConfig {
   databaseUrl: string;
@@ -228,6 +229,7 @@ export async function routeQuery(
 ): Promise<RouterResult> {
   const intent = detectIntent(question);
   const tenantId = `__longmemeval_${config.dataset}_${config.tenantId}`;
+  const keywords = extractEntityKeywords(question);
 
   if (intent === "simple_recall") {
     return {
@@ -243,21 +245,85 @@ export async function routeQuery(
   const pool = new pg.Pool({ connectionString: config.databaseUrl, max: 2, idleTimeoutMillis: 5000 });
 
   try {
-    // Tier 1: Try entity index
+    // Phase 5 M4: Confidence-first routing — check if we have ANY data on this topic
+    const coverageCheck = await pool.query<{ cnt: string }>(
+      `SELECT count(*)::text as cnt FROM vaultcrux.entity_session_index
+       WHERE tenant_id = $1 AND (${keywords.map((_, i) => `entity_name ILIKE $${i + 2}`).join(" OR ")})`,
+      [tenantId, ...keywords.map(k => `%${k}%`)],
+    );
+    const coverage = parseInt(coverageCheck.rows[0]?.cnt ?? "0", 10);
+
+    if (coverage === 0) {
+      // No entity coverage on this topic — skip Tier 1/2, go straight to Tier 3
+      return {
+        tier: 3,
+        answer: null,
+        confidence: 0,
+        entities: [],
+        sessionCount: 0,
+        method: `tier3_no_coverage(intent=${intent},keywords=${keywords.join(",")})`,
+      };
+    }
+
+    // Phase 5 M1-M2: Try answer cache first (pre-computed/materialised answers)
+    let cached: CachedAnswer | null = null;
+    if (intent === "aggregation") {
+      cached = await queryCount(pool, tenantId, keywords);
+    } else if (intent === "temporal_ordering") {
+      cached = await queryTimeline(pool, tenantId, keywords);
+    } else if (intent === "current_state") {
+      cached = await queryCurrentState(pool, tenantId, keywords);
+    } else if (intent === "temporal_arithmetic") {
+      // Try calendar lookup if we can extract a date from the question
+      const dateMatch = question.match(/(\d{4}-\d{2}-\d{2})/);
+      if (dateMatch) {
+        cached = await queryCalendar(pool, tenantId, dateMatch[1]!, 3);
+      }
+    }
+
+    // Phase 5 M5: Check negative knowledge
+    if (!cached || cached.type === "none") {
+      const negative = await queryNegative(pool, tenantId, keywords);
+      if (negative.type !== "none") cached = negative;
+    }
+
+    if (cached && cached.type !== "none" && cached.confidence >= 0.7) {
+      // Cache hit with good confidence
+      const sessionResult = await pool.query<{ cnt: string }>(
+        `SELECT count(DISTINCT session_id)::text as cnt FROM vaultcrux.entity_session_index
+         WHERE tenant_id = $1 AND (${keywords.map((_, i) => `entity_name ILIKE $${i + 2}`).join(" OR ")})`,
+        [tenantId, ...keywords.map(k => `%${k}%`)],
+      );
+      const sessionCount = parseInt(sessionResult.rows[0]?.cnt ?? "0", 10);
+
+      // Tier 2: backward verify — does session count match entity count?
+      const entityCount = cached.entities.length;
+      const verified = sessionCount >= entityCount;
+
+      return {
+        tier: verified ? 1 : 2,
+        answer: cached.answer,
+        confidence: verified ? Math.min(0.95, cached.confidence + 0.1) : cached.confidence,
+        entities: cached.entities.map(e => ({
+          entity_type: "", entity_name: e.name, predicate: e.predicate,
+          object_value: e.value, occurred_at: e.date, session_id: "",
+        })),
+        sessionCount,
+        method: `${cached.method}+${verified ? "verified" : "unverified"}(fwd=${entityCount},bwd=${sessionCount})`,
+      };
+    }
+
+    // Fall back to Tier 1 live query (original logic)
     const tier1 = await tier1Query(pool, tenantId, intent, question);
 
     if (tier1 && tier1.confidence >= 0.8) {
-      // High confidence — return Tier 1 directly
       return tier1;
     }
 
     if (tier1 && tier1.confidence >= 0.5) {
-      // Medium confidence — verify with Tier 2
-      const keywords = extractEntityKeywords(question);
       return await tier2Verify(pool, tenantId, tier1, keywords);
     }
 
-    // Low or no confidence — fall through to Tier 3
     return {
       tier: 3,
       answer: null,

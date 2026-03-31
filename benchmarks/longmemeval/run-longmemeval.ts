@@ -15,7 +15,7 @@ import { resolve } from "node:path";
 import { McProxy } from "../memorycrux/lib/mc-proxy.js";
 import { resolveConfig } from "../memorycrux/lib/config.js";
 import { createAdapter } from "../memorycrux/lib/llm/factory.js";
-import { MEMORYCRUX_TOOL_DEFS } from "../memorycrux/lib/llm/tool-bridge.js";
+import { MEMORYCRUX_TOOL_DEFS, LOCAL_BENCHMARK_TOOL_DEFS } from "../memorycrux/lib/llm/tool-bridge.js";
 import type { BenchModel, BenchConfig } from "../memorycrux/lib/types.js";
 import { loadDataset, loadProblems, stratifiedSample } from "./lib/dataset-loader.js";
 import { getArmConfig, filterToolDefs } from "./lib/arms.js";
@@ -44,8 +44,8 @@ function parseArgs(): {
   const has = (flag: string): boolean => args.includes(flag);
 
   const dataset = (get("--dataset") ?? "s") as LmeDataset;
-  if (dataset !== "s" && dataset !== "m") {
-    console.error("--dataset must be 's' or 'm'");
+  if (!["s", "s2", "s3", "m"].includes(dataset)) {
+    console.error("--dataset must be 's', 's2', 's3', or 'm'");
     process.exit(1);
   }
 
@@ -113,7 +113,7 @@ async function main() {
   for (const arm of opts.arms) {
     for (const model of opts.models) {
       // C2 not supported for LongMemEval_M (exceeds context windows)
-      if (opts.dataset === "m" && arm === "C2") {
+      if ((opts.dataset === "m") && arm === "C2") {
         console.log(`Skipping ${arm}/${model}: C2 not supported for LongMemEval_M (corpus exceeds context windows)`);
         continue;
       }
@@ -194,8 +194,15 @@ async function main() {
       console.log(`VaultCrux healthy at ${benchConfig.vaultcruxApiBase}`);
     }
 
-    // Filter tool definitions based on arm
-    const toolDefs = filterToolDefs(MEMORYCRUX_TOOL_DEFS, armConfig.toolSet);
+    // Filter tool definitions based on arm (include local benchmark tools)
+    const allToolDefs = [...MEMORYCRUX_TOOL_DEFS, ...LOCAL_BENCHMARK_TOOL_DEFS];
+    const toolDefs = filterToolDefs(allToolDefs, armConfig.toolSet);
+
+    // Incremental output — save each answer as it completes so crashes don't lose work
+    const outDir = resolve(resultsBase, runId);
+    const { mkdirSync, appendFileSync } = await import("node:fs");
+    mkdirSync(outDir, { recursive: true });
+    const incrementalPath = resolve(outDir, "hypotheses.jsonl");
 
     // Execute — orchestrator creates per-problem McProxy instances internally
     const summary = await executeRun(problems, {
@@ -205,10 +212,13 @@ async function main() {
       manifest,
       benchConfig,
       concurrency: opts.concurrency,
+      onAnswer: (answer) => {
+        const hyp = { question_id: answer.questionId, hypothesis: answer.hypothesis };
+        appendFileSync(incrementalPath, JSON.stringify(hyp) + "\n");
+      },
     });
 
-    // Write outputs
-    const outDir = resolve(resultsBase, runId);
+    // Write final outputs (overwrites incremental)
     writeHypotheses(summary.answers, resolve(outDir, "hypotheses.jsonl"));
     writeRunSummary(summary, resolve(outDir, "summary.json"));
     writeReport(summary, resolve(outDir, "report.md"));

@@ -65,7 +65,7 @@ export interface LmeArmConfig {
 
 // ── Dataset variant ──
 
-export type LmeDataset = "s" | "m";
+export type LmeDataset = "s" | "s2" | "s3" | "m";
 
 // ── Run types ──
 

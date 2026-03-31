@@ -23,9 +23,9 @@ const DATASET_DIR = resolve(
 );
 
 function datasetFilename(dataset: LmeDataset): string {
-  return dataset === "s"
-    ? "longmemeval_s_cleaned.json"
-    : "longmemeval_m_cleaned.json";
+  // s2/s3 use the same data file as s (different tenant prefix only)
+  const base = dataset === "m" ? "m" : "s";
+  return `longmemeval_${base}_cleaned.json`;
 }
 
 /**
