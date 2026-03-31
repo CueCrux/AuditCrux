@@ -78,7 +78,7 @@ Text:
 async function extractEntities(chunkContent: string): Promise<Entity[]> {
   try {
     const response = await client.messages.create({
-      model: "claude-haiku-4-5",
+      model: process.env.EXTRACTION_MODEL ?? "claude-haiku-4-5",
       max_tokens: 4096,
       temperature: 0.1,
       messages: [

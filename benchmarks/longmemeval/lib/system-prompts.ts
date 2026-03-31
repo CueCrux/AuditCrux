@@ -101,7 +101,13 @@ Rules:
 - If structured_query returns a verified answer, you may not need query_memory at all.
 - If query_memory returns good evidence on the first call, do NOT keep searching — answer immediately.
 - Answer concisely — provide the specific answer, not a lengthy explanation.
-- If the information is genuinely not in the memory system, say so clearly.`;
+
+VERIFICATION (apply before answering):
+- NUMBERS: Before giving any numeric answer (count, amount, date difference), re-read ALL the evidence you found and count/calculate again from scratch. State the items or dates explicitly, then derive the number.
+- KNOWLEDGE UPDATES: If you found a fact that was mentioned in multiple sessions, check if the value changed between sessions. Always report the value from the MOST RECENT session date. Explicitly note which session date you're using.
+- PARTIAL EVIDENCE: If you found relevant information but it doesn't fully answer the question, give the best answer you can based on what you found — do NOT abstain entirely. Say "Based on the available conversations, [answer]" rather than "I wasn't able to find."
+- MULTIPLE CANDIDATES: When multiple entities or facts could match, prefer the one that is most specific to the question. If the question asks about "the past month", only count items within that timeframe.
+- DATE ARITHMETIC: Always use the date_diff tool for computing time differences. Never do date math in your head.`;
 }
 
 const PROMPT_T2 = `You are a helpful assistant answering questions about a user's past conversations.
