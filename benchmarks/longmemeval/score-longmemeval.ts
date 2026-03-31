@@ -1,9 +1,10 @@
 #!/usr/bin/env tsx
-// LongMemEval Score Aggregator — Cross-arm comparison from eval results
+// CueCrux Memory Benchmark Score Aggregator — Cross-arm comparison from eval results
 //
 // Usage:
 //   npx tsx score-longmemeval.ts --results-dir results/
 //   npx tsx score-longmemeval.ts --results-dir results/ --eval-model gpt-4o
+//   npx tsx score-longmemeval.ts --results-dir results/ --propositions   (include proposition-level scores)
 
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
@@ -49,6 +50,7 @@ const get = (flag: string): string | undefined => {
 
 const resultsDir = get("--results-dir") ?? "results";
 const evalModel = get("--eval-model") ?? "gpt-4o";
+const includePropositions = args.includes("--propositions");
 
 // ── Scan results ──
 
@@ -142,22 +144,45 @@ if (rows.length === 0) {
   process.exit(0);
 }
 
-// ── Map to CruxScore v1.1 fundamentals ──
+// ── Map to CruxScore v1.2 fundamentals ──
 
-interface CruxV11Fundamentals {
-  R_temporal: number | null;      // I6: temporal-reasoning accuracy
-  R_supersession: number | null;  // I7: knowledge-update accuracy
-  A_abstention: number | null;    // I8: abstention precision (unanswerable subset)
-  K_synthesis: number | null;     // K4: multi-session synthesis accuracy
-  R_retrieval: number | null;     // I9: not directly available from LME eval
+interface CruxFundamentalsSubset {
+  R_temporal: number | null;        // I6: temporal-reasoning accuracy
+  R_supersession: number | null;    // I7: knowledge-update accuracy
+  A_abstention: number | null;      // I8: abstention precision (unanswerable subset)
+  K_synthesis: number | null;       // K4: multi-session synthesis accuracy
+  R_retrieval: number | null;       // I9: not directly available from auto-eval
+  R_proposition: number | null;     // I10: proposition recall (from proposition scorer)
+  C_contradiction: number | null;   // I11: contradiction rate (from proposition scorer)
 }
 
-const cruxMappings: Array<{ runId: string; arm: string; model: string; fundamentals: CruxV11Fundamentals }> = [];
+// Load proposition scores if available (keyed by runId)
+const propScoresByRun = new Map<string, { meanRecall: number; meanContradictionRate: number }>();
+for (const dir of runDirs) {
+  const runDir = resolve(baseDir, dir);
+  const propFiles = readdirSync(runDir).filter(
+    (f) => f.startsWith("proposition-scores-") && f.endsWith(".json"),
+  );
+  if (propFiles.length === 0) continue;
+  const propPath = resolve(runDir, propFiles[propFiles.length - 1]);
+  try {
+    const data = JSON.parse(readFileSync(propPath, "utf-8"));
+    if (data.runId && data.aggregate?.overall) {
+      propScoresByRun.set(data.runId, {
+        meanRecall: data.aggregate.overall.meanRecall,
+        meanContradictionRate: data.aggregate.overall.meanContradictionRate,
+      });
+    }
+  } catch { /* skip malformed */ }
+}
+
+const cruxMappings: Array<{ runId: string; arm: string; model: string; fundamentals: CruxFundamentalsSubset }> = [];
 
 for (const row of rows) {
   const tr = row.byType["temporal-reasoning"];
   const ku = row.byType["knowledge-update"];
   const ms = row.byType["multi-session"];
+  const prop = propScoresByRun.get(row.runId);
 
   cruxMappings.push({
     runId: row.runId,
@@ -166,9 +191,11 @@ for (const row of rows) {
     fundamentals: {
       R_temporal: tr ? tr.accuracy : null,
       R_supersession: ku ? ku.accuracy : null,
-      A_abstention: null, // LME eval doesn't tag abstention questions separately
+      A_abstention: null, // auto-eval doesn't tag abstention questions separately
       K_synthesis: ms ? ms.accuracy : null,
       R_retrieval: null,  // Recall@k not available from auto-eval (requires retrieval logs)
+      R_proposition: prop ? prop.meanRecall : null,
+      C_contradiction: prop ? prop.meanContradictionRate : null,
     },
   });
 }
@@ -176,7 +203,7 @@ for (const row of rows) {
 // ── Print comparison table ──
 
 console.log("\n╔══════════════════════════════════════════════════════════════╗");
-console.log("║              LongMemEval Score Comparison                   ║");
+console.log("║              Memory Benchmark Score Comparison              ║");
 console.log("╚══════════════════════════════════════════════════════════════╝\n");
 
 // Overall table
@@ -209,29 +236,91 @@ for (const row of rows.sort((a, b) => a.arm.localeCompare(b.arm))) {
   }
 }
 
-// ── CruxScore v1.1 Mapping ──
+// ── CruxScore v1.2 Mapping ──
 
-console.log("\n╔══════════════════════════════════════════════════════════════╗");
-console.log("║           CruxScore v1.1 Fundamental Mapping               ║");
-console.log("╚══════════════════════════════════════════════════════════════╝\n");
+console.log("\n╔══════════════════════════════════════════════════════════════════════╗");
+console.log("║           CruxScore v1.2 Fundamental Mapping                        ║");
+console.log("╚══════════════════════════════════════════════════════════════════════╝\n");
 
-const cruxHeader = ["Arm", "Model", "R_temporal", "R_supersession", "K_synthesis"];
-console.log(cruxHeader.map((h) => h.padEnd(16)).join(""));
-console.log("-".repeat(cruxHeader.length * 16));
+const cruxHeader = ["Arm", "Model", "R_temporal", "R_supersess", "K_synthesis", "R_prop", "C_contra"];
+console.log(cruxHeader.map((h) => h.padEnd(14)).join(""));
+console.log("-".repeat(cruxHeader.length * 14));
 
 for (const mapping of cruxMappings.sort((a, b) => a.arm.localeCompare(b.arm))) {
   const f = mapping.fundamentals;
+  const fmt = (v: number | null) => v != null ? pct(v) : "—";
   const cols = [
     mapping.arm,
     shortModel(mapping.model),
-    f.R_temporal != null ? pct(f.R_temporal) : "null",
-    f.R_supersession != null ? pct(f.R_supersession) : "null",
-    f.K_synthesis != null ? pct(f.K_synthesis) : "null",
+    fmt(f.R_temporal),
+    fmt(f.R_supersession),
+    fmt(f.K_synthesis),
+    fmt(f.R_proposition),
+    fmt(f.C_contradiction),
   ];
-  console.log(cols.map((c) => c.padEnd(16)).join(""));
+  console.log(cols.map((c) => c.padEnd(14)).join(""));
 }
 
-console.log("\nNote: A_abstention and R_retrieval require additional data not available from auto-eval.\n");
+console.log("\nNote: A_abstention and R_retrieval require additional data not available from auto-eval.");
+console.log("R_proposition and C_contradiction require running score-propositions.ts first.\n");
+
+// ── Proposition-level scores (if available) ──
+
+if (includePropositions) {
+  interface PropAggregate {
+    overall: { meanRecall: number; meanContradictionRate: number; meanPartialCredit: number; totalQuestions: number };
+    byType: Record<string, { meanRecall: number; meanContradictionRate: number; meanPartialCredit: number; totalQuestions: number }>;
+  }
+
+  interface PropFile {
+    runId: string;
+    arm: string;
+    model: string;
+    aggregate: PropAggregate;
+  }
+
+  const propRows: Array<{ runId: string; arm: string; model: string; aggregate: PropAggregate }> = [];
+
+  for (const dir of runDirs) {
+    // Look for proposition-scores-*.json in each run dir
+    const runDir = resolve(baseDir, dir);
+    const propFiles = readdirSync(runDir).filter(
+      (f) => f.startsWith("proposition-scores-") && f.endsWith(".json"),
+    );
+    if (propFiles.length === 0) continue;
+
+    // Use the most recent one
+    const propPath = resolve(runDir, propFiles[propFiles.length - 1]);
+    const data: PropFile = JSON.parse(readFileSync(propPath, "utf-8"));
+    propRows.push(data);
+  }
+
+  if (propRows.length > 0) {
+    console.log("╔══════════════════════════════════════════════════════════════════════╗");
+    console.log("║           Proposition-Level Partial Credit                           ║");
+    console.log("╚══════════════════════════════════════════════════════════════════════╝\n");
+
+    const propHeader = ["Arm", "Model", "Recall", "Contradict", "Partial", "N"];
+    console.log(propHeader.map((h) => h.padEnd(14)).join(""));
+    console.log("─".repeat(propHeader.length * 14));
+
+    for (const r of propRows.sort((a, b) => b.aggregate.overall.meanPartialCredit - a.aggregate.overall.meanPartialCredit)) {
+      const o = r.aggregate.overall;
+      const cols = [
+        r.arm,
+        shortModel(r.model),
+        pct(o.meanRecall),
+        pct(o.meanContradictionRate),
+        pct(o.meanPartialCredit),
+        String(o.totalQuestions),
+      ];
+      console.log(cols.map((c) => c.padEnd(14)).join(""));
+    }
+    console.log("");
+  } else {
+    console.log("No proposition scores found. Run score-propositions.ts first.\n");
+  }
+}
 
 // ── Helpers ──
 

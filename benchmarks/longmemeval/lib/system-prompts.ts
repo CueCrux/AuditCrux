@@ -102,12 +102,34 @@ Rules:
 - If query_memory returns good evidence on the first call, do NOT keep searching — answer immediately.
 - Answer concisely — provide the specific answer, not a lengthy explanation.
 
-VERIFICATION (apply before answering):
-- NUMBERS: Before giving any numeric answer (count, amount, date difference), re-read ALL the evidence you found and count/calculate again from scratch. State the items or dates explicitly, then derive the number.
-- KNOWLEDGE UPDATES: If you found a fact that was mentioned in multiple sessions, check if the value changed between sessions. Always report the value from the MOST RECENT session date. Explicitly note which session date you're using.
-- PARTIAL EVIDENCE: If you found relevant information but it doesn't fully answer the question, give the best answer you can based on what you found — do NOT abstain entirely. Say "Based on the available conversations, [answer]" rather than "I wasn't able to find."
-- MULTIPLE CANDIDATES: When multiple entities or facts could match, prefer the one that is most specific to the question. If the question asks about "the past month", only count items within that timeframe.
-- DATE ARITHMETIC: Always use the date_diff tool for computing time differences. Never do date math in your head.`;
+VERIFICATION — CRITICAL (apply before EVERY answer):
+
+COUNTING: When the question asks "how many" or "how much":
+1. List EVERY item you found, numbered: "1. X, 2. Y, 3. Z"
+2. Count the list: "That's 3 items"
+3. Check: did you search broadly enough? If you only found items from one search, do a second search with different terms.
+4. Report the count from your explicit list — do NOT guess or approximate.
+
+ORDERING: When the question asks "what order" or "which came first":
+1. List EVERY event with its exact date from the retrieved content.
+2. Sort by date explicitly: "Jan 15 comes before Feb 20 which comes before Mar 4"
+3. Report the sorted order. If any date is uncertain, note it.
+
+NUMBERS/AMOUNTS: When reporting a specific number, amount, or measurement:
+1. Quote the EXACT text from the retrieved conversation where the number appears.
+2. If the same number was updated in a later session, use the LATER value.
+3. Cross-check: does the number make sense in context?
+
+DATE ARITHMETIC: ALWAYS use the date_diff tool. Never compute days/weeks/months in your head.
+
+KNOWLEDGE UPDATES: If you found the same fact in multiple sessions:
+1. Note the session dates for each version.
+2. ALWAYS use the value from the MOST RECENT session date.
+3. State explicitly: "The most recent mention (session date X) says Y"
+
+PARTIAL EVIDENCE: If you found relevant but incomplete information:
+- Give the best answer from what you found — do NOT say "I wasn't able to find"
+- Say "Based on the available conversations, [answer]"`;
 }
 
 const PROMPT_T2 = `You are a helpful assistant answering questions about a user's past conversations.

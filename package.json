@@ -15,7 +15,8 @@
     "audit:memory:dry": "pnpm tsx --env-file=.env scripts/audit-memory/audit-memory.ts --dry-run",
     "audit:all": "pnpm run audit:v1 && pnpm run audit:v2 && pnpm run audit:v3 && pnpm run audit:features && pnpm run audit:memory",
     "bench:mc": "pnpm tsx --env-file=.env benchmarks/memorycrux/run-benchmark.ts",
-    "bench:mc:dry": "pnpm tsx --env-file=.env benchmarks/memorycrux/run-benchmark.ts --dry-run"
+    "bench:mc:dry": "pnpm tsx --env-file=.env benchmarks/memorycrux/run-benchmark.ts --dry-run",
+    "bench:lme:props": "pnpm tsx benchmarks/longmemeval/score-propositions.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.74.0",
