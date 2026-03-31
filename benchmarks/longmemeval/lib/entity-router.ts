@@ -231,14 +231,16 @@ export async function routeQuery(
   const tenantId = `__longmemeval_${config.dataset}_${config.tenantId}`;
   const keywords = extractEntityKeywords(question);
 
-  if (intent === "simple_recall") {
+  // Only route aggregation questions to entity index.
+  // Temporal, knowledge-update, and simple recall go straight to VaultCrux vector search.
+  if (intent !== "aggregation") {
     return {
       tier: 3,
       answer: null,
       confidence: 0,
       entities: [],
       sessionCount: 0,
-      method: "tier3_passthrough(simple_recall)",
+      method: `tier3_passthrough(${intent})`,
     };
   }
 
@@ -287,23 +289,40 @@ export async function routeQuery(
       if (negative.type !== "none") cached = negative;
     }
 
-    if (cached && cached.type !== "none" && cached.confidence >= 0.7) {
-      // Cache hit with good confidence
+    if (cached && cached.type !== "none" && cached.confidence >= 0.85) {
+      // Cache hit with HIGH confidence only — prevent partial data from causing regressions
       const sessionResult = await pool.query<{ cnt: string }>(
         `SELECT count(DISTINCT session_id)::text as cnt FROM vaultcrux.entity_session_index
          WHERE tenant_id = $1 AND (${keywords.map((_, i) => `entity_name ILIKE $${i + 2}`).join(" OR ")})`,
         [tenantId, ...keywords.map(k => `%${k}%`)],
       );
       const sessionCount = parseInt(sessionResult.rows[0]?.cnt ?? "0", 10);
-
-      // Tier 2: backward verify — does session count match entity count?
       const entityCount = cached.entities.length;
       const verified = sessionCount >= entityCount;
 
+      // For counts: add completeness disclaimer if fewer than expected
+      let answer = cached.answer;
+      if (cached.type === "count") {
+        answer += `. NOTE: This count is from the entity index and may be incomplete — verify with a broader memory search if the count seems low.`;
+      }
+
+      // For current_state: only trust if we have multiple temporal values (version history)
+      if (cached.type === "current_state" && cached.entities.length === 1 && !cached.entities[0]?.date) {
+        // Single value with no date — might be stale, demote to Tier 3
+        return {
+          tier: 3,
+          answer: null,
+          confidence: 0,
+          entities: [],
+          sessionCount: 0,
+          method: `tier3_state_no_history(single_value_no_date)`,
+        };
+      }
+
       return {
         tier: verified ? 1 : 2,
-        answer: cached.answer,
-        confidence: verified ? Math.min(0.95, cached.confidence + 0.1) : cached.confidence,
+        answer,
+        confidence: verified ? Math.min(0.90, cached.confidence + 0.05) : Math.max(0.5, cached.confidence - 0.15),
         entities: cached.entities.map(e => ({
           entity_type: "", entity_name: e.name, predicate: e.predicate,
           object_value: e.value, occurred_at: e.date, session_id: "",
@@ -313,15 +332,28 @@ export async function routeQuery(
       };
     }
 
-    // Fall back to Tier 1 live query (original logic)
+    // Fall back to Tier 1 live query — raised thresholds to prevent partial-data regressions
     const tier1 = await tier1Query(pool, tenantId, intent, question);
 
-    if (tier1 && tier1.confidence >= 0.8) {
+    if (tier1 && tier1.confidence >= 0.9) {
+      // Very high confidence only for Tier 1 direct answer
       return tier1;
     }
 
-    if (tier1 && tier1.confidence >= 0.5) {
-      return await tier2Verify(pool, tenantId, tier1, keywords);
+    if (tier1 && tier1.confidence >= 0.7) {
+      // Medium-high: verify with Tier 2 before trusting
+      const verified = await tier2Verify(pool, tenantId, tier1, keywords);
+      // Only return if verification raised confidence
+      if (verified.confidence >= 0.8) return verified;
+      // Otherwise fall through to Tier 3 with entity hints
+      return {
+        tier: 3,
+        answer: null,
+        confidence: 0,
+        entities: tier1.entities,
+        sessionCount: tier1.sessionCount,
+        method: `tier3_with_hints(tier1_conf=${tier1.confidence},tier2_conf=${verified.confidence})`,
+      };
     }
 
     return {

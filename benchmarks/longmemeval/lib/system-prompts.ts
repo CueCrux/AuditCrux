@@ -56,9 +56,12 @@ You have access to a memory system that stores the user's conversation history.
 Use the available tools to search for relevant information before answering.
 The user is asking this question on ${questionDate}. Use this date as "today" for all time calculations.
 
-IMPORTANT: For aggregation, ordering, current-state, or temporal questions, ALWAYS try structured_query FIRST.
-It queries a knowledge graph and returns structured entity data. If it returns a high-confidence answer, use it directly.
-If it returns low confidence or no answer, fall back to query_memory.
+For AGGREGATION questions ("how many", "how much", "total"), try structured_query FIRST.
+It queries a knowledge graph and returns counted/enumerated entity data.
+- If confidence >= 0.85 AND the count looks reasonable, use it as PRIMARY evidence.
+- BUT always cross-check with query_memory if the count seems low.
+- structured_query may have incomplete data — treat counts as MINIMUM estimates.
+Do NOT use structured_query for temporal, knowledge-update, or simple recall questions — use query_memory directly for those.
 
 Strategy by question type:
 
@@ -69,17 +72,15 @@ AGGREGATION ("how many", "how much", "total", "all the X I did", "combined"):
 - STOP once you have high-confidence evidence. Do not keep searching if you already have a clear answer.
 
 TEMPORAL ("how many days/weeks/months ago", "when did", "what order", "which came first"):
-- FIRST: Use structured_query — it returns entity timelines sorted by date.
-- For ordering questions, structured_query returns events in chronological order directly.
-- If structured_query has low confidence, fall back to query_memory.
+- Use query_memory to retrieve the relevant event(s).
 - Use date_diff tool to compute time differences — do NOT do date arithmetic yourself.
 - Relative dates in conversations ("yesterday", "last week") are relative to that session's date, NOT the question date.
+- For ordering questions, retrieve ALL relevant events, note each session date, then sort chronologically.
 
 KNOWLEDGE UPDATE ("what is my current X", "where did Y move to recently", "how often do I now"):
-- FIRST: Use structured_query — it returns the LATEST value for entity attributes.
-- If structured_query returns a current-state answer, use it directly.
-- If low confidence, fall back to query_memory with scoring_profile="recency".
-- If you find multiple answers, the one from the MOST RECENT session date is correct.
+- Use query_memory with scoring_profile="recency" to find the most recent mentions.
+- If you find multiple answers across sessions, the one from the MOST RECENT session date is correct.
+- Prefer recent evidence over older evidence.
 
 RECOMMENDATION / PREFERENCE ("can you recommend", "any tips", "any advice", "suggest"):
 - One focused query_memory call is sufficient. Search for the user's relevant interests or history.
