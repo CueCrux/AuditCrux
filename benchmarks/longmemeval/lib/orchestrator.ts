@@ -281,7 +281,8 @@ async function callFactApi(
 
 /** Check if a tool should be handled locally (not sent to VaultCrux) */
 const LOCAL_TOOLS = new Set(["date_diff", "research_memory", "get_session_by_id", "structured_query",
-  "enumerate_memory_facts", "build_timeline", "expand_hit_context", "assess_answerability", "derive_from_facts"]);
+  "enumerate_memory_facts", "build_timeline", "expand_hit_context", "assess_answerability", "derive_from_facts",
+  "investigate_question"]);
 
 interface OrchestratorConfig {
   adapter: LlmAdapter;
@@ -566,6 +567,20 @@ async function answerQuestion(
           } else if (tc.name === "derive_from_facts") {
             const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
             toolResult = await callFactApi("derive", { operation: tc.input.operation, rows: tc.input.rows }, tenantId);
+          } else if (tc.name === "investigate_question") {
+            const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+            const apiBase = process.env.BENCH_VAULTCRUX_API_BASE ?? "http://100.109.10.67:14333";
+            const apiKey = process.env.BENCH_VAULTCRUX_API_KEY ?? "";
+            try {
+              const resp = await fetch(`${apiBase}/v1/memory/investigate`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-api-key": apiKey, "x-tenant-id": tenantId },
+                body: JSON.stringify({ question: tc.input.question, question_date: tc.input.question_date }),
+                signal: AbortSignal.timeout(20000),
+              });
+              if (resp.ok) { const d = await resp.json() as any; toolResult = d.data ?? d; }
+              else toolResult = { error: `investigate API returned ${resp.status}` };
+            } catch (err) { toolResult = { error: err instanceof Error ? err.message : String(err) }; }
           } else {
             toolResult = { error: `Local tool ${tc.name} requires proxy` };
           }

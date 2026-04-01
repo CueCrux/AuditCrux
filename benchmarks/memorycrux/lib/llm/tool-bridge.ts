@@ -573,6 +573,18 @@ export const LOCAL_BENCHMARK_TOOL_DEFS: ToolDef[] = [
       required: ["operation", "rows"],
     },
   },
+  {
+    name: "investigate_question",
+    description: "Composite server-side investigation. Pass a question and the server automatically: detects intent, queries entity index, builds timeline, retrieves chunks with the right scoring profile, expands context, derives counts, and assesses answerability. Returns structured facts, timeline, chunks, derived results, and a recommendation. Use as your FIRST tool — it does the multi-step investigation in one call.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        question: { type: "string", description: "The full question to investigate" },
+        question_date: { type: "string", description: "Reference date for temporal calculations (YYYY-MM-DD)" },
+      },
+      required: ["question"],
+    },
+  },
 ];
 
 export function getToolDefsForBenchmark(): ToolDef[] {
