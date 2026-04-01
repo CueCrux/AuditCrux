@@ -468,7 +468,7 @@ export const COMPOUND_TOOL_DEFS: ToolDef[] = [
 export const LOCAL_BENCHMARK_TOOL_DEFS: ToolDef[] = [
   {
     name: "research_memory",
-    description: "Deep research tool — iteratively searches memory with multiple query strategies, deduplicates results, and returns a comprehensive evidence set. Use this for aggregation questions ('how many', 'how much', 'total'), multi-session questions, or when a single query_memory call is unlikely to find all relevant information. More thorough but slower than query_memory.",
+    description: "Iterative multi-query investigation tool. Searches memory with multiple reformulated queries, deduplicates results, and returns a comprehensive evidence set. Use for aggregation questions ('how many', 'total') where a single query_memory call is unlikely to find ALL items. Also good for multi-session questions where facts are scattered. The tool persists across rounds — if round 1 finds 3 items, round 2 searches for more with different terms. More thorough than query_memory but uses multiple API calls internally.",
     inputSchema: {
       type: "object",
       properties: {
@@ -481,7 +481,7 @@ export const LOCAL_BENCHMARK_TOOL_DEFS: ToolDef[] = [
   },
   {
     name: "date_diff",
-    description: "Calculate the difference between two dates. Returns the difference in the requested unit (days, weeks, months, years). Use this instead of doing date arithmetic yourself — it's more reliable.",
+    description: "Calculate the exact difference between two dates. ALWAYS use this for temporal questions — never compute days/weeks/months in your head. Before calling, QUOTE the exact sentence from the retrieved content that contains the date, then extract the date from the quote. This prevents picking the wrong date when multiple dates appear in one session.",
     inputSchema: {
       type: "object",
       properties: {
@@ -505,7 +505,7 @@ export const LOCAL_BENCHMARK_TOOL_DEFS: ToolDef[] = [
   },
   {
     name: "structured_query",
-    description: "Query the entity knowledge graph for structured answers. Use this FIRST for: counting/aggregation questions ('how many X'), temporal ordering ('what order did I do X'), current state ('what is my current X'), and time-based questions ('how many days since X'). Returns structured entity data with confidence scores. If confidence is low, fall back to query_memory.",
+    description: "Query the entity knowledge graph for a verified count or timeline. Only useful for aggregation questions where the entity index has extracted data. Returns structured results with confidence. If confidence >= 0.7, the count is reliable. If confidence is 0 or low, the entity index has no data for this question — use query_memory instead. Do NOT use as your first tool for non-aggregation questions.",
     inputSchema: {
       type: "object",
       properties: {
