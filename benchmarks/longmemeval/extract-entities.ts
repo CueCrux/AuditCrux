@@ -101,38 +101,24 @@ async function extractEntities(chunkContent: string): Promise<Entity[]> {
 async function getChunksForTenant(tenantId: string): Promise<Array<{ chunkId: string; content: string; docId: string }>> {
   const allChunks = new Map<string, { chunkId: string; content: string; docId: string }>();
 
-  // Method 1: Direct DB query for ALL non-proposition chunks (bypasses retrieval limits)
-  try {
-    const pool = new (await import("pg")).default.Pool({ connectionString: DATABASE_URL, max: 2, idleTimeoutMillis: 5000 });
-    const dbResult = await pool.query<{ id: string; content: string; doc_id: string }>(
-      `SELECT c.id, c.content, c.doc_id
-       FROM vaultcrux.chunks c
-       WHERE c.tenant_id = $1
-         AND c.superseded_by IS NULL
-         AND c.doc_id NOT LIKE 'prop-memory:%'
-         AND length(c.content) > 50
-       ORDER BY c.created_at`,
-      [tenantId],
-    );
-    for (const r of dbResult.rows) {
-      if (r.content && !allChunks.has(r.id)) {
-        allChunks.set(r.id, { chunkId: r.id, content: r.content, docId: r.doc_id });
-      }
-    }
-    await pool.end();
-    if (allChunks.size > 0) return [...allChunks.values()];
-  } catch { /* fall through to retrieval method */ }
-
-  // Method 2: Retrieval-based fallback (wider query set, higher limits)
+  // Use VaultCrux API (decrypts content) with wide query set and high limits
   const queries = [
     "personal facts activities events",
     "things bought owned visited attended",
     "schedule routine changes updates moved",
     "people places organizations names",
-    "numbers amounts prices costs money",
-    "dates times when started stopped",
-    "hobbies interests sports games music",
-    "food restaurants cooking recipes",
+    "numbers amounts prices costs money spent earned",
+    "dates times when started stopped changed",
+    "hobbies interests sports games music instruments",
+    "food restaurants cooking recipes kitchen",
+    "travel trips flights hotels vacation",
+    "work job career project role team",
+    "health fitness exercise doctor therapy",
+    "family friends relationships wedding birthday",
+    "shopping purchases returns clothing items",
+    "streaming services subscriptions apps technology",
+    "education school university degree graduation",
+    "charity volunteer fundraising donation",
   ];
 
   for (const query of queries) {
@@ -152,7 +138,7 @@ async function getChunksForTenant(tenantId: string): Promise<Array<{ chunkId: st
       if (!resp.ok) continue;
       const data = await resp.json() as { ok: boolean; data?: { results?: Array<{ chunkId: string; content: string | null; docId: string }> } };
       for (const r of data.data?.results ?? []) {
-        if (r.content && !allChunks.has(r.chunkId)) {
+        if (r.content && !r.content.startsWith("vault:v1:") && !allChunks.has(r.chunkId)) {
           allChunks.set(r.chunkId, { chunkId: r.chunkId, content: r.content, docId: r.docId });
         }
       }
