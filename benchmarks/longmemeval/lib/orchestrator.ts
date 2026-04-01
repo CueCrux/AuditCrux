@@ -11,7 +11,7 @@ import { McProxy } from "../../memorycrux/lib/mc-proxy.js";
 import { estimateCost } from "../../memorycrux/lib/llm/cost.js";
 import type { BenchModel, BenchConfig } from "../../memorycrux/lib/types.js";
 import type { LmeAnswer, LmeArmConfig, LmeProblem, LmeRunManifest, LmeRunSummary, LmeToolStep, LmeReflection } from "./types.js";
-import { buildSystemPrompt } from "./system-prompts.js";
+import { buildSystemPrompt, classifyQuestion } from "./system-prompts.js";
 import { ingestProblem, waitForEmbeddings, verifyIngestion } from "./ingest-sessions.js";
 import { routeQuery, type RouterResult } from "./entity-router.js";
 import { verifiedQuery, matchQATemplate, type VerifiedResult } from "./verified-query.js";
@@ -492,6 +492,8 @@ async function answerQuestion(
   proxy?: McProxy,
 ): Promise<LmeAnswer> {
   const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+  const classification = classifyQuestion(problem.question);
+  const isComplex = classification.complexity === "complex";
   const systemPrompt = await buildSystemPrompt(config.armConfig, problem, tenantId);
 
   const messages: Message[] = [
@@ -628,7 +630,8 @@ async function answerQuestion(
     const hypothesis = extractHypothesis(result.content);
 
     // Reflection: after first draft answer, inject self-critique prompt
-    if (ENABLE_REFLECTION && !reflected && toolCallCount > 0 && tools) {
+    // Reflection only for complex questions — simple recall doesn't benefit and often regresses
+    if (ENABLE_REFLECTION && isComplex && !reflected && toolCallCount > 0 && tools) {
       reflected = true;
       draftHypothesis = hypothesis;
 

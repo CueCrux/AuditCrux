@@ -8,6 +8,8 @@ import type { LmeArmConfig, LmeProblem, LmeSession } from "./types.js";
  * Build the system prompt for a given arm.
  * Now async — for F1, pre-computes structured data from fact APIs and injects into prompt.
  */
+export { classifyQuestion, type QuestionComplexity, type QuestionType };
+
 export async function buildSystemPrompt(
   armConfig: LmeArmConfig,
   problem?: LmeProblem,
@@ -57,26 +59,56 @@ async function callFactApiForPrompt(endpoint: string, body: Record<string, unkno
   } catch { return null; }
 }
 
-function detectQuestionType(question: string): "aggregation" | "temporal" | "knowledge_update" | "other" {
+type QuestionComplexity = "simple" | "complex";
+type QuestionType = "aggregation" | "temporal" | "knowledge_update" | "recall" | "preference";
+
+function classifyQuestion(question: string): { type: QuestionType; complexity: QuestionComplexity } {
   const q = question.toLowerCase();
-  if (/how many|how much|total|combined|in total|list all/.test(q)) return "aggregation";
-  if (/how many days|how many weeks|how many months|how long ago|when did|what order|which came first|earliest|latest|before.*after/.test(q)) return "temporal";
-  if (/current|currently|now |most recent|recently|moved to|changed to/.test(q)) return "knowledge_update";
-  return "other";
+  if (/how many|how much|total|combined|in total|list all/.test(q))
+    return { type: "aggregation", complexity: "complex" };
+  if (/how many days|how many weeks|how many months|how long ago|when did|what order|which came first|earliest|latest|before.*after/.test(q))
+    return { type: "temporal", complexity: "complex" };
+  if (/current|currently|now |most recent|recently|moved to|changed to/.test(q))
+    return { type: "knowledge_update", complexity: "complex" };
+  if (/recommend|suggest|any tips|advice|can you help/.test(q))
+    return { type: "preference", complexity: "simple" };
+  return { type: "recall", complexity: "simple" };
 }
 
 async function buildF1Prompt(problem?: LmeProblem, tenantId?: string): Promise<string> {
-  // Extract question date — format: "2023/05/30 (Tue) 23:40" → "2023-05-30"
+  // Extract question date
   let questionDate = "unknown";
   if (problem?.questionDate) {
     const match = problem.questionDate.match(/(\d{4})\/(\d{2})\/(\d{2})/);
     if (match) questionDate = `${match[1]}-${match[2]}-${match[3]}`;
   }
 
-  // Pre-compute structured data based on question type
+  // Classify question complexity
+  const classification = problem ? classifyQuestion(problem.question) : { type: "recall" as QuestionType, complexity: "simple" as QuestionComplexity };
+
+  // SIMPLE questions: Phase 8 lightweight path — query_memory only, no reflection overhead
+  if (classification.complexity === "simple") {
+    return `You are a helpful assistant answering questions about a user's past conversations.
+You have access to a memory system. The user is asking on ${questionDate}.
+
+Use query_memory to search for relevant information. One or two focused calls is usually enough.
+
+${classification.type === "preference"
+  ? "This is a recommendation/preference question. Search for the user's relevant interests and history, then give a personalised answer grounded in what you find."
+  : "This is a recall question. Search for the specific fact and answer concisely."}
+
+Rules:
+- Use query_memory with focused search terms.
+- If the first search gives good results, answer immediately.
+- Answer concisely — provide the specific answer, not a lengthy explanation.
+- If you genuinely cannot find the information, say so briefly.
+- Use at most 3 tool calls.`;
+  }
+
+  // COMPLEX questions: full investigation path with pre-injection
   let preComputedSection = "";
   if (problem && tenantId) {
-    const qtype = detectQuestionType(problem.question);
+    const qtype = classification.type;
 
     if (qtype === "aggregation") {
       const facts = await callFactApiForPrompt("enumerate", { query: problem.question, limit: 50 }, tenantId) as any;
