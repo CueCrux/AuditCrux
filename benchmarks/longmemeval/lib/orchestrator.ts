@@ -571,11 +571,13 @@ async function answerQuestion(
             const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
             const apiBase = process.env.BENCH_VAULTCRUX_API_BASE ?? "http://100.109.10.67:14333";
             const apiKey = process.env.BENCH_VAULTCRUX_API_KEY ?? "";
+            // Use the original user question verbatim — model may paraphrase away ordering/temporal cues
+            const questionForInvestigation = problem.question;
             try {
               const resp = await fetch(`${apiBase}/v1/memory/investigate`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "x-api-key": apiKey, "x-tenant-id": tenantId },
-                body: JSON.stringify({ question: tc.input.question, question_date: tc.input.question_date }),
+                body: JSON.stringify({ question: questionForInvestigation, question_date: tc.input.question_date }),
                 signal: AbortSignal.timeout(20000),
               });
               if (resp.ok) { const d = await resp.json() as any; toolResult = d.data ?? d; }
