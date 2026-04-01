@@ -100,7 +100,40 @@ async function extractEntities(chunkContent: string): Promise<Entity[]> {
 
 async function getChunksForTenant(tenantId: string): Promise<Array<{ chunkId: string; content: string; docId: string }>> {
   const allChunks = new Map<string, { chunkId: string; content: string; docId: string }>();
-  const queries = ["personal facts activities events", "things bought owned visited", "schedule routine changes updates", "people places organizations"];
+
+  // Method 1: Direct DB query for ALL non-proposition chunks (bypasses retrieval limits)
+  try {
+    const pool = new (await import("pg")).default.Pool({ connectionString: DATABASE_URL, max: 2, idleTimeoutMillis: 5000 });
+    const dbResult = await pool.query<{ id: string; content: string; doc_id: string }>(
+      `SELECT c.id, c.content, c.doc_id
+       FROM vaultcrux.chunks c
+       WHERE c.tenant_id = $1
+         AND c.superseded_by IS NULL
+         AND c.doc_id NOT LIKE 'prop-memory:%'
+         AND length(c.content) > 50
+       ORDER BY c.created_at`,
+      [tenantId],
+    );
+    for (const r of dbResult.rows) {
+      if (r.content && !allChunks.has(r.id)) {
+        allChunks.set(r.id, { chunkId: r.id, content: r.content, docId: r.doc_id });
+      }
+    }
+    await pool.end();
+    if (allChunks.size > 0) return [...allChunks.values()];
+  } catch { /* fall through to retrieval method */ }
+
+  // Method 2: Retrieval-based fallback (wider query set, higher limits)
+  const queries = [
+    "personal facts activities events",
+    "things bought owned visited attended",
+    "schedule routine changes updates moved",
+    "people places organizations names",
+    "numbers amounts prices costs money",
+    "dates times when started stopped",
+    "hobbies interests sports games music",
+    "food restaurants cooking recipes",
+  ];
 
   for (const query of queries) {
     try {
@@ -112,7 +145,7 @@ async function getChunksForTenant(tenantId: string): Promise<Array<{ chunkId: st
           "x-tenant-id": tenantId,
         },
         body: JSON.stringify({
-          tenantId, agentId: "entity-extractor", query, limit: 30, lane: "light", includeCommons: false,
+          tenantId, agentId: "entity-extractor", query, limit: 50, lane: "light", includeCommons: false,
         }),
         signal: AbortSignal.timeout(15000),
       });
@@ -181,7 +214,8 @@ async function processQuestion(
   let totalExtracted = 0;
   let totalStored = 0;
 
-  for (const chunk of chunks.slice(0, 30)) {
+  // Process ALL chunks (no cap — extraction coverage was the binding constraint)
+  for (const chunk of chunks) {
     const entities = await extractEntities(chunk.content);
     totalExtracted += entities.length;
     const stored = await storeEntities(pool, tenantId, entities, chunk.chunkId, chunk.docId);

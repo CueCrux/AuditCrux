@@ -61,11 +61,20 @@ const RETRIEVAL_TOOLS = new Set([
   "check_claim",
   "get_contradictions",
   "assess_coverage",
+  "get_correction_chain",
   // Local benchmark tools (handled in orchestrator)
   "research_memory",
   "date_diff",
   "get_session_by_id",
   "structured_query",
+  // Deterministic fact tools (Phase 9)
+  "enumerate_memory_facts",
+  "build_timeline",
+  "expand_hit_context",
+  "assess_answerability",
+  "derive_from_facts",
+  // Composite investigation tool
+  "investigate_question",
 ]);
 
 export function filterToolDefs<T extends { name: string }>(
