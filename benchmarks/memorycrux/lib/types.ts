@@ -101,6 +101,35 @@ export interface TrackAResults {
   abstentionPrecision?: { score: number; correctAbstentions: string[]; falseAnswers: string[] };
   crossSessionSynthesis?: { score: number; synthesised: string[]; missed: string[] };
   retrievalRecall?: { score: number; retrieved: string[]; missed: string[] };
+
+  // v1.3 extensions
+  reasoningProvenance?: {
+    traceability: number;
+    refinementScore: number;
+    traced: Array<{ key: string; toolName: string; turnIndex: number }>;
+    untraced: string[];
+  };
+  temporalReconstruction?: {
+    score: number;
+    currentAnswerScore: number;
+    orderingScore: number;
+    chainResults: Array<{
+      chainId: string;
+      correctCurrent: boolean;
+      correctOrder: boolean;
+    }>;
+  };
+  novelSynthesis?: {
+    score: number;
+    synthesised: Array<{ key: string; sourceAFound: boolean; sourceBFound: boolean }>;
+    missed: string[];
+    invalidFixture: string[];
+  };
+  falsePremiseDetection?: {
+    score: number;
+    rejected: Array<{ falseClaim: string; correctionFound: boolean }>;
+    accepted: string[];
+  };
 }
 
 export interface TrackBResults {
@@ -178,6 +207,75 @@ export interface ScenarioPhase {
   unanswerableKeys?: string[];   // Questions the agent should abstain from answering (I8)
   synthesisKeys?: string[];      // Facts requiring cross-session synthesis (K4)
   relevantDocIds?: string[];     // Ground truth relevant doc IDs for retrieval recall (I9)
+
+  // v1.3 extensions (provenance, temporal reconstruction, novel synthesis)
+  provenanceMap?: ProvenanceExpectation[];         // I10: expected tool→evidence chains
+  temporalChains?: TemporalChain[];                // Enhanced temporal reconstruction
+  novelSynthesisKeys?: NovelSynthesisExpectation[]; // K5: novel cross-session synthesis
+  falsePremiseTraps?: FalsePremiseTrap[];           // I11: false-premise detection
+}
+
+// ---------- v1.3 fixture types ----------
+
+/** Maps a decision key to the tool call + result pattern that should provide its evidence. */
+export interface ProvenanceExpectation {
+  /** The decision key that should appear in the agent's output */
+  decisionKey: string;
+  /** Tool name that should have been called to retrieve the evidence */
+  expectedToolName: string;
+  /** Substring that should appear in that tool call's result */
+  expectedResultPattern: string;
+}
+
+/** A single link in a temporal chain — one fact at one point in time. */
+export interface TemporalChainLink {
+  /** Corpus document containing this fact */
+  docId: string;
+  /** ISO date when this fact was established */
+  timestamp: string;
+  /** The fact as stated in this document */
+  fact: string;
+  /** If this fact supersedes a prior fact, the docId of the superseded source */
+  supersedes?: string;
+}
+
+/** A chain of temporally-ordered facts that the agent must reconstruct correctly. */
+export interface TemporalChain {
+  /** Unique identifier for this chain (e.g., "retention-policy-evolution") */
+  chainId: string;
+  /** Ordered oldest-to-newest links */
+  links: TemporalChainLink[];
+  /** The correct current answer after temporal resolution */
+  currentAnswer: string;
+  /** The question the agent should be able to answer from this chain */
+  question: string;
+}
+
+/** A novel conclusion that requires combining information from separate sources. */
+export interface NovelSynthesisExpectation {
+  /** The novel conclusion — must NOT appear in any single corpus document */
+  synthesisKey: string;
+  /** First source providing one piece of the synthesis */
+  sourceA: { docId: string; fact: string; sessionHint?: number };
+  /** Second source providing the other piece */
+  sourceB: { docId: string; fact: string; sessionHint?: number };
+  /** Human-readable explanation of why A + B → synthesisKey */
+  reasoning: string;
+}
+
+/**
+ * A question whose premise is factually wrong given the corpus.
+ * The agent should reject the premise, not answer the question as asked.
+ */
+export interface FalsePremiseTrap {
+  /** The question containing the false premise */
+  question: string;
+  /** The false claim embedded in the question */
+  falseClaim: string;
+  /** What the corpus actually says (the truth the agent should assert) */
+  correction: string;
+  /** Corpus doc ID that contains the correct information */
+  correctionDocId: string;
 }
 
 export interface KillVariant {

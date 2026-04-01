@@ -39,6 +39,12 @@ Fundamental dimensions are the raw measurements. They have SI-compatible units a
 | **I3** | Incident Recall | R_incident | binary {0,1} | Did the agent surface the relevant historical incident? 1 = yes, 0 = no. |
 | **I4** | Context Precision | P_context | ratio [0,1] | `|referenced_context_tokens| / |loaded_context_tokens|` — proportion of loaded context the agent actually used (cited, acted on, or explicitly referenced). |
 | **I5** | Coverage Awareness | A_coverage | ratio [0,1] | `|gaps_identified| / |actual_gaps|` — proportion of knowledge gaps the agent identified before acting. Requires `assess_coverage` or equivalent. 0 if no gap assessment performed. |
+| **I6** | Temporal Accuracy | R_temporal | ratio [0,1] | `|correct_temporal_keys| / |expected_temporal_keys|` — fraction of time-dependent queries answered correctly. Case-insensitive substring match. `[v1.1]` |
+| **I7** | Supersession Accuracy | R_supersession | ratio [0,1] | `|correct_supersession_pairs| / |expected_pairs|` — fraction of knowledge-update pairs where the agent used the current (not stale) value. `[v1.1]` |
+| **I8** | Abstention Precision | A_abstention | ratio [0,1] | `|correct_abstentions| / |unanswerable_questions|` — fraction of unanswerable questions where the agent correctly abstained. `[v1.1]` |
+| **I9** | Retrieval Recall | R_retrieval | ratio [0,1] | `|retrieved_doc_ids| / |relevant_doc_ids|` — fraction of ground-truth relevant documents that appeared in retrieval tool results. `[v1.1]` |
+| **I10** | Reasoning Provenance | I_provenance | ratio [0,1] | `|traced_keys| / |expected_keys|` — fraction of decision keys whose presence in agent output can be traced back to a specific tool call result containing source evidence. A key is "traced" when: (a) the expected tool was called, (b) the tool result contains the expected evidence pattern, and (c) the decision key appears in the output. `[v1.3]` |
+| **I11** | False-Premise Detection | I_premise_rejection | ratio [0,1] | `|rejected_traps| / |total_traps|` — fraction of false-premise questions where the agent rejected the incorrect assumption AND provided the correct fact from the corpus. A trap is "rejected" when: (a) a rejection signal appears near the false claim or correction in the output, and (b) the correction string appears in the output. `[v1.3]` |
 
 ### 1.3 Continuity Dimensions
 
@@ -47,6 +53,8 @@ Fundamental dimensions are the raw measurements. They have SI-compatible units a
 | **K1** | Decision Preservation | K_decision | ratio [0,1] | After session kill + restart: `|preserved_decisions| / |total_decisions_pre_kill|`. Measures how many decisions from the prior session are available to the replacement agent. |
 | **K2** | Causal Chain Integrity | K_causal | ratio [0,1] | `|correct_causal_links| / |total_causal_links|` — proportion of decision dependency relationships the agent can correctly reconstruct after a session boundary. |
 | **K3** | Checkpoint Quality | K_checkpoint | ratio [0,1] | `|checkpoint_fields_present| / |expected_checkpoint_fields|` — completeness of the checkpoint snapshot (decisions, assumptions, open questions, next steps). |
+| **K4** | Cross-Session Synthesis | K_synthesis | ratio [0,1] | `|synthesised_keys| / |expected_synthesis_keys|` — fraction of facts requiring cross-session combination that appear in the agent output. `[v1.1]` |
+| **K5** | Novel Synthesis | K_novel_synthesis | ratio [0,1] | `|synthesised_novel_keys| / |valid_expected_keys|` — fraction of expected novel conclusions (not present verbatim in any single corpus document) that the agent correctly derived by combining information from separate sources. Pre-flight validation: any synthesis key found in corpus text is excluded as invalid fixture data. A key is "synthesised" when it appears in output AND both source facts appear in tool call results. `[v1.3]` |
 
 ### 1.4 Safety Dimensions
 
@@ -327,3 +335,6 @@ T_human will be refined through human baseline runs if the benchmark is extended
 | Version | Date | Changes |
 |---|---|---|
 | 1.0 | 2026-03-26 | Initial publication. 16 fundamentals, 7 derived, 1 composite. |
+| 1.1 | 2026-03-27 | Added I6-I9 (temporal accuracy, supersession accuracy, abstention precision, retrieval recall), K4 (cross-session synthesis), Q5 (abstention quality), Q6 (proposition quality), V4 (retrieval efficiency). Formalized in code; backfilled into METRICS.md at v1.3. |
+| 1.2 | 2026-03-27 | Added R_proposition, C_contradiction (proposition-level scoring). |
+| 1.3 | 2026-04-01 | Added I10 (reasoning provenance), I11 (false-premise detection), K5 (novel synthesis). Enhanced temporal reconstruction scoring (new `temporalChains` fixture structure). Added `unanswerableKeys` and `falsePremiseTraps` to Gamma/Delta fixtures. Fixture versions bumped to 1.1.0. |

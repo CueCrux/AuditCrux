@@ -1,6 +1,6 @@
 {
   "project": "delta",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "phases": [
     {
       "index": 1,
@@ -66,7 +66,27 @@
       ],
       "expectedToolCalls": ["safe_to_proceed", "search", "verify_before_acting", "get_contradictions"],
       "coverageGaps": ["disaster recovery RTO/RPO", "multi-region failover"],
-      "staleItems": ["delta-stale-003", "delta-stale-004"]
+      "staleItems": ["delta-stale-003", "delta-stale-004"],
+      "temporalChains": [
+        {
+          "chainId": "deployment-strategy-evolution",
+          "links": [
+            { "docId": "delta-infra-adr-001", "timestamp": "2025-03-10", "fact": "rolling deployment with manual promotion gates" },
+            { "docId": "delta-infra-adr-003", "timestamp": "2025-08-22", "fact": "blue-green deployment strategy with Argo Rollouts", "supersedes": "delta-infra-adr-001" }
+          ],
+          "currentAnswer": "blue-green deployment strategy",
+          "question": "What deployment strategy does the platform use?"
+        },
+        {
+          "chainId": "circuit-breaker-threshold-evolution",
+          "links": [
+            { "docId": "delta-infra-resilience-v1", "timestamp": "2025-04-15", "fact": "circuit breaker at 30% error rate" },
+            { "docId": "delta-infra-resilience-v2", "timestamp": "2025-09-05", "fact": "circuit breaker with 50% error threshold after load testing", "supersedes": "delta-infra-resilience-v1" }
+          ],
+          "currentAnswer": "circuit breaker with 50% error threshold",
+          "question": "What is the circuit breaker error threshold?"
+        }
+      ]
     },
     {
       "index": 5,
@@ -107,7 +127,108 @@
       ],
       "expectedToolCalls": ["brief_me", "search", "save_decision", "query_memory", "get_relevant_context"],
       "coverageGaps": [],
-      "staleItems": []
+      "unanswerableKeys": [
+        "GraphQL federation gateway configuration",
+        "database connection pool maximum size",
+        "rate limiting algorithm for public API"
+      ],
+      "staleItems": [],
+      "provenanceMap": [
+        {
+          "decisionKey": "Ed25519 for JWT signing",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "signing algorithm"
+        },
+        {
+          "decisionKey": "Stripe as primary processor",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "payment processor"
+        },
+        {
+          "decisionKey": "exactly-once semantics via Kafka transactions",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "delivery guarantee"
+        },
+        {
+          "decisionKey": "blue-green deployment strategy",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "deployment"
+        },
+        {
+          "decisionKey": "Building D Floor 2 Server Room 204",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "disaster recovery"
+        }
+      ],
+      "temporalChains": [
+        {
+          "chainId": "auth-token-ttl-evolution",
+          "links": [
+            { "docId": "delta-auth-adr-001", "timestamp": "2025-02-15", "fact": "30-minute access token TTL" },
+            { "docId": "delta-auth-adr-002", "timestamp": "2025-06-20", "fact": "15-minute access token TTL after security review", "supersedes": "delta-auth-adr-001" }
+          ],
+          "currentAnswer": "15-minute access token TTL",
+          "question": "What is the access token TTL?"
+        },
+        {
+          "chainId": "deployment-strategy-final",
+          "links": [
+            { "docId": "delta-infra-adr-001", "timestamp": "2025-03-10", "fact": "rolling deployment with manual promotion gates" },
+            { "docId": "delta-infra-adr-003", "timestamp": "2025-08-22", "fact": "blue-green deployment strategy with Argo Rollouts", "supersedes": "delta-infra-adr-001" }
+          ],
+          "currentAnswer": "blue-green deployment strategy",
+          "question": "What deployment strategy does the platform use?"
+        },
+        {
+          "chainId": "payment-sla-evolution",
+          "links": [
+            { "docId": "delta-payment-spec-001", "timestamp": "2025-04-01", "fact": "99.9% SLA for payment endpoints" },
+            { "docId": "delta-payment-sla-amendment", "timestamp": "2025-10-15", "fact": "99.95% SLA for payment endpoints after enterprise tier launch", "supersedes": "delta-payment-spec-001" }
+          ],
+          "currentAnswer": "99.95% SLA for payment endpoints",
+          "question": "What is the SLA for payment endpoints?"
+        }
+      ],
+      "novelSynthesisKeys": [
+        {
+          "synthesisKey": "asymmetric for user auth, symmetric for webhook verification",
+          "sourceA": { "docId": "delta-auth-adr-001", "fact": "Ed25519 for JWT signing", "sessionHint": 1 },
+          "sourceB": { "docId": "delta-payment-spec-001", "fact": "HMAC-SHA256", "sessionHint": 2 },
+          "reasoning": "Two different signing algorithms for two different trust boundaries: Ed25519 (asymmetric) for user-facing JWT auth, HMAC-SHA256 (symmetric) for service-to-service webhook verification."
+        },
+        {
+          "synthesisKey": "payment idempotency key must survive Flink exactly-once reprocessing",
+          "sourceA": { "docId": "delta-payment-spec-001", "fact": "idempotency key in X-Idempotency-Key header", "sessionHint": 2 },
+          "sourceB": { "docId": "delta-pipeline-adr-001", "fact": "exactly-once semantics via Kafka transactions", "sessionHint": 3 },
+          "reasoning": "When Flink reprocesses a payment event via exactly-once semantics, the same X-Idempotency-Key header must be forwarded to Stripe to prevent duplicate charges."
+        },
+        {
+          "synthesisKey": "canary releases gated on circuit breaker error rate",
+          "sourceA": { "docId": "delta-infra-adr-003", "fact": "Argo Rollouts for canary releases", "sessionHint": 4 },
+          "sourceB": { "docId": "delta-infra-resilience-v2", "fact": "circuit breaker with 50% error threshold", "sessionHint": 4 },
+          "reasoning": "Canary rollouts should use the circuit breaker's 50% error threshold as an automatic rollback trigger — if the canary exceeds the threshold, Argo Rollouts should abort the promotion."
+        }
+      ],
+      "falsePremiseTraps": [
+        {
+          "question": "Since we use RSA-256 for JWT signing, what key rotation strategy should we adopt for the RSA key pairs?",
+          "falseClaim": "RSA-256 for JWT signing",
+          "correction": "Ed25519 for JWT signing",
+          "correctionDocId": "delta-auth-adr-001"
+        },
+        {
+          "question": "The payment SLA is 99.9%. Given that the circuit breaker trips at 50% errors, what is the maximum downtime budget per month?",
+          "falseClaim": "99.9%",
+          "correction": "99.95% SLA for payment endpoints",
+          "correctionDocId": "delta-payment-sla-amendment"
+        },
+        {
+          "question": "We use rolling deployments for all services. How should the pod disruption budget be configured to avoid interruptions during a rolling update?",
+          "falseClaim": "rolling deployments",
+          "correction": "blue-green deployment strategy",
+          "correctionDocId": "delta-infra-adr-003"
+        }
+      ]
     }
   ],
   "killVariants": [

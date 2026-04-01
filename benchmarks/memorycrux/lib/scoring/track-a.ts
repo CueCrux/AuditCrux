@@ -1,6 +1,32 @@
 // MemoryCrux Benchmark — Track A auto-scoring engine
 
-import type { RunSummary, SessionRecord, TurnTelemetry, ToolCallRecord } from "../types.js";
+import type {
+  RunSummary,
+  SessionRecord,
+  TurnTelemetry,
+  ToolCallRecord,
+  CorpusDocument,
+  ProvenanceExpectation,
+  TemporalChain,
+  NovelSynthesisExpectation,
+  FalsePremiseTrap,
+} from "../types.js";
+
+// ---------- Shared helpers ----------
+
+/**
+ * Build a combined lowercase search text from all session outputs and tool call results.
+ * Extracted from the repeated pattern across ~8 scorers.
+ */
+export function buildSearchText(sessions: SessionRecord[]): string {
+  const allOutput = sessions.map((s) => s.output).join("\n").toLowerCase();
+  const allToolResults = sessions
+    .flatMap((s) => s.turns)
+    .flatMap((t) => t.toolCalls)
+    .map((tc) => JSON.stringify(tc.result).toLowerCase())
+    .join("\n");
+  return allOutput + "\n" + allToolResults;
+}
 
 // ---------- Alpha scoring ----------
 
@@ -513,5 +539,379 @@ export function scoreTokenEfficiency(summary: RunSummary): {
     totalOutputTokens: outputTokens,
     totalCost: estimatedCostUsd,
     outputPerKInputTokens: inputTokens > 0 ? (outputTokens / inputTokens) * 1000 : 0,
+  };
+}
+
+// ---------- v1.3 scoring ----------
+
+/**
+ * I10: Score reasoning provenance — can we trace each decision key back through
+ * the agent's tool calls to the source evidence?
+ *
+ * For each ProvenanceExpectation:
+ *   1. Find a ToolCallRecord where toolName matches expectedToolName
+ *      and JSON.stringify(result) contains expectedResultPattern
+ *   2. Check the decisionKey also appears in session output
+ *   3. Both conditions met = "traced"
+ *
+ * Also computes a refinement score: how often the agent calls the same tool
+ * with progressively narrower queries (later args contain terms from earlier results).
+ */
+export function scoreReasoningProvenance(
+  sessions: SessionRecord[],
+  provenanceMap: ProvenanceExpectation[],
+): {
+  traceability: number;
+  refinementScore: number;
+  traced: Array<{ key: string; toolName: string; turnIndex: number }>;
+  untraced: string[];
+} {
+  if (provenanceMap.length === 0) {
+    return { traceability: 1.0, refinementScore: 0, traced: [], untraced: [] };
+  }
+
+  const allOutput = sessions.map((s) => s.output).join("\n").toLowerCase();
+
+  // Build flat list of tool calls with turn context
+  const toolCallsWithContext: Array<{
+    toolName: string;
+    args: Record<string, unknown>;
+    result: unknown;
+    turnIndex: number;
+    sessionIndex: number;
+  }> = [];
+
+  for (let si = 0; si < sessions.length; si++) {
+    for (const turn of sessions[si].turns) {
+      for (const tc of turn.toolCalls) {
+        toolCallsWithContext.push({
+          toolName: tc.toolName,
+          args: tc.args,
+          result: tc.result,
+          turnIndex: turn.turnIndex,
+          sessionIndex: si,
+        });
+      }
+    }
+  }
+
+  const traced: Array<{ key: string; toolName: string; turnIndex: number }> = [];
+  const untraced: string[] = [];
+
+  for (const expectation of provenanceMap) {
+    const keyLower = expectation.decisionKey.toLowerCase();
+    const patternLower = expectation.expectedResultPattern.toLowerCase();
+
+    // Check decision key appears in output
+    if (!allOutput.includes(keyLower)) {
+      untraced.push(expectation.decisionKey);
+      continue;
+    }
+
+    // Find matching tool call
+    const match = toolCallsWithContext.find(
+      (tc) =>
+        tc.toolName === expectation.expectedToolName &&
+        JSON.stringify(tc.result).toLowerCase().includes(patternLower),
+    );
+
+    if (match) {
+      traced.push({
+        key: expectation.decisionKey,
+        toolName: match.toolName,
+        turnIndex: match.turnIndex,
+      });
+    } else {
+      untraced.push(expectation.decisionKey);
+    }
+  }
+
+  // Refinement score: count cases where the agent calls the same tool
+  // multiple times with later args containing terms from earlier results.
+  const toolCallsByName = new Map<string, typeof toolCallsWithContext>();
+  for (const tc of toolCallsWithContext) {
+    const existing = toolCallsByName.get(tc.toolName) ?? [];
+    existing.push(tc);
+    toolCallsByName.set(tc.toolName, existing);
+  }
+
+  let refinementChains = 0;
+  for (const [, calls] of toolCallsByName) {
+    if (calls.length < 2) continue;
+    // Check consecutive pairs: does the later call's args contain words from the earlier result?
+    for (let i = 0; i < calls.length - 1; i++) {
+      const earlierResult = JSON.stringify(calls[i].result).toLowerCase();
+      const laterArgs = JSON.stringify(calls[i + 1].args).toLowerCase();
+      // Extract significant words (4+ chars) from earlier result
+      const words = earlierResult.match(/\b[a-z]{4,}\b/g) ?? [];
+      const uniqueWords = [...new Set(words)].slice(0, 20); // sample
+      const overlap = uniqueWords.filter((w) => laterArgs.includes(w)).length;
+      if (overlap >= 2) {
+        refinementChains++;
+      }
+    }
+  }
+
+  const uniqueToolsUsed = toolCallsByName.size;
+  const refinementScore = uniqueToolsUsed > 0
+    ? Math.min(1, refinementChains / uniqueToolsUsed)
+    : 0;
+
+  return {
+    traceability: traced.length / provenanceMap.length,
+    refinementScore,
+    traced,
+    untraced,
+  };
+}
+
+/**
+ * Enhanced temporal reconstruction scorer — goes beyond substring matching
+ * to check whether the agent got the temporal ORDERING right.
+ *
+ * For each TemporalChain:
+ *   1. currentAnswerScore: did the agent's output contain the currentAnswer?
+ *   2. orderingScore: did the agent acknowledge the superseded→current transition?
+ *      Checked via: (a) superseded value position < current value position in output,
+ *      OR (b) temporal signal words near the superseded mention.
+ */
+export function scoreTemporalReconstruction(
+  sessions: SessionRecord[],
+  temporalChains: TemporalChain[],
+): {
+  score: number;
+  currentAnswerScore: number;
+  orderingScore: number;
+  chainResults: Array<{
+    chainId: string;
+    correctCurrent: boolean;
+    correctOrder: boolean;
+  }>;
+} {
+  if (temporalChains.length === 0) {
+    return { score: 1.0, currentAnswerScore: 1.0, orderingScore: 1.0, chainResults: [] };
+  }
+
+  const searchText = buildSearchText(sessions);
+
+  const temporalSignals = [
+    "previously", "was changed to", "superseded by", "updated from",
+    "replaced by", "originally", "was later", "changed from",
+    "no longer", "deprecated", "now uses", "migrated to",
+    "evolved from", "revised to", "current policy",
+  ];
+
+  const chainResults: Array<{
+    chainId: string;
+    correctCurrent: boolean;
+    correctOrder: boolean;
+  }> = [];
+
+  for (const chain of temporalChains) {
+    const currentLower = chain.currentAnswer.toLowerCase();
+    const correctCurrent = searchText.includes(currentLower);
+
+    // Find the most recent superseded value (last link with a supersedes field)
+    const supersededLinks = chain.links.filter((l) => l.supersedes);
+    let correctOrder = false;
+
+    if (supersededLinks.length > 0 && correctCurrent) {
+      // Check each superseded fact for temporal ordering signals
+      for (const link of supersededLinks) {
+        const supersededFact = link.fact.toLowerCase();
+        const supersededIdx = searchText.indexOf(supersededFact);
+        const currentIdx = searchText.indexOf(currentLower);
+
+        if (supersededIdx >= 0 && currentIdx >= 0) {
+          // Method A: superseded appears before current in output
+          if (supersededIdx < currentIdx) {
+            correctOrder = true;
+            break;
+          }
+          // Method B: temporal signal word near superseded mention
+          const contextWindow = searchText.slice(
+            Math.max(0, supersededIdx - 200),
+            Math.min(searchText.length, supersededIdx + supersededFact.length + 200),
+          );
+          if (temporalSignals.some((s) => contextWindow.includes(s))) {
+            correctOrder = true;
+            break;
+          }
+        }
+      }
+    }
+
+    chainResults.push({ chainId: chain.chainId, correctCurrent, correctOrder });
+  }
+
+  const currentAnswerScore = chainResults.filter((r) => r.correctCurrent).length / chainResults.length;
+  const orderingScore = chainResults.filter((r) => r.correctOrder).length / chainResults.length;
+  const score = 0.6 * currentAnswerScore + 0.4 * orderingScore;
+
+  return { score, currentAnswerScore, orderingScore, chainResults };
+}
+
+/**
+ * K5: Score novel synthesis — did the agent derive conclusions that don't exist
+ * in any single corpus document, by combining information from separate sources?
+ *
+ * Pre-flight: validates each synthesisKey does NOT appear in corpus docs.
+ * Scoring: checks synthesisKey in output AND both source facts in tool results.
+ */
+export function scoreNovelSynthesis(
+  sessions: SessionRecord[],
+  expectations: NovelSynthesisExpectation[],
+  corpusDocuments: CorpusDocument[],
+): {
+  score: number;
+  synthesised: Array<{ key: string; sourceAFound: boolean; sourceBFound: boolean }>;
+  missed: string[];
+  invalidFixture: string[];
+} {
+  if (expectations.length === 0) {
+    return { score: 1.0, synthesised: [], missed: [], invalidFixture: [] };
+  }
+
+  const searchText = buildSearchText(sessions);
+  const corpusText = corpusDocuments.map((d) => d.content.toLowerCase()).join("\n");
+
+  // Separate tool-result-only text for source fact verification
+  const toolResultText = sessions
+    .flatMap((s) => s.turns)
+    .flatMap((t) => t.toolCalls)
+    .map((tc) => JSON.stringify(tc.result).toLowerCase())
+    .join("\n");
+
+  const synthesised: Array<{ key: string; sourceAFound: boolean; sourceBFound: boolean }> = [];
+  const missed: string[] = [];
+  const invalidFixture: string[] = [];
+
+  for (const exp of expectations) {
+    const keyLower = exp.synthesisKey.toLowerCase();
+
+    // Pre-flight: synthesis key must NOT exist in any single corpus document
+    if (corpusText.includes(keyLower)) {
+      invalidFixture.push(exp.synthesisKey);
+      continue;
+    }
+
+    // Check synthesis key appears in agent output
+    if (!searchText.includes(keyLower)) {
+      missed.push(exp.synthesisKey);
+      continue;
+    }
+
+    // Check both source facts were retrieved (appear in tool results)
+    const sourceAFound = toolResultText.includes(exp.sourceA.fact.toLowerCase());
+    const sourceBFound = toolResultText.includes(exp.sourceB.fact.toLowerCase());
+
+    if (sourceAFound && sourceBFound) {
+      synthesised.push({ key: exp.synthesisKey, sourceAFound, sourceBFound });
+    } else {
+      // Key appeared in output but without retrieving both sources — may be hallucinated
+      missed.push(exp.synthesisKey);
+    }
+  }
+
+  const validCount = expectations.length - invalidFixture.length;
+  const score = validCount > 0 ? synthesised.length / validCount : 0;
+
+  return { score, synthesised, missed, invalidFixture };
+}
+
+/**
+ * I11: Score false-premise detection — did the agent reject questions built on
+ * incorrect assumptions rather than answering them as asked?
+ *
+ * For each FalsePremiseTrap:
+ *   1. Check if the agent's output contains rejection signals near the false claim
+ *   2. Check if the agent asserted the correction (the truth from the corpus)
+ *   3. "Rejected" = rejection signal present AND correction present
+ *   4. "Accepted" = agent answered the question without challenging the premise
+ */
+export function scoreFalsePremiseDetection(
+  sessions: SessionRecord[],
+  traps: FalsePremiseTrap[],
+): {
+  score: number;
+  rejected: Array<{ falseClaim: string; correctionFound: boolean }>;
+  accepted: string[];
+} {
+  if (traps.length === 0) {
+    return { score: 1.0, rejected: [], accepted: [] };
+  }
+
+  const searchText = buildSearchText(sessions);
+
+  const rejectionSignals = [
+    "that is incorrect",
+    "that is not correct",
+    "this is incorrect",
+    "this is not correct",
+    "that's not accurate",
+    "incorrect assumption",
+    "false premise",
+    "incorrect premise",
+    "contrary to",
+    "actually",
+    "in fact",
+    "however",
+    "not the case",
+    "does not use",
+    "did not decide",
+    "was not chosen",
+    "is not used",
+    "was not selected",
+    "incorrect — ",
+    "incorrect: ",
+    "note: the premise",
+    "correction:",
+  ];
+
+  const rejected: Array<{ falseClaim: string; correctionFound: boolean }> = [];
+  const accepted: string[] = [];
+
+  for (const trap of traps) {
+    const claimLower = trap.falseClaim.toLowerCase();
+    const correctionLower = trap.correction.toLowerCase();
+
+    // Check if the correction (the truth) appears in the output
+    const correctionFound = searchText.includes(correctionLower);
+
+    // Check for rejection signals near the false claim
+    const claimIdx = searchText.indexOf(claimLower);
+    let hasRejection = false;
+
+    if (claimIdx >= 0) {
+      // Look for rejection signals in a window around the false claim
+      const contextWindow = searchText.slice(
+        Math.max(0, claimIdx - 300),
+        Math.min(searchText.length, claimIdx + claimLower.length + 300),
+      );
+      hasRejection = rejectionSignals.some((s) => contextWindow.includes(s));
+    } else {
+      // Agent didn't even mention the false claim — check if it provided the correction
+      // with a rejection signal anywhere nearby
+      const correctionIdx = searchText.indexOf(correctionLower);
+      if (correctionIdx >= 0) {
+        const contextWindow = searchText.slice(
+          Math.max(0, correctionIdx - 300),
+          Math.min(searchText.length, correctionIdx + correctionLower.length + 300),
+        );
+        hasRejection = rejectionSignals.some((s) => contextWindow.includes(s));
+      }
+    }
+
+    if (hasRejection && correctionFound) {
+      rejected.push({ falseClaim: trap.falseClaim, correctionFound });
+    } else {
+      accepted.push(trap.falseClaim);
+    }
+  }
+
+  return {
+    score: rejected.length / traps.length,
+    rejected,
+    accepted,
   };
 }

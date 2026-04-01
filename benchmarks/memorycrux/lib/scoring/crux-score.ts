@@ -16,6 +16,9 @@ import {
   scoreAbstentionPrecision,
   scoreCrossSessionSynthesis,
   scoreRetrievalRecall,
+  scoreReasoningProvenance,
+  scoreNovelSynthesis,
+  scoreFalsePremiseDetection,
 } from "./track-a.js";
 
 // Re-export types from cruxscore for backward compatibility
@@ -312,6 +315,24 @@ export function computeCruxScore(
   const N_tools = sessions.flatMap((s) => s.turns).flatMap((t) => t.toolCalls).length;
   const N_turns = sessions.flatMap((s) => s.turns).length;
 
+  // v1.3: Reasoning provenance
+  const provenanceResult = lastPhase?.provenanceMap
+    ? scoreReasoningProvenance(sessions, lastPhase.provenanceMap)
+    : null;
+  const I_provenance = provenanceResult?.traceability ?? null;
+
+  // v1.3: Novel synthesis
+  const novelSynthesisResult = lastPhase?.novelSynthesisKeys
+    ? scoreNovelSynthesis(sessions, lastPhase.novelSynthesisKeys, fixture.corpus)
+    : null;
+  const K_novel_synthesis = novelSynthesisResult?.score ?? null;
+
+  // v1.3: False-premise detection
+  const falsePremiseResult = lastPhase?.falsePremiseTraps
+    ? scoreFalsePremiseDetection(sessions, lastPhase.falsePremiseTraps)
+    : null;
+  const I_premise_rejection = falsePremiseResult?.score ?? null;
+
   const fundamentals: CruxFundamentals = {
     T_orient_s,
     T_task_s,
@@ -325,10 +346,15 @@ export function computeCruxScore(
     R_supersession,
     A_abstention,
     R_retrieval,
+    R_proposition: null,     // v1.2: not yet scored in benchmark harness
+    C_contradiction: null,   // v1.2: not yet scored in benchmark harness
+    I_provenance,            // v1.3
+    I_premise_rejection,     // v1.3
     K_decision,
     K_causal,
     K_checkpoint,
     K_synthesis,
+    K_novel_synthesis,       // v1.3
     S_gate,
     S_detect,
     S_stale,
@@ -345,7 +371,7 @@ export function computeCruxScore(
   const composite = computeComposite(fundamentals, derived);
 
   return {
-    metrics_version: "1.1",
+    metrics_version: "1.3",
     fundamentals,
     derived,
     composite,

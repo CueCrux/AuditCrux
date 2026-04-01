@@ -1,6 +1,6 @@
 {
   "project": "gamma",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "phases": [
     {
       "index": 1,
@@ -36,7 +36,28 @@
       "taskPrompt": "Continue the Enterprise Data Platform design. A critical issue has been raised.\n\nThe team has discovered conflicting documentation about the serialization format:\n- ADR-002 mandates Apache Avro for all event schemas\n- A newer proposal (SPEC-PROTO-001) suggests switching to Protocol Buffers\n- Meeting notes discuss allowing both formats for different use cases\n\nAdditionally, there is a contradiction in the retention policy:\n- ADR-007 specifies 48-hour retention\n- ADR-008 (DRAFT) proposes 72-hour retention\n\nYour task:\n1. Find and analyze ALL contradictory documents in the corpus.\n2. For each contradiction, recommend a resolution that considers all stakeholders.\n3. Verify your Phase 1 decisions are still valid given these contradictions.\n4. If any Phase 1 decisions need to be revised, document the revision with full rationale.\n5. Check if any documents in the corpus are stale or outdated.\n\nProduce a Contradiction Resolution Report with sections: Contradictions Found, Analysis, Resolutions, Impact on Prior Decisions, and Stale Document Inventory.",
       "expectedDecisionKeys": ["Avro for server-side", "Protobuf for mobile only", "48h operational retention", "72h for CDC topics", "7d for financial topics", "tiered retention", "ADR-008 supersedes for specific topics"],
       "staleItems": ["gamma-stale-topology", "gamma-adr-008-stale"],
-      "expectedToolCalls": ["query_memory", "get_contradictions", "get_freshness_report", "get_decision_context", "reconstruct_knowledge_state", "record_decision_context"]
+      "expectedToolCalls": ["query_memory", "get_contradictions", "get_freshness_report", "get_decision_context", "reconstruct_knowledge_state", "record_decision_context"],
+      "temporalChains": [
+        {
+          "chainId": "retention-policy-evolution",
+          "links": [
+            { "docId": "gamma-adr-007", "timestamp": "2025-06-15", "fact": "48-hour retention for all event topics" },
+            { "docId": "gamma-adr-008-stale", "timestamp": "2025-09-01", "fact": "72-hour retention proposed but NOT approved as blanket policy", "supersedes": "gamma-adr-007" },
+            { "docId": "gamma-adr-008-amendment", "timestamp": "2025-10-12", "fact": "tiered retention: 48h operational, 72h CDC, 7d financial" }
+          ],
+          "currentAnswer": "tiered retention",
+          "question": "What is the current event retention policy?"
+        },
+        {
+          "chainId": "serialization-format-evolution",
+          "links": [
+            { "docId": "gamma-adr-002", "timestamp": "2025-04-20", "fact": "Avro for all event schemas" },
+            { "docId": "gamma-spec-proto-001", "timestamp": "2025-08-15", "fact": "Protobuf proposed for mobile clients", "supersedes": "gamma-adr-002" }
+          ],
+          "currentAnswer": "Avro for server-side",
+          "question": "What serialization format should server-side events use?"
+        }
+      ]
     },
     {
       "index": 5,
@@ -45,7 +66,114 @@
       "taskPrompt": "Final task: Conduct a comprehensive deployment readiness review for the Enterprise Data Platform.\n\nReview ALL decisions from ALL prior phases (1-4). Recall every design choice, constraint, and resolution. Then:\n\n1. Create a deployment checklist covering: infrastructure, schema registry, Kafka cluster, consumer services, monitoring, and security.\n2. Verify ALL critical constraints are met (GDPR, PCI-DSS, SOC 2 requirements).\n3. Verify ALL architectural decisions from Phases 1-4 are consistent with each other.\n4. Identify any remaining gaps in the design (missing runbooks, untested failure scenarios, capacity concerns).\n5. Produce a risk register for go-live with mitigation strategies.\n6. Reference the physical location of the disaster recovery documentation (it's mentioned in a compliance doc — find the exact room number).\n\nProduce a Deployment Readiness Report with sections: Decision Consistency Matrix, Compliance Checklist, Risk Register, Go-Live Checklist, and Remaining Gaps.",
       "expectedDecisionKeys": ["RS256", "Avro", "BACKWARD compatibility", "48h retention", "tiered retention", "12 partitions", "CooperativeStickyAssignor", "at-least-once", "exactly-once for payments", "99.95% availability", "consumer lag alerting", "vol-0a1b2c3d4e5f", "kafka-broker-tls", "Building C Floor 3 Room 312", "mTLS", "3-level retry"],
       "coverageGaps": ["DR documentation location", "physical safe room number"],
-      "expectedToolCalls": ["query_memory", "get_relevant_context", "get_decision_context", "check_constraints", "verify_before_acting", "assess_coverage", "get_freshness_report", "checkpoint_decision_state"]
+      "unanswerableKeys": [
+        "multi-region failover procedure",
+        "schema registry backup frequency",
+        "consumer group rebalance timeout"
+      ],
+      "expectedToolCalls": ["query_memory", "get_relevant_context", "get_decision_context", "check_constraints", "verify_before_acting", "assess_coverage", "get_freshness_report", "checkpoint_decision_state"],
+      "provenanceMap": [
+        {
+          "decisionKey": "Avro",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "ADR-002"
+        },
+        {
+          "decisionKey": "BACKWARD compatibility",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "schema evolution"
+        },
+        {
+          "decisionKey": "tiered retention",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "ADR-008"
+        },
+        {
+          "decisionKey": "CooperativeStickyAssignor",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "consumer group"
+        },
+        {
+          "decisionKey": "vol-0a1b2c3d4e5f",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "broker-3"
+        },
+        {
+          "decisionKey": "Building C Floor 3 Room 312",
+          "expectedToolName": "query_memory",
+          "expectedResultPattern": "disaster recovery"
+        }
+      ],
+      "temporalChains": [
+        {
+          "chainId": "retention-policy-final",
+          "links": [
+            { "docId": "gamma-adr-007", "timestamp": "2025-06-15", "fact": "48-hour retention for all event topics" },
+            { "docId": "gamma-adr-008-stale", "timestamp": "2025-09-01", "fact": "72-hour retention proposed but NOT approved as blanket policy", "supersedes": "gamma-adr-007" },
+            { "docId": "gamma-adr-008-amendment", "timestamp": "2025-10-12", "fact": "tiered retention: 48h operational, 72h CDC, 7d financial" }
+          ],
+          "currentAnswer": "tiered retention",
+          "question": "What is the current event retention policy for the EDP?"
+        },
+        {
+          "chainId": "serialization-format-final",
+          "links": [
+            { "docId": "gamma-adr-002", "timestamp": "2025-04-20", "fact": "Avro for all event schemas" },
+            { "docId": "gamma-spec-proto-001", "timestamp": "2025-08-15", "fact": "Protobuf proposed for mobile clients", "supersedes": "gamma-adr-002" }
+          ],
+          "currentAnswer": "Avro for server-side",
+          "question": "What serialization format is used for server-side events?"
+        },
+        {
+          "chainId": "broker-topology-evolution",
+          "links": [
+            { "docId": "gamma-infra-topology-v1", "timestamp": "2025-03-01", "fact": "3 Kafka brokers in us-east-1" },
+            { "docId": "gamma-stale-topology", "timestamp": "2025-07-20", "fact": "expanded to 5 brokers, broker-3 EBS replaced", "supersedes": "gamma-infra-topology-v1" }
+          ],
+          "currentAnswer": "5 brokers",
+          "question": "How many Kafka brokers are in the current production cluster?"
+        }
+      ],
+      "novelSynthesisKeys": [
+        {
+          "synthesisKey": "schema evolution without consumer redeployment",
+          "sourceA": { "docId": "gamma-adr-002", "fact": "BACKWARD compatibility", "sessionHint": 1 },
+          "sourceB": { "docId": "gamma-consumer-spec", "fact": "idempotent consumer", "sessionHint": 2 },
+          "reasoning": "BACKWARD compat guarantees old consumers can read new schemas; combined with idempotent consumer design, new optional fields can be added without redeploying consumers."
+        },
+        {
+          "synthesisKey": "DLQ replay constrained by retention window",
+          "sourceA": { "docId": "gamma-adr-007", "fact": "48-hour retention", "sessionHint": 1 },
+          "sourceB": { "docId": "gamma-consumer-spec", "fact": "dead letter queue", "sessionHint": 2 },
+          "reasoning": "DLQ events reference original topic offsets; if replay happens after the 48h retention window, original events are already purged. DLQ replay must happen within the retention window."
+        },
+        {
+          "synthesisKey": "payment consumer cannot use at-least-once",
+          "sourceA": { "docId": "gamma-consumer-spec", "fact": "at-least-once", "sessionHint": 2 },
+          "sourceB": { "docId": "gamma-compliance-pci", "fact": "exactly-once for payments", "sessionHint": 1 },
+          "reasoning": "The general consumer design uses at-least-once, but PCI-DSS constraints mandate exactly-once for payment events. The payment consumer is an exception to the default processing guarantee."
+        }
+      ],
+      "falsePremiseTraps": [
+        {
+          "question": "Given that the team chose Protocol Buffers for all event serialization, how should we handle schema migration for the Order entity?",
+          "falseClaim": "Protocol Buffers for all event serialization",
+          "correction": "Avro for server-side",
+          "correctionDocId": "gamma-adr-002"
+        },
+        {
+          "question": "Since the retention policy is 72 hours for all topics, what happens to consumer lag alerts when topics approach the retention boundary?",
+          "falseClaim": "72 hours for all topics",
+          "correction": "tiered retention",
+          "correctionDocId": "gamma-adr-008-amendment"
+        },
+        {
+          "question": "The Kafka cluster runs on 3 brokers. How should we distribute the 12 partitions across them for optimal load balancing?",
+          "falseClaim": "3 brokers",
+          "correction": "5 brokers",
+          "correctionDocId": "gamma-stale-topology"
+        }
+      ]
     }
   ],
   "killVariants": [
