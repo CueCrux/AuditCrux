@@ -105,6 +105,7 @@ async function handleResearchMemory(
     question.replace(/how many|how much|total|what is the/gi, "").trim(), // strip quantifiers
   ].filter((q) => q.length > 3 && !queries.includes(q));
 
+  let consecutiveEmpty = 0;
   for (let round = 1; round < maxRounds && reformulations.length > 0; round++) {
     const nextQuery = reformulations.shift()!;
     queries.push(nextQuery);
@@ -125,8 +126,9 @@ async function handleResearchMemory(
           newFound++;
         }
       }
-      // Stop if no new results found (convergence)
-      if (newFound === 0) break;
+      // Only stop after 2 consecutive empty rounds (not first miss)
+      consecutiveEmpty = newFound === 0 ? consecutiveEmpty + 1 : 0;
+      if (consecutiveEmpty >= 2) break;
     }
   }
 
@@ -437,16 +439,17 @@ export async function executeRun(
 const ENABLE_TRACE = process.env.BENCH_TRACE !== "0"; // on by default
 const ENABLE_REFLECTION = process.env.BENCH_REFLECTION !== "0"; // on by default
 
-const REFLECTION_PROMPT = `PAUSE. Before giving your final answer, reflect on what you just found:
+const REFLECTION_PROMPT = `PAUSE. Before giving your final answer, reflect:
 
-1. WHAT DID I SEARCH FOR? List every query/tool you used.
-2. WHAT DID I FIND? Summarize the key facts retrieved.
-3. WHAT MIGHT I HAVE MISSED? Are there sessions or facts I didn't search for?
-4. IS MY COUNT COMPLETE? If this is a counting question, enumerate every item explicitly.
-5. AM I CONFIDENT? Rate 1-10. If below 7, describe what additional search would help.
+1. WHAT DID I FIND? List the key facts, items, or events retrieved.
+2. IS MY COUNT COMPLETE? If counting, enumerate every item numbered. Is this plausibly ALL of them?
+3. CONFIDENCE (1-10)? Rate honestly.
 
-If you are confident (7+), give your final answer now.
-If not confident, use one more tool call to fill the gap, then answer.`;
+If confident (7+): Give your final answer now. Do NOT search again.
+If NOT confident AND you can name a SPECIFIC different query that would help: Make ONE more tool call with that specific query.
+If NOT confident but you've already searched 3+ times with varied terms: Give your best answer from what you found. Say "Based on available conversations" — do NOT say "I wasn't able to find".
+
+IMPORTANT: Do NOT repeat a search you already did with slightly different words. That wastes a tool call and finds the same results.`;
 
 /**
  * Answer a single question using the configured arm.
