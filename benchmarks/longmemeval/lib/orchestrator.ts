@@ -250,8 +250,38 @@ async function handleStructuredQuery(
   }
 }
 
+/**
+ * Call VaultCrux fact API endpoints directly (new deterministic tools).
+ */
+async function callFactApi(
+  endpoint: string,
+  body: Record<string, unknown>,
+  tenantId: string,
+): Promise<Record<string, unknown>> {
+  const apiBase = process.env.BENCH_VAULTCRUX_API_BASE ?? "http://100.109.10.67:14333";
+  const apiKey = process.env.BENCH_VAULTCRUX_API_KEY ?? "";
+  try {
+    const resp = await fetch(`${apiBase}/v1/memory/facts/${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "x-tenant-id": tenantId,
+      },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!resp.ok) return { error: `API returned ${resp.status}` };
+    const data = await resp.json() as Record<string, unknown>;
+    return (data as any).data ?? data;
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : String(err) };
+  }
+}
+
 /** Check if a tool should be handled locally (not sent to VaultCrux) */
-const LOCAL_TOOLS = new Set(["date_diff", "research_memory", "get_session_by_id", "structured_query"]);
+const LOCAL_TOOLS = new Set(["date_diff", "research_memory", "get_session_by_id", "structured_query",
+  "enumerate_memory_facts", "build_timeline", "expand_hit_context", "assess_answerability", "derive_from_facts"]);
 
 interface OrchestratorConfig {
   adapter: LlmAdapter;
@@ -520,6 +550,21 @@ async function answerQuestion(
             toolResult = await handleGetSessionById(tc.input, proxy);
           } else if (tc.name === "structured_query") {
             toolResult = await handleStructuredQuery(tc.input, config.manifest.dataset, problem.problemId, proxy);
+          } else if (tc.name === "enumerate_memory_facts") {
+            const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+            toolResult = await callFactApi("enumerate", { query: tc.input.query, limit: tc.input.limit }, tenantId);
+          } else if (tc.name === "build_timeline") {
+            const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+            toolResult = await callFactApi("timeline", { query: tc.input.query, relation: tc.input.relation }, tenantId);
+          } else if (tc.name === "expand_hit_context") {
+            const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+            toolResult = await callFactApi("expand", { hit_ids: tc.input.hit_ids, radius_turns: tc.input.radius_turns }, tenantId);
+          } else if (tc.name === "assess_answerability") {
+            const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+            toolResult = await callFactApi("answerability", { query: tc.input.query }, tenantId);
+          } else if (tc.name === "derive_from_facts") {
+            const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+            toolResult = await callFactApi("derive", { operation: tc.input.operation, rows: tc.input.rows }, tenantId);
           } else {
             toolResult = { error: `Local tool ${tc.name} requires proxy` };
           }
@@ -608,10 +653,16 @@ async function answerQuestion(
 
           let toolResult: unknown;
           if (LOCAL_TOOLS.has(tc.name)) {
+            const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
             if (tc.name === "date_diff") toolResult = handleDateDiff(tc.input);
             else if (tc.name === "research_memory" && proxy) toolResult = await handleResearchMemory(tc.input, proxy);
             else if (tc.name === "get_session_by_id" && proxy) toolResult = await handleGetSessionById(tc.input, proxy);
             else if (tc.name === "structured_query") toolResult = await handleStructuredQuery(tc.input, config.manifest.dataset, problem.problemId, proxy);
+            else if (tc.name === "enumerate_memory_facts") toolResult = await callFactApi("enumerate", { query: tc.input.query, limit: tc.input.limit }, tenantId);
+            else if (tc.name === "build_timeline") toolResult = await callFactApi("timeline", { query: tc.input.query, relation: tc.input.relation }, tenantId);
+            else if (tc.name === "expand_hit_context") toolResult = await callFactApi("expand", { hit_ids: tc.input.hit_ids, radius_turns: tc.input.radius_turns }, tenantId);
+            else if (tc.name === "assess_answerability") toolResult = await callFactApi("answerability", { query: tc.input.query }, tenantId);
+            else if (tc.name === "derive_from_facts") toolResult = await callFactApi("derive", { operation: tc.input.operation, rows: tc.input.rows }, tenantId);
             else toolResult = { error: `Local tool ${tc.name} requires proxy` };
           } else if (proxy) {
             const record = await proxy.callTool(tc.name, tc.input);

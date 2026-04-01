@@ -514,6 +514,65 @@ export const LOCAL_BENCHMARK_TOOL_DEFS: ToolDef[] = [
       required: ["question"],
     },
   },
+  {
+    name: "enumerate_memory_facts",
+    description: "Deterministic fact-table extraction for aggregation questions. Returns structured rows (subject, predicate, object, date, session_id, confidence) from the entity index. Use for 'how many', 'total', 'list all' questions — count the rows deterministically instead of enumerating from prose. Includes missing_dimensions to flag what might not have been found.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "The question or search terms" },
+        limit: { type: "number", description: "Max rows to return (default 100)" },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "build_timeline",
+    description: "Deterministic timeline constructor. Finds all dated events matching your query from the entity index, normalizes dates, returns them sorted chronologically. Use for 'what order', 'before/after', 'earliest/latest'. Returns unresolved events (found but no date) separately.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Events to find in the timeline" },
+        relation: { type: "string", enum: ["before", "after", "between", "latest"], description: "Temporal relation filter" },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "expand_hit_context",
+    description: "Session-neighborhood expansion around promising hits. When you find a relevant chunk but the specific fact (name, date, amount) might be in a nearby turn, use this to fetch surrounding context from the same session. Pass chunk IDs from query_memory results.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        hit_ids: { type: "array", items: { type: "string" }, description: "Chunk IDs to expand around" },
+        radius_turns: { type: "number", description: "How many turns to expand (default 2)" },
+      },
+      required: ["hit_ids"],
+    },
+  },
+  {
+    name: "assess_answerability",
+    description: "Sufficiency gate — can this question be answered with current evidence? Returns answerable (yes/no), missing fields, contradictions, and recommended next tool. Use BEFORE forcing a best-guess answer. If answerable=false, say 'insufficient evidence in the available conversations' rather than guessing.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "The question to assess" },
+      },
+      required: ["query"],
+    },
+  },
+  {
+    name: "derive_from_facts",
+    description: "Safe math and selection over fact rows. Operations: sum, count, difference, max, min, latest, earliest. Pass rows from enumerate_memory_facts. Returns a deterministic result with computation trace. Use instead of doing arithmetic yourself.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        operation: { type: "string", enum: ["sum", "count", "difference", "max", "min", "latest", "earliest"], description: "Math operation" },
+        rows: { type: "array", items: { type: "object" }, description: "Fact rows from enumerate_memory_facts" },
+      },
+      required: ["operation", "rows"],
+    },
+  },
 ];
 
 export function getToolDefsForBenchmark(): ToolDef[] {
