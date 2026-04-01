@@ -490,7 +490,8 @@ async function answerQuestion(
   config: OrchestratorConfig,
   proxy?: McProxy,
 ): Promise<LmeAnswer> {
-  const systemPrompt = buildSystemPrompt(config.armConfig, problem);
+  const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+  const systemPrompt = await buildSystemPrompt(config.armConfig, problem, tenantId);
 
   const messages: Message[] = [
     { role: "system", content: systemPrompt },

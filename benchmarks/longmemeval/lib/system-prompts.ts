@@ -6,23 +6,20 @@ import type { LmeArmConfig, LmeProblem, LmeSession } from "./types.js";
 
 /**
  * Build the system prompt for a given arm.
- *
- * C0: Bare — no context, no tools. Model answers from training knowledge only.
- * C2: Context-stuffed — full session history injected into system prompt.
- * F1: Raw VaultCrux API tools — retrieval-only subset.
- * T2: Full MemoryCrux MCP tool suite — structured retrieval protocol.
+ * Now async — for F1, pre-computes structured data from fact APIs and injects into prompt.
  */
-export function buildSystemPrompt(
+export async function buildSystemPrompt(
   armConfig: LmeArmConfig,
   problem?: LmeProblem,
-): string {
+  tenantId?: string,
+): Promise<string> {
   switch (armConfig.mode) {
     case "bare":
       return PROMPT_BARE;
     case "context_stuffed":
       return buildContextStuffedPrompt(problem);
     case "raw_api":
-      return buildF1Prompt(problem);
+      return buildF1Prompt(problem, tenantId);
     case "mcp":
       return PROMPT_T2;
     default:
@@ -43,12 +40,80 @@ If you cannot answer the question, say so clearly.`;
  *  - Cap decomposition at 3 queries max with stop-on-confidence
  *  - Soften preference/recommendation search (one query is enough)
  */
-function buildF1Prompt(problem?: LmeProblem): string {
+const FACT_API_BASE = process.env.BENCH_VAULTCRUX_API_BASE ?? "http://100.109.10.67:14333";
+const FACT_API_KEY = process.env.BENCH_VAULTCRUX_API_KEY ?? "";
+
+async function callFactApiForPrompt(endpoint: string, body: Record<string, unknown>, tenantId: string): Promise<unknown> {
+  try {
+    const resp = await fetch(`${FACT_API_BASE}/v1/memory/facts/${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-api-key": FACT_API_KEY, "x-tenant-id": tenantId },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!resp.ok) return null;
+    const data = await resp.json() as Record<string, unknown>;
+    return (data as any).data ?? data;
+  } catch { return null; }
+}
+
+function detectQuestionType(question: string): "aggregation" | "temporal" | "knowledge_update" | "other" {
+  const q = question.toLowerCase();
+  if (/how many|how much|total|combined|in total|list all/.test(q)) return "aggregation";
+  if (/how many days|how many weeks|how many months|how long ago|when did|what order|which came first|earliest|latest|before.*after/.test(q)) return "temporal";
+  if (/current|currently|now |most recent|recently|moved to|changed to/.test(q)) return "knowledge_update";
+  return "other";
+}
+
+async function buildF1Prompt(problem?: LmeProblem, tenantId?: string): Promise<string> {
   // Extract question date — format: "2023/05/30 (Tue) 23:40" → "2023-05-30"
   let questionDate = "unknown";
   if (problem?.questionDate) {
     const match = problem.questionDate.match(/(\d{4})\/(\d{2})\/(\d{2})/);
     if (match) questionDate = `${match[1]}-${match[2]}-${match[3]}`;
+  }
+
+  // Pre-compute structured data based on question type
+  let preComputedSection = "";
+  if (problem && tenantId) {
+    const qtype = detectQuestionType(problem.question);
+
+    if (qtype === "aggregation") {
+      const facts = await callFactApiForPrompt("enumerate", { query: problem.question, limit: 50 }, tenantId) as any;
+      if (facts?.rows?.length > 0) {
+        const rows = facts.rows.slice(0, 30);
+        const table = rows.map((r: any, i: number) =>
+          `${i + 1}. ${r.subject} ${r.predicate} ${r.object}${r.date ? ` [${r.date.slice(0, 10)}]` : ""} (session: ${r.session_id?.slice(-8) ?? "?"})`
+        ).join("\n");
+        preComputedSection = `
+=== PRE-COMPUTED ENTITY INDEX DATA ===
+The following ${rows.length} facts were found in the structured entity index for this question.
+Use these as your PRIMARY evidence for counting. Verify against query_memory if needed.
+${facts.missing_dimensions?.length > 0 ? `WARNING: Missing dimensions: ${facts.missing_dimensions.join(", ")} — search for these specifically.\n` : ""}
+${table}
+
+Total rows: ${rows.length} | Coverage: ${(facts.coverage * 100).toFixed(1)}% | Confidence: ${(facts.confidence * 100).toFixed(0)}%
+=== END PRE-COMPUTED DATA ===
+`;
+      }
+    } else if (qtype === "temporal") {
+      const timeline = await callFactApiForPrompt("timeline", { query: problem.question }, tenantId) as any;
+      if (timeline?.events?.length > 0) {
+        const events = timeline.events.slice(0, 20);
+        const table = events.map((e: any, i: number) =>
+          `${i + 1}. [${e.date?.slice(0, 10) ?? "?"}] ${e.event} (session: ${e.session_id?.slice(-8) ?? "?"})`
+        ).join("\n");
+        preComputedSection = `
+=== PRE-COMPUTED TIMELINE ===
+The following ${events.length} dated events were found, sorted chronologically:
+${table}
+${timeline.unresolved?.length > 0 ? `\nUnresolved (no date): ${timeline.unresolved.join(", ")}` : ""}
+
+Confidence: ${(timeline.confidence * 100).toFixed(0)}%
+=== END PRE-COMPUTED TIMELINE ===
+`;
+      }
+    }
   }
 
   return `You are a helpful assistant answering questions about a user's past conversations.
@@ -97,7 +162,8 @@ Rules:
 - For temporal: prefer build_timeline + date_diff over manual date extraction.
 - ALWAYS use date_diff for arithmetic. Never compute days/weeks/months yourself.
 - If you find the answer on the first call, answer immediately.
-- Answer concisely — provide the specific answer.`;
+- Answer concisely — provide the specific answer.
+${preComputedSection}`;
 }
 
 const PROMPT_T2 = `You are a helpful assistant answering questions about a user's past conversations.
