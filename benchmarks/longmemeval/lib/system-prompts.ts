@@ -85,15 +85,27 @@ async function buildF1Prompt(problem?: LmeProblem, tenantId?: string): Promise<s
         const table = rows.map((r: any, i: number) =>
           `${i + 1}. ${r.subject} ${r.predicate} ${r.object}${r.date ? ` [${r.date.slice(0, 10)}]` : ""} (session: ${r.session_id?.slice(-8) ?? "?"})`
         ).join("\n");
-        preComputedSection = `
-=== PRE-COMPUTED ENTITY INDEX DATA ===
-The following ${rows.length} facts were found in the structured entity index for this question.
-Use these as your PRIMARY evidence for counting. Verify against query_memory if needed.
-${facts.missing_dimensions?.length > 0 ? `WARNING: Missing dimensions: ${facts.missing_dimensions.join(", ")} — search for these specifically.\n` : ""}
-${table}
 
-Total rows: ${rows.length} | Coverage: ${(facts.coverage * 100).toFixed(1)}% | Confidence: ${(facts.confidence * 100).toFixed(0)}%
-=== END PRE-COMPUTED DATA ===
+        // Derive the answer deterministically
+        const q = problem.question.toLowerCase();
+        let derivedLine = "";
+        if (/how much.*total|total.*money|total.*amount|raised|spent|earned|cost/.test(q)) {
+          const derived = await callFactApiForPrompt("derive", { operation: "sum", rows: facts.rows }, tenantId) as any;
+          if (derived?.result) derivedLine = `\nDERIVED SUM: ${derived.result} (${derived.trace})`;
+        } else {
+          // Dedupe by subject+predicate+object for counting
+          const unique = new Set(rows.map((r: any) => `${r.subject}|${r.predicate}|${r.object}`));
+          derivedLine = `\nDERIVED COUNT: ${unique.size} unique items`;
+        }
+
+        preComputedSection = `
+=== PRE-COMPUTED ENTITY DATA + DERIVED ANSWER ===
+${rows.length} facts from entity index:
+${table}
+${derivedLine}
+${facts.missing_dimensions?.length > 0 ? `WARNING: May be incomplete. Missing: ${facts.missing_dimensions.join(", ")}. Verify with query_memory.` : ""}
+INSTRUCTION: Use the derived count/sum as your starting point. Cross-check against query_memory chunks. Only adjust if chunks clearly show additional items.
+=== END ===
 `;
       }
     } else if (qtype === "temporal") {
@@ -103,14 +115,36 @@ Total rows: ${rows.length} | Coverage: ${(facts.coverage * 100).toFixed(1)}% | C
         const table = events.map((e: any, i: number) =>
           `${i + 1}. [${e.date?.slice(0, 10) ?? "?"}] ${e.event} (session: ${e.session_id?.slice(-8) ?? "?"})`
         ).join("\n");
+
+        const isOrdering = /order|which came first|earliest|latest|chronological/.test(problem.question.toLowerCase());
+        const directive = isOrdering
+          ? "INSTRUCTION: This timeline IS the answer. Report this order directly. Do NOT re-sort or guess."
+          : "INSTRUCTION: Use these dates with date_diff to compute the answer. QUOTE the date before computing.";
+
         preComputedSection = `
 === PRE-COMPUTED TIMELINE ===
-The following ${events.length} dated events were found, sorted chronologically:
+${events.length} dated events, sorted chronologically:
 ${table}
-${timeline.unresolved?.length > 0 ? `\nUnresolved (no date): ${timeline.unresolved.join(", ")}` : ""}
+${timeline.unresolved?.length > 0 ? `Unresolved: ${timeline.unresolved.join(", ")}` : ""}
+${directive}
+=== END ===
+`;
+      }
+    } else if (qtype === "knowledge_update") {
+      // For current-value questions: inject both balanced and recency results
+      const facts = await callFactApiForPrompt("enumerate", { query: problem.question, limit: 20 }, tenantId) as any;
+      if (facts?.rows?.length > 0) {
+        // Sort by date descending to highlight most recent
+        const sorted = [...facts.rows].sort((a: any, b: any) => ((b.date ?? "") as string).localeCompare((a.date ?? "") as string));
+        const table = sorted.slice(0, 10).map((r: any, i: number) =>
+          `${i + 1}. ${r.subject} ${r.predicate} ${r.object}${r.date ? ` [${r.date.slice(0, 10)}]` : " [no date]"}`
+        ).join("\n");
 
-Confidence: ${(timeline.confidence * 100).toFixed(0)}%
-=== END PRE-COMPUTED TIMELINE ===
+        preComputedSection = `
+=== PRE-COMPUTED KNOWLEDGE STATE (most recent first) ===
+${table}
+INSTRUCTION: The MOST RECENT entry (top of list) is the current value. If multiple values exist for the same predicate, use the one with the latest date. Say "The most recent mention (date X) says Y."
+=== END ===
 `;
       }
     }
