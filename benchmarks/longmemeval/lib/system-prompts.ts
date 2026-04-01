@@ -86,25 +86,12 @@ async function buildF1Prompt(problem?: LmeProblem, tenantId?: string): Promise<s
           `${i + 1}. ${r.subject} ${r.predicate} ${r.object}${r.date ? ` [${r.date.slice(0, 10)}]` : ""} (session: ${r.session_id?.slice(-8) ?? "?"})`
         ).join("\n");
 
-        // Derive the answer deterministically
-        const q = problem.question.toLowerCase();
-        let derivedLine = "";
-        if (/how much.*total|total.*money|total.*amount|raised|spent|earned|cost/.test(q)) {
-          const derived = await callFactApiForPrompt("derive", { operation: "sum", rows: facts.rows }, tenantId) as any;
-          if (derived?.result) derivedLine = `\nDERIVED SUM: ${derived.result} (${derived.trace})`;
-        } else {
-          // Dedupe by subject+predicate+object for counting
-          const unique = new Set(rows.map((r: any) => `${r.subject}|${r.predicate}|${r.object}`));
-          derivedLine = `\nDERIVED COUNT: ${unique.size} unique items`;
-        }
-
         preComputedSection = `
-=== PRE-COMPUTED ENTITY DATA + DERIVED ANSWER ===
-${rows.length} facts from entity index:
+=== PRE-COMPUTED ENTITY INDEX DATA ===
+${rows.length} facts from the structured entity index for this question:
 ${table}
-${derivedLine}
-${facts.missing_dimensions?.length > 0 ? `WARNING: May be incomplete. Missing: ${facts.missing_dimensions.join(", ")}. Verify with query_memory.` : ""}
-INSTRUCTION: Use the derived count/sum as your starting point. Cross-check against query_memory chunks. Only adjust if chunks clearly show additional items.
+${facts.missing_dimensions?.length > 0 ? `\nWARNING: May be incomplete for: ${facts.missing_dimensions.join(", ")}. Search for these specifically.\n` : ""}
+NOTE: This is evidence, not the final answer. The entity index may have missed items. Cross-check with query_memory and count from ALL sources combined.
 === END ===
 `;
       }
@@ -116,17 +103,12 @@ INSTRUCTION: Use the derived count/sum as your starting point. Cross-check again
           `${i + 1}. [${e.date?.slice(0, 10) ?? "?"}] ${e.event} (session: ${e.session_id?.slice(-8) ?? "?"})`
         ).join("\n");
 
-        const isOrdering = /order|which came first|earliest|latest|chronological/.test(problem.question.toLowerCase());
-        const directive = isOrdering
-          ? "INSTRUCTION: This timeline IS the answer. Report this order directly. Do NOT re-sort or guess."
-          : "INSTRUCTION: Use these dates with date_diff to compute the answer. QUOTE the date before computing.";
-
         preComputedSection = `
 === PRE-COMPUTED TIMELINE ===
-${events.length} dated events, sorted chronologically:
+${events.length} dated events found, sorted chronologically:
 ${table}
-${timeline.unresolved?.length > 0 ? `Unresolved: ${timeline.unresolved.join(", ")}` : ""}
-${directive}
+${timeline.unresolved?.length > 0 ? `Unresolved (no date): ${timeline.unresolved.join(", ")}` : ""}
+NOTE: This timeline may be incomplete. Cross-check with query_memory for events not in the entity index. For date arithmetic, use date_diff.
 === END ===
 `;
       }
@@ -143,7 +125,7 @@ ${directive}
         preComputedSection = `
 === PRE-COMPUTED KNOWLEDGE STATE (most recent first) ===
 ${table}
-INSTRUCTION: The MOST RECENT entry (top of list) is the current value. If multiple values exist for the same predicate, use the one with the latest date. Say "The most recent mention (date X) says Y."
+NOTE: If multiple values exist for the same fact, the most recent date is likely the current value. Verify with query_memory.
 === END ===
 `;
       }
