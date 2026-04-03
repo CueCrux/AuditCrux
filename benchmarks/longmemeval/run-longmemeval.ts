@@ -16,10 +16,10 @@ import { McProxy } from "../memorycrux/lib/mc-proxy.js";
 import { resolveConfig } from "../memorycrux/lib/config.js";
 import { createAdapter } from "../memorycrux/lib/llm/factory.js";
 import { MEMORYCRUX_TOOL_DEFS, LOCAL_BENCHMARK_TOOL_DEFS } from "../memorycrux/lib/llm/tool-bridge.js";
-import type { BenchModel, BenchConfig } from "../memorycrux/lib/types.js";
+import type { BenchModel } from "../memorycrux/lib/types.js";
 import { loadDataset, loadProblems, stratifiedSample } from "./lib/dataset-loader.js";
 import { getArmConfig, filterToolDefs } from "./lib/arms.js";
-import { executeRun } from "./lib/orchestrator.js";
+import { executeRun, CASCADE_CHAIN } from "./lib/orchestrator.js";
 import { writeHypotheses, writeRunSummary, writeReport, writeTrace } from "./lib/hypothesis-writer.js";
 import type { LmeArm, LmeDataset, LmeRunManifest } from "./lib/types.js";
 
@@ -73,6 +73,9 @@ function parseArgs(): {
   const concurrencyStr = get("--concurrency");
   const concurrency = concurrencyStr ? parseInt(concurrencyStr, 10) : 1;
 
+  // Custom cascade chain: --cascade-chain "haiku,sonnet" (omit opus to cap at 2 tiers)
+  const cascadeChainStr = get("--cascade-chain");
+
   return {
     dataset,
     arms,
@@ -83,6 +86,7 @@ function parseArgs(): {
     dryRun: has("--dry-run"),
     skipSeed: has("--skip-seed"),
     concurrency,
+    cascadeChainStr,
   };
 }
 
@@ -132,7 +136,10 @@ async function main() {
 
   // Validate API keys (after dry-run check)
   const errors = [];
-  for (const model of opts.models) {
+  const modelsToValidate = opts.models.includes("cascade")
+    ? CASCADE_CHAIN as string[]  // cascade needs Anthropic key for all three tiers
+    : opts.models;
+  for (const model of modelsToValidate) {
     const provider = model.startsWith("claude") ? "anthropic" : "openai";
     if (provider === "anthropic" && !benchConfig.anthropicApiKey) {
       errors.push("ANTHROPIC_API_KEY required for " + model);
@@ -153,7 +160,11 @@ async function main() {
   );
 
   for (const cell of matrix) {
-    const runId = `lme-${opts.dataset}-${shortModel(cell.model)}-${cell.arm}-${timestamp()}-${randomBytes(3).toString("hex")}`;
+    const isCascade = cell.model === "cascade";
+    const displayModel = isCascade ? "cascade" : cell.model;
+    const baseModel = isCascade ? CASCADE_CHAIN[0]! : cell.model;
+
+    const runId = `lme-${opts.dataset}-${shortModel(displayModel)}-${cell.arm}-${timestamp()}-${randomBytes(3).toString("hex")}`;
     const armConfig = getArmConfig(cell.arm);
 
     const manifest: LmeRunManifest = {
@@ -161,7 +172,7 @@ async function main() {
       dataset: opts.dataset,
       arm: cell.arm,
       armConfig,
-      model: cell.model,
+      model: displayModel,
       startedAt: new Date().toISOString(),
       pilotSize: opts.pilot,
       questionFilter: opts.questions,
@@ -169,8 +180,8 @@ async function main() {
       skipSeed: opts.skipSeed,
     };
 
-    // Create LLM adapter
-    const adapter = createAdapter(cell.model as BenchModel, benchConfig);
+    // Create LLM adapter (base model for cascade, or the specified model)
+    const adapter = createAdapter(baseModel as BenchModel, benchConfig);
 
     // Probe VaultCrux for treatment arms
     if (armConfig.needsVaultCrux) {
@@ -204,6 +215,21 @@ async function main() {
     mkdirSync(outDir, { recursive: true });
     const incrementalPath = resolve(outDir, "hypotheses.jsonl");
 
+    // Parse custom cascade chain if provided
+    const CHAIN_ALIASES: Record<string, BenchModel> = {
+      haiku: "claude-haiku-4-5",
+      sonnet: "claude-sonnet-4-6",
+      opus: "claude-opus-4-6",
+    };
+    let cascadeChain: BenchModel[] | undefined;
+    if (isCascade && opts.cascadeChainStr) {
+      cascadeChain = opts.cascadeChainStr.split(",").map((s) => {
+        const alias = s.trim().toLowerCase();
+        return CHAIN_ALIASES[alias] ?? (alias as BenchModel);
+      });
+      console.log(`[cascade] Custom chain: ${cascadeChain.join(" → ")}`);
+    }
+
     // Execute — orchestrator creates per-problem McProxy instances internally
     const summary = await executeRun(problems, {
       adapter,
@@ -212,6 +238,8 @@ async function main() {
       manifest,
       benchConfig,
       concurrency: opts.concurrency,
+      cascade: isCascade,
+      cascadeChain,
       onAnswer: (answer) => {
         const hyp = { question_id: answer.questionId, hypothesis: answer.hypothesis };
         appendFileSync(incrementalPath, JSON.stringify(hyp) + "\n");

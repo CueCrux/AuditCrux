@@ -94,6 +94,20 @@ export function writeTrace(answers: LmeAnswer[], outputPath: string): void {
       }
     }
 
+    if (a.escalation) {
+      lines.push(`### Cascade Escalation`);
+      lines.push(``);
+      lines.push(`| Tier | Model | Confidence | Disposition | Cost | Tools |`);
+      lines.push(`|------|-------|------------|-------------|------|-------|`);
+      for (let i = 0; i < a.escalation.chain.length; i++) {
+        const step = a.escalation.chain[i]!;
+        lines.push(`| ${i} | ${step.model} | ${step.confidence}/10 | ${step.disposition} | $${step.costUsd.toFixed(4)} | ${step.toolCalls} |`);
+      }
+      lines.push(``);
+      lines.push(`**Escalated:** ${a.escalation.escalated ? "YES" : "NO"} | **Final tier:** ${a.escalation.finalTier} | **Total cost:** $${a.escalation.totalCostUsd.toFixed(4)}`);
+      lines.push(``);
+    }
+
     lines.push(`**Final hypothesis:**`);
     lines.push(`> ${a.hypothesis.slice(0, 400).replace(/\n/g, "\n> ")}`);
     lines.push(``);
@@ -152,6 +166,27 @@ export function writeReport(summary: LmeRunSummary, outputPath: string): void {
     );
   }
   lines.push(``);
+
+  // Cascade escalation summary
+  const cascadeAnswers = summary.answers.filter((a) => a.escalation);
+  if (cascadeAnswers.length > 0) {
+    const escalated = cascadeAnswers.filter((a) => a.escalation!.escalated);
+    const tierCounts = [0, 0, 0]; // haiku, sonnet, opus
+    for (const a of cascadeAnswers) {
+      tierCounts[a.escalation!.finalTier]++;
+    }
+    lines.push(`## Cascade Escalation Summary`);
+    lines.push(``);
+    lines.push(`| Metric | Value |`);
+    lines.push(`|--------|-------|`);
+    lines.push(`| Questions with cascade | ${cascadeAnswers.length} |`);
+    lines.push(`| Escalated (multi-tier) | ${escalated.length} (${(escalated.length / cascadeAnswers.length * 100).toFixed(1)}%) |`);
+    lines.push(`| Resolved at Tier 0 (Haiku) | ${tierCounts[0]} |`);
+    lines.push(`| Resolved at Tier 1 (Sonnet) | ${tierCounts[1]} |`);
+    lines.push(`| Resolved at Tier 2 (Opus) | ${tierCounts[2]} |`);
+    lines.push(`| Total cascade cost | $${cascadeAnswers.reduce((s, a) => s + a.escalation!.totalCostUsd, 0).toFixed(2)} |`);
+    lines.push(``);
+  }
 
   if (summary.fixtureHash) {
     lines.push(`## Reproducibility`);

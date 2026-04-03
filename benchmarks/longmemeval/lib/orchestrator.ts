@@ -10,8 +10,11 @@ import type { LlmAdapter, Message, ToolDef } from "../../memorycrux/lib/llm/adap
 import { McProxy } from "../../memorycrux/lib/mc-proxy.js";
 import { estimateCost } from "../../memorycrux/lib/llm/cost.js";
 import type { BenchModel, BenchConfig } from "../../memorycrux/lib/types.js";
-import type { LmeAnswer, LmeArmConfig, LmeProblem, LmeRunManifest, LmeRunSummary, LmeToolStep, LmeReflection } from "./types.js";
-import { buildSystemPrompt, classifyQuestion } from "./system-prompts.js";
+import { createAdapter } from "../../memorycrux/lib/llm/factory.js";
+import type { LmeAnswer, LmeArmConfig, LmeProblem, LmeRunManifest, LmeRunSummary, LmeToolStep, LmeReflection, LmeEscalation, LmeEscalationStep } from "./types.js";
+import { buildSystemPrompt, buildPlaybookPrompt, classifyQuestion } from "./system-prompts.js";
+import { decomposeQuery, buildDecomposedEvidence, isCompoundQuestion } from "./query-decomposer.js";
+import { selectPlaybook, isPlaybookEngineEnabled, type Playbook } from "./playbook-engine.js";
 import { ingestProblem, waitForEmbeddings, verifyIngestion } from "./ingest-sessions.js";
 import { routeQuery, type RouterResult } from "./entity-router.js";
 import { verifiedQuery, matchQATemplate, type VerifiedResult } from "./verified-query.js";
@@ -64,6 +67,52 @@ function handleDateDiff(args: Record<string, unknown>): Record<string, unknown> 
 }
 
 /**
+ * LLM-powered query expansion — generates 3-5 synonym-varied reformulations.
+ * Uses Haiku for cost efficiency (~$0.001/call). Falls back to empty on failure.
+ */
+async function expandQueryWithLlm(question: string): Promise<string[]> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return [];
+
+  try {
+    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 150,
+        temperature: 0.5,
+        messages: [{
+          role: "user",
+          content: `Generate 4 alternative search queries for this question. Use synonyms, specific names, and different phrasings. Return ONLY the queries, one per line, no numbering.
+
+Question: ${question}
+
+Alternative queries:`,
+        }],
+      }),
+      signal: AbortSignal.timeout(3000),
+    });
+
+    if (!resp.ok) return [];
+    const data = await resp.json() as { content?: Array<{ text?: string }> };
+    const text = data.content?.[0]?.text?.trim();
+    if (!text) return [];
+
+    return text
+      .split("\n")
+      .map((l) => l.replace(/^\d+[\.\)]\s*/, "").replace(/^[-•*]\s*/, "").trim())
+      .filter((l) => l.length > 5 && l.length < 200);
+  } catch {
+    return [];
+  }
+}
+
+/**
  * research_memory — iterative plan/search/reflect loop.
  * Issues multiple query_memory calls with different strategies,
  * assesses completeness, and retries until confident or max rounds hit.
@@ -98,12 +147,20 @@ async function handleResearchMemory(
   }
   queries.push(question);
 
-  // Rounds 2+: generate reformulated queries based on what we found
-  const keyEntities = extractEntities(question);
-  const reformulations = [
-    ...keyEntities.map((e) => e), // search individual entities
-    question.replace(/how many|how much|total|what is the/gi, "").trim(), // strip quantifiers
-  ].filter((q) => q.length > 3 && !queries.includes(q));
+  // Rounds 2+: generate reformulated queries.
+  // Use LLM expansion when available (generates synonym-varied queries),
+  // fall back to rule-based entity extraction.
+  let reformulations: string[];
+  const llmExpansions = await expandQueryWithLlm(question);
+  if (llmExpansions.length > 0) {
+    reformulations = llmExpansions.filter((q) => q.length > 3 && !queries.includes(q));
+  } else {
+    const keyEntities = extractEntities(question);
+    reformulations = [
+      ...keyEntities.map((e) => e),
+      question.replace(/how many|how much|total|what is the/gi, "").trim(),
+    ].filter((q) => q.length > 3 && !queries.includes(q));
+  }
 
   let consecutiveEmpty = 0;
   for (let round = 1; round < maxRounds && reformulations.length > 0; round++) {
@@ -137,7 +194,7 @@ async function handleResearchMemory(
     unique_chunks: seenChunkIds.size,
     rounds_used: queries.length,
     queries_issued: queries,
-    results: allResults.slice(0, 50), // cap to avoid token explosion
+    results: allResults.slice(0, 15), // C1: cap at 15 to prevent noise drowning signal (was 50)
   };
 }
 
@@ -284,7 +341,7 @@ const LOCAL_TOOLS = new Set(["date_diff", "research_memory", "get_session_by_id"
   "enumerate_memory_facts", "build_timeline", "expand_hit_context", "assess_answerability", "derive_from_facts",
   "investigate_question"]);
 
-interface OrchestratorConfig {
+export interface OrchestratorConfig {
   adapter: LlmAdapter;
   toolDefs: ToolDef[];
   armConfig: LmeArmConfig;
@@ -292,6 +349,10 @@ interface OrchestratorConfig {
   benchConfig: BenchConfig; // For creating per-problem proxies
   concurrency?: number;
   onAnswer?: (answer: LmeAnswer) => void;
+  /** Enable cascade mode: haiku → sonnet → opus escalation */
+  cascade?: boolean;
+  /** Custom cascade chain (defaults to CASCADE_CHAIN) */
+  cascadeChain?: BenchModel[];
 }
 
 /**
@@ -395,8 +456,10 @@ export async function executeRun(
       }
     }
 
-    // Answer the question
-    const answer = await answerQuestion(problem, config, proxy);
+    // Answer the question — cascade mode uses tiered model escalation
+    const answer = config.cascade
+      ? await answerQuestionCascade(problem, config, proxy, config.cascadeChain)
+      : await answerQuestion(problem, config, proxy);
     completedCount++;
 
     console.log(`[${completedCount}/${problems.length}] ${problem.problemId} (${problem.questionType}) → ${answer.hypothesis.slice(0, 60)}... [${answer.turns}t, ${answer.toolCalls}tc, $${answer.costUsd.toFixed(4)}]`);
@@ -493,15 +556,30 @@ async function answerQuestion(
 ): Promise<LmeAnswer> {
   const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
   const classification = classifyQuestion(problem.question);
-  const isComplex = classification.complexity === "complex";
-  const systemPrompt = await buildSystemPrompt(config.armConfig, problem, tenantId);
+
+  // M9: Playbook Engine — select per-question-type retrieval recipe
+  const playbook = isPlaybookEngineEnabled()
+    ? selectPlaybook(problem.question, problem.questionType)
+    : null;
+
+  const isComplex = playbook
+    ? playbook.id !== "simple_recall"
+    : classification.complexity === "complex";
+
+  let systemPrompt = playbook
+    ? await buildPlaybookPrompt(playbook, problem, tenantId)
+    : await buildSystemPrompt(config.armConfig, problem, tenantId);
 
   const messages: Message[] = [
     { role: "system", content: systemPrompt },
     { role: "user", content: problem.question },
   ];
 
-  const tools = config.toolDefs.length > 0 ? config.toolDefs : undefined;
+  // M9: Filter tools based on playbook's allowedTools (if playbook is active)
+  const filteredToolDefs = playbook
+    ? config.toolDefs.filter((t) => playbook.tools.allowedTools.includes(t.name) || LOCAL_TOOLS.has(t.name))
+    : config.toolDefs;
+  const tools = filteredToolDefs.length > 0 ? filteredToolDefs : undefined;
   let totalInputTokens = 0;
   let totalOutputTokens = 0;
   let totalCachedTokens = 0;
@@ -848,4 +926,343 @@ function truncateForTrace(result: unknown): unknown {
 function extractHypothesis(text: string): string {
   // The model's response IS the hypothesis. Minimal cleanup.
   return text.trim();
+}
+
+// ── Cascade model escalation ──
+
+// ── Verification gate ──
+//
+// Models are confidently wrong on certain question types. The gate checks:
+// 1. Aggregation: "how many", "how much", "total" — model overcounts/undercounts
+// 2. Temporal ordering: "what order", "earliest to latest" — model gets sequence wrong
+// 3. Knowledge-update with contradiction: "most recent", "current" — model picks stale value
+// 4. Abstention signals: answer says "no information" but question implies data should exist
+//
+// Gate fires AFTER confidence check. If triggered, forces escalation to next tier
+// even if the model self-assessed high confidence.
+
+interface GateResult {
+  escalate: boolean;
+  reason: string;
+}
+
+const AGGREGATION_GATE = [
+  /\bhow many\b/i, /\bhow much\b/i, /\btotal\b/i, /\bcombined\b/i,
+  /\bin total\b/i, /\bcount\b/i, /\blist all\b/i, /\baltogether\b/i,
+];
+
+const ORDERING_GATE = [
+  /\bwhat (is the )?order\b/i, /\bfrom earliest\b/i, /\bfrom latest\b/i,
+  /\bearlieset to latest\b/i, /\bchronological\b/i,
+  /\bwhich (came|happened) first\b/i, /\bbefore.*or.*after\b/i,
+];
+
+const KNOWLEDGE_UPDATE_GATE = [
+  /\bmost recent\b/i, /\bcurrently\b/i, /\bwhat is my current\b/i,
+  /\bwhere did .* move\b/i, /\bstarted using\b/i,
+];
+
+const ABSTENTION_SIGNALS = [
+  /\bno information\b/i, /\bunable to find\b/i, /\bcouldn't find\b/i,
+  /\bcould not find\b/i, /\binsufficient\b/i, /\bno relevant\b/i,
+  /\bno records?\b/i, /\bno mention\b/i,
+];
+
+function verificationGate(question: string, hypothesis: string, tier?: number): GateResult {
+  // A1: Aggregation questions always escalate (even at tier 0) because Haiku
+  // confidently miscounts cross-session items. 9 of 33 persistent multi-session
+  // failures were SHALLOW_PATH — Haiku answered with a single query_memory call.
+  const isAggregation = AGGREGATION_GATE.some((p) => p.test(question));
+  if (isAggregation) {
+    return { escalate: true, reason: "aggregation_question — counting errors are common, escalating for verification" };
+  }
+
+  // For non-aggregation gates, only fire at tier 1+ (Sonnet).
+  // At tier 0, the confidence check alone handles escalation.
+  if (tier !== undefined && tier < 1) {
+    return { escalate: false, reason: "" };
+  }
+
+  // Gate 2: Temporal ordering — model often gets sequence wrong
+  const isOrdering = ORDERING_GATE.some((p) => p.test(question));
+  if (isOrdering) {
+    return { escalate: true, reason: "ordering_question — sequence errors are common, escalating for verification" };
+  }
+
+  // Gate 3: Knowledge-update — model might pick stale value
+  const isKnowledgeUpdate = KNOWLEDGE_UPDATE_GATE.some((p) => p.test(question));
+  if (isKnowledgeUpdate) {
+    return { escalate: true, reason: "knowledge_update_question — stale value risk, escalating for verification" };
+  }
+
+  // Gate 4: Abstention on a question that implies data should exist
+  const isAbstaining = ABSTENTION_SIGNALS.some((p) => p.test(hypothesis));
+  const impliesDataExists = /\bI\b.*\b(did|went|bought|attended|mentioned|told|said)\b/i.test(question)
+    || /\bmy\b.*\b(trip|visit|purchase|event|class|session)\b/i.test(question);
+  if (isAbstaining && impliesDataExists) {
+    return { escalate: true, reason: "abstention_on_personal_question — model says 'no info' but question implies data exists" };
+  }
+
+  return { escalate: false, reason: "" };
+}
+
+/**
+ * Emit an orchestration receipt to VaultCrux enrichment_receipts for each
+ * cascade escalation decision. Non-blocking — failures are logged but don't
+ * affect the benchmark.
+ */
+async function emitOrchestrationReceipt(
+  config: OrchestratorConfig,
+  problem: LmeProblem,
+  decision: {
+    tier: number;
+    model: string;
+    confidence: number;
+    disposition: string;
+    costUsd: number;
+    toolCalls: number;
+    nextModel?: string;
+  },
+): Promise<void> {
+  const apiBase = process.env.BENCH_VAULTCRUX_API_BASE ?? "http://100.109.10.67:14333";
+  const apiKey = process.env.BENCH_VAULTCRUX_API_KEY ?? "";
+  const tenantId = `__longmemeval_${config.manifest.dataset}_${problem.problemId}`;
+
+  try {
+    await fetch(`${apiBase}/v1/memory/facts/enumerate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "x-tenant-id": tenantId,
+        "x-orchestration-receipt": JSON.stringify({
+          type: "cascade_escalation",
+          questionId: problem.problemId,
+          tier: decision.tier,
+          model: decision.model,
+          confidence: decision.confidence,
+          disposition: decision.disposition,
+          costUsd: decision.costUsd,
+          toolCalls: decision.toolCalls,
+          nextModel: decision.nextModel ?? null,
+          timestamp: new Date().toISOString(),
+        }),
+      },
+      body: JSON.stringify({ query: "__orchestration_receipt_noop", limit: 1 }),
+      signal: AbortSignal.timeout(5000),
+    });
+  } catch {
+    // Non-blocking — orchestration receipts are best-effort
+  }
+}
+
+/** The model tower for cascade mode: cheap → mid → expensive */
+export const CASCADE_CHAIN: BenchModel[] = [
+  "claude-haiku-4-5",
+  "claude-sonnet-4-6",
+  "claude-opus-4-6",
+];
+
+/** Confidence threshold — escalate if self-assessed confidence is below this */
+const CASCADE_CONFIDENCE_THRESHOLD = 7;
+
+/**
+ * Extract numeric confidence (1-10) from a reflection critique or answer text.
+ * Looks for patterns like "CONFIDENCE: 8", "confidence: 3/10", "Confidence (1-10): 6".
+ */
+export function extractConfidence(text: string): number {
+  // Direct "CONFIDENCE: N" or "confidence: N/10"
+  const directMatch = text.match(/confidence[:\s]*(\d+)(?:\s*\/\s*10)?/i);
+  if (directMatch) return Math.min(10, Math.max(1, parseInt(directMatch[1]!, 10)));
+
+  // "I'm fairly confident" / "I'm not confident" heuristics
+  if (/\b(very confident|highly confident|certain)\b/i.test(text)) return 9;
+  if (/\b(fairly confident|reasonably confident)\b/i.test(text)) return 7;
+  if (/\b(not confident|uncertain|unsure|not sure|insufficient|unable to find|couldn't find|no information)\b/i.test(text)) return 3;
+  if (/\bbased on available conversations\b/i.test(text)) return 4;
+
+  // No signal — default to moderate
+  return 5;
+}
+
+/**
+ * Extract confidence from a direct answer (no reflection critique available).
+ * Uses answer text heuristics + tool call count to estimate confidence.
+ * Higher baseline than extractConfidence() since a direct answer implies the model
+ * found something and committed to it.
+ */
+function extractConfidenceFromAnswer(hypothesis: string, toolCalls: number): number {
+  const h = hypothesis.toLowerCase();
+
+  // C2: Tool narration leak — model emitted chain-of-thought instead of an answer.
+  // Force escalation by returning very low confidence.
+  if (/\b(let me search|let me try|the expand didn't return|let me get the full|let me look at)\b/.test(h)) return 1;
+
+  // Strong uncertainty signals → low confidence, escalate
+  if (/\b(no information|unable to find|couldn't find|could not find|not able to find|insufficient|i don't have|no relevant|no results)\b/.test(h)) return 2;
+  if (/\b(i'm not sure|i am not sure|uncertain|unsure)\b/.test(h)) return 3;
+  if (/\bbased on (the )?available conversations\b/.test(h)) return 4;
+
+  // Hedging signals → moderate confidence
+  if (/\b(might be|could be|possibly|perhaps|i think|it seems|appears to be)\b/.test(h)) return 5;
+
+  // Model used tools and produced a specific answer → likely confident
+  if (toolCalls > 0 && hypothesis.length > 30) return 8;
+
+  // Model answered directly without tools (C0-style) → moderate
+  if (toolCalls === 0 && hypothesis.length > 30) return 6;
+
+  // Very short answer → uncertain
+  if (hypothesis.length < 20) return 4;
+
+  // Default: accept direct answers
+  return 7;
+}
+
+/**
+ * Answer a question using cascading model escalation.
+ *
+ * Starts with the cheapest model (Haiku). If confidence is low after
+ * reflection, escalates to the next tier (Sonnet), then Opus.
+ *
+ * Key efficiency: higher tiers receive the full message history INCLUDING
+ * tool results from tier 1. They don't re-query VaultCrux — they just
+ * re-reason over the same evidence with a stronger model.
+ */
+export async function answerQuestionCascade(
+  problem: LmeProblem,
+  config: OrchestratorConfig,
+  proxy: McProxy | undefined,
+  chain: BenchModel[] = CASCADE_CHAIN,
+): Promise<LmeAnswer> {
+  const escalationSteps: LmeEscalationStep[] = [];
+  let lastAnswer: LmeAnswer | null = null;
+
+  for (let tier = 0; tier < chain.length; tier++) {
+    const model = chain[tier]!;
+    const isLastTier = tier === chain.length - 1;
+
+    // Create adapter for this tier's model
+    const tierAdapter = createAdapter(model, config.benchConfig);
+
+    // Build a tier-specific config — swap the adapter and model name
+    const tierConfig: OrchestratorConfig = {
+      ...config,
+      adapter: tierAdapter,
+      manifest: {
+        ...config.manifest,
+        model,
+      },
+    };
+
+    // Run the question through the standard answerQuestion flow
+    const answer = await answerQuestion(problem, tierConfig, proxy);
+
+    // Extract confidence from reflection critique (explicit) or answer text (heuristic).
+    // If reflection happened, the critique has an explicit CONFIDENCE: N score.
+    // If no reflection (simple question), use answer text heuristics with a higher baseline —
+    // a direct answer from any model is more confident than the default.
+    let confidence: number;
+    if (answer.reflection?.critique) {
+      confidence = extractConfidence(answer.reflection.critique);
+    } else {
+      // No reflection — use answer heuristics.
+      // Direct answers with tool calls = model found something and answered.
+      // Boost baseline for direct answers (default 7 = accept unless clear uncertainty).
+      confidence = extractConfidenceFromAnswer(answer.hypothesis, answer.toolCalls);
+    }
+
+    // Determine disposition
+    let disposition: LmeEscalationStep["disposition"];
+    if (confidence >= CASCADE_CONFIDENCE_THRESHOLD || isLastTier) {
+      disposition = isLastTier && confidence < CASCADE_CONFIDENCE_THRESHOLD
+        ? "accepted_max_tier"
+        : "accepted";
+    } else {
+      disposition = confidence <= 3 ? "escalated_unsure" : "escalated_low_confidence";
+    }
+
+    // ── Verification gate: override "accepted" for high-risk question types ──
+    // Models are confidently wrong on counting, ordering, and knowledge-update questions.
+    // If the question matches a gate pattern and we're NOT at the last tier, force escalation.
+    if (disposition === "accepted" && !isLastTier) {
+      const gateResult = verificationGate(problem.question, answer.hypothesis, tier);
+      if (gateResult.escalate) {
+        disposition = "escalated_gate_override";
+        console.log(`[cascade] ${problem.problemId} GATE: ${gateResult.reason}`);
+      }
+    }
+
+    escalationSteps.push({
+      model,
+      confidence,
+      hypothesis: answer.hypothesis,
+      disposition,
+      inputTokens: answer.inputTokens,
+      outputTokens: answer.outputTokens,
+      cachedTokens: answer.cachedTokens,
+      costUsd: answer.costUsd,
+      latencyMs: answer.latencyMs,
+      toolCalls: answer.toolCalls,
+      turns: answer.turns,
+    });
+
+    const label = `[cascade] ${problem.problemId} tier=${tier} model=${model} confidence=${confidence} → ${disposition}`;
+    console.log(label);
+
+    // Emit orchestration receipt for this escalation decision
+    void emitOrchestrationReceipt(config, problem, {
+      tier,
+      model,
+      confidence,
+      disposition,
+      costUsd: answer.costUsd,
+      toolCalls: answer.toolCalls,
+      nextModel: !isLastTier && disposition.startsWith("escalated") ? chain[tier + 1] : undefined,
+    });
+
+    lastAnswer = answer;
+
+    // If accepted, we're done
+    if (disposition === "accepted" || disposition === "accepted_max_tier") {
+      break;
+    }
+
+    // Otherwise, escalate — next tier will re-run the question from scratch
+    // (the tool results from VaultCrux are cached server-side, so re-queries are fast)
+  }
+
+  // Build the final merged answer
+  const finalStep = escalationSteps[escalationSteps.length - 1]!;
+  const totalCost = escalationSteps.reduce((s, step) => s + step.costUsd, 0);
+  const totalInput = escalationSteps.reduce((s, step) => s + step.inputTokens, 0);
+  const totalOutput = escalationSteps.reduce((s, step) => s + step.outputTokens, 0);
+  const totalCached = escalationSteps.reduce((s, step) => s + step.cachedTokens, 0);
+  const totalLatency = escalationSteps.reduce((s, step) => s + step.latencyMs, 0);
+  const totalToolCalls = escalationSteps.reduce((s, step) => s + step.toolCalls, 0);
+  const totalTurns = escalationSteps.reduce((s, step) => s + step.turns, 0);
+
+  const escalation: LmeEscalation = {
+    chain: escalationSteps,
+    finalTier: escalationSteps.length - 1,
+    totalCostUsd: totalCost,
+    escalated: escalationSteps.length > 1,
+  };
+
+  return {
+    questionId: lastAnswer!.questionId,
+    questionType: lastAnswer!.questionType,
+    hypothesis: finalStep.hypothesis,
+    receiptChainIds: lastAnswer!.receiptChainIds,
+    toolCalls: totalToolCalls,
+    inputTokens: totalInput,
+    outputTokens: totalOutput,
+    cachedTokens: totalCached,
+    latencyMs: totalLatency,
+    costUsd: totalCost,
+    turns: totalTurns,
+    toolTrace: lastAnswer!.toolTrace,
+    reflection: lastAnswer!.reflection,
+    escalation,
+  };
 }

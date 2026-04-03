@@ -8,6 +8,8 @@ import type { LmeArmConfig, LmeProblem, LmeSession } from "./types.js";
  * Build the system prompt for a given arm.
  * Now async — for F1, pre-computes structured data from fact APIs and injects into prompt.
  */
+import type { Playbook } from "./playbook-engine.js";
+
 export { classifyQuestion, type QuestionComplexity, type QuestionType };
 
 export async function buildSystemPrompt(
@@ -218,6 +220,84 @@ Strategy:
 
 If the information is not available in the memory system, say so clearly.
 Answer concisely — provide the specific answer requested, not a lengthy explanation.`;
+
+/**
+ * Build a system prompt driven by a Playbook specification.
+ * Each playbook has its own prompt template, pre-injection strategy, and instructions.
+ */
+export async function buildPlaybookPrompt(
+  playbook: Playbook,
+  problem?: LmeProblem,
+  tenantId?: string,
+): Promise<string> {
+  let questionDate = "unknown";
+  if (problem?.questionDate) {
+    const match = problem.questionDate.match(/(\d{4})\/(\d{2})\/(\d{2})/);
+    if (match) questionDate = `${match[1]}-${match[2]}-${match[3]}`;
+  }
+
+  // Pre-computed data injection based on playbook context settings
+  let preComputedSection = "";
+  if (problem && tenantId) {
+    if (playbook.context.injectEntityFacts) {
+      const facts = await callFactApiForPrompt("enumerate", { query: problem.question, limit: 50 }, tenantId) as any;
+      if (facts?.rows?.length > 0) {
+        const rows = facts.rows.slice(0, playbook.context.maxChunksInPrompt);
+        const table = rows.map((r: any, i: number) =>
+          `${i + 1}. ${r.subject} ${r.predicate} ${r.object}${r.date ? ` [${r.date.slice(0, 10)}]` : ""}`
+        ).join("\n");
+        preComputedSection += `\n=== PRE-COMPUTED ENTITY INDEX DATA ===\n${rows.length} facts found:\n${table}\nNOTE: This is evidence, not the final answer.\n=== END ===\n`;
+      }
+    }
+
+    if (playbook.context.injectTimeline) {
+      const timeline = await callFactApiForPrompt("timeline", { query: problem.question }, tenantId) as any;
+      if (timeline?.events?.length > 0) {
+        const events = timeline.events.slice(0, 20);
+        const table = events.map((e: any, i: number) =>
+          `${i + 1}. [${e.date?.slice(0, 10) ?? "?"}] ${e.event}`
+        ).join("\n");
+        preComputedSection += `\n=== PRE-COMPUTED TIMELINE ===\n${events.length} events, sorted chronologically:\n${table}\n=== END ===\n`;
+      }
+    }
+
+    if (playbook.context.injectRecencyFacts) {
+      const facts = await callFactApiForPrompt("enumerate", { query: problem.question, limit: 20 }, tenantId) as any;
+      if (facts?.rows?.length > 0) {
+        const sorted = [...facts.rows].sort((a: any, b: any) => ((b.date ?? "") as string).localeCompare((a.date ?? "") as string));
+        const table = sorted.slice(0, 10).map((r: any, i: number) =>
+          `${i + 1}. ${r.subject} ${r.predicate} ${r.object}${r.date ? ` [${r.date.slice(0, 10)}]` : " [no date]"}`
+        ).join("\n");
+        preComputedSection += `\n=== KNOWLEDGE STATE (most recent first) ===\n${table}\n=== END ===\n`;
+      }
+    }
+  }
+
+  // Build prompt from playbook template
+  const toolInstruction = playbook.tools.primaryTool === "investigate_question"
+    ? `YOUR PRIMARY TOOL: investigate_question
+Call investigate_question(question) FIRST. It runs multi-step retrieval server-side and returns:
+facts, timeline, retrieved_chunks, expanded_context, derived count/sum, answerability, and a recommendation.
+READ the recommendation field — it tells you the answer approach.
+ONLY use additional tools if needed. Max ${playbook.tools.maxFollowUpCalls} follow-up calls.`
+    : `Use query_memory to search for relevant information.
+Max ${playbook.tools.maxFollowUpCalls + 1} tool calls total.`;
+
+  const rules = playbook.prompt.instructions.map((inst, i) => `${i + 1}. ${inst}`).join("\n");
+
+  const dateContext = playbook.tools.enableDateDiff
+    ? `\nIMPORTANT: The question is being asked on ${questionDate}. All relative dates are relative to this date. Use date_diff for any date arithmetic.`
+    : `\nThe user is asking on ${questionDate}.`;
+
+  return `You are a helpful assistant answering questions about a user's past conversations.
+You have access to a memory system.${dateContext}
+
+${toolInstruction}
+
+Rules:
+${rules}
+${preComputedSection}`;
+}
 
 function buildContextStuffedPrompt(problem?: LmeProblem): string {
   if (!problem) return PROMPT_BARE;

@@ -122,6 +122,44 @@ export interface LmeAnswer {
   toolTrace?: LmeToolStep[];
   /** Reflection — self-critique and optional retry */
   reflection?: LmeReflection;
+  /** Cascade escalation trace (only present in cascade mode) */
+  escalation?: LmeEscalation;
+}
+
+// ── Cascade escalation types ──
+
+export interface LmeEscalationStep {
+  /** Model used at this tier */
+  model: string;
+  /** Self-assessed confidence (1-10 from reflection, or 0 if no reflection) */
+  confidence: number;
+  /** The hypothesis produced at this tier */
+  hypothesis: string;
+  /** Reason for escalation (or "accepted" if final) */
+  disposition: "escalated_low_confidence" | "escalated_unsure" | "escalated_gate_override" | "accepted" | "accepted_max_tier";
+  /** Token usage at this tier */
+  inputTokens: number;
+  outputTokens: number;
+  cachedTokens: number;
+  /** Cost at this tier */
+  costUsd: number;
+  /** Latency at this tier */
+  latencyMs: number;
+  /** Tool calls made at this tier */
+  toolCalls: number;
+  /** Turns used at this tier */
+  turns: number;
+}
+
+export interface LmeEscalation {
+  /** Ordered tier chain (e.g. haiku → sonnet → opus) */
+  chain: LmeEscalationStep[];
+  /** Which tier produced the final answer (0-indexed) */
+  finalTier: number;
+  /** Total cost across all tiers */
+  totalCostUsd: number;
+  /** Did we escalate at all? */
+  escalated: boolean;
 }
 
 export interface LmeRunSummary {
