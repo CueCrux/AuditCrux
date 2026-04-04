@@ -1,157 +1,107 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "uses",
-      "value": "Cartwheel app from Target",
+      "entity": "user",
+      "predicate": "redeemed coupon on",
+      "value": "coffee creamer, $5",
+      "date": "2023-05-26",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "redeemed coupon",
-      "value": "$5 coupon on coffee creamer",
-      "date": "2023-05-28",
+      "entity": "$5 coupon on coffee creamer",
+      "predicate": "location redeemed",
+      "value": "email inbox",
+      "date": "2023-05-26",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "shops at",
       "value": "Target",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "shopping frequency",
+      "entity": "user",
+      "predicate": "shopping frequency at Target",
       "value": "every other week",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "uses Cartwheel app for",
+      "entity": "user",
+      "predicate": "uses app",
+      "value": "Cartwheel from Target",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "total savings with Cartwheel",
+      "value": "$20",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "using Cartwheel for",
       "value": "a few weeks",
       "sessionId": "answer_d61669c7",
       "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "saved with Cartwheel",
-      "value": "$20 total on various household items",
-      "sessionId": "answer_d61669c7",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "buys at Target",
-      "value": "household items, toiletries, and clothes for kids",
-      "sessionId": "answer_d61669c7",
-      "source": "user"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "three-ring binder or accordion file for coupon organization",
-      "date": "2023-05-29",
-      "sessionId": "answer_d61669c7",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "coupon apps like Fetch Rewards or Ibotta",
-      "date": "2023-05-29",
-      "sessionId": "answer_d61669c7",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "digital receipt apps like Shoeboxed or Receipt Bank",
-      "date": "2023-05-29",
-      "sessionId": "answer_d61669c7",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "cashback apps like Rakuten or TopCashback",
-      "date": "2023-05-29",
-      "sessionId": "answer_d61669c7",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "budgeting tools like Mint, Personal Capital, or YNAB",
-      "date": "2023-05-29",
-      "sessionId": "answer_d61669c7",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Target RedCard for 5% off all purchases",
-      "date": "2023-05-29",
-      "sessionId": "answer_d61669c7",
-      "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
+      "entity": "user",
+      "preference": "Cartwheel app for saving money on household items",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
       "preference": "binder with labeled sections for coupon organization",
       "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "Cartwheel app from Target",
-      "polarity": "positive",
-      "constraint": "helpful for saving money on household items"
+      "entity": "user",
+      "preference": "Cartwheel app user-friendly and easy to navigate",
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "Cartwheel app's user-friendly interface",
-      "polarity": "positive",
-      "constraint": "easy to navigate and organized by category"
-    },
-    {
-      "entity": "User",
-      "preference": "household items, toiletries, and kids' clothes",
-      "polarity": "positive",
-      "constraint": "shopping categories at Target"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "preference": "sorting offers by expiration date in Cartwheel",
-      "polarity": "positive",
-      "constraint": "to prioritize closest to expiring"
+      "polarity": "positive"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "preference": "too many notifications from Cartwheel",
+      "polarity": "negative"
+    },
+    {
+      "entity": "user",
       "preference": "customizable notifications in Cartwheel",
       "polarity": "positive",
-      "constraint": "only for expiring soon offers or specific categories"
+      "constraint": "only for expiring soon or specific categories"
     },
     {
-      "entity": "User",
-      "preference": "too many notifications from Cartwheel",
-      "polarity": "negative",
-      "constraint": "feels overwhelmed"
+      "entity": "user",
+      "preference": "Target purchases",
+      "polarity": "positive",
+      "constraint": "household items, toiletries, kids' clothes"
     }
   ],
   "events": [
     {
-      "event": "User redeemed $5 coupon on coffee creamer",
-      "date": "2023-05-28",
-      "location": "Target",
+      "event": "user redeemed $5 coupon on coffee creamer",
+      "date": "2023-05-26",
+      "location": "email inbox",
       "sessionId": "answer_d61669c7"
     },
     {
-      "event": "Conversation about coupon and receipt organization",
-      "date": "2023-05-29",
+      "event": "user started using Cartwheel app",
+      "date": null,
+      "location": "Target",
       "sessionId": "answer_d61669c7"
     }
   ]

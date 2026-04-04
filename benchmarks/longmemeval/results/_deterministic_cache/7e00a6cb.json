@@ -1,149 +1,42 @@
 {
   "facts": [
     {
-      "entity": "Stayokay Amsterdam Vondelpark",
+      "entity": "International Budget Hostel",
       "predicate": "location",
-      "value": "heart of Amsterdam, next to Vondelpark",
+      "value": "near the Red Light District",
+      "date": "2023-05-27",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
-      "entity": "Stayokay Amsterdam Vondelpark",
-      "predicate": "room_types",
+      "entity": "International Budget Hostel",
+      "predicate": "has_amenity",
+      "value": "fully equipped kitchen",
+      "date": "2023-05-27",
+      "sessionId": "answer_ultrachat_370515",
+      "source": "assistant"
+    },
+    {
+      "entity": "International Budget Hostel",
+      "predicate": "has_amenity",
+      "value": "lounge area",
+      "date": "2023-05-27",
+      "sessionId": "answer_ultrachat_370515",
+      "source": "assistant"
+    },
+    {
+      "entity": "International Budget Hostel",
+      "predicate": "room_type",
       "value": "dormitory-style rooms and private rooms",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "ClinkNOORD Hostel",
-      "predicate": "location",
-      "value": "Amsterdam Noord",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "ClinkNOORD Hostel",
-      "predicate": "amenities",
-      "value": "bar, restaurant, bike rental services",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Bulldog Hostel Amsterdam",
-      "predicate": "location",
-      "value": "city center",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Bulldog Hostel Amsterdam",
-      "predicate": "amenities",
-      "value": "bar, smoking lounge",
+      "date": "2023-05-27",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "International Budget Hostel",
-      "predicate": "location",
-      "value": "near Red Light District",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "International Budget Hostel",
-      "predicate": "amenities",
-      "value": "fully equipped kitchen, lounge area",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Amsterdam Hostel Centre",
-      "predicate": "location",
-      "value": "heart of Amsterdam",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Amsterdam Hostel Centre",
-      "predicate": "amenities",
-      "value": "communal kitchen, bar, lounge area",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Van Gogh Museum",
-      "predicate": "contains",
-      "value": "largest collection of Vincent Van Gogh's artwork in the world",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Anne Frank House",
-      "predicate": "historical_significance",
-      "value": "place where Anne Frank and family hid from Nazis during World War II",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Anne Frank House",
-      "predicate": "feature",
-      "value": "secret annex",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Amsterdam",
-      "predicate": "known_for",
-      "value": "bike culture",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Rijksmuseum",
-      "predicate": "description",
-      "value": "one of the most renowned art museums in the world",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Rijksmuseum",
-      "predicate": "contains",
-      "value": "impressive collection of Dutch art including works by Rembrandt and Vermeer",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Amsterdam",
-      "predicate": "nickname",
-      "value": "Venice of the North",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Jordaan neighborhood",
-      "predicate": "known_for",
-      "value": "small streets, quaint boutiques, trendy restaurants and bars",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Amsterdam Flower Market",
-      "predicate": "description",
-      "value": "only floating flower market in the world",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Heineken Experience",
-      "predicate": "focus",
-      "value": "history and brewing process of Heineken beer",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Red Light District",
-      "predicate": "known_for",
-      "value": "adult entertainment establishments and vibrant nightlife",
+      "predicate": "price_range",
+      "value": "affordable",
+      "date": "2023-05-27",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     }
@@ -151,15 +44,16 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "budget-friendly hostel options",
+      "preference": "budget-friendly accommodation",
       "polarity": "positive",
-      "constraint": "Amsterdam"
+      "constraint": "in Amsterdam"
     }
   ],
   "events": [
     {
-      "event": "conversation about budget-friendly hostels and activities in Amsterdam",
+      "event": "user asked for hostel recommendation near Red Light District",
       "date": "2023-05-27",
+      "location": "Amsterdam",
       "sessionId": "answer_ultrachat_370515"
     }
   ]

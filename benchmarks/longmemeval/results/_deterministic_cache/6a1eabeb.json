@@ -1,64 +1,65 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "plays_sport",
-      "value": "soccer with coworkers",
+      "entity": "user",
+      "predicate": "personal best time in charity 5K run",
+      "value": "27:12",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "soccer_game_frequency",
+      "entity": "user",
+      "predicate": "plays soccer",
+      "value": "with coworkers",
+      "sessionId": "answer_a25d4a91_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "soccer game frequency",
       "value": "every two weeks",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "completed_5K_run",
-      "value": "charity 5K with personal best time of 27:12",
-      "sessionId": "answer_a25d4a91_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "scored_goal",
+      "entity": "user",
+      "predicate": "scored goal",
       "value": "in recreational game with coworkers",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "registered_for_tournament",
-      "value": "tennis tournament",
-      "date": "2023-05-06",
+      "entity": "user",
+      "predicate": "tennis tournament signup planned",
+      "value": "May 6th",
+      "date": "2024-05-06",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "tennis_experience",
-      "value": "playing casually for a few years",
+      "entity": "user",
+      "predicate": "tennis playing history",
+      "value": "casually for a few years",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "tournament_goal",
-      "value": "make it to at least the quarterfinals",
+      "entity": "user",
+      "predicate": "tournament goal",
+      "value": "make it to at least quarterfinals",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "fitness_focus",
-      "value": "strengthening core and legs",
-      "sessionId": "answer_a25d4a91_1",
+      "entity": "user",
+      "predicate": "personal best time in charity 5K run",
+      "value": "25:50",
+      "date": "2023-05-30",
+      "sessionId": "answer_a25d4a91_2",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "training for",
       "value": "charity 5K run",
       "date": "2023-05-30",
@@ -66,148 +67,93 @@
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "personal best time",
-      "value": "25:50",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "participating in",
+      "entity": "user",
+      "predicate": "has upcoming event",
       "value": "tennis tournament",
-      "date": "2023-05-06",
+      "date": "2024-05-06",
       "sessionId": "answer_a25d4a91_2",
       "source": "user"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended weekly mileage increase",
-      "value": "10-15%",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended long run distance",
-      "value": "6-8 kilometers",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended sleep duration",
-      "value": "7-9 hours",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended interval training pace",
-      "value": "3:20-3:40 per 800m",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended strength training frequency",
-      "value": "2-3 times per week",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended serve toss height",
-      "value": "6-8 feet",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended serve contact height",
-      "value": "9-10 feet",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "soccer",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "preference": "running",
-      "polarity": "positive"
+      "polarity": "positive",
+      "constraint": "has been doing lately"
     },
     {
-      "entity": "User",
-      "preference": "tennis",
-      "polarity": "positive"
+      "entity": "user",
+      "preference": "soccer",
+      "polarity": "positive",
+      "constraint": "plays with coworkers"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "goal-scoring in soccer",
       "polarity": "positive",
-      "constraint": "not typically a goal-scorer"
+      "constraint": "not typically a goal-scorer but found it a highlight"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "preference": "tennis",
+      "polarity": "positive",
+      "constraint": "playing casually, considering first tournament"
+    },
+    {
+      "entity": "user",
+      "preference": "fitness training",
+      "polarity": "positive",
+      "constraint": "focusing on strengthening core and legs"
+    },
+    {
+      "entity": "user",
+      "preference": "improving running endurance",
+      "polarity": "positive",
+      "constraint": "for 5K charity run"
+    },
+    {
+      "entity": "user",
       "preference": "beating personal best time in 5K",
       "polarity": "positive",
-      "constraint": "25:50"
+      "constraint": "goal of sub-25:50"
     },
     {
-      "entity": "User",
-      "preference": "improving endurance",
-      "polarity": "positive",
-      "constraint": "for 5K running"
+      "entity": "user",
+      "preference": "incorporating strength training into running routine",
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "improving serve technique",
+      "entity": "user",
+      "preference": "improving toss consistency in tennis",
       "polarity": "positive",
-      "constraint": "for tennis tournament"
-    },
-    {
-      "entity": "User",
-      "preference": "improving toss consistency",
-      "polarity": "positive",
-      "constraint": "for tennis serve"
+      "constraint": "for serve improvement"
     }
   ],
   "events": [
     {
-      "event": "Charity 5K run with personal best time of 27:12",
+      "event": "personal best time set in charity 5K run",
       "date": null,
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "Scored a goal in recreational soccer game with coworkers",
+      "event": "scored goal in recreational soccer game with coworkers",
       "date": null,
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "Tennis tournament registration",
-      "date": "2023-05-06",
+      "event": "tennis tournament",
+      "date": "2024-05-06",
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "User training for charity 5K run",
+      "event": "charity 5K run training",
       "date": "2023-05-30",
       "sessionId": "answer_a25d4a91_2"
     },
     {
-      "event": "Tennis tournament",
-      "date": "2023-05-06",
+      "event": "tennis tournament",
+      "date": "2024-05-06",
       "sessionId": "answer_a25d4a91_2"
     }
   ]

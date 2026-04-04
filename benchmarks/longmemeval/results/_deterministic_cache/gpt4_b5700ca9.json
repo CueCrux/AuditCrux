@@ -1,15 +1,7 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "participated in",
-      "value": "Easter Egg Hunt event",
-      "date": "2023-03-30",
-      "sessionId": "answer_a17423e7_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "predicate": "attended",
       "value": "Maundy Thursday service at the Episcopal Church",
       "date": "2023-04-06",
@@ -17,113 +9,90 @@
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "predicate": "volunteered at",
+      "value": "Easter Egg Hunt event",
+      "date": "2023-03-30",
+      "sessionId": "answer_a17423e7_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "interested in",
       "value": "Food Bank Volunteer opportunity",
       "sessionId": "answer_a17423e7_1",
       "source": "user"
     },
     {
+      "entity": "user",
+      "predicate": "availability",
+      "value": "weekday evenings",
+      "sessionId": "answer_a17423e7_1",
+      "source": "user"
+    },
+    {
       "entity": "Food Bank",
-      "predicate": "located at",
+      "predicate": "location",
       "value": "123 Main St, Anytown, USA 12345",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "phone",
+      "predicate": "evening shifts",
+      "value": "4:00 pm - 7:00 pm, Monday to Friday",
+      "sessionId": "answer_a17423e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank",
+      "predicate": "contact phone",
       "value": "555-555-5555",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "email",
+      "predicate": "contact email",
       "value": "volunteer@foodbank.org",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "website",
-      "value": "foodbank.org",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "operating hours",
-      "value": "Monday to Friday, evening shifts 4:00 pm - 7:00 pm",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "minimum age requirement",
-      "value": "18 years old",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "orientation duration",
-      "value": "30 minutes",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "group volunteer capacity",
-      "value": "5-20 people",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "requires",
-      "value": "background check",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "community service and helping the underprivileged",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "volunteering on weekdays in the evenings",
+      "entity": "user",
+      "preference": "volunteer opportunities",
       "polarity": "positive",
-      "constraint": "weekday evenings"
+      "constraint": "community service or helping the underprivileged"
     },
     {
-      "entity": "User",
-      "preference": "regular volunteering schedule commitment",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "group volunteering with church or community",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "adopting specific projects or programs",
+      "entity": "user",
+      "preference": "volunteering schedule",
       "polarity": "positive",
-      "constraint": "making significant impact"
+      "constraint": "weekday evenings with regular commitment"
+    },
+    {
+      "entity": "user",
+      "preference": "group volunteering",
+      "polarity": "positive",
+      "constraint": "with church or community friends"
+    },
+    {
+      "entity": "user",
+      "preference": "Maundy Thursday service",
+      "polarity": "positive",
+      "constraint": "at Episcopal Church"
     }
   ],
   "events": [
     {
-      "event": "Easter Egg Hunt event",
+      "event": "Easter Egg Hunt volunteer event",
       "date": "2023-03-30",
       "sessionId": "answer_a17423e7_1"
     },
     {
-      "event": "Maundy Thursday service at the Episcopal Church",
+      "event": "Maundy Thursday service at Episcopal Church",
       "date": "2023-04-06",
       "location": "Episcopal Church",
       "sessionId": "answer_a17423e7_1"

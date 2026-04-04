@@ -1,109 +1,66 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "plans to play",
-      "value": "tennis with friends at local park",
-      "date": "2023-05-28",
-      "sessionId": "answer_c3567066",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "owns",
+      "entity": "user",
+      "predicate": "purchased",
       "value": "new tennis racket",
       "sessionId": "answer_c3567066",
       "source": "user"
     },
     {
-      "entity": "Tennis racket",
+      "entity": "new tennis racket",
       "predicate": "purchased from",
       "value": "sports store downtown",
       "sessionId": "answer_c3567066",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "plans to buy",
-      "value": "new tennis balls",
-      "date": "2023-05-27",
+      "entity": "user",
+      "predicate": "plays tennis with",
+      "value": "friends",
       "sessionId": "answer_c3567066",
       "source": "user"
     },
     {
-      "entity": "Tennis ball machines",
-      "predicate": "price range",
-      "value": "a few hundred to several thousand dollars",
+      "entity": "user",
+      "predicate": "planned activity",
+      "value": "play tennis at local park",
+      "date": "2023-05-28",
       "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tennis strings",
-      "predicate": "recommended restringing frequency",
-      "value": "every 3-6 months",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Warm-up duration",
-      "predicate": "recommended time",
-      "value": "10-15 minutes",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Wilson US Open tennis balls",
-      "predicate": "described as",
-      "value": "popular choice among recreational players",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Penn Championship tennis balls",
-      "predicate": "known for",
-      "value": "durability and consistent bounce",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Dunlop ATP tennis balls",
-      "predicate": "designed for",
-      "value": "recreational players",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Recreational tennis balls",
-      "predicate": "typical purchase quantity",
-      "value": "cans of three or four balls",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
+      "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "new tennis racket performance",
       "polarity": "positive",
       "constraint": "improved game"
     },
     {
-      "entity": "User",
-      "preference": "practicing with friends",
+      "entity": "user",
+      "preference": "tennis ball brands",
       "polarity": "positive",
-      "constraint": "focus for improvement"
+      "constraint": "Wilson, Penn, Dunlop for recreational play"
+    },
+    {
+      "entity": "user",
+      "preference": "practice method",
+      "polarity": "positive",
+      "constraint": "practicing with friends over ball machine for now"
     }
   ],
   "events": [
     {
-      "event": "User plans to play tennis with friends at local park",
-      "date": "2023-05-28",
-      "location": "local park",
+      "event": "user purchased new tennis racket",
+      "date": null,
+      "location": "sports store downtown",
       "sessionId": "answer_c3567066"
     },
     {
-      "event": "User plans to buy new tennis balls",
-      "date": "2023-05-27",
+      "event": "user planning to play tennis with friends",
+      "date": "2023-05-28",
+      "location": "local park",
       "sessionId": "answer_c3567066"
     }
   ]

@@ -1,48 +1,16 @@
 {
   "facts": [
     {
-      "entity": "garbage disposal",
-      "predicate": "lifespan",
-      "value": "10-15 years",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "user",
-      "predicate": "has issue with",
-      "value": "garbage disposal",
-      "date": "2023-05-22",
-      "sessionId": "answer_8549e5e0",
-      "source": "user"
-    },
-    {
       "entity": "user",
       "predicate": "purchased",
       "value": "new utensil holder",
-      "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "has issue with",
-      "value": "kitchen utensil organization",
-      "date": "2023-05-22",
-      "sessionId": "answer_8549e5e0",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "has problem with",
-      "value": "scratches on granite countertop near sink",
-      "date": "2023-05-22",
-      "sessionId": "answer_8549e5e0",
-      "source": "user"
-    },
-    {
-      "entity": "granite countertop scratch",
-      "predicate": "location",
-      "value": "near sink",
+      "value": "granite countertop scratches near sink",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     },
@@ -50,22 +18,13 @@
       "entity": "user",
       "predicate": "has issue with",
       "value": "kitchen faucet leaking slightly",
-      "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     },
     {
-      "entity": "kitchen faucet",
-      "predicate": "lifespan",
-      "value": "10-15 years",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
       "entity": "user",
       "predicate": "has issue with",
-      "value": "slow cooker",
-      "date": "2023-05-22",
+      "value": "garbage disposal",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     },
@@ -73,65 +32,8 @@
       "entity": "user",
       "predicate": "wants to make",
       "value": "yogurt in slow cooker",
-      "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
       "source": "user"
-    },
-    {
-      "entity": "milk for yogurt",
-      "predicate": "heating temperature",
-      "value": "180°F (82°C)",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "milk for yogurt",
-      "predicate": "cooling temperature",
-      "value": "110°F (43°C) to 120°F (49°C)",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "milk for yogurt",
-      "predicate": "incubation temperature",
-      "value": "100°F to 110°F (38°C to 43°C)",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "yogurt starter",
-      "predicate": "amount needed",
-      "value": "1-2 tablespoons store-bought yogurt",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "yogurt",
-      "predicate": "incubation time",
-      "value": "6-8 hours or 8-12 hours overnight",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "baking soda",
-      "predicate": "amount for garbage disposal cleaning",
-      "value": "1/2 cup",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "vinegar",
-      "predicate": "amount for garbage disposal cleaning",
-      "value": "1 cup",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "rock salt",
-      "predicate": "amount for garbage disposal cleaning",
-      "value": "1 tablespoon",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
     }
   ],
   "preferences": [
@@ -139,35 +41,30 @@
       "entity": "user",
       "preference": "keeping countertops clutter-free",
       "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "organized kitchen",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "User asked for garbage disposal cleaning and replacement tips",
-      "date": "2023-05-22",
-      "sessionId": "answer_8549e5e0"
-    },
-    {
-      "event": "User purchased new utensil holder",
-      "date": "2023-05-22",
+      "event": "user noticed scratches on granite countertop near sink",
+      "date": null,
       "location": "kitchen",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "User noticed scratches on granite countertop",
-      "date": "2023-05-22",
-      "location": "kitchen near sink",
-      "sessionId": "answer_8549e5e0"
-    },
-    {
-      "event": "User experienced kitchen faucet leak",
-      "date": "2023-05-22",
+      "event": "user purchased new utensil holder",
+      "date": null,
       "location": "kitchen",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "User inquired about making yogurt in slow cooker",
-      "date": "2023-05-22",
+      "event": "kitchen faucet started leaking slightly",
+      "date": null,
+      "location": "kitchen sink",
       "sessionId": "answer_8549e5e0"
     }
   ]

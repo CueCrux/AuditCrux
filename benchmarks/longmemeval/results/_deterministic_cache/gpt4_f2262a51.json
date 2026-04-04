@@ -1,44 +1,51 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "has prescription from",
+      "entity": "user",
+      "predicate": "visited doctor",
       "value": "Dr. Patel",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "has prescription for",
-      "value": "nasal spray",
-      "sessionId": "answer_55a6940c_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "had follow-up appointment with",
+      "entity": "user",
+      "predicate": "visited doctor",
       "value": "Dr. Lee",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "specialization of Dr. Lee",
+      "entity": "Dr. Patel",
+      "predicate": "specialty",
+      "value": "prescribing nasal spray",
+      "sessionId": "answer_55a6940c_3",
+      "source": "user"
+    },
+    {
+      "entity": "Dr. Lee",
+      "predicate": "specialty",
       "value": "dermatologist",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "had biopsy on",
+      "entity": "user",
+      "predicate": "medical condition",
+      "value": "chronic sinusitis",
+      "sessionId": "answer_55a6940c_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "medical condition",
       "value": "suspicious mole on back",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "suspicious mole on User's back",
+      "entity": "user",
       "predicate": "biopsy result",
       "value": "benign",
       "date": "2023-05-20",
@@ -46,314 +53,109 @@
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "experiencing",
-      "value": "chronic sinusitis",
+      "entity": "user",
+      "predicate": "symptom",
+      "value": "congestion and fatigue",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "experiencing",
-      "value": "congestion",
-      "sessionId": "answer_55a6940c_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "experiencing",
-      "value": "fatigue",
-      "sessionId": "answer_55a6940c_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "planning to get",
+      "entity": "user",
+      "predicate": "procedure planned",
       "value": "colonoscopy",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "has been putting off",
-      "value": "colonoscopy",
-      "sessionId": "answer_55a6940c_3",
+      "entity": "user",
+      "predicate": "visited",
+      "value": "Dr. Patel (ENT specialist)",
+      "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "has condition",
-      "value": "exhaustion/fatigue",
-      "sessionId": "answer_55a6940c_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "recently had",
-      "value": "UTI",
-      "sessionId": "answer_55a6940c_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "prescribed by",
-      "value": "antibiotics",
-      "sessionId": "answer_55a6940c_1",
-      "source": "user"
-    },
-    {
-      "entity": "Dr. Smith",
-      "predicate": "is",
-      "value": "primary care physician",
-      "sessionId": "answer_55a6940c_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "diagnosed with",
+      "entity": "user",
+      "predicate": "diagnosed_with",
       "value": "chronic sinusitis",
-      "sessionId": "answer_55a6940c_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "diagnosed by",
-      "value": "ENT specialist",
-      "sessionId": "answer_55a6940c_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "had UTI diagnosis",
-      "value": "a few weeks ago",
-      "date": "2023-04-21",
-      "sessionId": "answer_55a6940c_1",
-      "source": "user"
-    },
-    {
-      "entity": "Nasal saline irrigation",
-      "predicate": "recommended frequency for maintenance",
-      "value": "1-2 times per week",
-      "sessionId": "answer_55a6940c_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Nasal saline irrigation",
-      "predicate": "recommended frequency for mild symptoms",
-      "value": "2-3 times per week",
-      "sessionId": "answer_55a6940c_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Nasal saline irrigation",
-      "predicate": "recommended frequency for moderate to severe symptoms",
-      "value": "daily or every other day",
-      "sessionId": "answer_55a6940c_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Saline solution",
-      "predicate": "contains",
-      "value": "1/4 teaspoon non-iodized salt",
-      "sessionId": "answer_55a6940c_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Saline solution",
-      "predicate": "contains",
-      "value": "1/2 teaspoon baking soda",
-      "sessionId": "answer_55a6940c_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Saline solution",
-      "predicate": "contains",
-      "value": "1 cup warm sterile or distilled water",
-      "sessionId": "answer_55a6940c_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "User",
-      "predicate": "has condition",
-      "value": "chronic sinusitis",
-      "date": "2023-05-22",
-      "sessionId": "answer_55a6940c_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "has condition",
-      "value": "urinary tract infection (UTI)",
-      "sessionId": "answer_55a6940c_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "experiencing symptom",
-      "value": "nasal congestion",
-      "date": "2023-05-22",
-      "sessionId": "answer_55a6940c_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "experiencing symptom",
-      "value": "fatigue",
-      "sessionId": "answer_55a6940c_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "experiencing symptom",
-      "value": "joint pain",
-      "sessionId": "answer_55a6940c_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "diagnosed by",
-      "value": "Dr. Patel",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
       "entity": "Dr. Patel",
-      "predicate": "specialty",
-      "value": "ENT specialist",
-      "sessionId": "answer_55a6940c_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
       "predicate": "prescribed",
       "value": "nasal spray",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "predicate": "recently_had",
+      "value": "urinary tract infection (UTI)",
+      "sessionId": "answer_55a6940c_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "prescribed",
       "value": "antibiotics",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
-      "entity": "chronic sinusitis",
-      "predicate": "affects percentage of patients",
-      "value": "70% experience fatigue",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "User",
-      "predicate": "planned action",
-      "value": "follow-up appointment with Dr. Patel",
+      "entity": "user",
+      "predicate": "experiencing",
+      "value": "fatigue",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "planned action",
-      "value": "follow-up appointment with primary care physician",
+      "entity": "user",
+      "predicate": "experiencing",
+      "value": "joint pain",
+      "sessionId": "answer_55a6940c_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "plans_to_visit",
+      "value": "primary care physician",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "nasal spray effectiveness",
-      "polarity": "positive",
-      "constraint": "wants to use more effectively"
+      "entity": "user",
+      "preference": "putting off colonoscopy",
+      "polarity": "negative",
+      "constraint": "has been delayed"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "managing chronic sinusitis symptoms",
       "polarity": "positive",
-      "constraint": "trying to feel better"
+      "constraint": "interested in learning more"
     },
     {
-      "entity": "User",
-      "preference": "biopsy results being benign",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "managing chronic sinusitis",
+      "entity": "user",
+      "preference": "determining cause of fatigue and joint pain",
       "polarity": "positive",
-      "constraint": "seeking information and guidance"
-    },
-    {
-      "entity": "User",
-      "preference": "staying hydrated",
-      "polarity": "positive",
-      "constraint": "as part of energy management"
-    },
-    {
-      "entity": "User",
-      "preference": "getting enough sleep",
-      "polarity": "positive",
-      "constraint": "as part of energy management"
-    },
-    {
-      "entity": "User",
-      "preference": "understanding nasal saline irrigation",
-      "polarity": "positive",
-      "constraint": "step-by-step guidance preferred"
-    },
-    {
-      "entity": "User",
-      "preference": "managing chronic sinusitis symptoms",
-      "polarity": "positive",
-      "constraint": "wants to learn more about symptom management"
-    },
-    {
-      "entity": "User",
-      "preference": "nasal spray recommendations",
-      "polarity": "positive",
-      "constraint": "interested in effective options"
-    },
-    {
-      "entity": "User",
-      "preference": "humidifier recommendations",
-      "polarity": "positive",
-      "constraint": "interested in effective options"
-    },
-    {
-      "entity": "User",
-      "preference": "understanding symptom causes",
-      "polarity": "positive",
-      "constraint": "wants to rule out other underlying conditions"
+      "constraint": "wants to rule out underlying conditions"
     }
   ],
   "events": [
     {
-      "event": "Follow-up appointment with Dr. Lee for biopsy on suspicious mole on back",
+      "event": "follow-up appointment with dermatologist Dr. Lee for biopsy on suspicious mole",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3"
     },
     {
-      "event": "Biopsy results came back benign",
+      "event": "biopsy results came back benign",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3"
     },
     {
-      "event": "User had UTI diagnosis",
-      "date": "2023-04-21",
-      "sessionId": "answer_55a6940c_1"
-    },
-    {
-      "event": "User prescribed antibiotics for UTI",
-      "date": "2023-04-21",
-      "sessionId": "answer_55a6940c_1"
-    },
-    {
-      "event": "User diagnosed with chronic sinusitis by ENT specialist",
-      "date": "2023-05-21",
-      "sessionId": "answer_55a6940c_1"
-    },
-    {
-      "event": "User diagnosed with chronic sinusitis by Dr. Patel",
+      "event": "User diagnosed with chronic sinusitis by Dr. Patel (ENT specialist)",
       "date": null,
       "sessionId": "answer_55a6940c_2"
     },
@@ -363,12 +165,7 @@
       "sessionId": "answer_55a6940c_2"
     },
     {
-      "event": "User had urinary tract infection and prescribed antibiotics",
-      "date": null,
-      "sessionId": "answer_55a6940c_2"
-    },
-    {
-      "event": "User experienced fatigue and joint pain",
+      "event": "User experienced urinary tract infection and prescribed antibiotics",
       "date": null,
       "sessionId": "answer_55a6940c_2"
     },

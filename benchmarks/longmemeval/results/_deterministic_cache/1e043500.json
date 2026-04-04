@@ -2,21 +2,20 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "activity",
-      "value": "trying to get back into playing guitar",
-      "date": "2023-05-21",
+      "predicate": "created playlist on",
+      "value": "Spotify",
       "sessionId": "answer_3e012175",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "created playlist",
-      "value": "Summer Vibes on Spotify",
+      "entity": "Summer Vibes",
+      "predicate": "is a playlist name created by",
+      "value": "user",
       "sessionId": "answer_3e012175",
       "source": "user"
     },
     {
-      "entity": "Summer Vibes playlist",
+      "entity": "Summer Vibes",
       "predicate": "contains",
       "value": "chill tracks",
       "sessionId": "answer_3e012175",
@@ -24,182 +23,45 @@
     },
     {
       "entity": "user",
-      "predicate": "listening interest",
-      "value": "music and podcasts",
-      "date": "2023-05-21",
+      "predicate": "attended music festival with friends",
+      "value": "last month",
       "sessionId": "answer_3e012175",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "attended",
-      "value": "music festival with friends",
-      "date": "2023-04-21",
+      "predicate": "saw acts at festival",
+      "value": "The Lumineers and The 1975",
       "sessionId": "answer_3e012175",
       "source": "user"
-    },
-    {
-      "entity": "music festival",
-      "predicate": "featured acts",
-      "value": "The Lumineers",
-      "date": "2023-04-21",
-      "sessionId": "answer_3e012175",
-      "source": "user"
-    },
-    {
-      "entity": "music festival",
-      "predicate": "featured acts",
-      "value": "The 1975",
-      "date": "2023-04-21",
-      "sessionId": "answer_3e012175",
-      "source": "user"
-    },
-    {
-      "entity": "Guitar Tricks",
-      "predicate": "price",
-      "value": "$19.95/month",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "Guitar Tricks",
-      "predicate": "offers",
-      "value": "14-day free trial",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "Guitar Tricks",
-      "predicate": "contains",
-      "value": "over 11,000 lessons",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "TrueFire",
-      "predicate": "price",
-      "value": "$29.95/month or $299.95/year",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "Yousician",
-      "predicate": "price",
-      "value": "$19.95/month or $119.88/year",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "GuitarLessons365",
-      "predicate": "price",
-      "value": "$29.95/month or $299.95/year",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "ArtistWorks",
-      "predicate": "price",
-      "value": "$29.95/month or $299.95/year",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "ArtistWorks",
-      "predicate": "featured instructors",
-      "value": "Carlos Santana",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "ArtistWorks",
-      "predicate": "featured instructors",
-      "value": "John Mayer",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "ArtistWorks",
-      "predicate": "featured instructors",
-      "value": "Billy Gibbons",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "JamPlay",
-      "predicate": "price",
-      "value": "$29.95/month or $299.95/year",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
-    },
-    {
-      "entity": "Lo-Fi Girl playlist",
-      "predicate": "followers",
-      "value": "over 2 million",
-      "sessionId": "answer_3e012175",
-      "source": "assistant"
     }
   ],
   "preferences": [
     {
       "entity": "user",
-      "preference": "ambient music",
-      "polarity": "positive",
-      "constraint": "music discovery"
+      "preference": "getting back into playing guitar",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "lo-fi music",
-      "polarity": "positive",
-      "constraint": "music discovery"
+      "preference": "ambient and lo-fi genres",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "chill tracks",
-      "polarity": "positive",
-      "constraint": "for relaxing or working out"
+      "preference": "chill tracks for relaxing or working out",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "entrepreneurial stories",
-      "polarity": "positive",
-      "constraint": "podcast recommendations"
-    },
-    {
-      "entity": "user",
-      "preference": "business-related content",
-      "polarity": "positive",
-      "constraint": "podcast recommendations"
-    },
-    {
-      "entity": "user",
-      "preference": "The Lumineers",
-      "polarity": "positive",
-      "constraint": "live music experience"
-    },
-    {
-      "entity": "user",
-      "preference": "The 1975",
-      "polarity": "positive",
-      "constraint": "live music experience"
+      "preference": "music festivals and live concerts",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "user attended music festival",
-      "date": "2023-04-21",
-      "location": "user's area (unspecified)",
-      "sessionId": "answer_3e012175"
-    },
-    {
-      "event": "The Lumineers performed at music festival",
-      "date": "2023-04-21",
-      "location": "user's area (unspecified)",
-      "sessionId": "answer_3e012175"
-    },
-    {
-      "event": "The 1975 performed at music festival",
-      "date": "2023-04-21",
-      "location": "user's area (unspecified)",
+      "event": "user attended music festival with friends and saw The Lumineers and The 1975",
+      "date": null,
       "sessionId": "answer_3e012175"
     }
   ]

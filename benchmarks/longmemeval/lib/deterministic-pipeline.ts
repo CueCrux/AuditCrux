@@ -59,18 +59,46 @@ Conversation:
 
 /**
  * Extract structured facts from a conversation session using Claude.
+ * When `question` is provided, extraction is targeted to facts relevant to that question.
  */
 export async function extractFacts(
   content: string,
   sessionId: string,
   anthropicApiKey: string,
+  question?: string,
 ): Promise<FactStore> {
   const client = new Anthropic({ apiKey: anthropicApiKey });
+
+  // Build prompt — question-aware when question is provided
+  let prompt: string;
+  if (question) {
+    prompt = `The user will ask this question about their past conversations:
+"${question}"
+
+Extract the specific facts from the conversation below that would help answer this question.
+Also extract any other important facts, preferences, and events you find.
+
+Output ONLY valid JSON, no other text.
+{"facts":[{"entity":"subject","predicate":"relationship","value":"object","date":"YYYY-MM-DD or null","source":"user or assistant"}],"preferences":[{"entity":"subject","preference":"what they like/dislike","polarity":"positive or negative","constraint":"null or detail"}],"events":[{"event":"what happened","date":"YYYY-MM-DD","location":"where or null"}]}
+
+IMPORTANT:
+- Focus on facts that would answer the question above
+- Extract names, numbers, dates, places, costs, frequencies mentioned
+- Include facts from BOTH user and assistant turns
+- For preferences: "I love X" → positive, "I don't like X" → negative
+- Use dates from [Date: YYYY-MM-DD] headers
+- Output ONLY the JSON object
+
+Conversation:
+` + content;
+  } else {
+    prompt = EXTRACTION_PROMPT + content;
+  }
 
   const response = await client.messages.create({
     model: "claude-haiku-4-5-20251001",
     max_tokens: 4096,
-    messages: [{ role: "user", content: EXTRACTION_PROMPT + content }],
+    messages: [{ role: "user", content: prompt }],
   });
 
   const text = response.content[0]?.type === "text" ? response.content[0].text : "";

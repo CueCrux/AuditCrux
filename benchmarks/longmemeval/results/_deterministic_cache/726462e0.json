@@ -1,116 +1,64 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "has profession",
+      "entity": "user",
+      "predicate": "received discount on first purchase from",
+      "value": "new clothing brand",
+      "date": "2023-04",
+      "sessionId": "answer_f38f679b",
+      "source": "user"
+    },
+    {
+      "entity": "discount",
+      "predicate": "percentage",
+      "value": "10%",
+      "date": "2023-04",
+      "sessionId": "answer_f38f679b",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "profession",
       "value": "freelance writer",
-      "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "has business",
-      "value": "freelance writing business",
-      "date": "2023-05-23",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "experience level with",
-      "value": "Instagram and Twitter",
-      "date": "2023-05-23",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "has experience level",
-      "value": "not much experience with Instagram and Twitter",
-      "date": "2023-05-23",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "received discount",
-      "value": "10% discount on first purchase from new clothing brand",
-      "date": "2023-04-23",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "predicate": "created content calendar for",
       "value": "cousin's art exhibition",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "plans to create",
-      "value": "content calendar for own blog and writing services",
-      "date": "2023-05-23",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "has audience focus",
-      "value": "blog and writing services",
-      "date": "2023-05-23",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "plans to track",
-      "value": "engagement metrics in content calendar",
-      "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
       "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "growing social media presence",
+      "entity": "user",
+      "preference": "promoting own blog and writing services over others",
       "polarity": "positive",
-      "constraint": "for freelance writing business"
+      "constraint": "realized they weren't doing enough of this"
     },
     {
-      "entity": "User",
-      "preference": "increasing engagement on posts",
+      "entity": "user",
+      "preference": "tracking engagement metrics",
       "polarity": "positive",
-      "constraint": "for social media"
+      "constraint": "to measure social media campaign success"
     },
     {
-      "entity": "User",
-      "preference": "exploring Instagram and Twitter",
+      "entity": "user",
+      "preference": "using content calendars for organization",
       "polarity": "positive",
-      "constraint": "to promote writing services"
-    },
-    {
-      "entity": "User",
-      "preference": "promotions and discounts",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "promoting own business",
-      "polarity": "positive",
-      "constraint": "rather than promoting others"
+      "constraint": "for social media planning"
     }
   ],
   "events": [
     {
-      "event": "User received 10% discount on first purchase from new clothing brand",
-      "date": "2023-04-23",
+      "event": "user made first purchase from new clothing brand and received 10% discount",
+      "date": "2023-04",
       "sessionId": "answer_f38f679b"
     },
     {
-      "event": "User created content calendar for cousin's art exhibition",
+      "event": "user created content calendar for cousin's art exhibition",
       "date": null,
       "sessionId": "answer_f38f679b"
     }

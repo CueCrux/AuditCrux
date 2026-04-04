@@ -2,110 +2,58 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "hosting",
-      "value": "dinner party",
-      "date": "2022-04-17",
-      "sessionId": "answer_dba89487_1",
+      "predicate": "attended",
+      "value": "baking class at local culinary school",
+      "date": "2022-03-20",
+      "sessionId": "answer_dba89487_2",
+      "source": "user"
+    },
+    {
+      "entity": "baking class",
+      "predicate": "location",
+      "value": "local culinary school",
+      "sessionId": "answer_dba89487_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "interested in",
+      "predicate": "interest",
       "value": "baking",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
+      "sessionId": "answer_dba89487_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "made",
-      "value": "strawberry rhubarb crisp",
-      "date": "2022-03-27",
-      "sessionId": "answer_dba89487_1",
+      "predicate": "experimenting with",
+      "value": "different types of flour",
+      "sessionId": "answer_dba89487_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "planning to make",
-      "value": "matcha tiramisu",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
+      "predicate": "experimenting with",
+      "value": "sourdough bread",
+      "sessionId": "answer_dba89487_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "planning to make",
-      "value": "salted caramel chocolate tart",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
+      "predicate": "plans to make",
+      "value": "strawberry shortcake",
+      "sessionId": "answer_dba89487_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "planning to make",
-      "value": "sourdough bread sandwiches",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "planning to make",
-      "value": "lemon bars",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "made",
-      "value": "lemon bars with shortbread crust and lemon curd",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "planning to make",
-      "value": "croissants from scratch",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "previous attempt at",
-      "value": "croissants",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "planning to make",
-      "value": "banana bread",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "made",
-      "value": "banana bread with walnuts",
-      "sessionId": "answer_dba89487_1",
+      "predicate": "planning to use",
+      "value": "bread flour for sourdough shortcake",
+      "sessionId": "answer_dba89487_2",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "baked",
-      "value": "chocolate cake",
-      "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "made chocolate cake for",
-      "value": "friend's birthday party",
+      "value": "chocolate cake for friend's birthday party",
       "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
@@ -119,17 +67,31 @@
       "source": "user"
     },
     {
-      "entity": "lemon bars",
-      "predicate": "made with",
-      "value": "fresh lemons and eggs",
+      "entity": "chocolate cake",
+      "predicate": "outcome",
+      "value": "turned out amazing",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "experimenting with",
-      "value": "strawberries",
-      "date": "2022-04-10",
+      "predicate": "made",
+      "value": "strawberry rhubarb crisp",
+      "sessionId": "answer_dba89487_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "made",
+      "value": "banana bread with walnuts",
+      "sessionId": "answer_dba89487_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "made",
+      "value": "lemon bars with shortbread crust and fresh lemon curd",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     }
@@ -137,13 +99,39 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "matcha tiramisu",
-      "polarity": "positive"
+      "preference": "strawberries",
+      "polarity": "positive",
+      "constraint": "fresh from farmer's market, sweet and juicy"
     },
     {
       "entity": "user",
-      "preference": "salted caramel chocolate tart",
-      "polarity": "positive"
+      "preference": "bread flour",
+      "polarity": "positive",
+      "constraint": "has had good results with it in the past"
+    },
+    {
+      "entity": "user",
+      "preference": "oat flour",
+      "polarity": "positive",
+      "constraint": "gives nice nutty flavor"
+    },
+    {
+      "entity": "user",
+      "preference": "sourdough starter experimentation",
+      "polarity": "positive",
+      "constraint": "interested in using for shortcake"
+    },
+    {
+      "entity": "user",
+      "preference": "baking",
+      "polarity": "positive",
+      "constraint": "been experimenting with different flavors lately"
+    },
+    {
+      "entity": "user",
+      "preference": "matcha tiramisu and salted caramel chocolate tart",
+      "polarity": "positive",
+      "constraint": "especially interested in these desserts"
     },
     {
       "entity": "user",
@@ -155,29 +143,29 @@
       "entity": "user",
       "preference": "banana bread with walnuts",
       "polarity": "positive",
-      "constraint": "amazing"
-    },
-    {
-      "entity": "user",
-      "preference": "chocolate cake with espresso powder",
-      "polarity": "positive",
-      "constraint": "amazing"
+      "constraint": "turned out amazing"
     }
   ],
   "events": [
     {
-      "event": "dinner party",
-      "date": "2022-04-17",
-      "sessionId": "answer_dba89487_1"
+      "event": "attended baking class at local culinary school",
+      "date": "2022-03-20",
+      "location": "local culinary school",
+      "sessionId": "answer_dba89487_2"
     },
     {
-      "event": "friend's birthday party",
+      "event": "planning to make strawberry shortcake",
+      "date": null,
+      "sessionId": "answer_dba89487_2"
+    },
+    {
+      "event": "planning to make sourdough shortcake with bread flour",
+      "date": null,
+      "sessionId": "answer_dba89487_2"
+    },
+    {
+      "event": "baked chocolate cake for friend's birthday party",
       "date": "2022-04-10",
-      "sessionId": "answer_dba89487_1"
-    },
-    {
-      "event": "made strawberry rhubarb crisp",
-      "date": "2022-03-27",
       "sessionId": "answer_dba89487_1"
     }
   ]

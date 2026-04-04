@@ -1,16 +1,8 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "wants to",
-      "value": "track spending habits and create a budget",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "purchased",
+      "entity": "user",
+      "predicate": "spent on",
       "value": "designer handbag",
       "sessionId": "answer_7cb94507",
       "source": "user"
@@ -19,183 +11,96 @@
       "entity": "designer handbag",
       "predicate": "cost",
       "value": "$800",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "frequents",
-      "value": "Saks and Neiman Marcus",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "decided to use",
-      "value": "Mint app",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "browses",
-      "value": "H&M and Uniqlo",
+      "entity": "user",
+      "predicate": "shops at",
+      "value": "Saks and Neiman Marcus",
+      "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "had subscription to",
+      "entity": "user",
+      "predicate": "canceled subscription to",
       "value": "monthly beauty box",
+      "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "monthly beauty box subscription",
+      "entity": "monthly beauty box",
       "predicate": "cost",
       "value": "$50 per month",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "decided to cancel",
-      "value": "monthly beauty box subscription",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "now buys beauty products at",
-      "value": "discount store",
+      "entity": "user",
+      "predicate": "uses budgeting app",
+      "value": "Mint",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "eats out",
-      "value": "frequently",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "wants to",
-      "value": "cook more at home and try new recipes",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "interested in trying",
-      "value": "Korean and Indian cuisines",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "considering",
-      "value": "meal prepping on weekends",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "dietary preference",
-      "value": "no restrictions, prefers healthy and balanced meals",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended budgeting apps",
-      "value": "Mint, Personal Capital, YNAB, Spendee, Pocketbook, Wally",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "meal planning and grocery shopping on a budget",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507",
-      "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
+      "entity": "user",
+      "preference": "shopping at high-end department stores",
+      "polarity": "positive",
+      "constraint": "but recognizes need to set boundaries"
+    },
+    {
+      "entity": "user",
       "preference": "luxury items and designer goods",
       "polarity": "positive",
-      "constraint": "spending at high-end department stores like Saks and Neiman Marcus"
+      "constraint": "willing to find affordable alternatives"
     },
     {
-      "entity": "User",
-      "preference": "stylish fashion pieces",
-      "polarity": "positive",
-      "constraint": "affordable alternatives at H&M and Uniqlo"
+      "entity": "user",
+      "preference": "affordable fashion brands like H&M and Uniqlo",
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "monthly beauty box subscription",
-      "polarity": "negative",
-      "constraint": "realized not using most products and accumulating samples"
+      "entity": "user",
+      "preference": "discount stores for beauty products",
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "eating out frequently",
-      "polarity": "negative",
-      "constraint": "wants to reduce and cook more at home"
-    },
-    {
-      "entity": "User",
-      "preference": "new cuisines like Korean and Indian food",
-      "polarity": "positive",
-      "constraint": "affordable and delicious options"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "preference": "healthy and balanced meals",
-      "polarity": "positive",
-      "constraint": "no dietary restrictions"
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "exploring new recipes and cooking techniques",
+      "entity": "user",
+      "preference": "Korean and Indian cuisine",
       "polarity": "positive",
-      "constraint": "feeling stuck in cooking rut"
+      "constraint": "affordable and delicious"
     }
   ],
   "events": [
     {
-      "event": "User purchased designer handbag for $800",
+      "event": "user purchased designer handbag",
       "date": null,
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User decided to cancel monthly beauty box subscription",
+      "event": "user decided to start tracking expenses",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User started browsing H&M and Uniqlo for affordable fashion",
+      "event": "user canceled monthly beauty box subscription",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User decided to start using Mint app for expense tracking",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507"
-    },
-    {
-      "event": "User began buying beauty products at discount stores",
+      "event": "user started browsing affordable fashion alternatives online",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     }

@@ -1,227 +1,42 @@
 {
-  "facts": [
-    {
-      "entity": "User",
-      "predicate": "planning trip to",
-      "value": "Seattle",
-      "date": "2023-05-29",
-      "sessionId": "answer_d586e9cd",
-      "source": "user"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "location",
-      "value": "Seattle, Washington",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "offers views of",
-      "value": "Puget Sound, Olympic Mountains, Seattle skyline",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "has rooms with",
-      "value": "private balconies with hot tubs",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "has rooms with view of",
-      "value": "Space Needle",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "Four Seasons Hotel Seattle",
-      "predicate": "location",
-      "value": "downtown Seattle",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "Four Seasons Hotel Seattle",
-      "predicate": "offers views of",
-      "value": "city, Puget Sound, Olympic Mountains",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Alexis Hotel",
-      "predicate": "location",
-      "value": "downtown Seattle",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "Hyatt at Olive 8",
-      "predicate": "location",
-      "value": "downtown Seattle",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "Hyatt at Olive 8",
-      "predicate": "is",
-      "value": "eco-friendly",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "Hyatt at Olive 8",
-      "predicate": "has",
-      "value": "rooftop pool and hot tub",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "Pan Pacific Seattle",
-      "predicate": "location",
-      "value": "Belltown neighborhood",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "Pan Pacific Seattle",
-      "predicate": "has rooms with view of",
-      "value": "Space Needle, Puget Sound, Olympic Mountains",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "W Seattle",
-      "predicate": "location",
-      "value": "downtown Seattle",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "W Seattle",
-      "predicate": "has rooftop pool called",
-      "value": "WET",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Sheraton Seattle Hotel",
-      "predicate": "location",
-      "value": "near Pike Place Market",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Sheraton Seattle Hotel",
-      "predicate": "has",
-      "value": "rooftop pool and hot tub",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "has rooftop bar called",
-      "value": "The Roof at The Edgewater Hotel",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "room service breakfast hours",
-      "value": "6:00 AM to 11:00 AM Mon-Fri, 7:00 AM to 11:00 AM weekends",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "offers complimentary room service breakfast in",
-      "value": "Space Needle Romance Package",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "Space Needle Romance Package includes",
-      "value": "$100 credit towards couples' massage",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "Space Needle Romance Package includes",
-      "value": "romantic turndown service with chocolates and rose petals",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "Space Needle Luxury Getaway Package includes",
-      "value": "$200 credit towards private dinner",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "Space Needle Luxury Getaway Package includes",
-      "value": "late checkout at 2:00 PM",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Edgewater Hotel",
-      "predicate": "accommodates dietary restrictions including",
-      "value": "gluten-free, vegetarian, vegan, dairy-free",
-      "sessionId": "answer_d586e9cd",
-      "source": "assistant"
-    }
-  ],
+  "facts": [],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "hotel with great view of city",
-      "polarity": "positive",
-      "constraint": "Seattle"
+      "entity": "user",
+      "preference": "hotels with great views of the city",
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "unique hotel features",
-      "polarity": "positive",
-      "constraint": "rooftop pool or hot tub on balcony"
+      "entity": "user",
+      "preference": "unique hotel features such as rooftop pool or hot tub on balcony",
+      "polarity": "positive"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "hot tub on balcony with view of city skyline",
       "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "hot tub on balcony facing Space Needle",
+      "entity": "user",
+      "preference": "hot tub on balcony facing the Space Needle",
       "polarity": "positive"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "room service breakfast",
       "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "dietary accommodations in breakfast",
+      "entity": "user",
+      "preference": "complimentary room service breakfast",
       "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "special packages with hot tub and complimentary breakfast",
-      "polarity": "positive"
+      "entity": "user",
+      "preference": "couples' massage at spa",
+      "polarity": "positive",
+      "constraint": "$100 credit"
     }
   ],
-  "events": [
-    {
-      "event": "User planning trip to Seattle",
-      "date": "2023-05-29",
-      "location": "Seattle",
-      "sessionId": "answer_d586e9cd"
-    }
-  ]
+  "events": []
 }

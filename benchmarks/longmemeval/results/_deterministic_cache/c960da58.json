@@ -1,250 +1,86 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "likes artist",
-      "value": "Tameca Jones",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "listens to genre",
-      "value": "Lo-Fi hip hop beats",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "owns playlists count",
+      "entity": "user",
+      "predicate": "has_playlists_on_spotify",
       "value": "20",
       "date": "2023-05-20",
       "sessionId": "answer_e05e4612",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "owns playlist",
+      "entity": "user",
+      "predicate": "owns_spotify_playlist",
       "value": "Morning Boost",
-      "date": "2023-05-20",
       "sessionId": "answer_e05e4612",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "owns playlist",
+      "entity": "user",
+      "predicate": "owns_spotify_playlist",
       "value": "Focus Flow",
-      "date": "2023-05-20",
       "sessionId": "answer_e05e4612",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "attending concert",
-      "value": "Tameca Jones",
+      "entity": "user",
+      "predicate": "attending_concert",
+      "value": "Tameca Jones live",
       "sessionId": "answer_e05e4612",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "started hobby",
-      "value": "vinyl record collecting",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "owns vinyl record",
+      "entity": "user",
+      "predicate": "owns_vinyl_record",
       "value": "Fleetwood Mac - Rumours (reissue)",
-      "date": "2023-05-20",
       "sessionId": "answer_e05e4612",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "owns equipment",
-      "value": "turntable",
-      "date": "2023-05-20",
+      "entity": "user",
+      "predicate": "owns_turntable",
+      "value": "yes",
       "sessionId": "answer_e05e4612",
       "source": "user"
-    },
-    {
-      "entity": "Tameca Jones",
-      "predicate": "music style",
-      "value": "soulful, bluesy voice and genre-bending",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Andra Day",
-      "predicate": "music style",
-      "value": "soul, blues, and vintage R&B with modern twist",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Lianne La Havas",
-      "predicate": "nationality",
-      "value": "British",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Nao",
-      "predicate": "nationality",
-      "value": "British",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Bibi Bourelly",
-      "predicate": "nationality",
-      "value": "German-Senegalese",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Yuna",
-      "predicate": "nationality",
-      "value": "Malaysian",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Jinsang",
-      "predicate": "music style",
-      "value": "Lo-Fi hip hop",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Nujabes",
-      "predicate": "nationality",
-      "value": "Japanese",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tom Misch",
-      "predicate": "nationality",
-      "value": "British",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Jordan Rakei",
-      "predicate": "nationality",
-      "value": "New Zealand-born Australian",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Kali Uchis",
-      "predicate": "nationality",
-      "value": "Colombian-American",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Moses Sumney",
-      "predicate": "nationality",
-      "value": "American",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
-    },
-    {
-      "entity": "Bon Iver",
-      "predicate": "nationality",
-      "value": "American",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612",
-      "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "Tameca Jones",
+      "entity": "user",
+      "preference": "Tameca Jones music",
       "polarity": "positive",
-      "constraint": "amazing artist"
+      "constraint": "soulful, bluesy voice and genre-bending style"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "Lo-Fi hip hop beats",
       "polarity": "positive",
       "constraint": "listening on repeat"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "relaxing music",
       "polarity": "positive",
-      "constraint": "new playlist creation"
+      "constraint": "mellow artists and songs"
     },
     {
-      "entity": "User",
-      "preference": "mood-based playlist organization",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "Spotify's Discover Weekly and Release Radar",
-      "polarity": "positive",
-      "constraint": "relying on for music discovery"
-    },
-    {
-      "entity": "User",
-      "preference": "exploring other music discovery platforms",
-      "polarity": "positive",
-      "constraint": "open to alternatives"
-    },
-    {
-      "entity": "User",
-      "preference": "attending concerts and music events",
-      "polarity": "positive",
-      "constraint": "planning to explore more"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "preference": "vinyl record collecting",
       "polarity": "positive",
-      "constraint": "recently started, enjoying it"
+      "constraint": "recently started"
     },
     {
-      "entity": "User",
-      "preference": "Fleetwood Mac's Rumours",
+      "entity": "user",
+      "preference": "organizing playlists by mood",
       "polarity": "positive",
-      "constraint": "love listening on turntable"
+      "constraint": "genre, mood, or activity-based"
     }
   ],
   "events": [
     {
-      "event": "User started collecting vinyl records",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612"
-    },
-    {
-      "event": "User purchased Fleetwood Mac Rumours reissue vinyl",
-      "date": "2023-05-20",
-      "sessionId": "answer_e05e4612"
-    },
-    {
-      "event": "User planning to attend Tameca Jones concert",
+      "event": "user attending Tameca Jones live concert",
       "date": null,
+      "location": "user's city",
       "sessionId": "answer_e05e4612"
     }
   ]

@@ -1,100 +1,80 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "participated in event",
+      "entity": "cousin's wedding",
+      "predicate": "event type",
+      "value": "wedding",
+      "date": "2023-06-15",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "attended as",
       "value": "bridesmaid at cousin's wedding",
       "date": "2023-06-15",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is planning",
+      "entity": "user",
+      "predicate": "planning",
       "value": "own wedding",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "considering venue type",
-      "value": "cozy bed and breakfast in the countryside",
+      "entity": "user's wedding",
+      "predicate": "season",
+      "value": "fall",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "considering venue type",
-      "value": "beautiful art museum in the city",
-      "sessionId": "answer_add9b012_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "has started",
-      "value": "looking at venues",
-      "sessionId": "answer_add9b012_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "planning",
-      "value": "fall wedding",
-      "sessionId": "answer_add9b012_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "planning ceremony type",
+      "entity": "user's wedding",
+      "predicate": "guest size",
       "value": "small, intimate ceremony",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "has partner",
-      "value": "yes",
+      "entity": "user's wedding",
+      "predicate": "potential venue",
+      "value": "cozy bed and breakfast in the countryside",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "Cousin",
-      "predicate": "had wedding with",
-      "value": "partner",
+      "entity": "user's wedding",
+      "predicate": "potential venue",
+      "value": "beautiful art museum in the city",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "Cousin's wedding",
-      "predicate": "featured",
-      "value": "special song during ceremony",
+      "entity": "cousin's wedding",
+      "predicate": "ceremony detail",
+      "value": "special song played during ceremony",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "planning ceremony element",
+      "entity": "user's wedding",
+      "predicate": "planned ceremony element",
       "value": "special reading or poem",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "planning ceremony element",
-      "value": "unity candle ceremony",
+      "entity": "user's wedding",
+      "predicate": "planned ceremony element",
+      "value": "unity candle or sand ceremony",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "planning ceremony element",
-      "value": "sand ceremony",
-      "sessionId": "answer_add9b012_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "planning ceremony element",
+      "entity": "user's wedding",
+      "predicate": "planned ceremony element",
       "value": "personal and meaningful vows",
       "sessionId": "answer_add9b012_1",
       "source": "user"
@@ -102,40 +82,37 @@
   ],
   "preferences": [
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "intimate and romantic ceremony",
-      "polarity": "positive",
-      "constraint": "small wedding"
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "personal and meaningful details",
-      "polarity": "positive",
-      "constraint": "ceremony elements"
+      "entity": "user",
+      "preference": "personal details and touches in wedding",
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "special songs in ceremonies",
+      "entity": "user",
+      "preference": "special songs and meaningful elements",
       "polarity": "positive",
-      "constraint": "inspired by cousin's wedding"
+      "constraint": "like cousin's wedding"
     },
     {
-      "entity": "User",
-      "preference": "looking at venues",
-      "polarity": "positive",
-      "constraint": "enjoying the process"
-    },
-    {
-      "entity": "User",
-      "preference": "creating intimate and special atmosphere",
-      "polarity": "positive",
-      "constraint": "in wedding space"
+      "entity": "user",
+      "preference": "small, intimate ceremony setting",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "User served as bridesmaid at cousin's wedding",
+      "event": "cousin's wedding - user participated as bridesmaid",
       "date": "2023-06-15",
+      "sessionId": "answer_add9b012_1"
+    },
+    {
+      "event": "user's own wedding planning",
+      "date": null,
+      "location": "bed and breakfast in countryside or art museum in city (pending)",
       "sessionId": "answer_add9b012_1"
     }
   ]

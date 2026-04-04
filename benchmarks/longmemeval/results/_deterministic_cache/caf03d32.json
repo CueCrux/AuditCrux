@@ -1,83 +1,77 @@
 {
   "facts": [
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "recently made",
-      "value": "beef stew",
+      "value": "beef stew using slow cooker",
       "date": "2023-05-30",
       "sessionId": "answer_2fc6aabb",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "wants to try",
-      "value": "more slow cooker recipes",
+      "entity": "user",
+      "predicate": "interested in",
+      "value": "slow cooker recipes",
       "date": "2023-05-30",
       "sessionId": "answer_2fc6aabb",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is interested in",
+      "entity": "user",
+      "predicate": "interested in",
       "value": "making yogurt in slow cooker",
       "date": "2023-05-30",
       "sessionId": "answer_2fc6aabb",
       "source": "user"
     },
     {
-      "entity": "Slow Cooker Yogurt Recipe",
-      "predicate": "requires milk quantity",
-      "value": "1/2 gallon",
+      "entity": "slow cooker yogurt",
+      "predicate": "requires heating milk to",
+      "value": "180°F to 185°F (82°C to 85°C)",
       "sessionId": "answer_2fc6aabb",
       "source": "assistant"
     },
     {
-      "entity": "Slow Cooker Yogurt Recipe",
-      "predicate": "requires yogurt starter",
-      "value": "1/4 cup plain yogurt with live cultures",
-      "sessionId": "answer_2fc6aabb",
-      "source": "assistant"
-    },
-    {
-      "entity": "Slow Cooker Yogurt Recipe",
-      "predicate": "heating temperature range",
-      "value": "180°F to 185°F",
-      "sessionId": "answer_2fc6aabb",
-      "source": "assistant"
-    },
-    {
-      "entity": "Slow Cooker Yogurt Recipe",
-      "predicate": "cooling temperature range",
-      "value": "110°F to 120°F",
-      "sessionId": "answer_2fc6aabb",
-      "source": "assistant"
-    },
-    {
-      "entity": "Slow Cooker Yogurt Recipe",
-      "predicate": "heating duration",
+      "entity": "slow cooker yogurt",
+      "predicate": "requires heating time",
       "value": "2-3 hours",
       "sessionId": "answer_2fc6aabb",
       "source": "assistant"
     },
     {
-      "entity": "Slow Cooker Yogurt Recipe",
-      "predicate": "incubation duration",
+      "entity": "slow cooker yogurt",
+      "predicate": "requires cooling milk to",
+      "value": "110°F to 120°F (43°C to 49°C)",
+      "sessionId": "answer_2fc6aabb",
+      "source": "assistant"
+    },
+    {
+      "entity": "slow cooker yogurt",
+      "predicate": "requires incubation time",
       "value": "8-12 hours or overnight",
       "sessionId": "answer_2fc6aabb",
       "source": "assistant"
     },
     {
-      "entity": "User",
-      "predicate": "is trying to",
-      "value": "eat more plant-based meals",
+      "entity": "user",
+      "predicate": "trying to eat",
+      "value": "more plant-based meals",
       "date": "2023-05-30",
       "sessionId": "answer_2fc6aabb",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "wants to make",
-      "value": "slow cooker yogurt with cashew base",
+      "entity": "user",
+      "predicate": "interested in",
+      "value": "vegan yogurt alternatives for slow cooker",
+      "date": "2023-05-30",
+      "sessionId": "answer_2fc6aabb",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "interested in",
+      "value": "making cashew-based slow cooker yogurt",
       "date": "2023-05-30",
       "sessionId": "answer_2fc6aabb",
       "source": "user"
@@ -85,72 +79,29 @@
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "slow cooker cooking",
+      "entity": "user",
+      "preference": "slow cooker recipes",
       "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "beef stew",
-      "polarity": "positive",
-      "constraint": "delicious"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "preference": "plant-based meals",
-      "polarity": "positive",
-      "constraint": "trying to eat more"
-    },
-    {
-      "entity": "User",
-      "preference": "homemade yogurt",
-      "polarity": "positive",
-      "constraint": "cost-effective and control over ingredients"
-    },
-    {
-      "entity": "User",
-      "preference": "vegan yogurt alternatives",
       "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "customizable yogurt flavors",
+      "entity": "user",
+      "preference": "vegetarian and vegan recipes",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "cashew-based yogurt",
       "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "User figured out how to use slow cooker and made beef stew",
-      "date": "2023-05-30",
-      "sessionId": "answer_2fc6aabb"
-    },
-    {
-      "event": "User inquired about slow cooker yogurt recipes",
-      "date": "2023-05-30",
-      "sessionId": "answer_2fc6aabb"
-    },
-    {
-      "event": "User asked about temperature monitoring for yogurt making",
-      "date": "2023-05-30",
-      "sessionId": "answer_2fc6aabb"
-    },
-    {
-      "event": "User requested vegetarian and vegan slow cooker recipes",
-      "date": "2023-05-30",
-      "sessionId": "answer_2fc6aabb"
-    },
-    {
-      "event": "User asked about vegan yogurt alternatives for slow cooker yogurt",
-      "date": "2023-05-30",
-      "sessionId": "answer_2fc6aabb"
-    },
-    {
-      "event": "User requested flavorings and sweeteners for slow cooker yogurt",
-      "date": "2023-05-30",
-      "sessionId": "answer_2fc6aabb"
-    },
-    {
-      "event": "User asked for tips on soaking and blending cashews for cashew-based yogurt",
+      "event": "User made beef stew using slow cooker",
       "date": "2023-05-30",
       "sessionId": "answer_2fc6aabb"
     }

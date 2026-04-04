@@ -1,571 +1,247 @@
 {
   "facts": [
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "attended",
-      "value": "Cancer Research Foundation charity gala at fancy hotel in downtown",
+      "value": "charity gala organized by the Cancer Research Foundation",
       "date": "2023-01-30",
       "sessionId": "answer_4bfcc250_4",
       "source": "user"
     },
     {
-      "entity": "Cancer Research Foundation charity gala",
-      "predicate": "raised",
-      "value": "$100,000 for cancer research",
-      "date": "2023-01-30",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "user"
-    },
-    {
-      "entity": "Immunotherapy",
-      "predicate": "includes treatment type",
-      "value": "checkpoint inhibitors (pembrolizumab)",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Immunotherapy",
-      "predicate": "includes treatment type",
-      "value": "CAR-T cell therapy",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Liquid Biopsies",
-      "predicate": "analyzes",
-      "value": "circulating tumor DNA (ctDNA)",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Melanoma",
-      "predicate": "immunotherapy response rate",
-      "value": "20% to 40%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Non-small cell lung cancer (NSCLC)",
-      "predicate": "immunotherapy response rate",
-      "value": "20% to 30%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Renal cell carcinoma",
-      "predicate": "immunotherapy response rate",
-      "value": "20% to 30%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Urothelial carcinoma",
-      "predicate": "immunotherapy response rate",
-      "value": "20% to 30%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Classical Hodgkin lymphoma",
-      "predicate": "immunotherapy response rate",
-      "value": "70% to 80%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Triple-negative breast cancer",
-      "predicate": "immunotherapy response rate",
-      "value": "10% to 20%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Microsatellite instability-high (MSI-H) colorectal cancer",
-      "predicate": "immunotherapy response rate",
-      "value": "30% to 40%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Pembrolizumab",
-      "predicate": "is a",
-      "value": "checkpoint inhibitor for melanoma and lung cancer",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Nivolumab",
-      "predicate": "is a",
-      "value": "checkpoint inhibitor for melanoma, lung cancer, and kidney cancer",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Atezolizumab",
-      "predicate": "is a",
-      "value": "checkpoint inhibitor for lung cancer, bladder cancer, and breast cancer",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Ipilimumab",
-      "predicate": "is a",
-      "value": "checkpoint inhibitor for kidney cancer",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Cancer stem cells (CSCs)",
-      "predicate": "possess properties",
-      "value": "self-renewal and pluripotency",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Cancer stem cells (CSCs)",
-      "predicate": "are responsible for",
-      "value": "cancer initiation, progression, relapse, and metastasis",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Cancer stem cells (CSCs)",
-      "predicate": "are resistant to",
-      "value": "conventional cancer therapies",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "User",
-      "predicate": "volunteered at",
-      "value": "Books for Kids charity book drive event",
-      "date": "2023-02-15",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "user"
-    },
-    {
-      "entity": "Books for Kids charity book drive event",
+      "entity": "charity gala",
       "predicate": "location",
-      "value": "local library",
+      "value": "fancy hotel in downtown",
+      "date": "2023-01-30",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "user"
+    },
+    {
+      "entity": "charity gala",
+      "predicate": "fundraising amount",
+      "value": "over $100,000 for cancer research",
+      "date": "2023-01-30",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "participated in consecutive charity events",
+      "value": "not mentioned in conversation",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "participated in charity event",
+      "value": "24-Hour Bike Ride for local children's hospital",
+      "date": "2023-02-14",
+      "sessionId": "answer_4bfcc250_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "activity duration",
+      "value": "cycled for 4 hours non-stop",
+      "date": "2023-02-14",
+      "sessionId": "answer_4bfcc250_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "planning road trip",
+      "value": "San Francisco to Lake Tahoe",
+      "sessionId": "answer_4bfcc250_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "road trip duration",
+      "value": "4 days",
+      "sessionId": "answer_4bfcc250_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "bike type",
+      "value": "road bike",
+      "sessionId": "answer_4bfcc250_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "participated in charity event",
+      "value": "Books for Kids charity book drive at local library",
       "date": "2023-02-15",
       "sessionId": "answer_4bfcc250_2",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "helped sort and pack",
-      "value": "over 500 books",
+      "entity": "user",
+      "predicate": "volunteered activity",
+      "value": "sorted and packed over 500 books for underprivileged kids",
       "date": "2023-02-15",
       "sessionId": "answer_4bfcc250_2",
       "source": "user"
     },
     {
-      "entity": "Books",
-      "predicate": "intended for",
-      "value": "underprivileged kids in the neighborhood",
+      "entity": "user",
+      "predicate": "has interest in",
+      "value": "book recommendations for kids",
+      "date": "2023-02-15",
       "sessionId": "answer_4bfcc250_2",
       "source": "user"
     },
     {
-      "entity": "The Very Hungry Caterpillar",
-      "predicate": "author",
-      "value": "Eric Carle",
+      "entity": "user",
+      "predicate": "has interest in",
+      "value": "Magic Tree House series",
       "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
+      "source": "user"
     },
     {
-      "entity": "The Very Hungry Caterpillar",
-      "predicate": "age group",
-      "value": "Ages 4-7",
+      "entity": "user",
+      "predicate": "has interest in",
+      "value": "ancient Egypt",
       "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
+      "source": "user"
     },
     {
-      "entity": "Corduroy",
-      "predicate": "author",
-      "value": "Don Freeman",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
+      "entity": "user",
+      "predicate": "participated in",
+      "value": "Walk for Hunger charity event",
+      "date": "2023-03-19",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "user"
     },
     {
-      "entity": "Corduroy",
-      "predicate": "age group",
-      "value": "Ages 4-7",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
+      "entity": "Walk for Hunger charity event",
+      "predicate": "distance",
+      "value": "5 kilometers",
+      "date": "2023-03-19",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "user"
     },
     {
-      "entity": "The Giving Tree",
-      "predicate": "author",
-      "value": "Shel Silverstein",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
+      "entity": "Walk for Hunger charity event",
+      "predicate": "purpose",
+      "value": "raise money for local food bank",
+      "date": "2023-03-19",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "user"
     },
     {
-      "entity": "The Giving Tree",
-      "predicate": "age group",
-      "value": "Ages 4-7",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
+      "entity": "user",
+      "predicate": "participated with",
+      "value": "colleagues from work",
+      "date": "2023-03-19",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "user"
     },
     {
-      "entity": "Charlotte's Web",
-      "predicate": "author",
-      "value": "E.B. White",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Charlotte's Web",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Magic Tree House",
-      "predicate": "author",
-      "value": "Mary Pope Osborne",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Magic Tree House",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "National Geographic Kids",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Harry Potter",
-      "predicate": "author",
-      "value": "J.K. Rowling",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Harry Potter",
-      "predicate": "age group",
-      "value": "Ages 10-13",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Lemonade War",
-      "predicate": "author",
-      "value": "Jacqueline Davies",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Lemonade War",
-      "predicate": "age group",
-      "value": "Ages 10-13",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Island of the Blue Dolphins",
-      "predicate": "author",
-      "value": "Scott O'Dell",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Island of the Blue Dolphins",
-      "predicate": "age group",
-      "value": "Ages 10-13",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Captain Underpants",
-      "predicate": "author",
-      "value": "Dav Pilkey",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Captain Underpants",
-      "predicate": "age group",
-      "value": "Ages 7-13",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Zoey and Squeak",
-      "predicate": "author",
-      "value": "Victoria Jamieson",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Zoey and Squeak",
-      "predicate": "age group",
-      "value": "Ages 7-13",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Diary of a Wimpy Kid",
-      "predicate": "author",
-      "value": "Jeff Kinney",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Diary of a Wimpy Kid",
-      "predicate": "age group",
-      "value": "Ages 7-13",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Dinosaurs Before Dark",
-      "predicate": "series number",
-      "value": "#1",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Dinosaurs Before Dark",
-      "predicate": "series",
-      "value": "Magic Tree House",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Knight at Dawn",
-      "predicate": "series number",
-      "value": "#2",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Knight at Dawn",
-      "predicate": "series",
-      "value": "Magic Tree House",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Mummies in the Morning",
-      "predicate": "series number",
-      "value": "#3",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Mummies in the Morning",
-      "predicate": "series",
-      "value": "Magic Tree House",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Pirates Past Noon",
-      "predicate": "series number",
-      "value": "#4",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Pirates Past Noon",
-      "predicate": "series",
-      "value": "Magic Tree House",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Night of the Ninjas",
-      "predicate": "series number",
-      "value": "#5",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Night of the Ninjas",
-      "predicate": "series",
-      "value": "Magic Tree House",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Hour of the Olympics",
-      "predicate": "series number",
-      "value": "#16",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Hour of the Olympics",
-      "predicate": "series",
-      "value": "Magic Tree House",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Magic Tree House",
-      "predicate": "recommended age range",
-      "value": "6-10 years old",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "National Geographic Kids: Ancient Egypt",
-      "predicate": "author",
-      "value": "Catherine D. Hughes",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "National Geographic Kids: Ancient Egypt",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Ancient Egypt (DK Find Out!)",
-      "predicate": "publisher",
-      "value": "DK Publishing",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Ancient Egypt (DK Find Out!)",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Ancient Egyptians (Usborne Beginners)",
-      "predicate": "author",
-      "value": "Fiona Macdonald",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Ancient Egyptians (Usborne Beginners)",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Mummies, Pyramids, and Pharaohs: A Book About Ancient Egypt",
-      "predicate": "author",
-      "value": "Gail Gibbons",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Mummies, Pyramids, and Pharaohs: A Book About Ancient Egypt",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Ancient Egypt (Scholastic Discover More)",
-      "predicate": "author",
-      "value": "Penelope Arlon",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Ancient Egypt (Scholastic Discover More)",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Egypt Game (Who Was...?)",
-      "predicate": "author",
-      "value": "Elizabeth Mann",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Egypt Game (Who Was...?)",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Ancient Egypt: A Visual Explorer",
-      "predicate": "author",
-      "value": "Peter Chrisp",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Ancient Egypt: A Visual Explorer",
-      "predicate": "age group",
-      "value": "Ages 7-10",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
+      "entity": "user",
+      "predicate": "has been doing",
+      "value": "a lot of charity events lately",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "cancer research and latest developments",
+      "entity": "user",
+      "preference": "cancer research",
+      "polarity": "positive",
+      "constraint": "interested in latest developments and attending charity events"
+    },
+    {
+      "entity": "user",
+      "preference": "immunotherapy success rates",
+      "polarity": "positive",
+      "constraint": "particularly interested in melanoma and lung cancer applications"
+    },
+    {
+      "entity": "user",
+      "preference": "bike riding",
+      "polarity": "positive",
+      "constraint": "leisurely, scenic routes with some challenging parts"
+    },
+    {
+      "entity": "user",
+      "preference": "charity events",
+      "polarity": "positive",
+      "constraint": "bike-related, fundraising"
+    },
+    {
+      "entity": "user",
+      "preference": "healthy snacks",
+      "polarity": "positive",
+      "constraint": "energy-boosting, easy-to-make"
+    },
+    {
+      "entity": "user",
+      "preference": "children's books that are fun and educational",
+      "polarity": "positive",
+      "constraint": "for kids"
+    },
+    {
+      "entity": "user",
+      "preference": "adventure and history books",
+      "polarity": "positive",
+      "constraint": "for 7-year-old readers"
+    },
+    {
+      "entity": "user",
+      "preference": "non-fiction books about ancient Egypt",
+      "polarity": "positive",
+      "constraint": "suitable for ages 7-10"
+    },
+    {
+      "entity": "user",
+      "preference": "healthy snack ideas that are easy to prepare",
+      "polarity": "positive",
+      "constraint": "easy to prepare"
+    },
+    {
+      "entity": "user",
+      "preference": "energy balls as a snack",
       "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "melanoma and lung cancer success rates in immunotherapy",
+      "entity": "user",
+      "preference": "overnight oats for breakfast",
       "polarity": "positive",
-      "constraint": "particularly interested"
+      "constraint": "protein-rich and prepared in advance"
     },
     {
-      "entity": "User",
-      "preference": "book recommendations for kids",
-      "polarity": "positive",
-      "constraint": "fun and educational"
-    },
-    {
-      "entity": "User",
-      "preference": "Magic Tree House series",
-      "polarity": "positive",
-      "constraint": "for 7-year-old who loves adventure and history"
-    },
-    {
-      "entity": "User",
-      "preference": "ancient Egypt",
-      "polarity": "positive",
-      "constraint": "non-fiction books suitable for kids ages 7-10"
-    },
-    {
-      "entity": "User",
-      "preference": "volunteering at charity book drives",
-      "polarity": "positive",
-      "constraint": "helping underprivileged kids"
+      "entity": "user",
+      "preference": "healthy breakfast before charity events",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "Cancer Research Foundation charity gala attended by user",
+      "event": "attended charity gala organized by Cancer Research Foundation",
       "date": "2023-01-30",
       "location": "fancy hotel in downtown",
       "sessionId": "answer_4bfcc250_4"
     },
     {
-      "event": "User volunteered at Books for Kids charity book drive event, helping to sort and pack over 500 books",
+      "event": "24-Hour Bike Ride charity event",
+      "date": "2023-02-14",
+      "location": "local children's hospital",
+      "sessionId": "answer_4bfcc250_3"
+    },
+    {
+      "event": "Books for Kids charity book drive - volunteered sorting and packing books",
       "date": "2023-02-15",
       "location": "local library",
       "sessionId": "answer_4bfcc250_2"
+    },
+    {
+      "event": "Walk for Hunger charity event",
+      "date": "2023-03-19",
+      "location": "local area with food bank beneficiary",
+      "sessionId": "answer_4bfcc250_1"
     }
   ]
 }

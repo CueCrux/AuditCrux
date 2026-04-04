@@ -1,16 +1,8 @@
 {
   "facts": [
     {
-      "entity": "conversation",
-      "predicate": "occurred_on",
-      "value": "2023-05-27",
-      "date": "2023-05-27",
-      "sessionId": "answer_sharegpt_cGdjmYo_0",
-      "source": "user"
-    },
-    {
       "entity": "assistant",
-      "predicate": "suggested_term",
+      "predicate": "suggested alternative term",
       "value": "sexual compulsions",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
@@ -18,7 +10,7 @@
     },
     {
       "entity": "assistant",
-      "predicate": "suggested_term",
+      "predicate": "suggested alternative term",
       "value": "sexual fixations",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
@@ -26,7 +18,7 @@
     },
     {
       "entity": "assistant",
-      "predicate": "suggested_term",
+      "predicate": "suggested alternative term",
       "value": "problematic sexual behaviors",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
@@ -34,7 +26,7 @@
     },
     {
       "entity": "assistant",
-      "predicate": "suggested_term",
+      "predicate": "suggested alternative term",
       "value": "sexual impulsivity",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
@@ -42,45 +34,32 @@
     },
     {
       "entity": "assistant",
-      "predicate": "suggested_term",
+      "predicate": "suggested alternative term",
       "value": "compulsive sexuality",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "requested",
+      "value": "better alternative terms for sexual behaviors",
+      "date": "2023-05-27",
+      "sessionId": "answer_sharegpt_cGdjmYo_0",
+      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "user",
-      "preference": "shorter term describing sexual behaviors",
-      "polarity": "positive",
-      "constraint": "must be shorter than previous suggestion"
-    },
-    {
-      "entity": "user",
-      "preference": "better alternative term",
-      "polarity": "positive",
-      "constraint": "more suitable than previous suggestions"
+      "preference": "previous suggestions were not satisfactory",
+      "polarity": "negative",
+      "constraint": "wanted better alternatives"
     }
   ],
   "events": [
     {
-      "event": "user asked for shorter term for sexual behaviors",
-      "date": "2023-05-27",
-      "sessionId": "answer_sharegpt_cGdjmYo_0"
-    },
-    {
-      "event": "assistant provided term 'sexual compulsions'",
-      "date": "2023-05-27",
-      "sessionId": "answer_sharegpt_cGdjmYo_0"
-    },
-    {
-      "event": "user requested better alternatives",
-      "date": "2023-05-27",
-      "sessionId": "answer_sharegpt_cGdjmYo_0"
-    },
-    {
-      "event": "assistant provided four alternative terms",
+      "event": "assistant provided five alternative terms for describing certain sexual behaviors",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0"
     }
