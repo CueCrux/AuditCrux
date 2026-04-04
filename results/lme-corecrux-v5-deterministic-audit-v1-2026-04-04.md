@@ -853,3 +853,79 @@ Question
 *Pipeline: CoreCrux v5 deterministic (zero LLM at query time)*
 *Extraction model: Claude Haiku 4.5 (one-time, cached)*
 *Evaluator: self-assessed gold match (substring + keyword overlap)*
+
+---
+
+## Appendix A: Deep Dive — Is Retrieval Producing the Answer?
+
+### Summary
+
+Of 42 failed questions, the gold answer **exists in the extracted facts** for 15 (36%). The remaining 24 (57%) have the answer missing from extraction entirely. 3 (7%) have no facts at all.
+
+| Category | Count | % of Failures |
+|---|---|---|
+| Answer IS in facts (wrong selection) | 15 | 36% |
+| Answer NOT in facts (extraction gap) | 24 | 57% |
+| No facts extracted | 3 | 7% |
+
+### Per-Type Breakdown
+
+| Type | Failures | Answer in Facts | Not in Facts | No Facts |
+|---|---|---|---|---|
+| knowledge-update | 5 | 4 | 1 | 0 |
+| multi-session | 4 | 0 | 4 | 0 |
+| single-session-assistant | 9 | 4 | 4 | 1 |
+| single-session-preference | 9 | 0 | 9 | 0 |
+| single-session-user | 9 | 6 | 1 | 2 |
+| temporal-reasoning | 6 | 1 | 5 | 0 |
+
+### Implication
+
+The extraction is the primary bottleneck (57% of failures), not the scoring (36%). Improving extraction quality has 1.6x the impact ceiling of improving selection quality.
+
+---
+
+## Appendix B: Architecture Ceiling Analysis
+
+| Ceiling Tier | Score | Delta from Current | What's Fixed |
+|---|---|---|---|
+| Current | 23/65 (35.4%) | — | — |
+| Tier 1: Fix selection only | 38/65 (58.5%) | +23pp | Answer in facts → correct selection |
+| Tier 2: Fix selection + extraction | 62/65 (95.4%) | +60pp | + extraction captures all answers |
+| Tier 3: Fix all | 65/65 (100%) | +65pp | + coverage for 3 edge cases |
+
+**The gap: 35% → 58% is scoring. 58% → 95% is extraction. 95% → 100% is edge cases.**
+
+---
+
+## Appendix C: Improvement Strategy
+
+### Strategy A: Question-Aware Extraction (highest impact)
+
+Pass the question to the extractor so it focuses on relevant details instead of extracting blindly.
+
+- **Fixes:** 24/42 failures (extraction gaps)
+- **Expected lift:** +15-20pp → 50-55%
+- **Risk:** Low — same model, same caching, just targeted prompt
+- **Effort:** 1-2 days
+
+### Strategy B: Embedding-Based Fact Selection
+
+Replace keyword overlap with cosine similarity for fact ranking.
+
+- **Fixes:** 15/42 failures (wrong selection)
+- **Expected lift:** +8-12pp (additive with A → 58-67%)
+- **Risk:** Medium — adds EmbedderCrux at query time (can be cached)
+- **Effort:** 2-3 days
+
+### Strategy C: Two-Stage Pipeline with Verification
+
+Combines A + B + BM25 text search verification against original session text.
+
+- **Fixes:** 30+/42 failures
+- **Expected lift:** +25-35pp → 60-70%
+- **Risk:** Higher complexity
+- **Effort:** 3-5 days
+
+### Recommended Execution: A → B → C (test at each gate)
+
