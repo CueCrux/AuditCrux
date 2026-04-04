@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "attended event",
+      "predicate": "attended",
       "value": "friends and family sale at Nordstrom",
       "date": "2022-11-17",
       "sessionId": "answer_b51b6115_1",
@@ -10,8 +10,8 @@
     },
     {
       "entity": "user",
-      "predicate": "purchased items",
-      "value": "dresses and tops at Nordstrom",
+      "predicate": "purchased",
+      "value": "dresses and tops",
       "date": "2022-11-17",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
@@ -26,47 +26,30 @@
     },
     {
       "entity": "user",
-      "predicate": "received gift card",
-      "value": "$20 gift card from Nordstrom",
+      "predicate": "received",
+      "value": "$20 gift card from Nordstrom purchase over $100",
       "date": "2022-11-17",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "purchase minimum for gift card",
-      "value": "over $100",
-      "date": "2022-11-17",
+      "predicate": "purchased",
+      "value": "new 4K TV during Black Friday",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "purchased item",
-      "value": "new 4K TV",
-      "date": "2022-11-18",
-      "sessionId": "answer_b51b6115_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "purchase occasion",
-      "value": "Black Friday",
-      "date": "2022-11-18",
-      "sessionId": "answer_b51b6115_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "attended event",
-      "value": "annual holiday market in their city",
+      "predicate": "plans to use TV for",
+      "value": "gaming, movie nights, casual viewing, family gatherings, holidays",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "family size",
-      "value": "pretty big family",
+      "value": "big family",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
     }
@@ -74,27 +57,30 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "TV mount type",
+      "preference": "full-motion TV mount",
       "polarity": "positive",
-      "constraint": "full-motion mount for living room"
+      "constraint": "for living room use"
     },
     {
       "entity": "user",
-      "preference": "TV mount model",
-      "polarity": "positive",
-      "constraint": "Sanus VMF408"
+      "preference": "Sanus VMF408 mount",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "shopping",
-      "polarity": "positive",
-      "constraint": "enjoys scoring deals"
+      "preference": "soundbar for audio improvement",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "audio quality",
+      "preference": "budget-friendly options",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "unique, handmade gifts",
       "polarity": "positive",
-      "constraint": "interested in soundbars"
+      "constraint": "for holiday shopping"
     }
   ],
   "events": [
@@ -106,7 +92,7 @@
     },
     {
       "event": "purchased new 4K TV during Black Friday",
-      "date": "2022-11-18",
+      "date": null,
       "sessionId": "answer_b51b6115_1"
     },
     {

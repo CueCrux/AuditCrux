@@ -17,9 +17,8 @@
     },
     {
       "entity": "user",
-      "predicate": "shops at",
+      "predicate": "frequents",
       "value": "Saks and Neiman Marcus",
-      "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
@@ -27,7 +26,6 @@
       "entity": "user",
       "predicate": "canceled subscription to",
       "value": "monthly beauty box",
-      "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
@@ -35,15 +33,13 @@
       "entity": "monthly beauty box",
       "predicate": "cost",
       "value": "$50 per month",
-      "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "uses budgeting app",
-      "value": "Mint",
-      "date": "2023-05-23",
+      "predicate": "eats out",
+      "value": "frequently",
       "sessionId": "answer_7cb94507",
       "source": "user"
     }
@@ -51,25 +47,24 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "shopping at high-end department stores",
-      "polarity": "positive",
-      "constraint": "but recognizes need to set boundaries"
-    },
-    {
-      "entity": "user",
       "preference": "luxury items and designer goods",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "high-end department stores",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "affordable fashion alternatives",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "stylish pieces",
       "polarity": "positive",
-      "constraint": "willing to find affordable alternatives"
-    },
-    {
-      "entity": "user",
-      "preference": "affordable fashion brands like H&M and Uniqlo",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "discount stores for beauty products",
-      "polarity": "positive"
+      "constraint": "at lower price points"
     },
     {
       "entity": "user",
@@ -78,30 +73,36 @@
     },
     {
       "entity": "user",
-      "preference": "Korean and Indian cuisine",
+      "preference": "Korean and Indian cuisines",
       "polarity": "positive",
       "constraint": "affordable and delicious"
+    },
+    {
+      "entity": "user",
+      "preference": "monthly beauty box subscription",
+      "polarity": "negative",
+      "constraint": "wasteful, accumulating unused samples"
     }
   ],
   "events": [
     {
-      "event": "user purchased designer handbag",
+      "event": "user purchased a designer handbag for $800",
       "date": null,
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "user decided to start tracking expenses",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507"
-    },
-    {
       "event": "user canceled monthly beauty box subscription",
-      "date": "2023-05-23",
+      "date": null,
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "user started browsing affordable fashion alternatives online",
-      "date": "2023-05-23",
+      "event": "user started browsing H&M and Uniqlo for affordable fashion",
+      "date": null,
+      "sessionId": "answer_7cb94507"
+    },
+    {
+      "event": "user started buying beauty products at discount stores",
+      "date": null,
       "sessionId": "answer_7cb94507"
     }
   ]

@@ -3,14 +3,30 @@
     {
       "entity": "user",
       "predicate": "daily commute duration",
-      "value": "45 minutes each way (90 minutes total)",
+      "value": "45 minutes each way",
       "date": "2023-05-22",
       "sessionId": "answer_40a90d51",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "audiobook listening platform",
+      "predicate": "listens to audiobooks during",
+      "value": "daily commute",
+      "date": "2023-05-22",
+      "sessionId": "answer_40a90d51",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "currently reading",
+      "value": "Gone Girl on Kindle",
+      "date": "2023-05-22",
+      "sessionId": "answer_40a90d51",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "audiobook app used",
       "value": "Audible app",
       "date": "2023-05-22",
       "sessionId": "answer_40a90d51",
@@ -18,78 +34,49 @@
     },
     {
       "entity": "user",
-      "predicate": "reading format for Gone Girl",
-      "value": "Kindle e-book",
+      "predicate": "retention comparison",
+      "value": "retains more information from audiobooks than e-books",
       "date": "2023-05-22",
       "sessionId": "answer_40a90d51",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "note-taking habit",
-      "value": "takes notes while listening to audiobooks, especially non-fiction",
+      "predicate": "note-taking practice",
+      "value": "takes notes while listening to audiobooks, especially non-fiction with valuable insights",
       "date": "2023-05-22",
       "sessionId": "answer_40a90d51",
       "source": "user"
-    },
-    {
-      "entity": "The Nightingale",
-      "predicate": "audiobook runtime",
-      "value": "approximately 17 hours and 30 minutes",
-      "date": "2023-05-22",
-      "sessionId": "answer_40a90d51",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Nightingale",
-      "predicate": "narrator",
-      "value": "Polly Stone",
-      "date": "2023-05-22",
-      "sessionId": "answer_40a90d51",
-      "source": "assistant"
     }
   ],
   "preferences": [
     {
       "entity": "user",
-      "preference": "audiobooks for commute listening",
+      "preference": "audiobooks for commute",
       "polarity": "positive",
-      "constraint": "especially during daily commute"
+      "constraint": "especially fiction during daily commute"
     },
     {
       "entity": "user",
-      "preference": "audiobooks over e-books for retention",
+      "preference": "note-taking with audiobooks",
       "polarity": "positive",
-      "constraint": "finds audiobooks more engaging and better for information retention"
-    },
-    {
-      "entity": "user",
-      "preference": "fiction audiobooks",
-      "polarity": "positive",
-      "constraint": "interested in various genres including mystery, sci-fi, fantasy, and literary fiction"
-    },
-    {
-      "entity": "user",
-      "preference": "multitasking with audiobooks",
-      "polarity": "positive",
-      "constraint": "appreciates ability to multitask while listening"
+      "constraint": "particularly for non-fiction books with valuable insights"
     },
     {
       "entity": "user",
       "preference": "The Nightingale",
       "polarity": "positive",
-      "constraint": "interested in historical fiction set during WWII"
+      "constraint": "interested in this audiobook recommendation"
     }
   ],
   "events": [
     {
-      "event": "user started using audiobooks regularly during daily commute",
-      "date": null,
-      "location": "daily commute",
+      "event": "user began exploring audiobook recommendations",
+      "date": "2023-05-22",
       "sessionId": "answer_40a90d51"
     },
     {
-      "event": "user began taking notes while listening to audiobooks",
+      "event": "user started taking notes while listening to audiobooks",
       "date": null,
       "sessionId": "answer_40a90d51"
     }

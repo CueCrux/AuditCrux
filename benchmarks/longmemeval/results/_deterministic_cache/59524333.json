@@ -1,0 +1,116 @@
+{
+  "facts": [
+    {
+      "entity": "user",
+      "predicate": "gym attendance time",
+      "value": "7:00 pm",
+      "date": "2023-02-11",
+      "sessionId": "answer_b28f2c7a_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "gym attendance days",
+      "value": "Mondays, Wednesdays, Fridays",
+      "date": "2023-02-11",
+      "sessionId": "answer_b28f2c7a_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "uses app",
+      "value": "Todoist",
+      "date": "2023-02-11",
+      "sessionId": "answer_b28f2c7a_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has multiple projects",
+      "value": "true",
+      "date": "2023-02-11",
+      "sessionId": "answer_b28f2c7a_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "goes to gym on",
+      "value": "Mondays, Wednesdays, and Fridays",
+      "date": "2023-05-30",
+      "sessionId": "answer_b28f2c7a_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "gym time",
+      "value": "6:00 pm",
+      "date": "2023-05-30",
+      "sessionId": "answer_b28f2c7a_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "scheduled meeting with potential client",
+      "value": "Tuesday at 2:00 pm",
+      "date": "2023-05-30",
+      "sessionId": "answer_b28f2c7a_2",
+      "source": "user"
+    },
+    {
+      "entity": "meeting",
+      "predicate": "expected duration",
+      "value": "60 minutes or less",
+      "date": "2023-05-30",
+      "sessionId": "answer_b28f2c7a_2",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "Todoist over Trello",
+      "polarity": "positive",
+      "constraint": "already uses Todoist for task management"
+    },
+    {
+      "entity": "user",
+      "preference": "task organization and prioritization",
+      "polarity": "positive",
+      "constraint": "for managing multiple concurrent projects"
+    },
+    {
+      "entity": "user",
+      "preference": "avoid scheduling meetings during gym times",
+      "polarity": "negative",
+      "constraint": "Mondays, Wednesdays, Fridays"
+    },
+    {
+      "entity": "user",
+      "preference": "flexibility with scheduling",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "using Google Drive for file sharing",
+      "polarity": "positive"
+    }
+  ],
+  "events": [
+    {
+      "event": "user plans gym sessions",
+      "date": null,
+      "location": "gym",
+      "sessionId": "answer_b28f2c7a_1"
+    },
+    {
+      "event": "meeting scheduled with potential client",
+      "date": null,
+      "sessionId": "answer_b28f2c7a_2"
+    },
+    {
+      "event": "user plans to send files via Google Drive before meeting",
+      "date": "2023-05-30",
+      "sessionId": "answer_b28f2c7a_2"
+    }
+  ]
+}

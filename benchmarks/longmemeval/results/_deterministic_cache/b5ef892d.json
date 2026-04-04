@@ -3,16 +3,30 @@
     {
       "entity": "user",
       "predicate": "took camping trip",
-      "value": "7-day family road trip to Utah in February",
+      "value": "7-day family road trip to Utah",
+      "date": "2023-02-01",
+      "sessionId": "answer_a8b4290f_3",
+      "source": "user"
+    },
+    {
+      "entity": "7-day family road trip to Utah",
+      "predicate": "included activities",
+      "value": "driving and hiking, no camping",
       "date": "2023-02-01",
       "sessionId": "answer_a8b4290f_3",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "camping activities on trip",
-      "value": "no camping, only driving and hiking",
-      "date": "2023-02-01",
+      "predicate": "planning trip to",
+      "value": "Moab, Utah",
+      "sessionId": "answer_a8b4290f_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "interested in activities",
+      "value": "off-roading, mountain biking, hiking, scenic drives",
       "sessionId": "answer_a8b4290f_3",
       "source": "user"
     },
@@ -49,6 +63,13 @@
     },
     {
       "entity": "Maroon Bells Scenic Trail",
+      "predicate": "location",
+      "value": "Aspen, Colorado",
+      "sessionId": "answer_a8b4290f_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Maroon Bells Scenic Trail",
       "predicate": "distance",
       "value": "10 miles out-and-back",
       "sessionId": "answer_a8b4290f_1",
@@ -57,70 +78,84 @@
     {
       "entity": "Maroon Bells Scenic Trail",
       "predicate": "elevation gain",
-      "value": "1,500 feet",
+      "value": "1500 feet",
+      "sessionId": "answer_a8b4290f_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Maroon Bells Scenic Trail",
+      "predicate": "difficulty level",
+      "value": "moderate to challenging",
       "sessionId": "answer_a8b4290f_1",
       "source": "assistant"
     },
     {
       "entity": "Aspen",
       "predicate": "elevation",
-      "value": "7,890 ft",
+      "value": "7890 feet",
       "sessionId": "answer_a8b4290f_1",
       "source": "assistant"
     },
     {
       "entity": "user",
-      "predicate": "took camping trip",
-      "value": "Big Sur, 3 days",
-      "date": "2023-04-01",
-      "sessionId": "answer_a8b4290f_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "took camping trip",
-      "value": "Yellowstone, multi-day",
-      "date": "2023-03-01",
-      "sessionId": "answer_a8b4290f_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "planning trek",
-      "value": "New Zealand, 10 days",
-      "date": "2023-11-01",
-      "sessionId": "answer_a8b4290f_2",
-      "source": "user"
-    },
-    {
-      "entity": "Big Sur trip",
-      "predicate": "duration",
+      "predicate": "spent days camping",
       "value": "3 days",
       "date": "2023-04-01",
       "sessionId": "answer_a8b4290f_2",
       "source": "user"
     },
     {
-      "entity": "Yellowstone trip",
-      "predicate": "location",
+      "entity": "user",
+      "predicate": "camping location",
+      "value": "Big Sur",
+      "date": "2023-04-01",
+      "sessionId": "answer_a8b4290f_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "hiking location",
       "value": "Yellowstone",
       "date": "2023-03-01",
       "sessionId": "answer_a8b4290f_2",
       "source": "user"
     },
     {
-      "entity": "New Zealand trek",
-      "predicate": "duration",
+      "entity": "user",
+      "predicate": "planned trek duration",
       "value": "10 days",
+      "sessionId": "answer_a8b4290f_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "planned trek location",
+      "value": "New Zealand",
       "date": "2023-11-01",
       "sessionId": "answer_a8b4290f_2",
       "source": "user"
     },
     {
-      "entity": "New Zealand trek",
+      "entity": "user",
+      "predicate": "camping trip type",
+      "value": "solo",
+      "date": "2023-04-01",
+      "sessionId": "answer_a8b4290f_2",
+      "source": "user"
+    },
+    {
+      "entity": "Big Sur trip",
       "predicate": "terrain type",
-      "value": "rocky trails, varying terrain",
-      "date": "2023-11-01",
+      "value": "hiking trails",
+      "date": "2023-04-01",
+      "sessionId": "answer_a8b4290f_2",
+      "source": "user"
+    },
+    {
+      "entity": "Yellowstone trip",
+      "predicate": "terrain type",
+      "value": "rocky and uneven trails",
+      "date": "2023-03-01",
       "sessionId": "answer_a8b4290f_2",
       "source": "user"
     }
@@ -133,7 +168,7 @@
     },
     {
       "entity": "user",
-      "preference": "off-roading",
+      "preference": "off-roading activities",
       "polarity": "positive",
       "constraint": "beginner level"
     },
@@ -145,51 +180,49 @@
     },
     {
       "entity": "user",
-      "preference": "camping trips",
+      "preference": "camping and hiking trips",
       "polarity": "positive",
-      "constraint": "still buzzing from Yellowstone experience"
+      "constraint": "in United States"
     },
     {
       "entity": "user",
-      "preference": "hiking in Rocky Mountains",
-      "polarity": "positive",
-      "constraint": "interested in Maroon Bells Scenic Trail"
+      "preference": "scenic mountain destinations",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "early starts on hikes",
+      "preference": "early morning hikes",
       "polarity": "positive",
-      "constraint": "to beat crowds"
+      "constraint": "to avoid crowds"
     },
     {
       "entity": "user",
-      "preference": "casual, affordable dining",
-      "polarity": "positive",
-      "constraint": "after hiking activities"
+      "preference": "exploring towns and local culture",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "Merrell Moab 2 Mid Waterproof boots",
+      "preference": "waterproof boots for multi-day backpacking",
       "polarity": "positive",
-      "constraint": "for multi-day backpacking and rocky terrain"
+      "constraint": "multi-day backpacking trips"
     },
     {
       "entity": "user",
-      "preference": "waterproof boots",
+      "preference": "lightweight and compact camping stove",
       "polarity": "positive",
-      "constraint": "for multi-day backpacking trips"
+      "constraint": "can withstand windy conditions"
+    },
+    {
+      "entity": "user",
+      "preference": "water filter over purification tablets",
+      "polarity": "positive",
+      "constraint": "for 10-day treks to minimize pack weight"
     },
     {
       "entity": "user",
       "preference": "Sawyer Mini Water Filter",
       "polarity": "positive",
-      "constraint": "lightweight, compact, for 10-day trek"
-    },
-    {
-      "entity": "user",
-      "preference": "lightweight and compact gear",
-      "polarity": "positive",
-      "constraint": "for backpacking trips"
+      "constraint": "lightweight, compact, effective"
     }
   ],
   "events": [
@@ -200,13 +233,19 @@
       "sessionId": "answer_a8b4290f_3"
     },
     {
-      "event": "completed camping trip to Yellowstone National Park",
+      "event": "Planning trip to Moab",
+      "date": null,
+      "location": "Moab, Utah",
+      "sessionId": "answer_a8b4290f_3"
+    },
+    {
+      "event": "completed 5-day camping trip to Yellowstone National Park",
       "date": "2023-03",
       "location": "Yellowstone National Park",
       "sessionId": "answer_a8b4290f_1"
     },
     {
-      "event": "planning camping and hiking trip to Rocky Mountains",
+      "event": "planning trip to Rocky Mountains Colorado with Maroon Bells Scenic Trail hike",
       "date": "2023-04-29",
       "location": "Aspen, Colorado",
       "sessionId": "answer_a8b4290f_1"
@@ -218,7 +257,7 @@
       "sessionId": "answer_a8b4290f_2"
     },
     {
-      "event": "multi-day hiking trip",
+      "event": "hiking trip with rocky and uneven terrain",
       "date": "2023-03-01",
       "location": "Yellowstone",
       "sessionId": "answer_a8b4290f_2"

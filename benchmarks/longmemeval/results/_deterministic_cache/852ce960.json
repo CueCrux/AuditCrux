@@ -10,7 +10,15 @@
     },
     {
       "entity": "user",
-      "predicate": "pre-approved by",
+      "predicate": "purchasing home with price",
+      "value": "$325,000",
+      "date": "2023-08-11",
+      "sessionId": "answer_3a6f1e82_1",
+      "source": "user"
+    },
+    {
+      "entity": "pre-approval",
+      "predicate": "from lender",
       "value": "Wells Fargo",
       "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
@@ -18,54 +26,38 @@
     },
     {
       "entity": "user",
-      "predicate": "purchasing property at price",
-      "value": "$325,000",
-      "date": "2023-08-11",
-      "sessionId": "answer_3a6f1e82_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "agreed to seller credit towards closing costs",
+      "predicate": "agreed to seller credit",
       "value": "$2,000",
       "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
     {
+      "entity": "inspection report",
+      "predicate": "identified issues",
+      "value": "minor roof and plumbing issues",
+      "date": "2023-08-11",
+      "sessionId": "answer_3a6f1e82_1",
+      "source": "user"
+    },
+    {
       "entity": "user",
-      "predicate": "requested additional seller credit",
+      "predicate": "requesting additional seller credit",
       "value": "$3,250 (1% of purchase price)",
       "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
     {
-      "entity": "property",
-      "predicate": "has inspection findings",
-      "value": "minor issues with roof and plumbing",
-      "date": "2023-08-11",
-      "sessionId": "answer_3a6f1e82_1",
-      "source": "user"
-    },
-    {
-      "entity": "estimated closing costs",
-      "predicate": "range",
-      "value": "$11,332 to $20,322",
-      "date": "2023-08-11",
-      "sessionId": "answer_3a6f1e82_1",
-      "source": "assistant"
-    },
-    {
       "entity": "user",
-      "predicate": "pre-approved mortgage amount",
+      "predicate": "pre-approved for mortgage amount",
       "value": "$400,000",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "pre-approved mortgage lender",
+      "predicate": "mortgage lender",
       "value": "Wells Fargo",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
@@ -80,7 +72,7 @@
     {
       "entity": "user",
       "predicate": "rented storage unit",
-      "value": "true",
+      "value": "storage unit company",
       "date": "2024-03-01",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
@@ -110,15 +102,15 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "buying a new home",
+      "preference": "negotiating closing costs with seller",
       "polarity": "positive",
-      "constraint": "$325,000 purchase price"
+      "constraint": "based on inspection report findings"
     },
     {
       "entity": "user",
-      "preference": "negotiating with seller to cover closing costs",
+      "preference": "financing home purchase",
       "polarity": "positive",
-      "constraint": "based on inspection report findings"
+      "constraint": "conventional loan from Wells Fargo"
     },
     {
       "entity": "user",
@@ -127,9 +119,8 @@
     },
     {
       "entity": "user",
-      "preference": "new home move",
-      "polarity": "positive",
-      "constraint": "excited and looking forward to it"
+      "preference": "moving into new home soon",
+      "polarity": "positive"
     }
   ],
   "events": [
@@ -139,29 +130,34 @@
       "sessionId": "answer_3a6f1e82_1"
     },
     {
+      "event": "user is purchasing a $325,000 house",
+      "date": "2023-08-11",
+      "sessionId": "answer_3a6f1e82_1"
+    },
+    {
       "event": "inspection report identified minor roof and plumbing issues",
       "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1"
     },
     {
-      "event": "user and seller agreed to $2,000 credit towards closing costs",
+      "event": "seller agreed to $2,000 credit towards closing costs",
       "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1"
     },
     {
-      "event": "user requested additional $3,250 credit from seller",
+      "event": "user planning to request additional $3,250 seller credit for closing costs",
       "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1"
     },
     {
-      "event": "user rented a storage unit",
-      "date": "2024-03-01",
+      "event": "user received mortgage pre-approval from Wells Fargo for $400,000",
+      "date": null,
       "sessionId": "answer_3a6f1e82_2"
     },
     {
-      "event": "user planning to move into new home",
-      "date": null,
-      "location": "78749 zip code",
+      "event": "user rented storage unit to store belongings during home closing process",
+      "date": "2024-03-01",
+      "location": "78749",
       "sessionId": "answer_3a6f1e82_2"
     }
   ]

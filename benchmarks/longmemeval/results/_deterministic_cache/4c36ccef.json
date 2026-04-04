@@ -2,8 +2,8 @@
   "facts": [
     {
       "entity": "Roscioli",
-      "predicate": "location",
-      "value": "near the Campo dei Fiori market, Rome",
+      "predicate": "is_located_in",
+      "value": "near Campo dei Fiori market, Rome",
       "date": "2023-05-30",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
@@ -25,49 +25,51 @@
       "source": "assistant"
     },
     {
-      "entity": "user",
-      "predicate": "dining_request",
-      "value": "reservation at Roscioli for tomorrow at 7:00 pm",
+      "entity": "User",
+      "predicate": "requested_reservation_at",
+      "value": "Roscioli",
       "date": "2023-05-30",
+      "sessionId": "answer_ultrachat_448704",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "requested_reservation_time",
+      "value": "7:00 pm",
+      "date": "2023-05-31",
       "sessionId": "answer_ultrachat_448704",
       "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "user",
+      "entity": "User",
       "preference": "romantic dinner atmosphere",
       "polarity": "positive",
       "constraint": "cozy and intimate with soft lighting"
     },
     {
-      "entity": "user",
-      "preference": "high-quality ingredients",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "gelato",
+      "entity": "User",
+      "preference": "high-quality ingredients in cuisine",
       "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "user asked for romantic restaurant recommendation in Rome",
+      "event": "User asked for Italian restaurant recommendations in Rome",
       "date": "2023-05-30",
       "location": "Rome",
       "sessionId": "answer_ultrachat_448704"
     },
     {
-      "event": "assistant recommended Roscioli for romantic dinner",
+      "event": "User asked which restaurant is best for romantic dinner",
       "date": "2023-05-30",
-      "location": "Rome",
       "sessionId": "answer_ultrachat_448704"
     },
     {
-      "event": "user requested reservation at Roscioli",
+      "event": "User requested reservation at Roscioli",
       "date": "2023-05-30",
-      "location": "Rome",
+      "location": "Roscioli, Rome",
       "sessionId": "answer_ultrachat_448704"
     }
   ]

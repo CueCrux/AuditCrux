@@ -9,8 +9,15 @@
     },
     {
       "entity": "user",
-      "predicate": "current employment type",
-      "value": "9-to-5 job (new role)",
+      "predicate": "current employment status",
+      "value": "new job with 9-to-5 schedule",
+      "sessionId": "answer_280352e9",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "previous organization method",
+      "value": "using a planner",
       "date": "2023-05-30",
       "sessionId": "answer_280352e9",
       "source": "user"
@@ -21,31 +28,42 @@
       "entity": "user",
       "preference": "task management apps",
       "polarity": "positive",
-      "constraint": "planning to try Todoist and Trello"
+      "constraint": "Todoist and Trello"
     },
     {
       "entity": "user",
-      "preference": "personal finance tracking",
+      "preference": "digital task management",
       "polarity": "positive",
-      "constraint": "planning to try Mint and Personal Capital"
+      "constraint": "over paper planner"
     },
     {
       "entity": "user",
-      "preference": "saving money",
+      "preference": "personal expense tracking",
       "polarity": "positive",
-      "constraint": "wants to cut back on groceries and household items"
+      "constraint": "wants to stay on top of finances"
     },
     {
       "entity": "user",
-      "preference": "digital organization",
+      "preference": "saving money on groceries and household items",
       "polarity": "positive",
-      "constraint": "transitioning from paper planner to digital task management"
+      "constraint": "concerned about high spending"
+    },
+    {
+      "entity": "user",
+      "preference": "financial management apps",
+      "polarity": "positive",
+      "constraint": "Mint and Personal Capital"
     }
   ],
   "events": [
     {
       "event": "user started new job",
       "date": null,
+      "sessionId": "answer_280352e9"
+    },
+    {
+      "event": "user decided to transition from planner to digital task management",
+      "date": "2023-05-30",
       "sessionId": "answer_280352e9"
     }
   ]

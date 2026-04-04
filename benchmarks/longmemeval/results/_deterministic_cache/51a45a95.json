@@ -2,51 +2,49 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "redeemed coupon on",
-      "value": "coffee creamer, $5",
-      "date": "2023-05-26",
+      "predicate": "redeemed coupon",
+      "value": "$5 coupon on coffee creamer",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
       "entity": "$5 coupon on coffee creamer",
-      "predicate": "location redeemed",
+      "predicate": "found in",
       "value": "email inbox",
-      "date": "2023-05-26",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "shops at",
-      "value": "Target",
-      "sessionId": "answer_d61669c7",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "shopping frequency at Target",
-      "value": "every other week",
+      "entity": "$5 coupon on coffee creamer",
+      "predicate": "redeemed on",
+      "value": "last Sunday",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "uses app",
-      "value": "Cartwheel from Target",
+      "value": "Target Cartwheel",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "total savings with Cartwheel",
-      "value": "$20",
+      "predicate": "shopping frequency",
+      "value": "every other week at Target",
       "sessionId": "answer_d61669c7",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "using Cartwheel for",
+      "predicate": "total savings",
+      "value": "$20 using Cartwheel",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "Cartwheel app",
+      "predicate": "user duration",
       "value": "a few weeks",
       "sessionId": "answer_d61669c7",
       "source": "user"
@@ -55,51 +53,55 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "Cartwheel app for saving money on household items",
+      "preference": "binder with labeled sections for organization",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "binder with labeled sections for coupon organization",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "Cartwheel app user-friendly and easy to navigate",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "sorting offers by expiration date in Cartwheel",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "too many notifications from Cartwheel",
-      "polarity": "negative"
-    },
-    {
-      "entity": "user",
-      "preference": "customizable notifications in Cartwheel",
+      "preference": "Cartwheel app from Target",
       "polarity": "positive",
-      "constraint": "only for expiring soon or specific categories"
+      "constraint": "helpful for saving money on household items"
     },
     {
       "entity": "user",
-      "preference": "Target purchases",
+      "preference": "Target shopping",
       "polarity": "positive",
       "constraint": "household items, toiletries, kids' clothes"
+    },
+    {
+      "entity": "user",
+      "preference": "Cartwheel app user interface",
+      "polarity": "positive",
+      "constraint": "user-friendly, easy to navigate, organized by category"
+    },
+    {
+      "entity": "user",
+      "preference": "customizable notifications",
+      "polarity": "positive",
+      "constraint": "only for expiring offers or specific categories"
+    },
+    {
+      "entity": "user",
+      "preference": "too many notifications",
+      "polarity": "negative",
+      "constraint": "feels overwhelmed"
+    },
+    {
+      "entity": "user",
+      "preference": "sorting offers by expiration date",
+      "polarity": "positive",
+      "constraint": "to prioritize closest expiring deals"
     }
   ],
   "events": [
     {
-      "event": "user redeemed $5 coupon on coffee creamer",
-      "date": "2023-05-26",
-      "location": "email inbox",
+      "event": "redeemed $5 coupon on coffee creamer",
+      "date": null,
+      "location": "email/Target",
       "sessionId": "answer_d61669c7"
     },
     {
-      "event": "user started using Cartwheel app",
+      "event": "saved $20 total using Cartwheel app",
       "date": null,
       "location": "Target",
       "sessionId": "answer_d61669c7"

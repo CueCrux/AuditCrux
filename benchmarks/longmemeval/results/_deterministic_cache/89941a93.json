@@ -23,22 +23,22 @@
     },
     {
       "entity": "user",
-      "predicate": "current bike count",
-      "value": "3",
+      "predicate": "currently owns",
+      "value": "three bikes",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
       "entity": "user's road bike",
-      "predicate": "mileage",
-      "value": "2000 miles",
+      "predicate": "has been ridden",
+      "value": "2,000 miles",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
       "entity": "user's current wheels",
-      "predicate": "mileage",
-      "value": "2000 miles",
+      "predicate": "have been used for",
+      "value": "2,000 miles",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
@@ -52,8 +52,8 @@
     },
     {
       "entity": "user",
-      "predicate": "planning ride distance",
-      "value": "50 miles",
+      "predicate": "planning",
+      "value": "50-mile ride",
       "date": "2023-02-22",
       "sessionId": "answer_e1403127_1",
       "source": "user"
@@ -67,7 +67,7 @@
     },
     {
       "entity": "user",
-      "predicate": "owns",
+      "predicate": "currently owns",
       "value": "4 bikes",
       "sessionId": "answer_e1403127_2",
       "source": "user"
@@ -101,23 +101,23 @@
       "source": "user"
     },
     {
-      "entity": "hybrid bike",
-      "predicate": "recently_purchased",
-      "value": "true",
+      "entity": "user",
+      "predicate": "recently purchased",
+      "value": "new hybrid bike",
       "sessionId": "answer_e1403127_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "owns",
+      "predicate": "recently purchased",
       "value": "new bike computer",
       "sessionId": "answer_e1403127_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "owns",
-      "value": "new cycling shoes with clipless pedals",
+      "predicate": "recently purchased",
+      "value": "new pair of cycling shoes with clipless pedals",
       "sessionId": "answer_e1403127_2",
       "source": "user"
     }
@@ -125,48 +125,45 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "long weekend rides",
-      "polarity": "positive",
-      "constraint": "road bike"
+      "preference": "long weekend rides on road bike",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "trail rides",
-      "polarity": "positive",
-      "constraint": "mountain bike"
+      "preference": "trail rides on mountain bike",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "daily commutes",
-      "polarity": "positive",
-      "constraint": "commuter bike"
+      "preference": "daily commutes on commuter bike",
+      "polarity": "positive"
     },
     {
       "entity": "user",
       "preference": "carbon fiber wheels upgrade",
-      "polarity": "neutral",
-      "constraint": "considering but needs more research and budget evaluation"
+      "polarity": "positive",
+      "constraint": "considering, needs budget research"
     },
     {
       "entity": "user",
-      "preference": "bike-friendly routes with low traffic and scenic views",
+      "preference": "scenic routes with low traffic",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "longer distance cycling",
+      "preference": "longer distances cycling",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "visiting local bike shops",
+      "preference": "visiting bike shops along routes",
       "polarity": "positive"
     },
     {
       "entity": "user",
       "preference": "guided mountain bike tours",
       "polarity": "positive",
-      "constraint": "Jackson Hole"
+      "constraint": "in Jackson Hole"
     },
     {
       "entity": "user",
@@ -176,35 +173,30 @@
   ],
   "events": [
     {
-      "event": "user planning 50-mile ride",
+      "event": "planning 50-mile ride",
       "date": "2023-02-22",
       "location": "San Francisco Bay Area",
       "sessionId": "answer_e1403127_1"
     },
     {
-      "event": "user considering century ride",
+      "event": "planning century ride",
       "date": null,
       "location": "San Francisco Bay Area",
       "sessionId": "answer_e1403127_1"
     },
     {
-      "event": "user planning road trip from San Francisco to New York City",
-      "date": null,
+      "event": "user planning a road trip from San Francisco to New York City",
+      "date": "2023-10-10",
       "location": "San Francisco to New York City",
       "sessionId": "answer_e1403127_2"
     },
     {
-      "event": "user purchased new hybrid bike",
+      "event": "user recently purchased a new hybrid bike",
       "date": null,
       "sessionId": "answer_e1403127_2"
     },
     {
-      "event": "user purchased new bike computer",
-      "date": null,
-      "sessionId": "answer_e1403127_2"
-    },
-    {
-      "event": "user purchased new cycling shoes with clipless pedals",
+      "event": "user recently purchased new cycling shoes with clipless pedals",
       "date": null,
       "sessionId": "answer_e1403127_2"
     }

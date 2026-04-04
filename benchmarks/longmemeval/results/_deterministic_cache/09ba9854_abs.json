@@ -1,0 +1,167 @@
+{
+  "facts": [
+    {
+      "entity": "taxi",
+      "predicate": "estimated cost from airport to hotel",
+      "value": "$60 USD",
+      "date": "2023-05-20",
+      "sessionId": "answer_96c743d0_abs_1",
+      "source": "user"
+    },
+    {
+      "entity": "airport bus",
+      "predicate": "estimated fare",
+      "value": "$10-$20",
+      "date": "2023-05-20",
+      "sessionId": "answer_96c743d0_abs_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "bus",
+      "predicate": "savings compared to taxi",
+      "value": "$40-$50",
+      "date": "2023-05-20",
+      "sessionId": "answer_96c743d0_abs_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "has luggage",
+      "value": "a lot",
+      "date": "2023-05-20",
+      "sessionId": "answer_96c743d0_abs_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "destination",
+      "value": "hotel in Tokyo",
+      "date": "2023-05-20",
+      "sessionId": "answer_96c743d0_abs_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "trip location",
+      "value": "Japan",
+      "date": "2023-05-20",
+      "sessionId": "answer_96c743d0_abs_1",
+      "source": "user"
+    },
+    {
+      "entity": "train",
+      "predicate": "estimated cost from airport to Tokyo",
+      "value": "$20-$30",
+      "date": "2023-05-20",
+      "sessionId": "answer_96c743d0_abs_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Narita Airport to Shinjuku",
+      "predicate": "taxi cost",
+      "value": "¥20,000-30,000 (around $180-270 USD)",
+      "date": "2023-05-26",
+      "sessionId": "answer_96c743d0_abs_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Narita Airport to Shinjuku",
+      "predicate": "Airport Limousine Bus cost",
+      "value": "¥3,200 (around $29 USD)",
+      "date": "2023-05-26",
+      "sessionId": "answer_96c743d0_abs_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Narita Airport to Shinjuku",
+      "predicate": "Narita Express train cost",
+      "value": "¥3,020 (around $28 USD)",
+      "date": "2023-05-26",
+      "sessionId": "answer_96c743d0_abs_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Narita Airport to Shinjuku",
+      "predicate": "Keisei Skyliner train cost",
+      "value": "¥2,520 (around $23 USD)",
+      "date": "2023-05-26",
+      "sessionId": "answer_96c743d0_abs_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "arrival airport",
+      "value": "Narita International Airport",
+      "date": "2023-05-26",
+      "sessionId": "answer_96c743d0_abs_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "hotel location",
+      "value": "Shinjuku district",
+      "date": "2023-05-26",
+      "sessionId": "answer_96c743d0_abs_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "arrival day",
+      "value": "Friday afternoon",
+      "date": "2023-05-26",
+      "sessionId": "answer_96c743d0_abs_2",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "budget-conscious",
+      "polarity": "positive",
+      "constraint": "taxi fare of $60 is pricey"
+    },
+    {
+      "entity": "user",
+      "preference": "convenience",
+      "polarity": "positive",
+      "constraint": "considering taxi due to luggage, but concerned about cost"
+    },
+    {
+      "entity": "user",
+      "preference": "budget-friendly transportation option",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "train transportation",
+      "polarity": "positive",
+      "constraint": "considering taking train from airport"
+    }
+  ],
+  "events": [
+    {
+      "event": "user planning trip to Japan",
+      "date": "2023-05-20",
+      "location": "Tokyo",
+      "sessionId": "answer_96c743d0_abs_1"
+    },
+    {
+      "event": "user booked hotel in Tokyo",
+      "date": "2023-05-20",
+      "location": "Tokyo",
+      "sessionId": "answer_96c743d0_abs_1"
+    },
+    {
+      "event": "user planning trip to Japan",
+      "date": "2023-05-26",
+      "location": "Tokyo, Japan",
+      "sessionId": "answer_96c743d0_abs_2"
+    },
+    {
+      "event": "user arriving at Narita International Airport",
+      "date": null,
+      "location": "Narita International Airport, Tokyo",
+      "sessionId": "answer_96c743d0_abs_2"
+    }
+  ]
+}

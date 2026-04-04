@@ -17,14 +17,14 @@
     {
       "entity": "user",
       "predicate": "felt after doctor's appointment",
-      "value": "pretty exhausted",
+      "value": "exhausted",
       "sessionId": "answer_f9de4602_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "activity after doctor's appointment",
-      "value": "researching healthy recipes and making meal plan for the week",
+      "predicate": "spent time after doctor's appointment",
+      "value": "researching healthy recipes and making a meal plan for the week",
       "sessionId": "answer_f9de4602_2",
       "source": "user"
     },
@@ -37,14 +37,14 @@
     },
     {
       "entity": "user",
-      "predicate": "planning to use",
-      "value": "MyFitnessPal app",
+      "predicate": "intends to use app",
+      "value": "MyFitnessPal",
       "sessionId": "answer_f9de4602_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "bedtime",
+      "predicate": "went to bed at",
       "value": "2 AM",
       "date": "2023-05-22",
       "sessionId": "answer_f9de4602_1",
@@ -52,25 +52,24 @@
     },
     {
       "entity": "user",
-      "predicate": "had_difficulty_on",
+      "predicate": "had difficulty on",
       "value": "Thursday morning",
-      "date": "2023-05-23",
+      "date": "2023-05-25",
       "sessionId": "answer_f9de4602_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "has_yoga_class",
-      "value": "Tuesday evening",
+      "predicate": "has scheduled",
+      "value": "yoga class",
       "date": "2023-05-30",
       "sessionId": "answer_f9de4602_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "has_busy_day",
-      "value": "Monday",
-      "date": "2023-05-29",
+      "predicate": "has",
+      "value": "busy Monday ahead",
       "sessionId": "answer_f9de4602_1",
       "source": "user"
     }
@@ -84,64 +83,70 @@
     },
     {
       "entity": "user",
-      "preference": "yoga and self-care",
+      "preference": "meal planning and preparation",
       "polarity": "positive",
-      "constraint": "evening activity on Tuesday"
+      "constraint": "to stick to new healthy meal plan"
     },
     {
       "entity": "user",
-      "preference": "meal planning and meal prep",
+      "preference": "yoga",
       "polarity": "positive",
-      "constraint": "to stick to healthy eating goals"
+      "constraint": "evening class on Tuesday"
     },
     {
       "entity": "user",
       "preference": "Avocado Toast with Poached Eggs",
       "polarity": "positive",
-      "constraint": "breakfast recipe choice"
-    },
-    {
-      "entity": "user",
-      "preference": "Quinoa and Black Bean Bowl",
-      "polarity": "positive",
-      "constraint": "dinner meal prep choice"
-    },
-    {
-      "entity": "user",
-      "preference": "Infused Water with lemon and cucumber slices",
-      "polarity": "positive",
-      "constraint": "hydration drink choice"
+      "constraint": "for breakfast"
     },
     {
       "entity": "user",
       "preference": "meal prepping",
       "polarity": "positive",
-      "constraint": "for busy weeks"
+      "constraint": "for the week"
+    },
+    {
+      "entity": "user",
+      "preference": "Quinoa and Black Bean Bowl",
+      "polarity": "positive",
+      "constraint": "for dinner meal prep"
+    },
+    {
+      "entity": "user",
+      "preference": "Infused Water with lemon and cucumber",
+      "polarity": "positive",
+      "constraint": "for hydration"
     }
   ],
   "events": [
     {
-      "event": "doctor's appointment",
+      "event": "doctor's appointment at 10 AM",
+      "date": null,
+      "location": "doctor's office",
+      "sessionId": "answer_f9de4602_2"
+    },
+    {
+      "event": "received blood test results showing high cholesterol",
       "date": null,
       "sessionId": "answer_f9de4602_2"
     },
     {
-      "event": "blood test results received showing high cholesterol",
+      "event": "researched healthy recipes and created meal plan",
       "date": null,
       "sessionId": "answer_f9de4602_2"
     },
     {
-      "event": "yoga class",
+      "event": "yoga class scheduled",
       "date": null,
       "sessionId": "answer_f9de4602_2"
     },
     {
-      "event": "user went to bed at 2 AM",
+      "event": "user went to bed at 2 AM last Wednesday",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_1"
     },
     {
-      "event": "user had a difficult Thursday morning due to lack of sleep",
+      "event": "user had difficulty on Thursday morning due to lack of sleep",
       "date": "2023-05-25",
       "sessionId": "answer_f9de4602_1"
     },

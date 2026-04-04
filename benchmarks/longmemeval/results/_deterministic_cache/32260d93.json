@@ -2,32 +2,45 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "occupation_aspiration",
-      "value": "stand-up comedian",
+      "predicate": "is",
+      "value": "aspiring stand-up comedian",
       "date": "2023-05-29",
       "sessionId": "answer_0250ae1c",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "planning_event",
+      "predicate": "admires",
+      "value": "John Mulaney's 'Kid Gorgeous'",
+      "date": "2023-05-29",
+      "sessionId": "answer_0250ae1c",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "plans to",
+      "value": "record comedy video for YouTube",
+      "sessionId": "answer_0250ae1c",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "is interested in",
+      "value": "comedy writing and storytelling resources",
+      "sessionId": "answer_0250ae1c",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "is interested in",
+      "value": "building personal brand as comedian",
+      "sessionId": "answer_0250ae1c",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "plans to attend",
       "value": "comedy writing workshop at local writing center on Friday",
-      "date": "2023-05-29",
-      "sessionId": "answer_0250ae1c",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "planning_activity",
-      "value": "recording comedy video for YouTube",
-      "date": "2023-05-29",
-      "sessionId": "answer_0250ae1c",
-      "source": "user"
-    },
-    {
-      "entity": "John Mulaney",
-      "predicate": "created",
-      "value": "Kid Gorgeous (stand-up special)",
       "sessionId": "answer_0250ae1c",
       "source": "user"
     }
@@ -35,28 +48,27 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "stand-up comedy with strong storytelling abilities",
+      "preference": "strong storytelling in stand-up comedy",
       "polarity": "positive",
-      "constraint": "like John Mulaney's Kid Gorgeous"
+      "constraint": "similar to John Mulaney's 'Kid Gorgeous'"
     },
     {
       "entity": "user",
-      "preference": "comedy writing and storytelling education",
-      "polarity": "positive",
-      "constraint": "improving craft as aspiring comedian"
+      "preference": "learning and improving comedy craft",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "building personal brand and online presence as comedian",
+      "preference": "creating online content and building presence",
       "polarity": "positive",
-      "constraint": "creating YouTube content"
+      "constraint": "YouTube platform"
     }
   ],
   "events": [
     {
-      "event": "user planning to attend comedy writing workshop",
-      "date": "2023-05-29",
-      "location": "local writing center",
+      "event": "user considering attending comedy writing workshop",
+      "date": null,
+      "location": "local writing center, Friday",
       "sessionId": "answer_0250ae1c"
     }
   ]

@@ -2,8 +2,17 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "has_project_deadline",
-      "value": "upcoming project due soon",
+      "predicate": "has_project",
+      "value": "project with upcoming deadline",
+      "date": "2023-05-30",
+      "sessionId": "answer_6dc4305e",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "tasks_to_complete",
+      "value": "finish report and respond to emails",
+      "date": "2023-05-30",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
@@ -11,20 +20,23 @@
       "entity": "user",
       "predicate": "available_hours_per_day",
       "value": "7-8 hours",
+      "date": "2023-05-30",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "most_productive_time",
-      "value": "10 am - 12 pm",
+      "value": "10 am to 12 pm",
+      "date": "2023-05-30",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "exercise_routine_duration",
+      "predicate": "exercise_routine",
       "value": "30 minutes in the morning",
+      "date": "2023-05-30",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
@@ -32,20 +44,14 @@
       "entity": "user",
       "predicate": "preferred_bedtime",
       "value": "9:30 pm",
+      "date": "2023-05-30",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "time_consuming_tasks",
-      "value": "working on project, responding to emails, attending meetings",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "tried_meditation_app",
-      "value": "Headspace Sleep meditation (10 minutes)",
+      "predicate": "tried_meditation",
+      "value": "Sleep guided meditation by Headspace",
       "date": "2023-05-30",
       "sessionId": "answer_6dc4305e",
       "source": "user"
@@ -60,42 +66,29 @@
     {
       "entity": "user",
       "preference": "minimize procrastination",
-      "polarity": "negative",
-      "constraint": "procrastination habits"
+      "polarity": "negative"
     },
     {
       "entity": "user",
       "preference": "minimize social media usage",
-      "polarity": "negative",
-      "constraint": "social media distractions"
+      "polarity": "negative"
     },
     {
       "entity": "user",
-      "preference": "guided meditation for sleep and relaxation",
+      "preference": "meditation for relaxation",
       "polarity": "positive",
-      "constraint": "before bed"
+      "constraint": "specifically imagery and visualization techniques"
     },
     {
       "entity": "user",
-      "preference": "imagery and visualization in meditation",
+      "preference": "guided meditation for sleep",
       "polarity": "positive",
-      "constraint": "helps distract from stressful thoughts"
-    },
-    {
-      "entity": "user",
-      "preference": "meditation helps with sleep",
-      "polarity": "positive",
-      "constraint": "makes it easier to fall asleep"
+      "constraint": "helps unwind and quiet mind before bed"
     }
   ],
   "events": [
     {
-      "event": "user tried Headspace Sleep meditation",
-      "date": "2023-05-30",
-      "sessionId": "answer_6dc4305e"
-    },
-    {
-      "event": "user found meditation experience relaxing and calming",
+      "event": "user tried Sleep meditation by Headspace and found it helpful for relaxation and falling asleep",
       "date": "2023-05-30",
       "sessionId": "answer_6dc4305e"
     }

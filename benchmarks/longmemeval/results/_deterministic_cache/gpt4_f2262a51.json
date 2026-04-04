@@ -2,14 +2,14 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "visited doctor",
+      "predicate": "visited",
       "value": "Dr. Patel",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "visited doctor",
+      "predicate": "visited",
       "value": "Dr. Lee",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3",
@@ -18,7 +18,7 @@
     {
       "entity": "Dr. Patel",
       "predicate": "specialty",
-      "value": "prescribing nasal spray",
+      "value": "prescribed nasal spray",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
@@ -26,27 +26,21 @@
       "entity": "Dr. Lee",
       "predicate": "specialty",
       "value": "dermatologist",
-      "sessionId": "answer_55a6940c_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "medical condition",
-      "value": "chronic sinusitis",
-      "sessionId": "answer_55a6940c_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "medical condition",
-      "value": "suspicious mole on back",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "biopsy result",
+      "entity": "Dr. Lee appointment",
+      "predicate": "procedure",
+      "value": "biopsy on suspicious mole on back",
+      "date": "2023-05-20",
+      "sessionId": "answer_55a6940c_3",
+      "source": "user"
+    },
+    {
+      "entity": "biopsy result",
+      "predicate": "outcome",
       "value": "benign",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3",
@@ -54,14 +48,21 @@
     },
     {
       "entity": "user",
-      "predicate": "symptom",
+      "predicate": "has condition",
+      "value": "chronic sinusitis",
+      "sessionId": "answer_55a6940c_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "symptoms",
       "value": "congestion and fatigue",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "procedure planned",
+      "predicate": "planning procedure",
       "value": "colonoscopy",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
@@ -74,8 +75,8 @@
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "diagnosed_with",
+      "entity": "Dr. Patel",
+      "predicate": "diagnosed",
       "value": "chronic sinusitis",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
@@ -89,35 +90,42 @@
     },
     {
       "entity": "user",
-      "predicate": "recently_had",
+      "predicate": "has condition",
+      "value": "chronic sinusitis",
+      "sessionId": "answer_55a6940c_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has condition",
       "value": "urinary tract infection (UTI)",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "prescribed",
+      "predicate": "was prescribed",
       "value": "antibiotics",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "experiencing",
+      "predicate": "experiences symptom",
       "value": "fatigue",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "experiencing",
+      "predicate": "experiences symptom",
       "value": "joint pain",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "plans_to_visit",
+      "predicate": "plans to visit",
       "value": "primary care physician",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
@@ -126,21 +134,21 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "putting off colonoscopy",
-      "polarity": "negative",
-      "constraint": "has been delayed"
+      "preference": "prioritize health and wellness",
+      "polarity": "positive",
+      "constraint": "proactive approach to medical care"
+    },
+    {
+      "entity": "user",
+      "preference": "receive good health news",
+      "polarity": "positive",
+      "constraint": "relief from health concerns"
     },
     {
       "entity": "user",
       "preference": "managing chronic sinusitis symptoms",
       "polarity": "positive",
-      "constraint": "interested in learning more"
-    },
-    {
-      "entity": "user",
-      "preference": "determining cause of fatigue and joint pain",
-      "polarity": "positive",
-      "constraint": "wants to rule out underlying conditions"
+      "constraint": "through lifestyle changes and medication"
     }
   ],
   "events": [
@@ -150,32 +158,32 @@
       "sessionId": "answer_55a6940c_3"
     },
     {
-      "event": "biopsy results came back benign",
+      "event": "biopsy result came back benign",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3"
     },
     {
-      "event": "User diagnosed with chronic sinusitis by Dr. Patel (ENT specialist)",
+      "event": "user diagnosed with chronic sinusitis by Dr. Patel",
       "date": null,
       "sessionId": "answer_55a6940c_2"
     },
     {
-      "event": "User prescribed nasal spray by Dr. Patel",
+      "event": "user prescribed nasal spray by Dr. Patel",
       "date": null,
       "sessionId": "answer_55a6940c_2"
     },
     {
-      "event": "User experienced urinary tract infection and prescribed antibiotics",
+      "event": "user experienced UTI and was prescribed antibiotics",
       "date": null,
       "sessionId": "answer_55a6940c_2"
     },
     {
-      "event": "User plans to schedule follow-up appointment with Dr. Patel",
+      "event": "user plans follow-up appointment with Dr. Patel",
       "date": null,
       "sessionId": "answer_55a6940c_2"
     },
     {
-      "event": "User plans to schedule follow-up appointment with primary care physician",
+      "event": "user plans follow-up appointment with primary care physician",
       "date": null,
       "sessionId": "answer_55a6940c_2"
     }

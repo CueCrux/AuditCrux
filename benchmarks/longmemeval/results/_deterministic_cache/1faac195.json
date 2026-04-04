@@ -1,0 +1,77 @@
+{
+  "facts": [
+    {
+      "entity": "Emily",
+      "predicate": "is sister of",
+      "value": "user",
+      "sessionId": "answer_d01949bf",
+      "source": "user"
+    },
+    {
+      "entity": "Emily",
+      "predicate": "lives in",
+      "value": "Denver",
+      "sessionId": "answer_d01949bf",
+      "source": "user"
+    },
+    {
+      "entity": "Emma",
+      "predicate": "is niece of",
+      "value": "user",
+      "sessionId": "answer_d01949bf",
+      "source": "user"
+    },
+    {
+      "entity": "Emma",
+      "predicate": "takes lessons in",
+      "value": "piano",
+      "sessionId": "answer_d01949bf",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "kid-friendly attractions for road trip",
+      "polarity": "positive",
+      "constraint": "visiting sister Emily in Denver"
+    },
+    {
+      "entity": "user",
+      "preference": "music performances and concerts",
+      "polarity": "positive",
+      "constraint": "to inspire niece Emma who takes piano lessons"
+    },
+    {
+      "entity": "user",
+      "preference": "Denver Philharmonic Orchestra's Family Concerts series",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "Musical Storytime concert",
+      "polarity": "positive",
+      "constraint": "for Emma"
+    }
+  ],
+  "events": [
+    {
+      "event": "user planning road trip with family",
+      "date": null,
+      "location": "multiple cities",
+      "sessionId": "answer_d01949bf"
+    },
+    {
+      "event": "user planning to visit sister Emily",
+      "date": null,
+      "location": "Denver",
+      "sessionId": "answer_d01949bf"
+    },
+    {
+      "event": "user planning to bring niece Emma to Musical Storytime concert",
+      "date": null,
+      "location": "Denver, McNichols Civic Center Building",
+      "sessionId": "answer_d01949bf"
+    }
+  ]
+}

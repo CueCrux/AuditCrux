@@ -1,0 +1,155 @@
+{
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "has membership at",
+      "value": "SaveMart",
+      "sessionId": "answer_353d3c6d_2",
+      "source": "user"
+    },
+    {
+      "entity": "SaveMart membership",
+      "predicate": "earns cashback rate",
+      "value": "1%",
+      "sessionId": "answer_353d3c6d_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "shopping budget",
+      "value": "$50",
+      "sessionId": "answer_353d3c6d_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has digital coupon",
+      "value": "$1 off jar of pasta sauce",
+      "sessionId": "answer_353d3c6d_2",
+      "source": "user"
+    },
+    {
+      "entity": "Grocery list total",
+      "predicate": "estimated cost with pasta, sauce, and ground beef",
+      "value": "$54.39",
+      "sessionId": "answer_353d3c6d_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Cashback earned",
+      "predicate": "on estimated purchase",
+      "value": "$0.54",
+      "sessionId": "answer_353d3c6d_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "spent at",
+      "value": "$75 on groceries at SaveMart",
+      "date": "2023-05-18",
+      "sessionId": "answer_353d3c6d_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "spent at",
+      "value": "$15 on coffee and snacks at The Daily Grind",
+      "date": "2023-05-17",
+      "sessionId": "answer_353d3c6d_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "spent at",
+      "value": "$12.99 on sandwich and salad at The Daily Grind with 20% off",
+      "date": "2023-05-17",
+      "sessionId": "answer_353d3c6d_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "spent at",
+      "value": "$50 on printer ink and paper at Office Depot",
+      "date": "2023-04",
+      "sessionId": "answer_353d3c6d_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "spent at",
+      "value": "$100 on jeans and sweater at Gap",
+      "date": "2023-05-20",
+      "sessionId": "answer_353d3c6d_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "spent at",
+      "value": "$50 on skincare products at Sephora",
+      "date": "2023-05-17",
+      "sessionId": "answer_353d3c6d_1",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "basic grocery items (milk, eggs, bread)",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "snacks",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "no dietary restrictions",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "tracking expenses by category",
+      "polarity": "positive",
+      "constraint": "keeping non-grocery expenses together"
+    }
+  ],
+  "events": [
+    {
+      "event": "User planning grocery shopping trip for the week",
+      "date": "2023-05-22",
+      "location": "SaveMart",
+      "sessionId": "answer_353d3c6d_2"
+    },
+    {
+      "event": "grocery shopping at SaveMart",
+      "date": "2023-05-18",
+      "location": "SaveMart",
+      "sessionId": "answer_353d3c6d_1"
+    },
+    {
+      "event": "coffee and snacks purchase at The Daily Grind",
+      "date": "2023-05-17",
+      "location": "The Daily Grind",
+      "sessionId": "answer_353d3c6d_1"
+    },
+    {
+      "event": "office supplies purchase at Office Depot",
+      "date": "2023-04",
+      "location": "Office Depot",
+      "sessionId": "answer_353d3c6d_1"
+    },
+    {
+      "event": "clothing purchase at Gap",
+      "date": "2023-05-20",
+      "location": "Gap",
+      "sessionId": "answer_353d3c6d_1"
+    },
+    {
+      "event": "skincare products purchase at Sephora",
+      "date": "2023-05-17",
+      "location": "Sephora",
+      "sessionId": "answer_353d3c6d_1"
+    }
+  ]
+}

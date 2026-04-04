@@ -1,0 +1,192 @@
+{
+  "facts": [
+    {
+      "entity": "user",
+      "predicate": "had appointment on",
+      "value": "Monday",
+      "sessionId": "answer_1881e7db_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "left home at",
+      "value": "7 AM",
+      "sessionId": "answer_1881e7db_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "returned to office at",
+      "value": "1:00 PM",
+      "sessionId": "answer_1881e7db_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "appointment type",
+      "value": "doctor's appointment",
+      "sessionId": "answer_1881e7db_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "took time off",
+      "value": "half-day",
+      "sessionId": "answer_1881e7db_1",
+      "source": "user"
+    },
+    {
+      "entity": "user project",
+      "predicate": "type",
+      "value": "marketing campaign",
+      "sessionId": "answer_1881e7db_1",
+      "source": "user"
+    },
+    {
+      "entity": "user project",
+      "predicate": "deadline",
+      "value": "two weeks",
+      "sessionId": "answer_1881e7db_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "travel_time_to_previous_clinic",
+      "value": "2 hours",
+      "sessionId": "answer_1881e7db_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "location",
+      "value": "12345 zip code",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "appointment_type_needed",
+      "value": "primary care doctor follow-up",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "preferred_maximum_travel_time",
+      "value": "1 hour drive",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2",
+      "source": "user"
+    },
+    {
+      "entity": "Family Care Medical Center",
+      "predicate": "distance_from_user",
+      "value": "30 miles",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Family Care Medical Center",
+      "predicate": "drive_time_from_user",
+      "value": "45 minutes",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Family Care Medical Center",
+      "predicate": "address",
+      "value": "123 Main St, Anytown, CA 12345",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Family Care Medical Center",
+      "predicate": "phone",
+      "value": "555-555-1234",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Family Care Medical Center",
+      "predicate": "available_morning_slots",
+      "value": "Monday, Wednesday, Friday (8:00 am - 12:00 pm)",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "task management tool",
+      "polarity": "positive",
+      "constraint": "Trello (has used before)"
+    },
+    {
+      "entity": "user",
+      "preference": "productivity optimization",
+      "polarity": "positive",
+      "constraint": "interested in RescueTime"
+    },
+    {
+      "entity": "user",
+      "preference": "schedule flexibility",
+      "polarity": "positive",
+      "constraint": "buffer time and padding task estimates by 10-20%"
+    },
+    {
+      "entity": "user",
+      "preference": "clinic proximity",
+      "polarity": "positive",
+      "constraint": "within 1 hour drive from home"
+    },
+    {
+      "entity": "user",
+      "preference": "appointment timing",
+      "polarity": "positive",
+      "constraint": "morning slots on weekdays"
+    },
+    {
+      "entity": "user",
+      "preference": "doctor expertise",
+      "polarity": "positive",
+      "constraint": "doctor with experience in user's specific condition"
+    }
+  ],
+  "events": [
+    {
+      "event": "doctor's appointment",
+      "date": null,
+      "location": "clinic",
+      "sessionId": "answer_1881e7db_1"
+    },
+    {
+      "event": "returned to office",
+      "date": null,
+      "location": "office",
+      "sessionId": "answer_1881e7db_1"
+    },
+    {
+      "event": "marketing campaign deadline",
+      "date": null,
+      "sessionId": "answer_1881e7db_1"
+    },
+    {
+      "event": "user traveled to clinic",
+      "date": null,
+      "location": "previous clinic location",
+      "sessionId": "answer_1881e7db_2"
+    },
+    {
+      "event": "user needs to reschedule follow-up doctor's appointment",
+      "date": "2023-05-30",
+      "sessionId": "answer_1881e7db_2"
+    }
+  ]
+}

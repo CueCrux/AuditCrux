@@ -1,0 +1,86 @@
+{
+  "facts": [
+    {
+      "entity": "user",
+      "predicate": "grows",
+      "value": "basil",
+      "date": "2023-05-23",
+      "sessionId": "answer_92d5f7cd",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "grows",
+      "value": "mint",
+      "date": "2023-05-23",
+      "sessionId": "answer_92d5f7cd",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "grows",
+      "value": "cherry tomatoes",
+      "date": "2023-05-23",
+      "sessionId": "answer_92d5f7cd",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "grows",
+      "value": "pepper plants",
+      "date": "2023-05-23",
+      "sessionId": "answer_92d5f7cd",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "used treatment",
+      "value": "neem oil",
+      "date": "2023-05-23",
+      "sessionId": "answer_92d5f7cd",
+      "source": "user"
+    },
+    {
+      "entity": "neem oil",
+      "predicate": "effectiveness on user's pepper plants",
+      "value": "did not work",
+      "date": "2023-05-23",
+      "sessionId": "answer_92d5f7cd",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "using homegrown ingredients in cooking",
+      "polarity": "positive",
+      "constraint": "basil, mint, cherry tomatoes"
+    },
+    {
+      "entity": "user",
+      "preference": "natural/organic pest control methods",
+      "polarity": "positive",
+      "constraint": "neem oil, biological control, natural predators"
+    },
+    {
+      "entity": "user",
+      "preference": "neem oil as aphid treatment",
+      "polarity": "negative",
+      "constraint": "ineffective on pepper plants"
+    }
+  ],
+  "events": [
+    {
+      "event": "user harvested cherry tomatoes from garden",
+      "date": "2023-05-23",
+      "location": "user's garden",
+      "sessionId": "answer_92d5f7cd"
+    },
+    {
+      "event": "user applied neem oil to pepper plants to treat aphids",
+      "date": "2023-05-23",
+      "location": "user's garden",
+      "sessionId": "answer_92d5f7cd"
+    }
+  ]
+}

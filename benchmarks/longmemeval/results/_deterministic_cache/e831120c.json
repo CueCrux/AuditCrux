@@ -9,16 +9,30 @@
     },
     {
       "entity": "user",
-      "predicate": "time_taken",
+      "predicate": "time_to_complete",
       "value": "2 weeks",
+      "date": "2023-05-23",
       "sessionId": "answer_86c505e7_1",
       "source": "user"
     },
     {
-      "entity": "movie binge",
-      "predicate": "occurred",
-      "value": "recently",
-      "date": "2023-05-23",
+      "entity": "user",
+      "predicate": "watched_during",
+      "value": "movie binges",
+      "sessionId": "answer_86c505e7_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has_movies_list_in",
+      "value": "note-taking app",
+      "sessionId": "answer_86c505e7_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "comfort_level_with",
+      "value": "spreadsheets",
       "sessionId": "answer_86c505e7_1",
       "source": "user"
     },
@@ -26,27 +40,15 @@
       "entity": "user",
       "predicate": "watched",
       "value": "all main Star Wars films",
+      "date": "2023-05-25",
       "sessionId": "answer_86c505e7_2",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "time_to_watch",
-      "value": "1.5 weeks (Star Wars marathon)",
-      "sessionId": "answer_86c505e7_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "watched",
-      "value": "22 MCU movies",
-      "sessionId": "answer_86c505e7_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "time_to_watch",
-      "value": "2 weeks (22 MCU movies)",
+      "entity": "Star Wars marathon",
+      "predicate": "duration",
+      "value": "1.5 weeks",
+      "date": "2023-05-25",
       "sessionId": "answer_86c505e7_2",
       "source": "user"
     },
@@ -65,65 +67,75 @@
       "source": "user"
     },
     {
-      "entity": "conversation",
-      "predicate": "date",
-      "value": "2023-05-25",
-      "date": "2023-05-25",
+      "entity": "user",
+      "predicate": "watched",
+      "value": "all 22 MCU movies",
       "sessionId": "answer_86c505e7_2",
-      "source": "system"
+      "source": "user"
+    },
+    {
+      "entity": "MCU movie watching",
+      "predicate": "duration",
+      "value": "2 weeks",
+      "sessionId": "answer_86c505e7_2",
+      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "user",
-      "preference": "movie watching",
+      "preference": "spreadsheet option for organizing movie history",
       "polarity": "positive",
-      "constraint": "enjoys binges"
+      "constraint": "over text list or movie tracking apps"
     },
     {
       "entity": "user",
-      "preference": "spreadsheet organization",
+      "preference": "tracking movies by month watched",
       "polarity": "positive",
-      "constraint": "not super comfortable with spreadsheets"
+      "constraint": "to identify viewing patterns"
     },
     {
       "entity": "user",
-      "preference": "tracking movies by month",
+      "preference": "quick data entry methods",
       "polarity": "positive",
-      "constraint": "to see viewing patterns"
+      "constraint": "copy and paste rather than one-by-one entry"
     },
     {
       "entity": "user",
-      "preference": "watching MCU movies",
-      "polarity": "positive",
-      "constraint": "found it worth the effort despite being a lot"
+      "preference": "watching movies",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "Star Wars marathon",
+      "preference": "Star Wars marathon experience",
       "polarity": "positive",
-      "constraint": "described as a wild ride"
+      "constraint": "described as 'a wild ride'"
     },
     {
       "entity": "user",
-      "preference": "simple list format",
+      "preference": "MCU movies",
       "polarity": "positive",
-      "constraint": "for organizing movies"
+      "constraint": "described as 'a lot but worth it'"
     }
   ],
   "events": [
     {
-      "event": "user watched 22 Marvel Cinematic Universe movies in 2 weeks",
+      "event": "user watched all 22 Marvel Cinematic Universe movies in 2 weeks",
       "date": null,
       "sessionId": "answer_86c505e7_1"
     },
     {
-      "event": "watched all main Star Wars films in a marathon",
-      "date": null,
+      "event": "user started organizing movie watching history",
+      "date": "2023-05-23",
+      "sessionId": "answer_86c505e7_1"
+    },
+    {
+      "event": "user completed Star Wars marathon including all main films plus Rogue One and Solo",
+      "date": "2023-05-25",
       "sessionId": "answer_86c505e7_2"
     },
     {
-      "event": "watched all 22 MCU movies",
+      "event": "user watched all 22 MCU movies",
       "date": null,
       "sessionId": "answer_86c505e7_2"
     }

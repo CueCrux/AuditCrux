@@ -23,52 +23,47 @@
     },
     {
       "entity": "Cihampelas Walk",
-      "predicate": "known_for",
-      "value": "denim street",
+      "predicate": "also_known_as",
+      "value": "Ciwalk",
       "sessionId": "answer_ultrachat_234453",
       "source": "assistant"
     },
     {
-      "entity": "User",
-      "predicate": "planning_to_visit",
-      "value": "Bandung",
+      "entity": "Cihampelas Walk",
+      "predicate": "famous_for",
+      "value": "denim street",
       "sessionId": "answer_ultrachat_234453",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "planning_to_eat_at",
-      "value": "Miss Bee Providore",
-      "sessionId": "answer_ultrachat_234453",
-      "source": "user"
+      "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "Nasi Goreng at Miss Bee Providore",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "chocolate brownie",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "shopping at Cihampelas Walk",
+      "entity": "user",
+      "preference": "visiting Cihampelas Walk",
       "polarity": "positive",
-      "constraint": "denim products"
+      "constraint": "to check out denim street"
     },
     {
-      "entity": "User",
-      "preference": "tea plantations",
+      "entity": "user",
+      "preference": "Miss Bee's Nasi Goreng",
       "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "chocolate brownie",
+      "polarity": "positive",
+      "constraint": "at Miss Bee Providore"
     }
   ],
   "events": [
     {
-      "event": "User planning to visit Cihampelas Walk and try Miss Bee Providore's Nasi Goreng and chocolate brownie",
+      "event": "user planning to visit Bandung and explore Cihampelas Walk",
+      "date": "2023-05-30",
+      "location": "Bandung",
+      "sessionId": "answer_ultrachat_234453"
+    },
+    {
+      "event": "user planning to eat at Miss Bee Providore",
       "date": null,
       "location": "Cihampelas Walk, Bandung",
       "sessionId": "answer_ultrachat_234453"

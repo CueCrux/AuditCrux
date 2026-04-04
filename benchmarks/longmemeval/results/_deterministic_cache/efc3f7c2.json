@@ -1,0 +1,178 @@
+{
+  "facts": [
+    {
+      "entity": "user",
+      "predicate": "wakes up at",
+      "value": "6:30 AM on weekdays",
+      "date": "2023-05-24",
+      "sessionId": "answer_fc81d1a2_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "wakes up at",
+      "value": "6:30 AM Monday to Friday",
+      "date": "2023-05-24",
+      "sessionId": "answer_fc81d1a2_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "takes bus to work at",
+      "value": "8:05 AM",
+      "date": "2023-05-24",
+      "sessionId": "answer_fc81d1a2_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "arrives at office at",
+      "value": "8:40 AM",
+      "date": "2023-05-24",
+      "sessionId": "answer_fc81d1a2_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "commute duration",
+      "value": "35 minutes",
+      "date": "2023-05-24",
+      "sessionId": "answer_fc81d1a2_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "changed commute route",
+      "value": "adds about 10 minutes to commute",
+      "date": "2023-05-17",
+      "sessionId": "answer_fc81d1a2_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "lunch prep duration",
+      "value": "20 minutes",
+      "date": "2023-05-24",
+      "sessionId": "answer_fc81d1a2_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "meditation session duration",
+      "value": "10-15 minutes",
+      "date": "2023-05-24",
+      "sessionId": "answer_fc81d1a2_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "wakes up on Fridays at",
+      "value": "6:00 AM",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has daily team meeting at",
+      "value": "9:00 AM",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "workout duration",
+      "value": "45 minutes",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "meditation duration",
+      "value": "30 minutes",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "lunch preparation time",
+      "value": "20 minutes",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "email response time needed before meeting",
+      "value": "15 minutes",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has project due",
+      "value": "end of day",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "less crowded commute route",
+      "polarity": "positive",
+      "constraint": "prefers new route despite adding 10 minutes"
+    },
+    {
+      "entity": "user",
+      "preference": "morning meditation and gym sessions",
+      "polarity": "positive",
+      "constraint": "does them right after waking up"
+    },
+    {
+      "entity": "user",
+      "preference": "healthy meal preparation",
+      "polarity": "positive",
+      "constraint": "wants to include lunch prep in morning routine"
+    },
+    {
+      "entity": "user",
+      "preference": "getting a head start on Fridays",
+      "polarity": "positive",
+      "constraint": "wakes up at 6:00 AM"
+    },
+    {
+      "entity": "user",
+      "preference": "morning routine including workout and meditation",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "coffee and news before work",
+      "polarity": "positive"
+    }
+  ],
+  "events": [
+    {
+      "event": "user changed commute route to work",
+      "date": "2023-05-17",
+      "location": "commute route",
+      "sessionId": "answer_fc81d1a2_1"
+    },
+    {
+      "event": "daily team meeting",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2"
+    },
+    {
+      "event": "project due by end of day",
+      "date": "2023-05-29",
+      "sessionId": "answer_fc81d1a2_2"
+    }
+  ]
+}

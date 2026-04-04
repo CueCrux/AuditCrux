@@ -1,0 +1,183 @@
+{
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "has points at",
+      "value": "FreshMart",
+      "date": "2023-05-24",
+      "sessionId": "answer_430d0a87_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "points balance at",
+      "value": "FreshMart: 500 points (minimum required for discount)",
+      "date": "2023-05-24",
+      "sessionId": "answer_430d0a87_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "loyalty tier at",
+      "value": "OfficeDepot: silver tier",
+      "sessionId": "answer_430d0a87_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "points balance at",
+      "value": "StyleHub: close to 500 points",
+      "sessionId": "answer_430d0a87_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "points balance at",
+      "value": "Petco: 200 points (being cancelled)",
+      "sessionId": "answer_430d0a87_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has points accumulated at",
+      "value": "BedBath&Beyond",
+      "sessionId": "answer_430d0a87_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "shops at",
+      "value": "FreshMart",
+      "date": "2023-05-27",
+      "sessionId": "answer_430d0a87_2",
+      "source": "user"
+    },
+    {
+      "entity": "FreshMart loyalty program",
+      "predicate": "points to discount conversion rate",
+      "value": "100 points = $1 discount",
+      "date": "2023-05-27",
+      "sessionId": "answer_430d0a87_2",
+      "source": "user"
+    },
+    {
+      "entity": "FreshMart loyalty program",
+      "predicate": "alternative points to discount conversion rate",
+      "value": "500 points = $5 discount",
+      "date": "2023-05-27",
+      "sessionId": "answer_430d0a87_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has accumulated",
+      "value": "points at FreshMart",
+      "date": "2023-05-27",
+      "sessionId": "answer_430d0a87_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "cooks for",
+      "value": "2 people",
+      "date": "2023-05-27",
+      "sessionId": "answer_430d0a87_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "shops at FreshMart",
+      "value": "more often recently",
+      "date": "2023-05-27",
+      "sessionId": "answer_430d0a87_2",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "saving money on grocery purchases",
+      "polarity": "positive",
+      "constraint": "via FreshMart discount"
+    },
+    {
+      "entity": "User",
+      "preference": "using loyalty program points for purchases",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "shopping for pet accessories",
+      "polarity": "positive",
+      "constraint": "toys and beds"
+    },
+    {
+      "entity": "User",
+      "preference": "Petco loyalty program",
+      "polarity": "negative",
+      "constraint": "planning to cancel due to low shopping frequency"
+    },
+    {
+      "entity": "User",
+      "preference": "dietary restrictions",
+      "polarity": "neutral",
+      "constraint": "eats a bit of everything, not too particular"
+    },
+    {
+      "entity": "User",
+      "preference": "staple items",
+      "polarity": "positive",
+      "constraint": "rice, pasta, and canned goods"
+    },
+    {
+      "entity": "User",
+      "preference": "brand preference",
+      "polarity": "neutral",
+      "constraint": "not too particular about brands"
+    },
+    {
+      "entity": "User",
+      "preference": "snacks",
+      "polarity": "positive",
+      "constraint": "healthy-ish options"
+    },
+    {
+      "entity": "User",
+      "preference": "meal types",
+      "polarity": "positive",
+      "constraint": "simple recipes and one-pot dishes"
+    }
+  ],
+  "events": [
+    {
+      "event": "User reached 500 points minimum at FreshMart",
+      "date": "2023-05-24",
+      "location": "FreshMart",
+      "sessionId": "answer_430d0a87_1"
+    },
+    {
+      "event": "User reached silver tier at OfficeDepot",
+      "date": null,
+      "location": "OfficeDepot",
+      "sessionId": "answer_430d0a87_1"
+    },
+    {
+      "event": "User planning to cancel Petco loyalty membership",
+      "date": null,
+      "location": "Petco",
+      "sessionId": "answer_430d0a87_1"
+    },
+    {
+      "event": "User planning big grocery shopping trip to FreshMart",
+      "date": "2023-05-27",
+      "location": "FreshMart",
+      "sessionId": "answer_430d0a87_2"
+    },
+    {
+      "event": "User accumulating points at FreshMart",
+      "date": "2023-05-27",
+      "location": "FreshMart",
+      "sessionId": "answer_430d0a87_2"
+    }
+  ]
+}

@@ -10,24 +10,40 @@
     },
     {
       "entity": "user",
-      "predicate": "attended",
-      "value": "music workshop",
+      "predicate": "attended music workshop",
+      "value": "ukulele workshop",
       "date": "2023-03-11",
       "sessionId": "answer_ff201786_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "has been playing",
+      "predicate": "owns",
       "value": "Fender CD-60S guitar",
+      "date": "2023-03-04",
+      "sessionId": "answer_ff201786_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has been playing guitar for",
+      "value": "three weeks",
       "date": "2023-03-25",
       "sessionId": "answer_ff201786_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "duration of guitar playing",
-      "value": "three weeks",
+      "predicate": "listens to artists featuring piano",
+      "value": "Coldplay, The Beatles, Max Richter, Olafur Arnalds",
+      "date": "2023-03-25",
+      "sessionId": "answer_ff201786_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "is experimenting with",
+      "value": "composing simple melodies",
       "date": "2023-03-25",
       "sessionId": "answer_ff201786_1",
       "source": "user"
@@ -57,21 +73,21 @@
     },
     {
       "entity": "user",
-      "predicate": "considering buying",
+      "predicate": "is considering buying",
       "value": "ukulele",
       "sessionId": "answer_ff201786_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "considering buying",
+      "predicate": "is considering buying",
       "value": "banjo",
       "sessionId": "answer_ff201786_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "considering buying",
+      "predicate": "is considering buying",
       "value": "metronome",
       "sessionId": "answer_ff201786_2",
       "source": "user"
@@ -87,95 +103,65 @@
   "preferences": [
     {
       "entity": "user",
+      "preference": "piano-driven songs",
+      "polarity": "positive",
+      "constraint": "in rock, pop, and classical music"
+    },
+    {
+      "entity": "user",
+      "preference": "atmospheric piano music",
+      "polarity": "positive",
+      "constraint": "artists like Max Richter and Olafur Arnalds"
+    },
+    {
+      "entity": "user",
       "preference": "fingerpicking technique",
       "polarity": "positive",
-      "constraint": "interested in improving"
+      "constraint": "interested in learning via Justin Guitar and TrueFire"
     },
     {
       "entity": "user",
       "preference": "ukulele",
       "polarity": "positive",
-      "constraint": "enjoyed playing at music workshop"
-    },
-    {
-      "entity": "user",
-      "preference": "rock music",
-      "polarity": "positive",
-      "constraint": "with piano"
-    },
-    {
-      "entity": "user",
-      "preference": "pop music",
-      "polarity": "positive",
-      "constraint": "with piano"
-    },
-    {
-      "entity": "user",
-      "preference": "classical music",
-      "polarity": "positive",
-      "constraint": "with piano"
-    },
-    {
-      "entity": "user",
-      "preference": "Coldplay",
-      "polarity": "positive",
-      "constraint": "fan of their piano-driven songs"
-    },
-    {
-      "entity": "user",
-      "preference": "The Beatles",
-      "polarity": "positive",
-      "constraint": "fan of their piano-driven songs"
-    },
-    {
-      "entity": "user",
-      "preference": "Max Richter",
-      "polarity": "positive",
-      "constraint": "exploring atmospheric piano music"
-    },
-    {
-      "entity": "user",
-      "preference": "Olafur Arnalds",
-      "polarity": "positive",
-      "constraint": "exploring atmospheric piano music"
-    },
-    {
-      "entity": "user",
-      "preference": "composing melodies",
-      "polarity": "positive",
-      "constraint": "creative expression and relaxation"
+      "constraint": "considering buying one"
     },
     {
       "entity": "user",
       "preference": "bluegrass music",
       "polarity": "positive",
-      "constraint": "recently discovered and started enjoying"
+      "constraint": "recently discovered"
     },
     {
       "entity": "user",
-      "preference": "exploring new music genres and artists",
-      "polarity": "positive"
+      "preference": "exploring music genres",
+      "polarity": "positive",
+      "constraint": "considering multiple instruments"
     },
     {
       "entity": "user",
       "preference": "jazz music",
       "polarity": "positive",
-      "constraint": "interested in exploring more"
+      "constraint": "interested in exploring"
     }
   ],
   "events": [
     {
-      "event": "started playing along to favorite songs on old keyboard",
+      "event": "user started playing along to favorite songs on old keyboard",
       "date": "2023-03-25",
       "sessionId": "answer_ff201786_1"
     },
     {
-      "event": "attended music workshop where user played ukulele",
+      "event": "user attended music workshop with ukulele",
       "date": "2023-03-11",
       "sessionId": "answer_ff201786_1"
     },
     {
-      "event": "user discovered a bluegrass band featuring a banjo player and started enjoying their music",
+      "event": "user started playing Fender CD-60S guitar",
+      "date": "2023-03-04",
+      "sessionId": "answer_ff201786_1"
+    },
+    {
+      "event": "user discovered a bluegrass band with a banjo player and started enjoying their music",
       "date": "2023-03-31",
       "sessionId": "answer_ff201786_2"
     },

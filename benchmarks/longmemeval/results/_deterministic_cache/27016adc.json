@@ -1,0 +1,103 @@
+{
+  "facts": [
+    {
+      "entity": "countryside property",
+      "predicate": "listed price",
+      "value": "$200,000",
+      "date": "2023-05-23",
+      "sessionId": "answer_a37bdf22_2",
+      "source": "user"
+    },
+    {
+      "entity": "countryside property",
+      "predicate": "size",
+      "value": "5 acres",
+      "date": "2023-05-23",
+      "sessionId": "answer_a37bdf22_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has plans to do",
+      "value": "renovations on current house",
+      "sessionId": "answer_a37bdf22_2",
+      "source": "user"
+    },
+    {
+      "entity": "user's renovations",
+      "predicate": "estimated cost",
+      "value": "$20,000",
+      "sessionId": "answer_a37bdf22_1",
+      "source": "user"
+    },
+    {
+      "entity": "user's renovations",
+      "predicate": "includes",
+      "value": "deck and patio",
+      "sessionId": "answer_a37bdf22_1",
+      "source": "user"
+    },
+    {
+      "entity": "deck addition",
+      "predicate": "cost recovery rate",
+      "value": "70-80% at resale",
+      "sessionId": "answer_a37bdf22_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "user's property",
+      "predicate": "estimated value increase from renovations",
+      "value": "5-10%",
+      "sessionId": "answer_a37bdf22_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "user's property",
+      "predicate": "estimated property tax increase from renovations",
+      "value": "$125-$250 per year",
+      "sessionId": "answer_a37bdf22_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "property tax calculation",
+      "predicate": "formula",
+      "value": "Assessed Value x Tax Rate",
+      "sessionId": "answer_a37bdf22_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "typical property tax rate",
+      "predicate": "example rate",
+      "value": "1.25%",
+      "sessionId": "answer_a37bdf22_1",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "buying a rural property",
+      "polarity": "positive",
+      "constraint": "considering a 5-acre property"
+    },
+    {
+      "entity": "user",
+      "preference": "concerned about property taxes",
+      "polarity": "negative",
+      "constraint": "on the 5-acre property"
+    },
+    {
+      "entity": "user",
+      "preference": "outdoor living space enhancements",
+      "polarity": "positive",
+      "constraint": "deck and patio additions"
+    }
+  ],
+  "events": [
+    {
+      "event": "user planning renovations to current house",
+      "date": "2023-05-26",
+      "sessionId": "answer_a37bdf22_1"
+    }
+  ]
+}

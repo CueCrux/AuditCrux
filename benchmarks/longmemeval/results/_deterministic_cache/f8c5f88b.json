@@ -9,7 +9,7 @@
     },
     {
       "entity": "new tennis racket",
-      "predicate": "purchased from",
+      "predicate": "bought from",
       "value": "sports store downtown",
       "sessionId": "answer_c3567066",
       "source": "user"
@@ -23,9 +23,16 @@
     },
     {
       "entity": "user",
-      "predicate": "planned activity",
-      "value": "play tennis at local park",
+      "predicate": "plans to play tennis at",
+      "value": "local park",
       "date": "2023-05-28",
+      "sessionId": "answer_c3567066",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "plans to buy",
+      "value": "new tennis balls",
       "sessionId": "answer_c3567066",
       "source": "user"
     }
@@ -35,19 +42,19 @@
       "entity": "user",
       "preference": "new tennis racket performance",
       "polarity": "positive",
-      "constraint": "improved game"
+      "constraint": "performs well and improved game"
     },
     {
       "entity": "user",
-      "preference": "tennis ball brands",
+      "preference": "tennis ball types",
       "polarity": "positive",
-      "constraint": "Wilson, Penn, Dunlop for recreational play"
+      "constraint": "mid-range to recreational level for casual play"
     },
     {
       "entity": "user",
       "preference": "practice method",
       "polarity": "positive",
-      "constraint": "practicing with friends over ball machine for now"
+      "constraint": "practicing with friends over tennis ball machine"
     }
   ],
   "events": [
@@ -58,9 +65,14 @@
       "sessionId": "answer_c3567066"
     },
     {
-      "event": "user planning to play tennis with friends",
+      "event": "user plans to play tennis with friends",
       "date": "2023-05-28",
       "location": "local park",
+      "sessionId": "answer_c3567066"
+    },
+    {
+      "event": "user plans to buy new tennis balls",
+      "date": "2023-05-27 or 2023-05-28",
       "sessionId": "answer_c3567066"
     }
   ]

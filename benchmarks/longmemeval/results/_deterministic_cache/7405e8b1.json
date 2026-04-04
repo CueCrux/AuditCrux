@@ -1,0 +1,163 @@
+{
+  "facts": [
+    {
+      "entity": "HelloFresh",
+      "predicate": "discount_on_first_order",
+      "value": "40%",
+      "sessionId": "answer_80323f3f_1",
+      "source": "user"
+    },
+    {
+      "entity": "UberEats",
+      "predicate": "discount_on_first_order",
+      "value": "$5",
+      "sessionId": "answer_80323f3f_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "UberEats",
+      "predicate": "promo_code",
+      "value": "EATS5",
+      "sessionId": "answer_80323f3f_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sun Basket",
+      "predicate": "discount_on_first_order",
+      "value": "$40",
+      "sessionId": "answer_80323f3f_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sun Basket",
+      "predicate": "promo_code",
+      "value": "SUN40",
+      "sessionId": "answer_80323f3f_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "tried_service",
+      "value": "HelloFresh",
+      "sessionId": "answer_80323f3f_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "uses_frequently",
+      "value": "UberEats",
+      "sessionId": "answer_80323f3f_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "uses_frequently",
+      "value": "Grubhub",
+      "sessionId": "answer_80323f3f_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "received discount on",
+      "value": "UberEats order",
+      "date": "2023-05-21",
+      "sessionId": "answer_80323f3f_2",
+      "source": "user"
+    },
+    {
+      "entity": "UberEats order discount",
+      "predicate": "percentage",
+      "value": "20%",
+      "date": "2023-05-21",
+      "sessionId": "answer_80323f3f_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "planning to order from",
+      "value": "UberEats",
+      "date": "2023-05-28",
+      "sessionId": "answer_80323f3f_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "planning to order from",
+      "value": "new Italian place downtown",
+      "date": "2023-05-28",
+      "sessionId": "answer_80323f3f_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "interested in ordering",
+      "value": "veggie lasagna",
+      "date": "2023-05-28",
+      "sessionId": "answer_80323f3f_2",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "cutting down on eating out",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "using coupons for online food delivery services",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "low-carb and low-sugar diet",
+      "polarity": "positive",
+      "constraint": "cutting down on carbs and sugar"
+    },
+    {
+      "entity": "user",
+      "preference": "services that cater to specific dietary needs",
+      "polarity": "positive",
+      "constraint": "over recipe variety"
+    },
+    {
+      "entity": "user",
+      "preference": "Italian food",
+      "polarity": "positive",
+      "constraint": "new Italian place downtown"
+    },
+    {
+      "entity": "user",
+      "preference": "vegetarian dishes",
+      "polarity": "positive",
+      "constraint": "veggie lasagna"
+    },
+    {
+      "entity": "user",
+      "preference": "finding deals and promo codes",
+      "polarity": "positive"
+    }
+  ],
+  "events": [
+    {
+      "event": "user received 40% discount on first HelloFresh order",
+      "date": null,
+      "sessionId": "answer_80323f3f_1"
+    },
+    {
+      "event": "user considering Sun Basket and Home Chef meal kit services",
+      "date": null,
+      "sessionId": "answer_80323f3f_1"
+    },
+    {
+      "event": "user received 20% discount on UberEats order",
+      "date": "2023-05-21",
+      "sessionId": "answer_80323f3f_2"
+    },
+    {
+      "event": "user planning to order from UberEats again",
+      "date": "2023-05-28",
+      "sessionId": "answer_80323f3f_2"
+    }
+  ]
+}

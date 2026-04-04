@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "Sony A7R IV",
-      "predicate": "is camera model owned by",
+      "predicate": "camera model owned by",
       "value": "user",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94",
@@ -10,8 +10,8 @@
     },
     {
       "entity": "Godox V1",
-      "predicate": "selected as",
-      "value": "flash choice",
+      "predicate": "flash selected by",
+      "value": "user",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94",
       "source": "user"
@@ -34,31 +34,71 @@
     },
     {
       "entity": "Godox V1",
-      "predicate": "has weight",
+      "predicate": "battery life",
+      "value": "up to 480 flashes per charge",
+      "date": "2023-05-27",
+      "sessionId": "answer_555dfb94",
+      "source": "assistant"
+    },
+    {
+      "entity": "Godox V1",
+      "predicate": "recycle time",
+      "value": "minimum 1.5 seconds",
+      "date": "2023-05-27",
+      "sessionId": "answer_555dfb94",
+      "source": "assistant"
+    },
+    {
+      "entity": "Godox V1",
+      "predicate": "weight",
       "value": "237g (8.4 oz)",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94",
       "source": "assistant"
     },
     {
-      "entity": "Godox V1",
-      "predicate": "has battery life",
-      "value": "480 flashes per charge",
+      "entity": "Sony HVL-F60RM",
+      "predicate": "has guide number",
+      "value": "60 (ISO 100, m)",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94",
       "source": "assistant"
     },
     {
-      "entity": "Godox V1",
-      "predicate": "has recycle time",
-      "value": "1.5 seconds minimum",
+      "entity": "Sony HVL-F60RM",
+      "predicate": "has price",
+      "value": "$550",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94",
       "source": "assistant"
     },
     {
-      "entity": "Sony 24-70mm f/2.8",
-      "predicate": "is lens owned by",
+      "entity": "Sony HVL-F60RM",
+      "predicate": "weight",
+      "value": "317g (11.2 oz)",
+      "date": "2023-05-27",
+      "sessionId": "answer_555dfb94",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sony HVL-F60RM",
+      "predicate": "battery life",
+      "value": "220 flashes per charge",
+      "date": "2023-05-27",
+      "sessionId": "answer_555dfb94",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sony HVL-F60RM",
+      "predicate": "recycle time",
+      "value": "minimum 2.5 seconds",
+      "date": "2023-05-27",
+      "sessionId": "answer_555dfb94",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sony 24-70mm f/2.8 lens",
+      "predicate": "lens owned by",
       "value": "user",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94",
@@ -66,55 +106,59 @@
     },
     {
       "entity": "Gitzo GT3543LS",
-      "predicate": "is tripod considered by",
+      "predicate": "tripod considered by",
       "value": "user",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94",
       "source": "user"
+    },
+    {
+      "entity": "Anker PowerCore 20000 PD",
+      "predicate": "capacity",
+      "value": "20,000mAh",
+      "date": "2023-05-27",
+      "sessionId": "answer_555dfb94",
+      "source": "assistant"
+    },
+    {
+      "entity": "Anker PowerCore 20000 PD",
+      "predicate": "price",
+      "value": "$60",
+      "date": "2023-05-27",
+      "sessionId": "answer_555dfb94",
+      "source": "assistant"
     }
   ],
   "preferences": [
     {
       "entity": "user",
-      "preference": "flash upgrade for photography",
+      "preference": "compact and lightweight flashes",
       "polarity": "positive",
-      "constraint": "compatible with Sony A7R IV"
+      "constraint": "for photography"
     },
     {
       "entity": "user",
-      "preference": "compact design",
+      "preference": "affordable flash options",
       "polarity": "positive",
-      "constraint": "in flash selection"
+      "constraint": "without sacrificing performance"
     },
     {
       "entity": "user",
-      "preference": "affordability over premium build",
+      "preference": "protecting equipment with cases or pouches",
       "polarity": "positive",
-      "constraint": "for Godox V1 choice over Sony HVL-F60RM"
+      "constraint": "for flash protection"
     },
     {
       "entity": "user",
-      "preference": "protecting equipment with cases/pouches",
+      "preference": "battery packs with USB-C PD support",
       "polarity": "positive",
-      "constraint": "for new flash investment"
+      "constraint": "for charging Sony A7R IV"
     },
     {
       "entity": "user",
-      "preference": "portable charging solutions",
-      "polarity": "positive",
-      "constraint": "for on-location shooting"
-    },
-    {
-      "entity": "user",
-      "preference": "safe lens cleaning methods",
+      "preference": "careful lens cleaning practices",
       "polarity": "positive",
       "constraint": "avoiding streaks or scratches"
-    },
-    {
-      "entity": "user",
-      "preference": "high-end tripods",
-      "polarity": "positive",
-      "constraint": "considering Gitzo GT3543LS"
     }
   ],
   "events": [
@@ -124,22 +168,12 @@
       "sessionId": "answer_555dfb94"
     },
     {
-      "event": "User inquired about flash protection cases and pouches",
+      "event": "User inquired about lens cleaning for Sony 24-70mm f/2.8",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94"
     },
     {
-      "event": "User inquired about external battery packs for Sony A7R IV",
-      "date": "2023-05-27",
-      "sessionId": "answer_555dfb94"
-    },
-    {
-      "event": "User asked about cleaning Sony 24-70mm f/2.8 lens",
-      "date": "2023-05-27",
-      "sessionId": "answer_555dfb94"
-    },
-    {
-      "event": "User expressed interest in Gitzo GT3543LS tripod",
+      "event": "User considering purchase of Gitzo GT3543LS tripod",
       "date": "2023-05-27",
       "sessionId": "answer_555dfb94"
     }

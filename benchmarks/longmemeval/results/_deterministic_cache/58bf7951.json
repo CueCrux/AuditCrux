@@ -4,28 +4,35 @@
       "entity": "user",
       "predicate": "attended",
       "value": "The Glass Menagerie at local community theater",
-      "date": "2023-05-26",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "was impressed by",
+      "value": "lead actress's performance",
       "sessionId": "answer_355c48bb",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "auditioned for",
-      "value": "The Crucible",
+      "value": "role in The Crucible",
       "sessionId": "answer_355c48bb",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "knows",
-      "value": "Emily (aspiring actress friend)",
+      "value": "Emily, an aspiring actress",
       "sessionId": "answer_355c48bb",
       "source": "user"
     },
     {
-      "entity": "The Glass Menagerie production",
-      "predicate": "featured lead actress who impressed",
-      "value": "user",
+      "entity": "user",
+      "predicate": "recently tried",
+      "value": "new Italian restaurant downtown",
+      "date": "2023-05-26",
       "sessionId": "answer_355c48bb",
       "source": "user"
     }
@@ -33,44 +40,37 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "The Glass Menagerie production at local community theater",
-      "polarity": "positive",
-      "constraint": "impressed by lead actress's performance"
-    },
-    {
-      "entity": "user",
-      "preference": "audition for The Crucible",
-      "polarity": "negative",
-      "constraint": "didn't go well"
+      "preference": "exploring local Italian restaurants",
+      "polarity": "positive"
     },
     {
       "entity": "user",
       "preference": "scene study and character development in acting",
       "polarity": "positive",
-      "constraint": "wants to improve authenticity and script analysis skills"
+      "constraint": "wants to focus on getting into character and making performances feel authentic"
     },
     {
       "entity": "user",
-      "preference": "getting into character and authentic performances",
-      "polarity": "positive",
-      "constraint": "struggles with this area"
+      "preference": "analyzing scripts and developing character backstory",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "user attended a play at local community theater",
-      "date": "2023-05-26",
+      "event": "user attended a production of The Glass Menagerie",
+      "date": null,
       "location": "local community theater",
       "sessionId": "answer_355c48bb"
     },
     {
-      "event": "user auditioned for The Crucible",
+      "event": "user auditioned for a role in The Crucible",
       "date": null,
       "sessionId": "answer_355c48bb"
     },
     {
-      "event": "user is considering taking acting classes for adults",
+      "event": "user tried a new Italian restaurant",
       "date": "2023-05-26",
+      "location": "downtown",
       "sessionId": "answer_355c48bb"
     }
   ]

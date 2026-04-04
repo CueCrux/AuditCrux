@@ -2,37 +2,37 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "helped friend with",
-      "value": "preparing nursery",
+      "predicate": "helped",
+      "value": "friend prepare nursery",
       "date": "2023-02-05",
       "sessionId": "answer_3e9fce53_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "activity on",
-      "value": "Sunday afternoon shopping for baby supplies and decorations at Buy Buy Baby",
+      "predicate": "activity",
+      "value": "spent Sunday afternoon shopping for baby supplies and decorations at Buy Buy Baby",
       "date": "2023-02-05",
       "sessionId": "answer_3e9fce53_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "considering gift of",
+      "predicate": "considering gift",
       "value": "personalized baby blanket",
       "sessionId": "answer_3e9fce53_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "considering gift of",
+      "predicate": "considering gift",
       "value": "baby gym or playmat",
       "sessionId": "answer_3e9fce53_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "considering gift of",
+      "predicate": "considering gift",
       "value": "baby gym",
       "sessionId": "answer_3e9fce53_1",
       "source": "user"
@@ -55,7 +55,7 @@
     },
     {
       "entity": "user and cousin",
-      "predicate": "bought",
+      "predicate": "bought items",
       "value": "diapers, wipes, and a baby monitor",
       "date": "2023-02-10",
       "sessionId": "answer_3e9fce53_2",
@@ -63,37 +63,37 @@
     },
     {
       "entity": "user",
-      "predicate": "planning to give gift to",
-      "value": "coworker's new baby",
+      "predicate": "is planning to give",
+      "value": "gift basket with essentials to coworker's new baby",
       "sessionId": "answer_3e9fce53_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "decided to include in gift basket",
-      "value": "set of baby washcloths",
+      "predicate": "decided to include",
+      "value": "set of baby washcloths in gift basket",
       "sessionId": "answer_3e9fce53_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "planning to include card message",
+      "predicate": "will include card message",
       "value": "Congratulations on the new addition to your family! Wishing you all the best.",
       "sessionId": "answer_3e9fce53_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "ordered customized phone case for",
-      "value": "friend's birthday",
+      "predicate": "ordered",
+      "value": "customized phone case for friend's birthday",
       "date": "2023-02-20",
       "sessionId": "answer_3e9fce53_3",
       "source": "user"
     },
     {
       "entity": "friend",
-      "predicate": "reaction to customized phone case",
-      "value": "really loves it",
+      "predicate": "reaction to",
+      "value": "customized phone case",
       "date": "2023-02-20",
       "sessionId": "answer_3e9fce53_3",
       "source": "user"
@@ -114,8 +114,15 @@
     },
     {
       "entity": "user",
-      "predicate": "budget for sister's handbag",
+      "predicate": "gift budget for sister",
       "value": "$100-$200",
+      "sessionId": "answer_3e9fce53_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "considering gift",
+      "value": "Zara City Bag",
       "sessionId": "answer_3e9fce53_3",
       "source": "user"
     }
@@ -123,67 +130,65 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "practical and functional baby gifts",
-      "polarity": "positive",
-      "constraint": "like diapers or baby toys"
-    },
-    {
-      "entity": "user",
-      "preference": "high-quality and safe baby products",
-      "polarity": "positive",
-      "constraint": "baby gym with durability and safety features"
-    },
-    {
-      "entity": "user",
-      "preference": "personalized gifts",
-      "polarity": "positive",
-      "constraint": "baby blankets"
-    },
-    {
-      "entity": "user",
-      "preference": "baby carriers or slings as a gift",
-      "polarity": "negative",
-      "constraint": "prefers more universal items instead"
-    },
-    {
-      "entity": "user",
-      "preference": "simple yet heartfelt card messages",
+      "preference": "practical and functional baby gifts like diapers or baby toys",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "personalized/customized gifts",
-      "polarity": "positive",
-      "constraint": "thoughtful and meaningful"
+      "preference": "high-quality and safe baby products",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "trendy accessories for sister",
+      "preference": "thoughtful, practical gifts for new parents",
       "polarity": "positive",
-      "constraint": "handbag specifically"
+      "constraint": "universal items preferred over personal preference items"
     },
     {
       "entity": "user",
-      "preference": "not breaking the bank on gifts",
+      "preference": "baby washcloths",
+      "polarity": "positive",
+      "constraint": "as a universal gift item"
+    },
+    {
+      "entity": "user",
+      "preference": "warm but professional tone in cards",
+      "polarity": "positive",
+      "constraint": "for workplace gifts"
+    },
+    {
+      "entity": "user's sister",
+      "preference": "trendy accessories and handbags",
+      "polarity": "positive",
+      "constraint": "fashion-related"
+    },
+    {
+      "entity": "user",
+      "preference": "thoughtful, personalized gifts",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "not spending excessively",
       "polarity": "positive",
       "constraint": "$100-$200 budget"
     }
   ],
   "events": [
     {
-      "event": "user helped friend prepare nursery and shopped for baby supplies and decorations",
+      "event": "helped friend prepare nursery and shopped for baby supplies and decorations",
       "date": "2023-02-05",
       "location": "Buy Buy Baby",
       "sessionId": "answer_3e9fce53_1"
     },
     {
-      "event": "user helped cousin pick out stuff for baby shower and purchased diapers, wipes, and a baby monitor",
+      "event": "user helped cousin pick out items for baby shower at Target",
       "date": "2023-02-10",
       "location": "Target",
       "sessionId": "answer_3e9fce53_2"
     },
     {
-      "event": "user ordered customized phone case for friend's birthday",
+      "event": "ordered customized phone case for friend's birthday",
       "date": "2023-02-20",
       "sessionId": "answer_3e9fce53_3"
     }

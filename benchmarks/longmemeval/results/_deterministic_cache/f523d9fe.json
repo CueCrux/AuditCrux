@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "watches primarily",
+      "predicate": "watches on Netflix",
       "value": "series",
       "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
@@ -10,7 +10,7 @@
     },
     {
       "entity": "user",
-      "predicate": "currently watching",
+      "predicate": "current series watching",
       "value": "Black List",
       "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
@@ -18,16 +18,24 @@
     },
     {
       "entity": "user",
-      "predicate": "uses feature to discover content",
-      "value": "what's coming next week/month function",
+      "predicate": "uses Netflix feature",
+      "value": "upcoming content calendar (what's coming next week/month)",
+      "date": "2023-05-26",
+      "sessionId": "answer_sharegpt_m2xJfjo_0",
+      "source": "user"
+    },
+    {
+      "entity": "show",
+      "predicate": "name",
+      "value": "Doc Martin",
       "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
       "entity": "Doc Martin",
-      "predicate": "availability on Netflix",
-      "value": "only last season available after show was taken down",
+      "predicate": "availability issue",
+      "value": "only last season available after Netflix removed earlier seasons",
       "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
@@ -35,7 +43,7 @@
     {
       "entity": "user",
       "predicate": "experiences",
-      "value": "periodic access issues with Netflix",
+      "value": "occasional Netflix access issues",
       "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
@@ -45,41 +53,32 @@
     {
       "entity": "user",
       "preference": "variety of content on Netflix",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "Black List series",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "access to all seasons of old shows",
       "polarity": "positive",
-      "constraint": "currently unavailable for Doc Martin"
+      "constraint": "something for everybody, new content daily"
     },
     {
       "entity": "user",
-      "preference": "Netflix pricing value",
+      "preference": "Netflix pricing",
       "polarity": "positive",
-      "constraint": "believes it offers good value for money"
+      "constraint": "good value for money, though unsure of actual cost"
     },
     {
       "entity": "user",
-      "preference": "more diversity in content offerings",
+      "preference": "content diversity",
       "polarity": "positive",
-      "constraint": "but has no complaints about current variety"
+      "constraint": "would like more choice but no complaints"
+    },
+    {
+      "entity": "user",
+      "preference": "complete series availability",
+      "polarity": "negative",
+      "constraint": "dislikes when Netflix removes old seasons of shows"
     }
   ],
   "events": [
     {
-      "event": "Interview about Netflix preferences and feedback",
+      "event": "user mentioned Doc Martin show was removed with only last season remaining",
       "date": "2023-05-26",
-      "sessionId": "answer_sharegpt_m2xJfjo_0"
-    },
-    {
-      "event": "Doc Martin removed from Netflix with only last season remaining",
-      "date": null,
       "sessionId": "answer_sharegpt_m2xJfjo_0"
     }
   ]

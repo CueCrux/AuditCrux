@@ -1,0 +1,118 @@
+{
+  "facts": [
+    {
+      "entity": "user",
+      "predicate": "attended religious activity",
+      "value": "Maundy Thursday service at the Episcopal Church",
+      "sessionId": "answer_a17423e8_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "attended event",
+      "value": "Easter Egg Hunt",
+      "date": "2023-03-30",
+      "sessionId": "answer_a17423e8_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "interested in volunteer opportunity",
+      "value": "Food Bank Volunteer",
+      "sessionId": "answer_a17423e8_1",
+      "source": "user"
+    },
+    {
+      "entity": "Food Bank",
+      "predicate": "location",
+      "value": "123 Main St, Anytown, USA 12345",
+      "sessionId": "answer_a17423e8_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank",
+      "predicate": "volunteer shift times",
+      "value": "4:00 pm - 7:00 pm, Monday to Friday",
+      "sessionId": "answer_a17423e8_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank",
+      "predicate": "phone",
+      "value": "555-555-5555",
+      "sessionId": "answer_a17423e8_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank",
+      "predicate": "email",
+      "value": "volunteer@foodbank.org",
+      "sessionId": "answer_a17423e8_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank",
+      "predicate": "website",
+      "value": "foodbank.org",
+      "sessionId": "answer_a17423e8_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "availability preference",
+      "value": "weekday evenings",
+      "sessionId": "answer_a17423e8_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "volunteer interest area",
+      "value": "community service and helping the underprivileged",
+      "sessionId": "answer_a17423e8_1",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "community service and helping the underprivileged",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "weekday evening volunteering",
+      "polarity": "positive",
+      "constraint": "evenings, weekdays"
+    },
+    {
+      "entity": "user",
+      "preference": "regular volunteer schedule",
+      "polarity": "positive",
+      "constraint": "committed schedule"
+    },
+    {
+      "entity": "user",
+      "preference": "group volunteering with church or community",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "Maundy Thursday service at Episcopal Church",
+      "polarity": "positive",
+      "constraint": "beautiful and moving experience"
+    }
+  ],
+  "events": [
+    {
+      "event": "Easter Egg Hunt",
+      "date": "2023-03-30",
+      "sessionId": "answer_a17423e8_1"
+    },
+    {
+      "event": "Maundy Thursday service",
+      "date": null,
+      "location": "Episcopal Church",
+      "sessionId": "answer_a17423e8_1"
+    }
+  ]
+}

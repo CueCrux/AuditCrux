@@ -1,0 +1,76 @@
+{
+  "facts": [
+    {
+      "entity": "user",
+      "predicate": "attended",
+      "value": "book reading event at local library",
+      "date": "2023-01-15",
+      "sessionId": "answer_b9e32ff8_2",
+      "source": "user"
+    },
+    {
+      "entity": "book reading event",
+      "predicate": "featured author of",
+      "value": "The Silent Patient",
+      "date": "2023-01-15",
+      "sessionId": "answer_b9e32ff8_2",
+      "source": "user"
+    },
+    {
+      "entity": "event author",
+      "predicate": "discussing",
+      "value": "latest thriller novel",
+      "date": "2023-01-15",
+      "sessionId": "answer_b9e32ff8_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "started",
+      "value": "book journal",
+      "date": "2023-01-01",
+      "sessionId": "answer_b9e32ff8_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "reading preference",
+      "value": "thrillers",
+      "sessionId": "answer_b9e32ff8_2",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "thrillers",
+      "polarity": "positive",
+      "constraint": "has been reading a lot of thrillers lately"
+    },
+    {
+      "entity": "user",
+      "preference": "physical book journal",
+      "polarity": "positive",
+      "constraint": "enjoys reflection and note-taking"
+    },
+    {
+      "entity": "user",
+      "preference": "digital reading tracking",
+      "polarity": "positive",
+      "constraint": "for stats and ratings"
+    }
+  ],
+  "events": [
+    {
+      "event": "Book reading event where author of 'The Silent Patient' discussed latest thriller novel",
+      "date": "2023-01-15",
+      "location": "local library",
+      "sessionId": "answer_b9e32ff8_2"
+    },
+    {
+      "event": "User started a book journal",
+      "date": "2023-01-01",
+      "sessionId": "answer_b9e32ff8_2"
+    }
+  ]
+}

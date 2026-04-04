@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "has_playlists_on_spotify",
+      "predicate": "has_playlists_on",
       "value": "20",
       "date": "2023-05-20",
       "sessionId": "answer_e05e4612",
@@ -10,14 +10,14 @@
     },
     {
       "entity": "user",
-      "predicate": "owns_spotify_playlist",
+      "predicate": "owns_playlist",
       "value": "Morning Boost",
       "sessionId": "answer_e05e4612",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "owns_spotify_playlist",
+      "predicate": "owns_playlist",
       "value": "Focus Flow",
       "sessionId": "answer_e05e4612",
       "source": "user"
@@ -25,7 +25,7 @@
     {
       "entity": "user",
       "predicate": "attending_concert",
-      "value": "Tameca Jones live",
+      "value": "Tameca Jones",
       "sessionId": "answer_e05e4612",
       "source": "user"
     },
@@ -39,7 +39,7 @@
     {
       "entity": "user",
       "predicate": "owns_turntable",
-      "value": "yes",
+      "value": "new turntable",
       "sessionId": "answer_e05e4612",
       "source": "user"
     }
@@ -49,38 +49,43 @@
       "entity": "user",
       "preference": "Tameca Jones music",
       "polarity": "positive",
-      "constraint": "soulful, bluesy voice and genre-bending style"
+      "constraint": "soulful, bluesy, genre-bending"
     },
     {
       "entity": "user",
       "preference": "Lo-Fi hip hop beats",
       "polarity": "positive",
-      "constraint": "listening on repeat"
+      "constraint": "listened to on repeat"
     },
     {
       "entity": "user",
-      "preference": "relaxing music",
+      "preference": "mellow, relaxing music",
       "polarity": "positive",
-      "constraint": "mellow artists and songs"
+      "constraint": "for new playlist"
+    },
+    {
+      "entity": "user",
+      "preference": "organizing playlists by mood",
+      "polarity": "positive",
+      "constraint": "mood-based organization"
     },
     {
       "entity": "user",
       "preference": "vinyl record collecting",
       "polarity": "positive",
       "constraint": "recently started"
-    },
-    {
-      "entity": "user",
-      "preference": "organizing playlists by mood",
-      "polarity": "positive",
-      "constraint": "genre, mood, or activity-based"
     }
   ],
   "events": [
     {
-      "event": "user attending Tameca Jones live concert",
+      "event": "user attending Tameca Jones concert",
       "date": null,
       "location": "user's city",
+      "sessionId": "answer_e05e4612"
+    },
+    {
+      "event": "user purchased first vinyl record",
+      "date": null,
       "sessionId": "answer_e05e4612"
     }
   ]

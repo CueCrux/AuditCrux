@@ -2,36 +2,43 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "traveled to",
+      "predicate": "went on family trip to",
       "value": "Hawaii",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "family trip activity",
+      "predicate": "activity on family trip",
       "value": "snorkeling",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "wanted to visit",
-      "value": "Waikiki for shopping",
+      "predicate": "wanted to explore",
+      "value": "Waikiki",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "planning future trip to",
+      "predicate": "interested in solo activity",
+      "value": "shopping in Waikiki",
+      "sessionId": "answer_02e66dec_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "planning solo excursions after",
+      "value": "next family trip",
+      "sessionId": "answer_02e66dec_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "interested in food tour destination",
       "value": "Japan",
-      "sessionId": "answer_02e66dec_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "has friends in",
-      "value": "area near Hawaii (unspecified location)",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
@@ -39,15 +46,15 @@
       "entity": "user",
       "predicate": "took family trip to",
       "value": "Paris",
-      "date": "2023-04",
+      "date": "2023-04-28",
       "sessionId": "answer_02e66dec_2",
       "source": "user"
     },
     {
       "entity": "user's kids",
       "predicate": "enjoyed",
-      "value": "Paris family trip",
-      "date": "2023-04",
+      "value": "Paris trip",
+      "date": "2023-04-28",
       "sessionId": "answer_02e66dec_2",
       "source": "user"
     },
@@ -71,19 +78,13 @@
       "entity": "user",
       "preference": "snorkeling",
       "polarity": "positive",
-      "constraint": "in Hawaii, family activity"
+      "constraint": "family activity in Hawaii"
     },
     {
       "entity": "user",
-      "preference": "solo exploration and shopping",
+      "preference": "personal freedom and solo exploration",
       "polarity": "positive",
-      "constraint": "during family trips"
-    },
-    {
-      "entity": "user",
-      "preference": "personal freedom while traveling",
-      "polarity": "positive",
-      "constraint": "balance with family bonding"
+      "constraint": "while traveling with family"
     },
     {
       "entity": "user",
@@ -95,13 +96,19 @@
       "entity": "user",
       "preference": "packed schedules",
       "polarity": "negative",
-      "constraint": "restricts personal time on family trips"
+      "constraint": "felt restricted on family trip"
     },
     {
       "entity": "user",
-      "preference": "family travel with kids",
+      "preference": "social hostels",
       "polarity": "positive",
-      "constraint": "Paris was amazing"
+      "constraint": "for solo travel and meeting people"
+    },
+    {
+      "entity": "user",
+      "preference": "family travel",
+      "polarity": "positive",
+      "constraint": "recently traveled to Paris with family"
     },
     {
       "entity": "user",
@@ -110,10 +117,9 @@
       "constraint": "in Tokyo"
     },
     {
-      "entity": "user",
-      "preference": "trying something different after family trip",
-      "polarity": "positive",
-      "constraint": "solo travel vs family travel"
+      "entity": "user's kids",
+      "preference": "Paris attractions",
+      "polarity": "positive"
     }
   ],
   "events": [
@@ -124,25 +130,18 @@
       "sessionId": "answer_02e66dec_1"
     },
     {
-      "event": "planning solo days after family trip to explore and meet friends",
+      "event": "planning next family trip with solo excursions",
       "date": null,
-      "location": "Hawaii area",
       "sessionId": "answer_02e66dec_1"
     },
     {
-      "event": "planning future food tour and solo travel",
-      "date": null,
-      "location": "Japan",
-      "sessionId": "answer_02e66dec_1"
-    },
-    {
-      "event": "family trip to Paris",
-      "date": "2023-04-01",
+      "event": "Family trip to Paris",
+      "date": "2023-04-28",
       "location": "Paris, France",
       "sessionId": "answer_02e66dec_2"
     },
     {
-      "event": "planning solo trip to Tokyo",
+      "event": "Planning solo trip to Tokyo",
       "date": null,
       "location": "Tokyo, Japan",
       "sessionId": "answer_02e66dec_2"

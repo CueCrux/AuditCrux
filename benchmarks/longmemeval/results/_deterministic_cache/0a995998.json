@@ -17,31 +17,36 @@
     },
     {
       "entity": "user",
-      "predicate": "has",
-      "value": "winter clothes not touched since holidays",
-      "date": "2023-02-15",
-      "sessionId": "answer_afa9873b_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "has",
-      "value": "short-sleeve shirts from last summer",
-      "date": "2023-02-15",
-      "sessionId": "answer_afa9873b_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "recently purchased",
+      "predicate": "owns",
       "value": "black jeans from Levi's",
       "sessionId": "answer_afa9873b_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "recently purchased",
+      "predicate": "owns",
       "value": "white button-down shirt from H&M",
+      "sessionId": "answer_afa9873b_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has winter clothes not worn",
+      "value": "since the holidays",
+      "sessionId": "answer_afa9873b_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "owns",
+      "value": "multiple short-sleeve shirts from last summer",
+      "sessionId": "answer_afa9873b_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has not worn",
+      "value": "many tops in a while",
       "sessionId": "answer_afa9873b_2",
       "source": "user"
     },
@@ -54,7 +59,7 @@
     },
     {
       "entity": "boots",
-      "predicate": "purchased from",
+      "predicate": "exchanged at",
       "value": "Zara",
       "date": "2023-02-05",
       "sessionId": "answer_afa9873b_3",
@@ -62,70 +67,96 @@
     },
     {
       "entity": "boots",
-      "predicate": "exchanged for larger size",
+      "predicate": "status",
+      "value": "new size ready for pickup, original size needs to be returned",
+      "sessionId": "answer_afa9873b_3",
+      "source": "user"
+    },
+    {
+      "entity": "boots from Zara",
+      "predicate": "reason for exchange",
       "value": "too small",
-      "date": "2023-02-05",
       "sessionId": "answer_afa9873b_3",
       "source": "user"
     },
     {
-      "entity": "boots (new pair)",
-      "predicate": "status",
-      "value": "need to pick up at Zara",
+      "entity": "outdoor concert",
+      "predicate": "scheduled for",
+      "value": "this weekend",
       "sessionId": "answer_afa9873b_3",
       "source": "user"
     },
     {
-      "entity": "boots (old pair)",
-      "predicate": "status",
-      "value": "need to return to Zara",
+      "entity": "yoga pants",
+      "predicate": "last worn",
+      "value": "Thursday at gym",
       "sessionId": "answer_afa9873b_3",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "has clothing items to pick up or return",
-      "value": "2 items (boots: 1 to pick up, 1 to return)",
-      "sessionId": "answer_afa9873b_3",
-      "source": "user"
-    },
-    {
-      "entity": "boots from Zara",
-      "predicate": "exchanged on",
-      "value": "2023-02-05",
+      "predicate": "needs to pick up",
+      "value": "new pair of boots from Zara",
       "date": "2023-02-05",
       "sessionId": "answer_afa9873b_1",
       "source": "user"
     },
     {
-      "entity": "boots from Zara",
-      "predicate": "status",
-      "value": "new pair needs to be picked up",
-      "date": "2023-02-15",
+      "entity": "user",
+      "predicate": "exchanged",
+      "value": "boots from Zara",
+      "date": "2023-02-05",
       "sessionId": "answer_afa9873b_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "items to pick up or return",
-      "value": "1 (new pair of boots from Zara)",
-      "date": "2023-02-15",
+      "predicate": "owns",
+      "value": "black jeans from Levi's",
+      "date": "2023-02-10",
       "sessionId": "answer_afa9873b_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "current tracking method",
-      "value": "remembers in head",
-      "date": "2023-02-15",
+      "predicate": "owns",
+      "value": "thick grey scarf",
       "sessionId": "answer_afa9873b_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "new tracking method",
+      "predicate": "owns",
+      "value": "gloves",
+      "sessionId": "answer_afa9873b_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "owns",
+      "value": "yellow sundress",
+      "sessionId": "answer_afa9873b_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "owns",
+      "value": "favourite yoga pants",
+      "sessionId": "answer_afa9873b_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "tracking method for pickups/returns",
       "value": "notes app on phone",
-      "date": "2023-02-15",
+      "sessionId": "answer_afa9873b_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "number of clothing items to pick up or return",
+      "value": "1",
+      "date": "2023-02-05",
       "sessionId": "answer_afa9873b_1",
       "source": "user"
     }
@@ -133,49 +164,59 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "decluttering and organizing closet",
+      "preference": "organizing and decluttering closet",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "clothes that fit well and make them feel confident",
+      "preference": "keeping clothes that make them feel confident and happy",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "wearing green sweater",
-      "polarity": "positive",
-      "constraint": "lent to sister, return date unknown"
+      "preference": "new clothing purchases that complement existing wardrobe",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "yellow sundress",
+      "preference": "green sweater for outdoor concert",
       "polarity": "positive",
-      "constraint": "too early in season for winter outdoor concert"
+      "constraint": "currently lent to sister, return date unknown"
     },
     {
       "entity": "user",
       "preference": "yoga pants",
       "polarity": "positive",
-      "constraint": "favorite pair, needs special care"
-    },
-    {
-      "entity": "user",
-      "preference": "black jeans from Levi's",
-      "polarity": "positive",
-      "constraint": "worn at dinner date on 2023-02-10"
+      "constraint": "favorite pair, wants to maintain appearance"
     },
     {
       "entity": "user",
       "preference": "yellow sundress",
       "polarity": "positive",
-      "constraint": "spring clothing"
+      "constraint": "considering for winter concert but concerned about seasonality"
     },
     {
       "entity": "user",
-      "preference": "favourite yoga pants",
+      "preference": "black jeans from Levi's",
       "polarity": "positive",
-      "constraint": "worn to gym last Thursday"
+      "constraint": "just got, wore on dinner date"
+    },
+    {
+      "entity": "user",
+      "preference": "yoga pants",
+      "polarity": "positive",
+      "constraint": "favourite"
+    },
+    {
+      "entity": "user",
+      "preference": "organizing closet by season",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "tracking items with notes app",
+      "polarity": "positive",
+      "constraint": "instead of remembering in head"
     }
   ],
   "events": [
@@ -185,50 +226,55 @@
       "sessionId": "answer_afa9873b_2"
     },
     {
-      "event": "user started decluttering closet, beginning with short-sleeve shirts",
+      "event": "user purchased black jeans from Levi's",
+      "date": null,
+      "sessionId": "answer_afa9873b_2"
+    },
+    {
+      "event": "user purchased white button-down shirt from H&M",
+      "date": null,
+      "sessionId": "answer_afa9873b_2"
+    },
+    {
+      "event": "user started decluttering short-sleeve shirts",
       "date": "2023-02-15",
       "sessionId": "answer_afa9873b_2"
     },
     {
-      "event": "Lent green sweater to sister",
-      "date": null,
-      "sessionId": "answer_afa9873b_3"
-    },
-    {
-      "event": "Exchanged boots at Zara for larger size",
+      "event": "exchanged boots at Zara for larger size",
       "date": "2023-02-05",
       "location": "Zara",
       "sessionId": "answer_afa9873b_3"
     },
     {
-      "event": "Outdoor concert",
-      "date": "2023-02-18",
-      "sessionId": "answer_afa9873b_3"
-    },
-    {
-      "event": "Wore yoga pants to gym",
+      "event": "wore yoga pants to gym",
       "date": "2023-02-09",
       "location": "gym",
       "sessionId": "answer_afa9873b_3"
     },
     {
-      "event": "Planning to do laundry",
-      "date": "2023-02-18",
+      "event": "outdoor concert planned",
+      "date": null,
       "sessionId": "answer_afa9873b_3"
     },
     {
-      "event": "dinner date wearing new black Levi's jeans",
+      "event": "planning to do laundry",
+      "date": null,
+      "sessionId": "answer_afa9873b_3"
+    },
+    {
+      "event": "user wore new black jeans from Levi's to dinner date",
       "date": "2023-02-10",
       "sessionId": "answer_afa9873b_1"
     },
     {
-      "event": "exchanged boots from Zara",
+      "event": "user exchanged boots from Zara",
       "date": "2023-02-05",
-      "location": "Zara store",
+      "location": "Zara",
       "sessionId": "answer_afa9873b_1"
     },
     {
-      "event": "wore favourite yoga pants to gym",
+      "event": "user wore favourite yoga pants to gym",
       "date": "2023-02-09",
       "location": "gym",
       "sessionId": "answer_afa9873b_1"

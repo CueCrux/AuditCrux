@@ -11,31 +11,15 @@
     {
       "entity": "user",
       "predicate": "uses yoga for",
-      "value": "relaxation, focus, and feeling grounded and centered",
+      "value": "relaxation and focus",
       "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "experiences",
-      "value": "anxiety",
-      "date": "2023-08-11",
-      "sessionId": "answer_6a4f8626_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "reports yoga helps on",
-      "value": "days when feeling anxious",
-      "date": "2023-08-11",
-      "sessionId": "answer_6a4f8626_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "currently has",
-      "value": "a therapist",
+      "predicate": "uses yoga for",
+      "value": "feeling grounded and centered on anxious days",
       "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
@@ -43,7 +27,23 @@
     {
       "entity": "user",
       "predicate": "uses meditation for",
-      "value": "setting intentions, focusing on goals, and reducing stress",
+      "value": "setting intentions and focusing on goals",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has",
+      "value": "anxiety and depression",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "works with",
+      "value": "a therapist",
       "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
@@ -58,14 +58,6 @@
     },
     {
       "entity": "user",
-      "predicate": "experiences",
-      "value": "depression",
-      "date": "2023-08-11",
-      "sessionId": "answer_6a4f8626_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
       "predicate": "attends yoga classes",
       "value": "three times a week",
       "date": "2023-11-30",
@@ -73,8 +65,8 @@
       "source": "user"
     },
     {
-      "entity": "yoga classes",
-      "predicate": "helps with",
+      "entity": "user",
+      "predicate": "yoga frequency helps with",
       "value": "focus and clearing head",
       "date": "2023-11-30",
       "sessionId": "answer_6a4f8626_2",
@@ -82,15 +74,15 @@
     },
     {
       "entity": "user",
-      "predicate": "has work hours",
-      "value": "9am-5pm with lunch break 12-1pm",
+      "predicate": "work hours",
+      "value": "9am-5pm with 12-1pm lunch break",
       "date": "2023-11-30",
       "sessionId": "answer_6a4f8626_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "has meeting scheduled",
+      "predicate": "scheduled meeting",
       "value": "Wednesday 2-3pm",
       "date": "2023-11-30",
       "sessionId": "answer_6a4f8626_2",
@@ -98,16 +90,16 @@
     },
     {
       "entity": "user",
-      "predicate": "has projects",
-      "value": "marketing campaign, report due Friday, website updates",
+      "predicate": "current projects",
+      "value": "marketing campaign, report (due next Friday), website updates",
       "date": "2023-11-30",
       "sessionId": "answer_6a4f8626_2",
       "source": "user"
     },
     {
-      "entity": "report",
-      "predicate": "due",
-      "value": "next Friday",
+      "entity": "user",
+      "predicate": "estimated task duration",
+      "value": "2-3 days per task",
       "date": "2023-11-30",
       "sessionId": "answer_6a4f8626_2",
       "source": "user"
@@ -118,69 +110,51 @@
       "entity": "user",
       "preference": "yoga for anxiety management",
       "polarity": "positive",
-      "constraint": "twice a week practice"
+      "constraint": "twice a week frequency"
     },
     {
       "entity": "user",
-      "preference": "meditation and mindfulness",
+      "preference": "meditation and mindfulness practices",
       "polarity": "positive",
-      "constraint": "for stress reduction and goal-setting"
+      "constraint": "for self-care and mental health"
     },
     {
       "entity": "user",
-      "preference": "therapy and professional support",
-      "polarity": "positive",
-      "constraint": "for addressing childhood trauma and mental health"
+      "preference": "therapy and professional mental health support",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "journaling and reflection exercises",
-      "polarity": "positive",
-      "constraint": "for identifying triggers and processing emotions"
+      "preference": "self-education about anxiety and depression",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "self-care and self-education",
+      "preference": "yoga classes",
       "polarity": "positive",
-      "constraint": "for understanding anxiety and depression"
+      "constraint": "helps with focus and anxiety relief"
     },
     {
       "entity": "user",
-      "preference": "yoga classes for anxiety and focus",
+      "preference": "report quality",
       "polarity": "positive",
-      "constraint": "three times a week"
-    },
-    {
-      "entity": "user",
-      "preference": "report quality before submission",
-      "polarity": "positive",
-      "constraint": "wants to ensure it's perfect"
+      "constraint": "wants to ensure it's perfect before submitting"
     }
   ],
   "events": [
     {
-      "event": "user began yoga practice twice a week",
-      "date": null,
+      "event": "user reported doing yoga twice a week to help with relaxation and focus",
+      "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1"
     },
     {
-      "event": "user started therapy to address childhood trauma and mental health",
-      "date": null,
-      "sessionId": "answer_6a4f8626_1"
-    },
-    {
-      "event": "user began using meditation and journaling for stress management",
-      "date": null,
+      "event": "user noticed yoga helping them feel grounded and centered on anxious days",
+      "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1"
     },
     {
       "event": "Work meeting scheduled",
       "date": "2023-11-30",
-      "sessionId": "answer_6a4f8626_2"
-    },
-    {
-      "event": "Report deadline",
-      "date": "2023-12-08",
       "sessionId": "answer_6a4f8626_2"
     }
   ]

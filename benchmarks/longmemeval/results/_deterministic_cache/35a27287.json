@@ -24,37 +24,36 @@
     {
       "entity": "user",
       "predicate": "interested_in",
-      "value": "conversational practice",
-      "sessionId": "answer_9b182436",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "attended",
-      "value": "cultural festival",
-      "date": "2023-04-29",
-      "sessionId": "answer_9b182436",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "role_at_festival",
-      "value": "volunteer",
-      "date": "2023-04-29",
-      "sessionId": "answer_9b182436",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "interested_in",
       "value": "cultural events celebrating language diversity",
       "sessionId": "answer_9b182436",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "interested_in",
-      "value": "cultural exchange",
+      "predicate": "participated_in",
+      "value": "cultural festival as volunteer",
+      "date": "2023-04-29",
+      "sessionId": "answer_9b182436",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "seeking_improvement_in",
+      "value": "French listening skills",
+      "sessionId": "answer_9b182436",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "seeking_improvement_in",
+      "value": "conversational skills in French and Spanish",
+      "sessionId": "answer_9b182436",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "seeking_improvement_in",
+      "value": "idiomatic expressions and colloquialisms",
       "sessionId": "answer_9b182436",
       "source": "user"
     }
@@ -62,38 +61,32 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "French podcasts for listening skills improvement",
+      "preference": "language learning through podcasts",
       "polarity": "positive",
-      "constraint": "beginner to intermediate level"
-    },
-    {
-      "entity": "user",
-      "preference": "idiomatic expressions and colloquialisms",
-      "polarity": "positive",
-      "constraint": "in French and Spanish"
-    },
-    {
-      "entity": "user",
-      "preference": "informal language learning",
-      "polarity": "positive",
-      "constraint": "conversational skills focus"
-    },
-    {
-      "entity": "user",
-      "preference": "language exchange events",
-      "polarity": "positive",
-      "constraint": "conversational practice focus"
+      "constraint": "French, 20-30 minutes per episode preferred"
     },
     {
       "entity": "user",
       "preference": "cultural events and festivals",
       "polarity": "positive",
-      "constraint": "language diversity and cultural exchange"
+      "constraint": "celebrating language diversity and cultural exchange"
+    },
+    {
+      "entity": "user",
+      "preference": "conversational language practice",
+      "polarity": "positive",
+      "constraint": "informal language, idiomatic expressions"
+    },
+    {
+      "entity": "user",
+      "preference": "language exchange with native speakers",
+      "polarity": "positive",
+      "constraint": "in-person events or partner matching"
     }
   ],
   "events": [
     {
-      "event": "cultural festival volunteering",
+      "event": "cultural festival volunteer experience",
       "date": "2023-04-29",
       "sessionId": "answer_9b182436"
     }

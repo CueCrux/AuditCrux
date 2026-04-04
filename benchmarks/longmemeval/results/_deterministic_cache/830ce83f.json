@@ -10,14 +10,14 @@
     {
       "entity": "Rachel",
       "predicate": "moved to",
-      "value": "a new apartment in the city",
+      "value": "new apartment in the city",
       "sessionId": "answer_0b1a0942_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "plans to visit",
-      "value": "Rachel in Chicago",
+      "predicate": "planning visit to",
+      "value": "Chicago to visit Rachel",
       "sessionId": "answer_0b1a0942_1",
       "source": "user"
     },
@@ -25,44 +25,23 @@
       "entity": "Rachel",
       "predicate": "moved to",
       "value": "suburbs",
+      "date": "null",
       "sessionId": "answer_0b1a0942_2",
       "source": "user"
     },
     {
       "entity": "Rachel",
       "predicate": "previous location",
-      "value": "not suburbs",
+      "value": "suburbs",
+      "date": "null",
       "sessionId": "answer_0b1a0942_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "has visited",
-      "value": "Miami Beach",
-      "sessionId": "answer_0b1a0942_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "planning trip with",
-      "value": "friends",
-      "date": "2023-05-27",
-      "sessionId": "answer_0b1a0942_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "selected destination",
+      "predicate": "planning trip to",
       "value": "Fort Myers Beach",
-      "date": "2023-05-27",
-      "sessionId": "answer_0b1a0942_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "selected accommodation",
-      "value": "The Outrigger Beach Resort",
-      "date": "2023-05-27",
+      "date": "null",
       "sessionId": "answer_0b1a0942_2",
       "source": "user"
     },
@@ -70,8 +49,25 @@
       "entity": "Fort Myers Beach",
       "predicate": "distance from Tampa",
       "value": "2.5 hours southwest",
+      "date": "null",
       "sessionId": "answer_0b1a0942_2",
       "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "booking accommodation at",
+      "value": "The Outrigger Beach Resort",
+      "date": "null",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "interested in",
+      "value": "paddleboarding",
+      "date": "null",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "user"
     }
   ],
   "preferences": [
@@ -79,37 +75,43 @@
       "entity": "User",
       "preference": "exploring the city",
       "polarity": "positive",
-      "constraint": "during visit to Rachel in Chicago"
+      "constraint": "while visiting Rachel"
     },
     {
       "entity": "User",
       "preference": "meeting up with Rachel easily",
       "polarity": "positive",
-      "constraint": "location accessibility in Chicago"
+      "constraint": "proximity to Rachel's apartment"
+    },
+    {
+      "entity": "User",
+      "preference": "good coffee shops and cafes",
+      "polarity": "positive",
+      "constraint": "in Chicago"
     },
     {
       "entity": "user",
-      "preference": "relaxed atmosphere over vibrant nightlife",
+      "preference": "relaxed beach atmosphere",
       "polarity": "positive",
-      "constraint": "beach towns"
+      "constraint": "not Miami Beach"
     },
     {
       "entity": "user",
-      "preference": "proximity to major city",
+      "preference": "beach town near major city",
       "polarity": "positive",
-      "constraint": "beach destination"
+      "constraint": "proximity to city amenities"
     },
     {
       "entity": "user",
-      "preference": "paddleboarding and water sports",
+      "preference": "beachfront rooms with views",
       "polarity": "positive",
-      "constraint": "beach activities"
+      "constraint": "Gulf of Mexico views"
     },
     {
       "entity": "user",
-      "preference": "beach view rooms",
+      "preference": "water sports activities",
       "polarity": "positive",
-      "constraint": "hotel accommodations"
+      "constraint": "paddleboarding, kayaking"
     }
   ],
   "events": [
@@ -120,14 +122,26 @@
       "sessionId": "answer_0b1a0942_1"
     },
     {
-      "event": "Rachel moved back to the suburbs",
+      "event": "User planning trip with friends to Florida or Colorado",
       "date": null,
-      "location": "suburbs",
+      "location": "Florida or Colorado",
+      "sessionId": "answer_0b1a0942_1"
+    },
+    {
+      "event": "User planning visit to Chicago to see Rachel",
+      "date": null,
+      "location": "Chicago",
+      "sessionId": "answer_0b1a0942_1"
+    },
+    {
+      "event": "Rachel moved to suburbs",
+      "date": "null",
+      "location": "suburbs (near major city)",
       "sessionId": "answer_0b1a0942_2"
     },
     {
       "event": "User planning beach trip with friends",
-      "date": "2023-05-27",
+      "date": null,
       "location": "Fort Myers Beach, Florida",
       "sessionId": "answer_0b1a0942_2"
     }

@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "works in field of",
+      "predicate": "works_in_field",
       "value": "deep learning for medical image analysis",
       "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
@@ -10,15 +10,23 @@
     },
     {
       "entity": "user",
-      "predicate": "is interested in",
-      "value": "explainable AI for medical image analysis",
+      "predicate": "expertise_level",
+      "value": "advanced - skips basics",
       "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "is interested in",
+      "predicate": "interested_in_topic",
+      "value": "explainable AI in medical image analysis",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "interested_in_topic",
       "value": "multi-modal image fusion",
       "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
@@ -26,7 +34,7 @@
     },
     {
       "entity": "user",
-      "predicate": "is interested in",
+      "predicate": "interested_in_topic",
       "value": "transfer learning in medical imaging",
       "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
@@ -34,33 +42,83 @@
     },
     {
       "entity": "user",
-      "predicate": "is interested in",
+      "predicate": "interested_in_topic",
       "value": "domain adaptation in medical imaging",
       "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "is interested in",
-      "value": "medical image segmentation datasets",
+      "entity": "assistant",
+      "predicate": "recommended_paper",
+      "value": "Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization by Selvaraju et al. (2017)",
       "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
-      "source": "user"
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended_paper",
+      "value": "Visualizing and Understanding Convolutional Neural Networks by Zeiler and Fergus (2014)",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended_survey",
+      "value": "Explainable AI in Medical Imaging: A Survey by Rajpurkar et al. (2020)",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended_survey",
+      "value": "Domain Adaptation for Medical Image Analysis: A Survey by Dou et al. (2020)",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
     }
   ],
   "preferences": [
     {
       "entity": "user",
-      "preference": "skip basics, prefers advanced topics",
+      "preference": "advanced topics in deep learning for medical image analysis",
       "polarity": "positive",
-      "constraint": "working in the field"
+      "constraint": "excludes basics"
     },
     {
       "entity": "user",
-      "preference": "learning through research papers and articles",
+      "preference": "research papers and articles on XAI, multi-modal fusion, transfer learning, domain adaptation",
       "polarity": "positive"
     }
   ],
-  "events": []
+  "events": [
+    {
+      "event": "user asked for overview of recent advancements in deep learning for medical image analysis",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "user asked for popular datasets for segmentation tasks in medical image analysis",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "user asked for information on latest trends in explainable AI for medical image analysis",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "user requested research papers on explainable AI in medical image analysis",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "user requested papers on multi-modal fusion, transfer learning, and domain adaptation in medical imaging",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    }
+  ]
 }

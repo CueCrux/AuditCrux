@@ -10,24 +10,16 @@
     },
     {
       "entity": "International Budget Hostel",
-      "predicate": "has_amenity",
-      "value": "fully equipped kitchen",
-      "date": "2023-05-27",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "International Budget Hostel",
-      "predicate": "has_amenity",
-      "value": "lounge area",
-      "date": "2023-05-27",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "International Budget Hostel",
-      "predicate": "room_type",
+      "predicate": "room_types",
       "value": "dormitory-style rooms and private rooms",
+      "date": "2023-05-27",
+      "sessionId": "answer_ultrachat_370515",
+      "source": "assistant"
+    },
+    {
+      "entity": "International Budget Hostel",
+      "predicate": "amenities",
+      "value": "fully equipped kitchen and lounge area",
       "date": "2023-05-27",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
@@ -39,6 +31,13 @@
       "date": "2023-05-27",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
+    },
+    {
+      "entity": "user",
+      "predicate": "planning",
+      "value": "trip to Amsterdam",
+      "sessionId": "answer_ultrachat_370515",
+      "source": "user"
     }
   ],
   "preferences": [
@@ -46,12 +45,12 @@
       "entity": "user",
       "preference": "budget-friendly accommodation",
       "polarity": "positive",
-      "constraint": "in Amsterdam"
+      "constraint": "Amsterdam hostels"
     }
   ],
   "events": [
     {
-      "event": "user asked for hostel recommendation near Red Light District",
+      "event": "user requested budget-friendly hostel suggestions in Amsterdam",
       "date": "2023-05-27",
       "location": "Amsterdam",
       "sessionId": "answer_ultrachat_370515"

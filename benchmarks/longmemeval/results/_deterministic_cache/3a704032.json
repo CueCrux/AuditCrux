@@ -18,22 +18,23 @@
     },
     {
       "entity": "user",
+      "predicate": "acquired from",
+      "value": "nursery",
+      "date": "2023-05-06",
+      "sessionId": "answer_c2204106_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "uses",
+      "value": "water and fertilizer mixture for watering plants",
+      "sessionId": "answer_c2204106_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "uses",
       "value": "plant tracking app",
-      "sessionId": "answer_c2204106_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "waters plants with",
-      "value": "mixture of water and fertilizer from nursery",
-      "sessionId": "answer_c2204106_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "keeps peace lily at temperature",
-      "value": "65°F to 70°F (18°C to 21°C)",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
@@ -46,8 +47,15 @@
     },
     {
       "entity": "user",
-      "predicate": "mists fern frequency",
+      "predicate": "misting frequency for fern",
       "value": "every other day",
+      "sessionId": "answer_c2204106_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "keeps peace lily at temperature",
+      "value": "65°F to 70°F (18°C to 21°C)",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
@@ -56,13 +64,6 @@
       "predicate": "pruned",
       "value": "rose bush",
       "date": "2023-04-20",
-      "sessionId": "answer_c2204106_2",
-      "source": "user"
-    },
-    {
-      "entity": "peace lily",
-      "predicate": "condition",
-      "value": "losing some leaves",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
@@ -83,13 +84,13 @@
     {
       "entity": "succulent",
       "predicate": "owned",
-      "value": "1",
+      "value": "1 or more",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
       "entity": "orchid",
-      "predicate": "considering acquiring",
+      "predicate": "planning to acquire",
       "value": "1",
       "sessionId": "answer_c2204106_3",
       "source": "user"
@@ -97,14 +98,14 @@
     {
       "entity": "fern",
       "predicate": "owned",
-      "value": "1",
+      "value": "1 or more",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
       "entity": "African violet",
       "predicate": "owned",
-      "value": "1",
+      "value": "1 or more",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
@@ -117,15 +118,9 @@
     },
     {
       "entity": "peace lily",
-      "predicate": "brought home recently",
-      "value": "true",
-      "sessionId": "answer_c2204106_3",
-      "source": "user"
-    },
-    {
-      "entity": "peace lily",
-      "predicate": "losing leaves",
-      "value": "true",
+      "predicate": "condition",
+      "value": "losing leaves since brought home",
+      "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
@@ -159,8 +154,8 @@
     },
     {
       "entity": "snake plant",
-      "predicate": "source",
-      "value": "received from sister",
+      "predicate": "acquisition_source",
+      "value": "sister",
       "date": "2023-04-25",
       "sessionId": "answer_c2204106_1",
       "source": "user"
@@ -168,14 +163,14 @@
     {
       "entity": "snake plant",
       "predicate": "condition",
-      "value": "doing great with current watering and fertilizer routine",
+      "value": "doing great",
       "sessionId": "answer_c2204106_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "uses",
-      "value": "general-purpose potting mix for basil",
+      "predicate": "uses_for_basil",
+      "value": "general-purpose potting mix",
       "sessionId": "answer_c2204106_1",
       "source": "user"
     },
@@ -189,7 +184,7 @@
     {
       "entity": "fern",
       "predicate": "condition",
-      "value": "infested with tiny moving dots pests",
+      "value": "infested with tiny moving dots (possibly spider mites or springtails)",
       "sessionId": "answer_c2204106_1",
       "source": "user"
     }
@@ -197,57 +192,44 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "plant tracking app",
+      "preference": "using plant tracking app to keep track of watering and fertilization",
       "polarity": "positive",
-      "constraint": "helpful for watering schedule and fertilization reminders"
+      "constraint": "helpful"
     },
     {
       "entity": "user",
-      "preference": "using nursery-recommended fertilizer mixture",
-      "polarity": "positive",
-      "constraint": "but unsure if suitable for peace lily"
+      "preference": "peace lily care and maintenance",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "indoor plant care and maintenance",
+      "preference": "acquiring new plants",
       "polarity": "positive",
-      "constraint": "seeking advice on fertilizers, humidifiers, and potting mixes"
+      "constraint": "multiple plant acquisitions mentioned"
     },
     {
       "entity": "user",
-      "preference": "using specific fertilizers for different plant types",
+      "preference": "using fertilizers specifically formulated for plant type",
       "polarity": "positive",
-      "constraint": "interested in orchid-specific, succulent-specific, and snake plant fertilizers"
+      "constraint": "inquired about specific fertilizers for snake plant, succulent, orchid"
     },
     {
       "entity": "user",
-      "preference": "humidity control for sensitive plants",
+      "preference": "maintaining appropriate humidity for plants",
       "polarity": "positive",
       "constraint": "interested in humidifiers for ferns and African violets"
     },
     {
       "entity": "user",
-      "preference": "well-draining, quality potting mix",
+      "preference": "organic/gentle pest control methods",
       "polarity": "positive",
-      "constraint": "repotting spider plant with fresh potting mix"
+      "constraint": "neem oil, insecticidal soap"
     },
     {
       "entity": "user",
-      "preference": "organic pest control methods",
+      "preference": "careful approach to plant care",
       "polarity": "positive",
-      "constraint": "without harming the plant"
-    },
-    {
-      "entity": "user",
-      "preference": "neem oil for pest control",
-      "polarity": "positive",
-      "constraint": "gentle and effective"
-    },
-    {
-      "entity": "user",
-      "preference": "maintaining humid environments for plants",
-      "polarity": "positive",
-      "constraint": "for ferns and basil"
+      "constraint": "wants to ensure plants really need intervention before acting"
     }
   ],
   "events": [
@@ -263,18 +245,8 @@
       "sessionId": "answer_c2204106_2"
     },
     {
-      "event": "rose bush producing new buds after pruning",
-      "date": "2023-05-20",
-      "sessionId": "answer_c2204106_2"
-    },
-    {
-      "event": "user brought home peace lily",
-      "date": null,
-      "sessionId": "answer_c2204106_3"
-    },
-    {
-      "event": "user considering acquiring orchid fertilizer",
-      "date": null,
+      "event": "peace lily brought home and experiencing leaf loss",
+      "date": "2023-05-24",
       "sessionId": "answer_c2204106_3"
     },
     {
@@ -285,6 +257,11 @@
     {
       "event": "user acquired snake plant from sister",
       "date": "2023-04-25",
+      "sessionId": "answer_c2204106_1"
+    },
+    {
+      "event": "user noticed pests on fern",
+      "date": null,
       "sessionId": "answer_c2204106_1"
     }
   ]

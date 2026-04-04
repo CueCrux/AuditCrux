@@ -3,42 +3,46 @@
     {
       "entity": "user",
       "predicate": "visited",
-      "value": "Science Museum with a chemistry professor friend",
+      "value": "Science Museum",
+      "date": "2022-10-22",
       "sessionId": "answer_f4ea84fb_3",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "activity",
+      "predicate": "participated in",
       "value": "behind-the-scenes tour at Science Museum",
+      "date": "2022-10-22",
       "sessionId": "answer_f4ea84fb_3",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "activity",
-      "value": "participated in hands-on experiment with educational team",
+      "predicate": "visited with",
+      "value": "friend who is a chemistry professor",
+      "date": "2022-10-22",
+      "sessionId": "answer_f4ea84fb_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "participated in",
+      "value": "hands-on experiment with educational team",
+      "date": "2022-10-22",
       "sessionId": "answer_f4ea84fb_3",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "visited",
-      "value": "various museums in the past few months",
+      "value": "various museums in past few months",
       "sessionId": "answer_f4ea84fb_3",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "companion",
-      "value": "friend who is a chemistry professor",
-      "sessionId": "answer_f4ea84fb_3",
-      "source": "user"
-    },
-    {
-      "entity": "Science Museum",
-      "predicate": "has",
-      "value": "collection of rare minerals",
+      "entity": "friend",
+      "predicate": "profession",
+      "value": "chemistry professor",
       "sessionId": "answer_f4ea84fb_3",
       "source": "user"
     },
@@ -53,8 +57,8 @@
     {
       "entity": "user",
       "predicate": "attended lecture about",
-      "value": "ancient civilizations at History Museum",
-      "date": "2023-01",
+      "value": "ancient civilizations",
+      "date": "2023-01-11",
       "sessionId": "answer_f4ea84fb_2",
       "source": "user"
     },
@@ -75,44 +79,37 @@
     {
       "entity": "user",
       "predicate": "visited",
-      "value": "Natural History Museum",
-      "date": "2023-02-17",
-      "sessionId": "answer_f4ea84fb_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "visited_with",
-      "value": "dad",
+      "value": "Natural History Museum with dad",
       "date": "2023-02-17",
       "sessionId": "answer_f4ea84fb_1",
       "source": "user"
     },
     {
       "entity": "Natural History Museum",
-      "predicate": "has_new_exhibit",
-      "value": "Hadrosaurs: The Duck-Billed Giants of the Cretaceous",
-      "sessionId": "answer_f4ea84fb_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Hadrosaurs exhibit",
-      "predicate": "opening_in",
-      "value": "six months",
-      "sessionId": "answer_f4ea84fb_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Natural History Museum",
-      "predicate": "has_acquired",
+      "predicate": "has on display",
       "value": "new T-Rex skeleton",
       "sessionId": "answer_f4ea84fb_1",
       "source": "user"
     },
     {
       "entity": "Natural History Museum",
-      "predicate": "planning_exhibit",
-      "value": "Edmontosaurus and hadrosaurs",
+      "predicate": "planning exhibit",
+      "value": "Hadrosaurs: The Duck-Billed Giants of the Cretaceous",
+      "date": "2023-08-18",
+      "sessionId": "answer_f4ea84fb_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "planned hadrosaur exhibit",
+      "predicate": "duration until opening",
+      "value": "approximately six months",
+      "sessionId": "answer_f4ea84fb_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Natural History Museum",
+      "predicate": "acquired",
+      "value": "nearly complete Edmontosaurus skeleton",
       "sessionId": "answer_f4ea84fb_1",
       "source": "assistant"
     }
@@ -120,13 +117,9 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "visiting museums with friends",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "chemistry and physics exhibits",
-      "polarity": "positive"
+      "preference": "museum visits and science exhibits",
+      "polarity": "positive",
+      "constraint": "especially chemistry and physics related"
     },
     {
       "entity": "user",
@@ -140,75 +133,88 @@
     },
     {
       "entity": "user",
-      "preference": "interested in ancient history and archaeological sites",
-      "polarity": "positive",
-      "constraint": "specifically Petra and Nabataean culture"
+      "preference": "rare minerals and complex exhibits",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "interested in learning about funerary practices and afterlife beliefs",
+      "preference": "interested in Petra and its history",
       "polarity": "positive",
-      "constraint": "Nabataean culture"
+      "constraint": "ancient civilizations"
     },
     {
       "entity": "user",
-      "preference": "interested in daily life and leisure activities of ancient civilizations",
-      "polarity": "positive",
-      "constraint": "Nabataean citizens"
+      "preference": "interested in Nabataean culture and way of life",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "fossil collections",
-      "polarity": "positive",
-      "constraint": "impressed by Natural History Museum collection"
+      "preference": "interested in Nabataean funerary practices and tombs",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "dinosaurs",
-      "polarity": "positive",
-      "constraint": "interested in learning about T-Rex and herbivorous dinosaurs"
+      "preference": "interested in Nabataean afterlife beliefs",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "interactive museum exhibits",
+      "preference": "interested in daily routines and leisure activities of Nabataeans",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "fossil collections at museums",
       "polarity": "positive",
-      "constraint": "interested in VR and AR experiences"
+      "constraint": "particularly impressed by Natural History Museum"
+    },
+    {
+      "entity": "user",
+      "preference": "dinosaur exhibits and information",
+      "polarity": "positive",
+      "constraint": "particularly interested in Edmontosaurus and hadrosaurs"
+    },
+    {
+      "entity": "user",
+      "preference": "interactive and immersive museum experiences",
+      "polarity": "positive",
+      "constraint": "virtual reality and augmented reality components"
     }
   ],
   "events": [
     {
-      "event": "behind-the-scenes tour of Science Museum with chemistry professor friend",
-      "date": null,
+      "event": "behind-the-scenes tour at Science Museum with chemistry professor friend",
+      "date": "2022-10-22",
       "location": "Science Museum",
       "sessionId": "answer_f4ea84fb_3"
     },
     {
-      "event": "participated in hands-on experiment with educational team",
-      "date": null,
+      "event": "hands-on experiment participation with educational team",
+      "date": "2022-10-22",
       "location": "Science Museum",
       "sessionId": "answer_f4ea84fb_3"
     },
     {
-      "event": "multiple museum visits in past few months",
+      "event": "multiple museum visits over past few months",
       "date": null,
       "location": "various museums in user's area",
       "sessionId": "answer_f4ea84fb_3"
     },
     {
-      "event": "user attended lecture about ancient civilizations",
+      "event": "user attended a lecture about ancient civilizations at the History Museum",
       "date": "2023-01-11",
       "location": "History Museum",
       "sessionId": "answer_f4ea84fb_2"
     },
     {
-      "event": "user visited Natural History Museum with dad for guided tour",
+      "event": "user visited Natural History Museum with dad and saw new T-Rex skeleton",
       "date": "2023-02-17",
       "location": "Natural History Museum",
       "sessionId": "answer_f4ea84fb_1"
     },
     {
-      "event": "user viewed new T-Rex skeleton and fossil collection",
-      "date": "2023-02-17",
+      "event": "Natural History Museum planning to open Hadrosaurs exhibit",
+      "date": "2023-08-18",
       "location": "Natural History Museum",
       "sessionId": "answer_f4ea84fb_1"
     }

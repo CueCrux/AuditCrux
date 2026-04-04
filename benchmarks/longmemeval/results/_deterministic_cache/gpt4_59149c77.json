@@ -1,7 +1,7 @@
 {
   "facts": [
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "visited",
       "value": "Museum of Modern Art (MoMA)",
       "date": "2023-01-08",
@@ -9,17 +9,10 @@
       "source": "user"
     },
     {
-      "entity": "User visit to MoMA",
-      "predicate": "included tour focused on",
-      "value": "20th-century modern art movements",
+      "entity": "user",
+      "predicate": "attended",
+      "value": "guided tour focused on 20th-century modern art movements at MoMA",
       "date": "2023-01-08",
-      "sessionId": "answer_d00ba6d0_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "learned about",
-      "value": "Frida Kahlo's works at MoMA",
       "sessionId": "answer_d00ba6d0_1",
       "source": "user"
     },
@@ -33,7 +26,7 @@
     },
     {
       "entity": "user",
-      "predicate": "interested in",
+      "predicate": "interest in",
       "value": "ancient civilizations",
       "sessionId": "answer_d00ba6d0_2",
       "source": "user"
@@ -51,75 +44,55 @@
       "value": "Brooklyn Museum",
       "sessionId": "answer_d00ba6d0_2",
       "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "location",
-      "value": "New York City",
-      "sessionId": "answer_d00ba6d0_2",
-      "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "interested in modern art movements",
       "polarity": "positive",
       "constraint": "particularly Cubism and Frida Kahlo"
     },
     {
-      "entity": "User",
-      "preference": "interested in Frida Kahlo's artistic style and biography",
+      "entity": "user",
+      "preference": "interested in Frida Kahlo's works and artistic style",
       "polarity": "positive",
-      "constraint": "feminism, cultural heritage, Mexican folk art"
+      "constraint": "learned about during MoMA tour"
+    },
+    {
+      "entity": "user",
+      "preference": "interested in Mexican folk art and its influence on Frida Kahlo",
+      "polarity": "positive",
+      "constraint": "connection to Mexican cultural heritage"
     },
     {
       "entity": "user",
       "preference": "ancient cultures and civilizations",
       "polarity": "positive",
-      "constraint": "particularly interested in mummification practices and sarcophagi symbolism"
+      "constraint": "particularly interested in mummification practices"
     },
     {
       "entity": "user",
-      "preference": "Museum of Natural History dinosaur exhibits",
-      "polarity": "positive"
+      "preference": "museum exhibits on ancient Egypt",
+      "polarity": "positive",
+      "constraint": "fascinated by sarcophagi and funerary practices"
     },
     {
       "entity": "user",
-      "preference": "Brooklyn Museum ancient artifacts collection",
-      "polarity": "positive"
+      "preference": "dinosaur exhibits",
+      "polarity": "positive",
+      "constraint": "heard they are amazing"
     }
   ],
   "events": [
     {
-      "event": "User attended guided tour at Museum of Modern Art (MoMA)",
+      "event": "user attended guided tour at Museum of Modern Art (MoMA) focused on 20th-century modern art movements",
       "date": "2023-01-08",
       "location": "Museum of Modern Art (MoMA)",
       "sessionId": "answer_d00ba6d0_1"
     },
     {
-      "event": "Frida Kahlo and Diego Rivera met",
-      "date": "1927",
-      "location": "Academy of San Carlos",
-      "sessionId": "answer_d00ba6d0_1"
-    },
-    {
-      "event": "Frida Kahlo and Diego Rivera married",
-      "date": "1929",
-      "sessionId": "answer_d00ba6d0_1"
-    },
-    {
-      "event": "Frida Kahlo and Diego Rivera divorced",
-      "date": "1939",
-      "sessionId": "answer_d00ba6d0_1"
-    },
-    {
-      "event": "Frida Kahlo and Diego Rivera remarried",
-      "date": "1940",
-      "sessionId": "answer_d00ba6d0_1"
-    },
-    {
-      "event": "visited Ancient Civilizations exhibit",
+      "event": "user visited Ancient Civilizations exhibit",
       "date": "2023-01-15",
       "location": "Metropolitan Museum of Art, New York City",
       "sessionId": "answer_d00ba6d0_2"

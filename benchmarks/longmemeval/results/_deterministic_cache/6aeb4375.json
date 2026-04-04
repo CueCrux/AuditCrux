@@ -2,29 +2,29 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "tried Korean restaurants",
+      "predicate": "tried Korean restaurants in their city",
       "value": "3",
       "sessionId": "answer_3f9693b7_1",
       "source": "user"
     },
     {
-      "entity": "restaurant 1",
-      "predicate": "serves",
+      "entity": "user",
+      "predicate": "tried at restaurant",
       "value": "bibimbap",
       "sessionId": "answer_3f9693b7_1",
       "source": "user"
     },
     {
-      "entity": "restaurant 2",
-      "predicate": "serves",
-      "value": "spicy kimchi stew",
+      "entity": "user",
+      "predicate": "tried at restaurant",
+      "value": "kimchi stew (Kimchi Jjigae)",
       "sessionId": "answer_3f9693b7_1",
       "source": "user"
     },
     {
-      "entity": "restaurant 3",
-      "predicate": "serves",
-      "value": "Japchae with sweet potato noodle",
+      "entity": "user",
+      "predicate": "tried at restaurant",
+      "value": "Japchae with sweet potato noodles",
       "sessionId": "answer_3f9693b7_1",
       "source": "user"
     },
@@ -38,28 +38,35 @@
     {
       "entity": "user",
       "predicate": "location",
-      "value": "city (unspecified)",
+      "value": "has a city",
       "sessionId": "answer_3f9693b7_2",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "is planning",
-      "value": "dinner party",
+      "value": "a dinner party",
       "sessionId": "answer_3f9693b7_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "menu includes",
-      "value": "Korean-style BBQ beef, kimchi, bokkeumbap, samosas, saag aloo, basmati rice",
+      "predicate": "has tried",
+      "value": "different types of rice",
       "sessionId": "answer_3f9693b7_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "uses",
-      "value": "Japanese short-grain rice",
+      "predicate": "currently uses",
+      "value": "authentic Japanese short-grain rice",
+      "sessionId": "answer_3f9693b7_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "is aware of",
+      "value": "new Indian restaurant in neighborhood",
       "sessionId": "answer_3f9693b7_2",
       "source": "user"
     }
@@ -79,7 +86,7 @@
     },
     {
       "entity": "user",
-      "preference": "Japchae with sweet potato noodle",
+      "preference": "Japchae with sweet potato noodles",
       "polarity": "positive",
       "constraint": "unique take, really tasty"
     },
@@ -87,19 +94,31 @@
       "entity": "user",
       "preference": "Korean cuisine exploration",
       "polarity": "positive",
-      "constraint": "enjoys variety of flavors and styles"
+      "constraint": "enjoying diversity of flavors and styles"
     },
     {
       "entity": "user",
-      "preference": "Korean restaurants",
+      "preference": "Korean noodle dishes",
       "polarity": "positive",
-      "constraint": "looking for new recommendations"
+      "constraint": "experimenting with different types"
     },
     {
       "entity": "user",
-      "preference": "trying different types of rice",
+      "preference": "Korean-style BBQ beef",
       "polarity": "positive",
-      "constraint": "wants the best quality"
+      "constraint": "considering it for dinner party menu"
+    },
+    {
+      "entity": "user",
+      "preference": "kimchi and bokkeumbap",
+      "polarity": "positive",
+      "constraint": "chose these as side dishes for dinner party"
+    },
+    {
+      "entity": "user",
+      "preference": "exploring new Korean restaurants",
+      "polarity": "positive",
+      "constraint": "looking for new recommendations after trying four"
     },
     {
       "entity": "user",
@@ -110,15 +129,33 @@
   ],
   "events": [
     {
-      "event": "user tried three Korean restaurants",
+      "event": "user tried bibimbap at Korean restaurant",
       "date": null,
       "location": "user's city",
       "sessionId": "answer_3f9693b7_1"
     },
     {
+      "event": "user tried spicy kimchi stew at Korean restaurant",
+      "date": null,
+      "location": "user's city",
+      "sessionId": "answer_3f9693b7_1"
+    },
+    {
+      "event": "user tried Japchae with sweet potato noodles at Korean restaurant",
+      "date": null,
+      "location": "user's city",
+      "sessionId": "answer_3f9693b7_1"
+    },
+    {
+      "event": "user planning a dinner party with Korean BBQ beef, samosas, saag aloo, kimchi, and bokkeumbap",
+      "date": null,
+      "location": "user's city",
+      "sessionId": "answer_3f9693b7_2"
+    },
+    {
       "event": "user planning to pick up basmati rice from store",
       "date": "2023-09-30",
-      "location": "store (unspecified)",
+      "location": "store in user's city",
       "sessionId": "answer_3f9693b7_2"
     }
   ]

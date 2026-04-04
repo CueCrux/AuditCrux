@@ -10,7 +10,7 @@
     },
     {
       "entity": "user",
-      "predicate": "volunteered at",
+      "predicate": "participated in",
       "value": "Easter Egg Hunt event",
       "date": "2023-03-30",
       "sessionId": "answer_a17423e7_1",
@@ -18,15 +18,15 @@
     },
     {
       "entity": "user",
-      "predicate": "interested in",
-      "value": "Food Bank Volunteer opportunity",
+      "predicate": "availability",
+      "value": "weekday evenings",
       "sessionId": "answer_a17423e7_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "availability",
-      "value": "weekday evenings",
+      "predicate": "interested in volunteering with",
+      "value": "church group",
       "sessionId": "answer_a17423e7_1",
       "source": "user"
     },
@@ -39,22 +39,8 @@
     },
     {
       "entity": "Food Bank",
-      "predicate": "evening shifts",
+      "predicate": "evening shift hours",
       "value": "4:00 pm - 7:00 pm, Monday to Friday",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "contact phone",
-      "value": "555-555-5555",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "contact email",
-      "value": "volunteer@foodbank.org",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     }
@@ -62,39 +48,36 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "volunteer opportunities",
-      "polarity": "positive",
-      "constraint": "community service or helping the underprivileged"
+      "preference": "volunteer for community service and helping underprivileged",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "volunteering schedule",
-      "polarity": "positive",
-      "constraint": "weekday evenings with regular commitment"
+      "preference": "Food Bank Volunteer opportunity",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "group volunteering",
-      "polarity": "positive",
-      "constraint": "with church or community friends"
+      "preference": "volunteering with group from church or community",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "Maundy Thursday service",
+      "preference": "Maundy Thursday service at Episcopal Church",
       "polarity": "positive",
-      "constraint": "at Episcopal Church"
+      "constraint": "beautiful and moving experience"
     }
   ],
   "events": [
     {
-      "event": "Easter Egg Hunt volunteer event",
-      "date": "2023-03-30",
+      "event": "attended Maundy Thursday service at the Episcopal Church",
+      "date": "2023-04-06",
+      "location": "Episcopal Church",
       "sessionId": "answer_a17423e7_1"
     },
     {
-      "event": "Maundy Thursday service at Episcopal Church",
-      "date": "2023-04-06",
-      "location": "Episcopal Church",
+      "event": "participated in Easter Egg Hunt event",
+      "date": "2023-03-30",
       "sessionId": "answer_a17423e7_1"
     }
   ]

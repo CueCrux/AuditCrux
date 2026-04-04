@@ -11,45 +11,37 @@
     {
       "entity": "user",
       "predicate": "interested in",
-      "value": "animal welfare causes",
+      "value": "animal welfare charity events",
       "sessionId": "answer_59547700",
       "source": "user"
     },
     {
       "entity": "user",
       "predicate": "interested in",
-      "value": "children's health causes",
+      "value": "children's health charity events",
       "sessionId": "answer_59547700",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "planning to attend",
-      "value": "Strut Your Mutt event",
+      "entity": "Strut Your Mutt",
+      "predicate": "date",
+      "value": "September 18, 2023",
       "date": "2023-09-18",
       "sessionId": "answer_59547700",
-      "source": "user"
+      "source": "assistant"
     },
     {
       "entity": "Strut Your Mutt",
       "predicate": "location",
       "value": "Exposition Park, Los Angeles, CA",
-      "date": "2023-09-18",
-      "sessionId": "answer_59547700",
-      "source": "assistant"
-    },
-    {
-      "entity": "Strut Your Mutt",
-      "predicate": "time",
-      "value": "7:00 AM - 12:00 PM",
-      "date": "2023-09-18",
       "sessionId": "answer_59547700",
       "source": "assistant"
     },
     {
       "entity": "user",
-      "predicate": "attending event with",
-      "value": "friends passionate about animal welfare",
+      "predicate": "planning to attend",
+      "value": "Strut Your Mutt with friends",
+      "date": "2023-09-18",
       "sessionId": "answer_59547700",
       "source": "user"
     }
@@ -57,44 +49,42 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "animal welfare",
-      "polarity": "positive",
-      "constraint": "most passionate about"
+      "preference": "animal welfare causes",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "children's health",
-      "polarity": "positive",
-      "constraint": "most passionate about"
+      "preference": "children's health causes",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "fundraising dinners with volunteering opportunities",
+      "preference": "fundraising dinners with silent auctions and raffles",
       "polarity": "positive",
-      "constraint": "enjoyed meeting new people"
+      "constraint": "similar to Love is in the Air event"
     },
     {
       "entity": "user",
-      "preference": "silent auctions and raffles",
+      "preference": "volunteering at charity events",
       "polarity": "positive",
-      "constraint": "enjoys bidding on prizes while supporting causes"
+      "constraint": "to meet new people"
     },
     {
       "entity": "user",
-      "preference": "charity events in Los Angeles",
+      "preference": "attending events with friends",
       "polarity": "positive",
-      "constraint": "organizing calendar for rest of year"
+      "constraint": "who share similar interests"
     }
   ],
   "events": [
     {
-      "event": "Love is in the Air fundraising dinner - volunteered",
+      "event": "Love is in the Air fundraising dinner",
       "date": "2023-02-14",
       "location": "Los Angeles, CA",
       "sessionId": "answer_59547700"
     },
     {
-      "event": "Strut Your Mutt - animal welfare fundraising walk and festival",
+      "event": "Strut Your Mutt dog walk and festival",
       "date": "2023-09-18",
       "location": "Exposition Park, Los Angeles, CA",
       "sessionId": "answer_59547700"

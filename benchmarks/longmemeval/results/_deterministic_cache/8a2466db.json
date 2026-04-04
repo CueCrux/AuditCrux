@@ -1,73 +1,119 @@
 {
   "facts": [
     {
-      "entity": "user",
-      "predicate": "uses",
+      "entity": "User",
+      "predicate": "uses software",
       "value": "Adobe Premiere Pro",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "interested_in",
+      "entity": "User",
+      "predicate": "interested in",
       "value": "advanced settings for video editing",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329",
       "source": "user"
     },
     {
-      "entity": "assistant",
-      "predicate": "recommended_resource",
+      "entity": "Assistant",
+      "predicate": "recommended resources",
       "value": "Adobe Premiere Pro official documentation and tutorials",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "assistant",
-      "predicate": "recommended_resource",
+      "entity": "Assistant",
+      "predicate": "recommended resources",
       "value": "YouTube channels: Premiere Bro, Video Copilot, Adobe Creative Cloud",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "assistant",
-      "predicate": "recommended_resource",
+      "entity": "Assistant",
+      "predicate": "recommended resources",
       "value": "Online courses on Udemy, LinkedIn Learning, Skillshare",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "assistant",
-      "predicate": "recommended_resource",
+      "entity": "Assistant",
+      "predicate": "recommended resources",
       "value": "Premiere Pro communities: Reddit r/premierepro, Adobe Premiere Pro forum",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "assistant",
-      "predicate": "recommended_plugin",
-      "value": "Video Copilot's Orb",
+      "entity": "User",
+      "predicate": "interested in",
+      "value": "Lumetri Color Panel Color Match feature",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329",
-      "source": "assistant"
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "interested in",
+      "value": "Curves panel for cinematic look",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "interested in",
+      "value": "Toe and Shoulder controls in Curves panel",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329",
+      "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "user",
+      "entity": "User",
       "preference": "Adobe Premiere Pro",
       "polarity": "positive",
       "constraint": "enjoys using it"
+    },
+    {
+      "entity": "User",
+      "preference": "learning advanced video editing techniques",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "cinematic color grading",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "User asked for video editing resources and advanced Premiere Pro tips",
+      "event": "User asked for video editing resources and tips",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329"
+    },
+    {
+      "event": "Assistant provided 10 tips for Premiere Pro advanced settings",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329"
+    },
+    {
+      "event": "User asked about Color Match feature in Lumetri Color Panel",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329"
+    },
+    {
+      "event": "User asked about Creative panel vs Curves panel differences",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329"
+    },
+    {
+      "event": "User asked for tips on using Curves panel for cinematic look",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329"
     }

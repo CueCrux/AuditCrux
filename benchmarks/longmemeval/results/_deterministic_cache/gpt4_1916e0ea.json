@@ -1,0 +1,137 @@
+{
+  "facts": [
+    {
+      "entity": "user",
+      "predicate": "cancelled subscription",
+      "value": "FarmFresh monthly grocery delivery",
+      "sessionId": "answer_447052a5_2",
+      "source": "user"
+    },
+    {
+      "entity": "FarmFresh subscription",
+      "predicate": "monthly cost",
+      "value": "$100",
+      "sessionId": "answer_447052a5_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "discovered store",
+      "value": "FreshMarket",
+      "date": "2022-12-05",
+      "sessionId": "answer_447052a5_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "plans to spend savings at",
+      "value": "FreshMarket for new recipes and ingredients",
+      "sessionId": "answer_447052a5_2",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "did online grocery shopping from",
+      "value": "Instacart",
+      "date": "2023-02-28",
+      "sessionId": "answer_447052a5_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "spent on Instacart order",
+      "value": "$60",
+      "date": "2023-02-28",
+      "sessionId": "answer_447052a5_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "cancelled subscription",
+      "value": "FarmFresh",
+      "sessionId": "answer_447052a5_1",
+      "source": "none"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "user",
+      "preference": "FarmFresh subscription",
+      "polarity": "negative",
+      "constraint": "wasn't using it frequently enough"
+    },
+    {
+      "entity": "user",
+      "preference": "FreshMarket",
+      "polarity": "positive",
+      "constraint": "impressed with selection of international ingredients"
+    },
+    {
+      "entity": "user",
+      "preference": "meal prep and cooking",
+      "polarity": "positive",
+      "constraint": "interested in new recipes and ingredients"
+    },
+    {
+      "entity": "user",
+      "preference": "mindful spending",
+      "polarity": "positive",
+      "constraint": "wants to plan meals more efficiently"
+    },
+    {
+      "entity": "user",
+      "preference": "meal planning and making grocery lists",
+      "polarity": "positive",
+      "constraint": "to make more intentional purchases and avoid random items"
+    },
+    {
+      "entity": "user",
+      "preference": "Chicken and Quinoa Bowl",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "Korean-Style Ground Beef and Vegetable Stir-Fry",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "spreadsheet for inventory tracking",
+      "polarity": "positive",
+      "constraint": "simple and organized way to track pantry and fridge"
+    },
+    {
+      "entity": "user",
+      "preference": "buying random items at store",
+      "polarity": "negative"
+    },
+    {
+      "entity": "user",
+      "preference": "forgetting what they already have at home",
+      "polarity": "negative"
+    }
+  ],
+  "events": [
+    {
+      "event": "user cancelled FarmFresh subscription",
+      "date": null,
+      "sessionId": "answer_447052a5_2"
+    },
+    {
+      "event": "user discovered FreshMarket grocery store",
+      "date": "2022-12-05",
+      "sessionId": "answer_447052a5_2"
+    },
+    {
+      "event": "user planning to organize pantry and kitchen cabinets",
+      "date": "2023-01-05",
+      "sessionId": "answer_447052a5_2"
+    },
+    {
+      "event": "user did online grocery shopping and received delivery from Instacart",
+      "date": "2023-02-28",
+      "location": "user's doorstep",
+      "sessionId": "answer_447052a5_1"
+    }
+  ]
+}

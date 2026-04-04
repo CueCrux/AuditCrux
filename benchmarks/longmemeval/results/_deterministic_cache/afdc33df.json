@@ -8,23 +8,24 @@
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "has issue with",
-      "value": "granite countertop scratches near sink",
-      "sessionId": "answer_8549e5e0",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "has issue with",
-      "value": "kitchen faucet leaking slightly",
-      "sessionId": "answer_8549e5e0",
-      "source": "user"
-    },
-    {
-      "entity": "user",
+      "entity": "user's kitchen",
       "predicate": "has issue with",
       "value": "garbage disposal",
+      "date": "2023-05-22",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "user's granite countertop",
+      "predicate": "location of scratches",
+      "value": "near the sink",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "user's kitchen faucet",
+      "predicate": "has issue",
+      "value": "leaking slightly",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     },
@@ -32,6 +33,13 @@
       "entity": "user",
       "predicate": "wants to make",
       "value": "yogurt in slow cooker",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "user's kitchen",
+      "predicate": "cleanliness status",
+      "value": "becoming a bit of a mess",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     }
@@ -44,27 +52,28 @@
     },
     {
       "entity": "user",
-      "preference": "organized kitchen",
-      "polarity": "positive"
+      "preference": "organized kitchen utensils",
+      "polarity": "positive",
+      "constraint": "maximizing space in utensil holder"
     }
   ],
   "events": [
     {
-      "event": "user noticed scratches on granite countertop near sink",
+      "event": "User purchased a new utensil holder",
       "date": null,
       "location": "kitchen",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "user purchased new utensil holder",
+      "event": "User noticed scratches on granite countertop",
       "date": null,
-      "location": "kitchen",
+      "location": "kitchen near sink",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "kitchen faucet started leaking slightly",
+      "event": "User discovered kitchen faucet is leaking",
       "date": null,
-      "location": "kitchen sink",
+      "location": "kitchen",
       "sessionId": "answer_8549e5e0"
     }
   ]

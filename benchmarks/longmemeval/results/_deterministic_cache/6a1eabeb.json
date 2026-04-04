@@ -9,8 +9,8 @@
     },
     {
       "entity": "user",
-      "predicate": "plays soccer",
-      "value": "with coworkers",
+      "predicate": "plays soccer with",
+      "value": "coworkers",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
@@ -23,14 +23,21 @@
     },
     {
       "entity": "user",
-      "predicate": "scored goal",
-      "value": "in recreational game with coworkers",
+      "predicate": "scored goal in",
+      "value": "recreational game with coworkers",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "tennis tournament signup planned",
+      "predicate": "playing tennis casually for",
+      "value": "a few years",
+      "sessionId": "answer_a25d4a91_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "first tennis tournament date",
       "value": "May 6th",
       "date": "2024-05-06",
       "sessionId": "answer_a25d4a91_1",
@@ -38,15 +45,8 @@
     },
     {
       "entity": "user",
-      "predicate": "tennis playing history",
-      "value": "casually for a few years",
-      "sessionId": "answer_a25d4a91_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "tournament goal",
-      "value": "make it to at least quarterfinals",
+      "predicate": "tennis tournament goal",
+      "value": "make it to at least the quarterfinals",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
@@ -68,9 +68,15 @@
     },
     {
       "entity": "user",
-      "predicate": "has upcoming event",
+      "predicate": "training for",
       "value": "tennis tournament",
-      "date": "2024-05-06",
+      "sessionId": "answer_a25d4a91_2",
+      "source": "user"
+    },
+    {
+      "entity": "tennis tournament",
+      "predicate": "scheduled date",
+      "value": "2023-05-06",
       "sessionId": "answer_a25d4a91_2",
       "source": "user"
     }
@@ -84,15 +90,15 @@
     },
     {
       "entity": "user",
-      "preference": "soccer",
+      "preference": "strengthening core and legs",
       "polarity": "positive",
-      "constraint": "plays with coworkers"
+      "constraint": "has been focusing on this"
     },
     {
       "entity": "user",
       "preference": "goal-scoring in soccer",
       "polarity": "positive",
-      "constraint": "not typically a goal-scorer but found it a highlight"
+      "constraint": "not typically a goal-scorer but proud of recent goal"
     },
     {
       "entity": "user",
@@ -102,21 +108,9 @@
     },
     {
       "entity": "user",
-      "preference": "fitness training",
+      "preference": "beating personal best time in 5K run",
       "polarity": "positive",
-      "constraint": "focusing on strengthening core and legs"
-    },
-    {
-      "entity": "user",
-      "preference": "improving running endurance",
-      "polarity": "positive",
-      "constraint": "for 5K charity run"
-    },
-    {
-      "entity": "user",
-      "preference": "beating personal best time in 5K",
-      "polarity": "positive",
-      "constraint": "goal of sub-25:50"
+      "constraint": "25:50"
     },
     {
       "entity": "user",
@@ -125,35 +119,39 @@
     },
     {
       "entity": "user",
-      "preference": "improving toss consistency in tennis",
-      "polarity": "positive",
-      "constraint": "for serve improvement"
+      "preference": "improving serve in tennis",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "focusing on toss consistency in tennis serve",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "personal best time set in charity 5K run",
+      "event": "user set personal best time in charity 5K run",
       "date": null,
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "scored goal in recreational soccer game with coworkers",
+      "event": "user scored a goal in recreational soccer game with coworkers",
       "date": null,
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "tennis tournament",
+      "event": "user planning to sign up for tennis tournament",
       "date": "2024-05-06",
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "charity 5K run training",
-      "date": "2023-05-30",
+      "event": "charity 5K run",
+      "date": null,
       "sessionId": "answer_a25d4a91_2"
     },
     {
       "event": "tennis tournament",
-      "date": "2024-05-06",
+      "date": "2023-05-06",
       "sessionId": "answer_a25d4a91_2"
     }
   ]

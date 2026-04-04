@@ -1,8 +1,68 @@
 {
   "facts": [
     {
+      "entity": "bike tune-up",
+      "predicate": "date",
+      "value": "2023-04-20",
+      "date": "2023-04-20",
+      "sessionId": "answer_2880eb6c_2",
+      "source": "user"
+    },
+    {
+      "entity": "chain replacement",
+      "predicate": "cost",
+      "value": "$25",
+      "date": "2023-04-20",
+      "sessionId": "answer_2880eb6c_2",
+      "source": "user"
+    },
+    {
+      "entity": "bike lights installation",
+      "predicate": "cost",
+      "value": "$40",
+      "date": "2023-04-20",
+      "sessionId": "answer_2880eb6c_2",
+      "source": "user"
+    },
+    {
+      "entity": "total bike-related expenses since start of year",
+      "predicate": "amount",
+      "value": "$65",
+      "sessionId": "answer_2880eb6c_2",
+      "source": "user"
+    },
+    {
+      "entity": "bike mileage",
+      "predicate": "distance since start of year",
+      "value": "347 miles",
+      "date": "2023-05-05",
+      "sessionId": "answer_2880eb6c_2",
+      "source": "user"
+    },
+    {
+      "entity": "mileage goal",
+      "predicate": "target",
+      "value": "1000 miles by end of summer",
+      "sessionId": "answer_2880eb6c_2",
+      "source": "user"
+    },
+    {
+      "entity": "daily commute",
+      "predicate": "distance",
+      "value": "10 miles round trip",
+      "sessionId": "answer_2880eb6c_2",
+      "source": "user"
+    },
+    {
+      "entity": "mountain road trip",
+      "predicate": "planned month",
+      "value": "June",
+      "sessionId": "answer_2880eb6c_2",
+      "source": "user"
+    },
+    {
       "entity": "user",
-      "predicate": "bike mileage since start of year",
+      "predicate": "has_biked",
       "value": "347 miles",
       "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_4",
@@ -10,7 +70,15 @@
     },
     {
       "entity": "user",
-      "predicate": "daily commute distance",
+      "predicate": "biking_goal",
+      "value": "1000 miles by end of summer",
+      "date": "2023-05-05",
+      "sessionId": "answer_2880eb6c_4",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "daily_commute_distance",
       "value": "10 miles round trip",
       "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_4",
@@ -18,7 +86,7 @@
     },
     {
       "entity": "user",
-      "predicate": "planning to purchase",
+      "predicate": "plans_to_purchase",
       "value": "Saris Bones 2-Bike Trunk Rack",
       "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_4",
@@ -26,17 +94,9 @@
     },
     {
       "entity": "user",
-      "predicate": "planned trip",
-      "value": "mountain road trip",
+      "predicate": "trip_planned",
+      "value": "road trip to mountains",
       "date": "2023-06",
-      "sessionId": "answer_2880eb6c_4",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "cycling goal",
-      "value": "1000 miles by end of summer",
-      "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_4",
       "source": "user"
     },
@@ -56,6 +116,14 @@
     },
     {
       "entity": "user",
+      "predicate": "bike mileage",
+      "value": "347 miles",
+      "date": "2023-04-28",
+      "sessionId": "answer_2880eb6c_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "uses",
       "value": "specialized bike cleaner",
       "sessionId": "answer_2880eb6c_1",
@@ -63,39 +131,23 @@
     },
     {
       "entity": "user",
-      "predicate": "bike mileage",
-      "value": "347 miles",
-      "date": "2023-05-05",
-      "sessionId": "answer_2880eb6c_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "goal",
-      "value": "1000 miles by end of summer",
-      "date": "2023-05-05",
-      "sessionId": "answer_2880eb6c_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "last tune-up",
-      "value": "1 month ago",
+      "predicate": "last bike tune-up",
+      "value": "approximately 1 month ago",
       "date": "2023-04-05",
       "sessionId": "answer_2880eb6c_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "location",
-      "value": "downtown bike shop",
+      "predicate": "bike-related expense",
+      "value": "$120",
       "sessionId": "answer_2880eb6c_1",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "bike mileage since start of year",
-      "value": "347 miles",
+      "predicate": "has bike mileage",
+      "value": "347 miles since start of year",
       "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_3",
       "source": "user"
@@ -104,14 +156,15 @@
       "entity": "user",
       "predicate": "planning to order",
       "value": "Saris Bones 2-Bike Trunk Rack",
+      "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_3",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "planned road trip destination",
-      "value": "mountains",
-      "date": "2023-06-01",
+      "predicate": "planning trip",
+      "value": "mountain road trip in June",
+      "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_3",
       "source": "user"
     }
@@ -119,78 +172,100 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "mountain road trips",
+      "preference": "exploring new bike routes",
       "polarity": "positive",
-      "constraint": "planning one in June"
+      "constraint": "to make rides more interesting"
     },
     {
       "entity": "user",
-      "preference": "bike racks for longer trips",
-      "polarity": "positive",
-      "constraint": "considering Saris Bones 2-Bike Trunk Rack"
-    },
-    {
-      "entity": "user",
-      "preference": "tracking bike mileage",
+      "preference": "bike-friendly and safe routes",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "downtown bike shop",
-      "polarity": "positive",
-      "constraint": "good experiences with tune-up services and mechanics"
+      "preference": "bike racks for longer trips",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "bike cleaning",
-      "polarity": "positive",
-      "constraint": "uses specialized bike cleaner"
+      "preference": "protecting bike investment with insurance",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "sturdy and easy to install bike racks",
+      "preference": "varying bike routes",
+      "polarity": "positive",
+      "constraint": "to avoid boredom"
+    },
+    {
+      "entity": "user",
+      "preference": "local bike shop downtown",
+      "polarity": "positive",
+      "constraint": "good experiences with tune-ups"
+    },
+    {
+      "entity": "user",
+      "preference": "tracking bike mileage and setting cycling goals",
+      "polarity": "positive",
+      "constraint": "goal of 1000 miles by end of summer"
+    },
+    {
+      "entity": "user",
+      "preference": "bike rack that is sturdy and easy to install",
       "polarity": "positive",
       "constraint": "Saris Bones 2-Bike Trunk Rack"
     },
     {
       "entity": "user",
-      "preference": "tracking bike mileage",
+      "preference": "tracking bike mileage accurately",
       "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "user clocked 347 miles on bike since start of year",
+      "event": "bike tune-up with chain replacement and bike lights installation",
+      "date": "2023-04-20",
+      "location": "bike shop",
+      "sessionId": "answer_2880eb6c_2"
+    },
+    {
+      "event": "planned mountain road trip",
+      "date": "2023-06-01",
+      "location": "mountains",
+      "sessionId": "answer_2880eb6c_2"
+    },
+    {
+      "event": "user tracked 347 miles since start of year",
       "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_4"
     },
     {
-      "event": "user planning mountain road trip with bike",
+      "event": "user planning mountain road trip",
       "date": "2023-06",
       "location": "mountains",
       "sessionId": "answer_2880eb6c_4"
     },
     {
-      "event": "user purchased Bell Zephyr helmet from downtown bike shop",
+      "event": "user purchased Bell Zephyr helmet",
       "date": null,
-      "location": "downtown bike shop",
+      "location": "local bike shop downtown",
       "sessionId": "answer_2880eb6c_1"
     },
     {
       "event": "user had bike tune-up",
       "date": "2023-04-05",
-      "location": "downtown bike shop",
+      "location": "local bike shop downtown",
       "sessionId": "answer_2880eb6c_1"
     },
     {
-      "event": "planning mountain road trip with bike",
-      "date": "2023-06",
+      "event": "user planning mountain road trip",
+      "date": "2023-06-01",
       "location": "mountains",
       "sessionId": "answer_2880eb6c_3"
     },
     {
-      "event": "user plans to order Saris Bones 2-Bike Trunk Rack",
-      "date": null,
+      "event": "user planning to order Saris Bones 2-Bike Trunk Rack",
+      "date": "2023-05-12",
       "sessionId": "answer_2880eb6c_3"
     }
   ]

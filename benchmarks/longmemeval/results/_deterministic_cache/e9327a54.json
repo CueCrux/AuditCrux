@@ -16,22 +16,15 @@
     },
     {
       "entity": "The Sugar Factory",
-      "predicate": "offers",
-      "value": "specialty drinks and sweet treats",
+      "predicate": "type",
+      "value": "sweet shop",
       "sessionId": "answer_ultrachat_480665",
       "source": "assistant"
     },
     {
       "entity": "user",
-      "predicate": "planning_to_visit",
+      "predicate": "planning to visit",
       "value": "Orlando",
-      "sessionId": "answer_ultrachat_480665",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "has_family",
-      "value": "dessert fanatics",
       "sessionId": "answer_ultrachat_480665",
       "source": "user"
     }
@@ -41,29 +34,36 @@
       "entity": "user",
       "preference": "buffet restaurants",
       "polarity": "negative",
-      "constraint": "does not trust them"
+      "constraint": "doesn't trust them"
+    },
+    {
+      "entity": "user",
+      "preference": "family-friendly activities",
+      "polarity": "positive",
+      "constraint": "with family"
     },
     {
       "entity": "user",
       "preference": "trying new desserts",
       "polarity": "positive",
-      "constraint": "family loves trying new things"
-    },
-    {
-      "entity": "user",
-      "preference": "family-friendly activities",
-      "polarity": "positive"
+      "constraint": "family are dessert fanatics"
     }
   ],
   "events": [
     {
-      "event": "user asked about dessert spots in Orlando",
+      "event": "user asked for Orlando family-friendly dining recommendations",
       "date": "2023-05-21",
       "location": "Orlando",
       "sessionId": "answer_ultrachat_480665"
     },
     {
-      "event": "assistant recommended The Sugar Factory with giant milkshakes",
+      "event": "user asked for dessert spot recommendations",
+      "date": "2023-05-21",
+      "location": "Orlando",
+      "sessionId": "answer_ultrachat_480665"
+    },
+    {
+      "event": "user expressed interest in visiting multiple dessert spots in one night",
       "date": "2023-05-21",
       "location": "Orlando",
       "sessionId": "answer_ultrachat_480665"

@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "work arrangement",
+      "predicate": "work_arrangement",
       "value": "working from home",
       "date": "2023-05-25",
       "sessionId": "answer_f7b22c66",
@@ -10,7 +10,7 @@
     },
     {
       "entity": "user",
-      "predicate": "misses",
+      "predicate": "missing",
       "value": "social interactions and watercooler conversations with colleagues",
       "date": "2023-05-25",
       "sessionId": "answer_f7b22c66",
@@ -18,7 +18,7 @@
     },
     {
       "entity": "user",
-      "predicate": "interested in",
+      "predicate": "interested_in",
       "value": "virtual coffee breaks",
       "date": "2023-05-25",
       "sessionId": "answer_f7b22c66",
@@ -26,49 +26,38 @@
     },
     {
       "entity": "user",
-      "predicate": "preferred approach",
-      "value": "discuss and agree with team first before implementing virtual coffee breaks",
+      "predicate": "wants_to_implement",
+      "value": "virtual coffee breaks with team",
       "date": "2023-05-25",
       "sessionId": "answer_f7b22c66",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "planning to introduce idea as",
-      "value": "collaborative suggestion in next team meeting",
+      "predicate": "plans_to_discuss_with",
+      "value": "team at next team meeting",
       "date": "2023-05-25",
       "sessionId": "answer_f7b22c66",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "proposed ground rules for virtual coffee breaks",
-      "value": "no work talk allowed, keep conversation light and casual",
-      "date": "2023-05-25",
-      "sessionId": "answer_f7b22c66",
-      "source": "user"
-    },
-    {
-      "entity": "virtual coffee breaks",
-      "predicate": "suggested frequency",
+      "entity": "proposed_virtual_coffee_breaks",
+      "predicate": "frequency",
       "value": "once a week",
-      "date": "2023-05-25",
-      "sessionId": "answer_f7b22c66",
-      "source": "user"
-    },
-    {
-      "entity": "virtual coffee breaks",
-      "predicate": "suggested duration",
-      "value": "30 minutes",
-      "date": "2023-05-25",
       "sessionId": "answer_f7b22c66",
       "source": "assistant"
     },
     {
-      "entity": "virtual coffee breaks",
-      "predicate": "suggested platform",
-      "value": "Zoom, Slack, or Microsoft Teams",
-      "date": "2023-05-25",
+      "entity": "proposed_virtual_coffee_breaks",
+      "predicate": "duration",
+      "value": "30 minutes",
+      "sessionId": "answer_f7b22c66",
+      "source": "assistant"
+    },
+    {
+      "entity": "proposed_virtual_coffee_breaks",
+      "predicate": "format",
+      "value": "casual video call for non-work-related conversations",
       "sessionId": "answer_f7b22c66",
       "source": "assistant"
     }
@@ -81,17 +70,17 @@
     },
     {
       "entity": "user",
-      "preference": "virtual coffee breaks as a way to stay connected with colleagues",
+      "preference": "social interactions with colleagues",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "collaborative approach to introducing new team initiatives",
+      "preference": "collaborative suggestion approach",
       "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "avoiding dominating conversations",
+      "preference": "inclusive team discussions where everyone can share thoughts",
       "polarity": "positive"
     },
     {
@@ -99,16 +88,46 @@
       "preference": "establishing ground rules for virtual coffee breaks",
       "polarity": "positive",
       "constraint": "no work talk, light and casual conversation"
+    },
+    {
+      "entity": "user",
+      "preference": "regular schedule for virtual coffee breaks",
+      "polarity": "positive"
+    },
+    {
+      "entity": "user",
+      "preference": "reliable and easy-to-use video conferencing platform",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "User initiated discussion about staying socially connected with colleagues while working from home",
+      "event": "user seeks suggestions for socializing with colleagues while working from home",
       "date": "2023-05-25",
       "sessionId": "answer_f7b22c66"
     },
     {
-      "event": "User planning to introduce virtual coffee breaks idea in next team meeting",
+      "event": "assistant provides suggestions including virtual coffee breaks, online team activities, and interest-based groups",
+      "date": "2023-05-25",
+      "sessionId": "answer_f7b22c66"
+    },
+    {
+      "event": "user decides to focus on virtual coffee breaks and seeks advice on team buy-in",
+      "date": "2023-05-25",
+      "sessionId": "answer_f7b22c66"
+    },
+    {
+      "event": "user plans to introduce virtual coffee breaks in next team meeting",
+      "date": "2023-05-25",
+      "sessionId": "answer_f7b22c66"
+    },
+    {
+      "event": "user and assistant discuss how to facilitate collaborative team discussion",
+      "date": "2023-05-25",
+      "sessionId": "answer_f7b22c66"
+    },
+    {
+      "event": "user proposes establishing ground rules for virtual coffee breaks",
       "date": "2023-05-25",
       "sessionId": "answer_f7b22c66"
     }

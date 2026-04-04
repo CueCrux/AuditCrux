@@ -9,7 +9,7 @@
     },
     {
       "entity": "Summer Vibes",
-      "predicate": "is a playlist name created by",
+      "predicate": "is a playlist created by",
       "value": "user",
       "sessionId": "answer_3e012175",
       "source": "user"
@@ -23,15 +23,17 @@
     },
     {
       "entity": "user",
-      "predicate": "attended music festival with friends",
-      "value": "last month",
+      "predicate": "attended music festival",
+      "value": "with friends",
+      "date": "2023-04",
       "sessionId": "answer_3e012175",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "saw acts at festival",
-      "value": "The Lumineers and The 1975",
+      "entity": "music festival",
+      "predicate": "featured artists",
+      "value": "The Lumineers, The 1975",
+      "date": "2023-04",
       "sessionId": "answer_3e012175",
       "source": "user"
     }
@@ -39,29 +41,32 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "getting back into playing guitar",
-      "polarity": "positive"
+      "preference": "chill and relaxing music",
+      "polarity": "positive",
+      "constraint": "for relaxing or working out"
     },
     {
       "entity": "user",
       "preference": "ambient and lo-fi genres",
-      "polarity": "positive"
+      "polarity": "positive",
+      "constraint": "for music discovery"
     },
     {
       "entity": "user",
-      "preference": "chill tracks for relaxing or working out",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "music festivals and live concerts",
-      "polarity": "positive"
+      "preference": "live music experiences",
+      "polarity": "positive",
+      "constraint": "music festivals and concerts"
     }
   ],
   "events": [
     {
-      "event": "user attended music festival with friends and saw The Lumineers and The 1975",
-      "date": null,
+      "event": "attended music festival with friends",
+      "date": "2023-04",
+      "sessionId": "answer_3e012175"
+    },
+    {
+      "event": "saw The Lumineers and The 1975 perform",
+      "date": "2023-04",
       "sessionId": "answer_3e012175"
     }
   ]

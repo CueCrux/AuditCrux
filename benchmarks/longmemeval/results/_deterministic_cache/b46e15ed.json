@@ -18,7 +18,7 @@
     },
     {
       "entity": "charity gala",
-      "predicate": "fundraising amount",
+      "predicate": "funds_raised",
       "value": "over $100,000 for cancer research",
       "date": "2023-01-30",
       "sessionId": "answer_4bfcc250_4",
@@ -26,46 +26,10 @@
     },
     {
       "entity": "user",
-      "predicate": "participated in consecutive charity events",
-      "value": "not mentioned in conversation",
+      "predicate": "participated_in_charity_events",
+      "value": "one event on 2023-01-30",
+      "date": "2023-01-30",
       "sessionId": "answer_4bfcc250_4",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "participated in charity event",
-      "value": "24-Hour Bike Ride for local children's hospital",
-      "date": "2023-02-14",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "activity duration",
-      "value": "cycled for 4 hours non-stop",
-      "date": "2023-02-14",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "planning road trip",
-      "value": "San Francisco to Lake Tahoe",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "road trip duration",
-      "value": "4 days",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "bike type",
-      "value": "road bike",
-      "sessionId": "answer_4bfcc250_3",
       "source": "user"
     },
     {
@@ -78,44 +42,22 @@
     },
     {
       "entity": "user",
-      "predicate": "volunteered activity",
-      "value": "sorted and packed over 500 books for underprivileged kids",
+      "predicate": "volunteered for",
+      "value": "sorting and packing over 500 books for underprivileged kids",
       "date": "2023-02-15",
       "sessionId": "answer_4bfcc250_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "has interest in",
-      "value": "book recommendations for kids",
-      "date": "2023-02-15",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "has interest in",
-      "value": "Magic Tree House series",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "has interest in",
-      "value": "ancient Egypt",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "participated in",
-      "value": "Walk for Hunger charity event",
+      "predicate": "participated in charity event",
+      "value": "Walk for Hunger",
       "date": "2023-03-19",
       "sessionId": "answer_4bfcc250_1",
       "source": "user"
     },
     {
-      "entity": "Walk for Hunger charity event",
+      "entity": "Walk for Hunger event",
       "predicate": "distance",
       "value": "5 kilometers",
       "date": "2023-03-19",
@@ -123,7 +65,7 @@
       "source": "user"
     },
     {
-      "entity": "Walk for Hunger charity event",
+      "entity": "Walk for Hunger event",
       "predicate": "purpose",
       "value": "raise money for local food bank",
       "date": "2023-03-19",
@@ -132,8 +74,8 @@
     },
     {
       "entity": "user",
-      "predicate": "participated with",
-      "value": "colleagues from work",
+      "predicate": "participant type",
+      "value": "walked with colleagues from work",
       "date": "2023-03-19",
       "sessionId": "answer_4bfcc250_1",
       "source": "user"
@@ -149,90 +91,56 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "cancer research",
-      "polarity": "positive",
-      "constraint": "interested in latest developments and attending charity events"
+      "preference": "cancer research and latest developments",
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "immunotherapy success rates",
+      "preference": "charity work",
+      "polarity": "positive"
+    },
+    {
+      "entity": "7-year-old child",
+      "preference": "adventure and history",
       "polarity": "positive",
-      "constraint": "particularly interested in melanoma and lung cancer applications"
+      "constraint": "for reading"
     },
     {
       "entity": "user",
-      "preference": "bike riding",
-      "polarity": "positive",
-      "constraint": "leisurely, scenic routes with some challenging parts"
-    },
-    {
-      "entity": "user",
-      "preference": "charity events",
-      "polarity": "positive",
-      "constraint": "bike-related, fundraising"
-    },
-    {
-      "entity": "user",
-      "preference": "healthy snacks",
-      "polarity": "positive",
-      "constraint": "energy-boosting, easy-to-make"
-    },
-    {
-      "entity": "user",
-      "preference": "children's books that are fun and educational",
-      "polarity": "positive",
-      "constraint": "for kids"
-    },
-    {
-      "entity": "user",
-      "preference": "adventure and history books",
-      "polarity": "positive",
-      "constraint": "for 7-year-old readers"
-    },
-    {
-      "entity": "user",
-      "preference": "non-fiction books about ancient Egypt",
-      "polarity": "positive",
-      "constraint": "suitable for ages 7-10"
+      "preference": "books for kids that are fun and educational",
+      "polarity": "positive"
     },
     {
       "entity": "user",
       "preference": "healthy snack ideas that are easy to prepare",
-      "polarity": "positive",
-      "constraint": "easy to prepare"
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "energy balls as a snack",
+      "preference": "energy balls as snack",
       "polarity": "positive"
     },
     {
       "entity": "user",
       "preference": "overnight oats for breakfast",
-      "polarity": "positive",
-      "constraint": "protein-rich and prepared in advance"
+      "polarity": "positive"
     },
     {
       "entity": "user",
-      "preference": "healthy breakfast before charity events",
-      "polarity": "positive"
+      "preference": "charity events",
+      "polarity": "positive",
+      "constraint": "does them frequently"
     }
   ],
   "events": [
     {
-      "event": "attended charity gala organized by Cancer Research Foundation",
+      "event": "attended charity gala organized by the Cancer Research Foundation",
       "date": "2023-01-30",
       "location": "fancy hotel in downtown",
       "sessionId": "answer_4bfcc250_4"
     },
     {
-      "event": "24-Hour Bike Ride charity event",
-      "date": "2023-02-14",
-      "location": "local children's hospital",
-      "sessionId": "answer_4bfcc250_3"
-    },
-    {
-      "event": "Books for Kids charity book drive - volunteered sorting and packing books",
+      "event": "participated in Books for Kids charity book drive",
       "date": "2023-02-15",
       "location": "local library",
       "sessionId": "answer_4bfcc250_2"
@@ -240,7 +148,7 @@
     {
       "event": "Walk for Hunger charity event",
       "date": "2023-03-19",
-      "location": "local area with food bank beneficiary",
+      "location": "local area (food bank beneficiary)",
       "sessionId": "answer_4bfcc250_1"
     }
   ]
