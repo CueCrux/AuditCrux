@@ -1,0 +1,98 @@
+{
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "has coworker",
+      "value": "with new baby",
+      "sessionId": "answer_3e9fce53_2",
+      "source": "user"
+    },
+    {
+      "entity": "User's cousin",
+      "predicate": "had",
+      "value": "baby shower",
+      "sessionId": "answer_3e9fce53_2",
+      "source": "user"
+    },
+    {
+      "entity": "User and cousin",
+      "predicate": "purchased at Target",
+      "value": "diapers, wipes, baby monitor",
+      "sessionId": "answer_3e9fce53_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "is planning to give",
+      "value": "gift basket with baby essentials to coworker",
+      "sessionId": "answer_3e9fce53_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "decided to include in gift basket",
+      "value": "set of baby washcloths",
+      "sessionId": "answer_3e9fce53_2",
+      "source": "user"
+    },
+    {
+      "entity": "Gift basket",
+      "predicate": "will include",
+      "value": "baby washcloths, onesies, burp cloths, baby book",
+      "sessionId": "answer_3e9fce53_2",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "gift basket format for coworker gift",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "universal items over personal preference items",
+      "polarity": "positive",
+      "constraint": "for baby gifts"
+    },
+    {
+      "entity": "User",
+      "preference": "baby washcloths",
+      "polarity": "positive",
+      "constraint": "for gift basket"
+    },
+    {
+      "entity": "New parents generally",
+      "preference": "baby washcloths",
+      "polarity": "positive"
+    },
+    {
+      "entity": "Some parents",
+      "preference": "baby carriers/slings",
+      "polarity": "positive"
+    },
+    {
+      "entity": "Some parents",
+      "preference": "against baby carriers/slings",
+      "polarity": "negative"
+    }
+  ],
+  "events": [
+    {
+      "event": "User's cousin's baby shower",
+      "date": null,
+      "location": "Target",
+      "sessionId": "answer_3e9fce53_2"
+    },
+    {
+      "event": "Coworker's baby birth/arrival",
+      "date": null,
+      "sessionId": "answer_3e9fce53_2"
+    },
+    {
+      "event": "User plans to present gift basket to coworker",
+      "date": null,
+      "sessionId": "answer_3e9fce53_2"
+    }
+  ]
+}

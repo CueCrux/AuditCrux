@@ -1,0 +1,100 @@
+{
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "planning activity",
+      "value": "play tennis with friends at local park",
+      "date": "2023-05-28",
+      "sessionId": "answer_c3567066",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "owns",
+      "value": "new tennis racket",
+      "sessionId": "answer_c3567066",
+      "source": "user"
+    },
+    {
+      "entity": "User's tennis racket",
+      "predicate": "acquired from",
+      "value": "sports store downtown",
+      "sessionId": "answer_c3567066",
+      "source": "user"
+    },
+    {
+      "entity": "User's tennis racket",
+      "predicate": "performance status",
+      "value": "performing really well",
+      "sessionId": "answer_c3567066",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "planning to purchase",
+      "value": "new tennis balls",
+      "date": "2023-05-28",
+      "sessionId": "answer_c3567066",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "player type",
+      "value": "recreational player",
+      "sessionId": "answer_c3567066",
+      "source": "user"
+    },
+    {
+      "entity": "Tennis strings",
+      "predicate": "recommended restringing frequency",
+      "value": "every 3-6 months",
+      "sessionId": "answer_c3567066",
+      "source": "assistant"
+    },
+    {
+      "entity": "Warm-up duration",
+      "predicate": "recommended length",
+      "value": "10-15 minutes",
+      "sessionId": "answer_c3567066",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "new tennis racket",
+      "polarity": "positive"
+    },
+    {
+      "entity": "Recreational tennis players",
+      "preference": "pressurized tennis balls with lower pressure (around 12.5 psi)",
+      "polarity": "positive",
+      "constraint": "for slightly slower bounce"
+    },
+    {
+      "entity": "Recreational tennis players",
+      "preference": "mid-range or recreational tennis balls",
+      "polarity": "positive",
+      "constraint": "balance of quality and affordability"
+    },
+    {
+      "entity": "Recommended tennis ball brands",
+      "preference": "Wilson, Penn, Dunlop",
+      "polarity": "positive",
+      "constraint": "suitable for recreational players"
+    }
+  ],
+  "events": [
+    {
+      "event": "User planning to play tennis with friends at local park",
+      "date": "2023-05-28",
+      "location": "local park",
+      "sessionId": "answer_c3567066"
+    },
+    {
+      "event": "User planning to buy new tennis balls",
+      "date": "2023-05-28",
+      "sessionId": "answer_c3567066"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "participated in wedding as",
+      "value": "bridesmaid",
+      "date": "2023-06-15",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "relationship to bride",
+      "value": "cousin",
+      "date": "2023-06-15",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "is planning",
+      "value": "own wedding",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User's wedding",
+      "predicate": "size",
+      "value": "small, intimate ceremony",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User's wedding",
+      "predicate": "potential venue option 1",
+      "value": "cozy bed and breakfast in the countryside",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User's wedding",
+      "predicate": "potential venue option 2",
+      "value": "beautiful art museum in the city",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User's wedding",
+      "predicate": "season",
+      "value": "fall",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has started",
+      "value": "looking at venues",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has",
+      "value": "pretty clear idea of what they want for wedding",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "small, intimate wedding ceremony",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "fall wedding",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "countryside bed and breakfast venue",
+      "polarity": "positive",
+      "constraint": "or city art museum"
+    },
+    {
+      "entity": "User",
+      "preference": "city art museum venue",
+      "polarity": "positive",
+      "constraint": "or countryside bed and breakfast"
+    },
+    {
+      "entity": "User",
+      "preference": "planning wedding without a professional planner",
+      "polarity": "positive",
+      "constraint": "for small, intimate ceremony"
+    }
+  ],
+  "events": [
+    {
+      "event": "User served as bridesmaid at cousin's wedding",
+      "date": "2023-06-15",
+      "sessionId": "answer_add9b012_1"
+    }
+  ]
+}

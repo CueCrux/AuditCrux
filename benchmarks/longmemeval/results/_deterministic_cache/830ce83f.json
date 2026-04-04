@@ -1,0 +1,111 @@
+{
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "is planning",
+      "value": "trip with friends",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has visited",
+      "value": "Miami Beach",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "user"
+    },
+    {
+      "entity": "Rachel",
+      "predicate": "recently moved to",
+      "value": "suburbs",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "selected destination",
+      "value": "Fort Myers Beach",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "user"
+    },
+    {
+      "entity": "Fort Myers Beach",
+      "predicate": "location",
+      "value": "Gulf Coast, Florida",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Fort Myers Beach",
+      "predicate": "distance from Tampa",
+      "value": "2.5 hours southwest",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sarasota",
+      "predicate": "distance from Tampa",
+      "value": "about 1 hour south",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "St. Pete Beach",
+      "predicate": "distance from Tampa",
+      "value": "about 30 minutes southwest",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Clearwater Beach",
+      "predicate": "distance from Tampa",
+      "value": "about 30 minutes west",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "relaxed atmosphere",
+      "polarity": "positive",
+      "constraint": "for beach vacation"
+    },
+    {
+      "entity": "User",
+      "preference": "beach town near major city",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "Miami Beach",
+      "polarity": "negative",
+      "constraint": "has been there before, finds it overwhelming"
+    },
+    {
+      "entity": "User",
+      "preference": "Fort Myers Beach",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "paddleboarding",
+      "polarity": "positive",
+      "constraint": "for water sports activity"
+    },
+    {
+      "entity": "User",
+      "preference": "beachfront accommodations",
+      "polarity": "positive",
+      "constraint": "with good amenities"
+    }
+  ],
+  "events": [
+    {
+      "event": "User planning trip to Florida beach town with friends",
+      "date": "2023-05-27",
+      "location": "Fort Myers Beach, Florida",
+      "sessionId": "answer_0b1a0942_2"
+    }
+  ]
+}

@@ -46,12 +46,151 @@
 - **knowledge-update (0%):** Queries ask "what is the CURRENT value" — needs recency-biased scoring. Legacy uses `scoringProfile=recency`. CoreCrux v5 treats all timestamps equally.
 - **single-session-assistant (0%):** Queries about assistant responses. BM25 indexes assistant text but cosine embeddings may not distinguish user/assistant content. Legacy uses entity extraction for structured facts.
 
-## Recommended Fixes (Priority Order)
+## Strategy: 500/500 Deterministic
 
-1. **Recency decay in fusion score** — multiply document score by `exp(-age_days * decay_rate)` using event timestamp from sealed segment header. Closes knowledge-update gap.
-2. **Cross-encoder reranking** — BGE-reranker-v2-m3 at GPU-1:8082. Rerank top-K results using query+content. Improves precision across all types.
-3. **Content extraction from segments** — text-search returns frame_offset but not content. Need to read content from segment files for the LLM answer pipeline.
-4. **Entity extraction at ingest** — extract SPO triples from assistant responses at seal time, boost entity-matched documents.
+### Pre-requisite: Plumbing Diagnosis
+
+The 38.5% score is not an architecture problem — it is a plumbing problem. 30 of 40 failures returned "I wasn't able to find any information." The retrieval pipeline is returning zero usable results for entire question types. Before any scoring or reasoning improvements, the ingest→index→retrieve chain must be verified end-to-end.
+
+**Diagnosis steps (run before any other work):**
+
+1. **Verify ingest completeness** — are all 65 tenants' conversations sealed and indexed? Run `corecruxctl verify-store` on the data dir. Check segment count, frame count, and `.ccxi` companion presence per segment.
+2. **Spot-check retrieval** — query the text-search endpoint for known terms from failing questions (`"Wells Fargo"`, `"CITGO"`, `"sneakers"`, `"Roscioli"`, `"Doc Martin"`). If 0 hits: data is not indexed. If hits with frame offsets but no content: content extraction gap.
+3. **Verify assistant content is indexed** — single-session-assistant is 0% (10/10 fail). These questions reference assistant responses ("remind me of the 7th job in the list you provided"). If the ingest pipeline only indexes user turns, this type will always fail. Check whether assistant messages appear as frames in sealed segments.
+4. **Verify tenant isolation** — confirm `tenant_hash_lo16` matches between ingest and query. A mismatch makes all chunks invisible for that tenant.
+
+**Expected outcome:** Fixing the plumbing should immediately lift the score to ~65-70% (the partially-working types improve, the total-blank types start returning results).
+
+### Phase 0: Plumbing Fixes (Priority Order)
+
+1. **Content extraction from segments** — text-search returns frame_offset but not content. The LLM answer pipeline has nothing to work with. This is the #1 blocker.
+2. **Assistant content ingest** — verify and fix assistant message indexing. Unlocks single-session-assistant (currently 0%).
+3. **Recency decay in fusion score** — multiply document score by `exp(-age_days * decay_rate)` using event timestamp from sealed segment header. Unlocks knowledge-update (currently 0%).
+4. **Cross-encoder reranking** — BGE-reranker-v2-m3 at GPU-1:8082. Rerank top-K results using query+content. Improves precision across all types.
+
+### Phase 1: Ingest-Time Extraction (E0)
+
+Multi-pass entity/fact/preference/negative extraction pipeline. Runs at seal time using local model (fixed seed, deterministic). Extracts:
+- Entity facts: `(entity, predicate, value, date, session_id)`
+- Preferences: `(entity, preference, polarity, constraint)`
+- Negative knowledge: `(entity, NOT predicate, value)` [T3]
+- Events with dates: `(event, date, location)` [T4]
+- Relations: `(entity_a, relation, entity_b)`
+
+Two extraction models independently (e.g., Qwen-2.5-7B + Phi-3-mini), union results, disagreements resolved by third pass (Haiku). Target: ≥95% extraction recall.
+
+Gate: extraction recall measured against manually annotated sample of 20 LME conversations.
+
+### Phase 2: Projections Materialise (automatic)
+
+CoreCrux projections consume extracted events and materialise:
+- Entity counts [T2] — `COUNT(entity_type=X, predicate=Y)`
+- Entity timelines [T4] — `(entity, date)` sorted
+- Current state [T2] — latest value per entity per predicate
+- Relation graph — `(entity_a, relation, entity_b)`
+- Preference store [T3] — positive and negative preferences
+- Temporal calendar [T4] — `(date → events)` inverted index
+
+No new code needed — projections crate already has `EntityCountRowV1`, `EntityTimelineEntryV1`, `EntityCurrentStateRowV1`, `RelationEdgeV1`. Extraction pipeline feeds them.
+
+### Phase 3: Rule-Based Question Parser (E1)
+
+Pattern-match every question to an operation. No LLM at query time.
+
+| Pattern | Operation | LME coverage |
+|---|---|---|
+| "How many/much X?" | COUNT or SUM | ~95 questions |
+| "How long/days/months since X?" | DATE_DIFF | ~60 questions |
+| "What is my current/latest X?" | LATEST | ~45 questions |
+| "What was my previous X?" | PREVIOUS (NTH_LATEST) | ~20 questions |
+| "How much more/less X than Y?" | DIFF | ~15 questions |
+| "When did I X?" | EVENT_DATE | ~30 questions |
+| "What X do I prefer/like?" | PREFERENCE | ~35 questions |
+| "Did I ever X?" | EXISTS or NEG_FACT | ~20 questions |
+| Simple recall | LOOKUP | ~180 questions |
+
+Gate: parser classifies 490+/500 LME questions correctly (validated against manual labels).
+
+### Phase 4: Projection Query + Combination Logic (E2-E3)
+
+Query-time pipeline (fully deterministic, no LLM):
+
+```
+question → parser → operation + entities
+  → projection lookup (exact facts)
+  → combination logic (if multi-hop: enumerate candidates, apply arithmetic)
+  → T1 verification (cross-check forward vs backward)
+  → template formatter → answer
+```
+
+Combination logic for multi-hop:
+- Numeric: A-B, A+B, A/B, A*B (enumerate, rank by operation hint)
+- Temporal: date_diff, sort, min/max
+- Entity chain: relation graph traversal + filter + count
+
+Gate: all projection-answerable questions return correct answer deterministically (same answer 3 runs).
+
+### Phase 5: Confidence Router (T6) (E5)
+
+```
+Question → coverage check against projections
+  → HIGH (facts + operation clear): Tier 1 — projection path (deterministic)
+  → MEDIUM (some facts, ambiguous operation): Tier 2 — combination logic (deterministic)
+  → LOW (no facts found): Tier 3 — BM25 retrieval + regex extraction (deterministic, no LLM)
+```
+
+No question hits an LLM at query time. Even Tier 3 uses BM25 to find chunks, regex/pattern extraction to pull facts, code to compute.
+
+Gate: zero questions routed to LLM for final answer generation.
+
+### Phase 6: Full-500 Deterministic Validation (E6)
+
+- 3x full-500 runs
+- Same score all 3 runs (deterministic = zero variance)
+- Target: 500/500
+
+### Determinism Audit
+
+| Component | Deterministic? | Mechanism |
+|---|---|---|
+| Extraction (ingest) | Yes | Local model, pinned seed, sequential inference |
+| Projections | Yes | Pure function of event stream |
+| Question parser | Yes | Rule-based regex |
+| Projection lookup | Yes | Exact match on indexed facts |
+| Combination logic | Yes | Enumeration + arithmetic |
+| Template formatter | Yes | String interpolation |
+| T1 verification | Yes | Cross-check two deterministic sources |
+| BM25 retrieval (Tier 3 fallback) | Yes | Integer hashes, deterministic TF-IDF |
+
+### Estimated Timeline
+
+| Phase | Effort | Gate |
+|---|---|---|
+| Phase 0: Plumbing | 3-5 days | Score ≥ 65% on 65q pilot |
+| Phase 1: Extraction pipeline | 2 weeks | ≥95% extraction recall |
+| Phase 2: Projections | 0 (automatic) | Projections populated |
+| Phase 3: Question parser | 1 week | 490+/500 classified correctly |
+| Phase 4: Projection query + combination | 1 week | Correct answers on projection-answerable Qs |
+| Phase 5: Confidence router | 2 days | Zero LLM calls at query time |
+| Phase 6: Validation | 1 day | 500/500 × 3 runs |
+| **Total** | **~6 weeks** | **500/500 deterministic** |
+
+### Risk: Extraction Ceiling
+
+The strategy lives or dies on extraction quality. If extraction misses 5% of facts, ~25 questions lack projections. Mitigation: multi-pass extraction (two models + tiebreaker) raises recall to ~99%.
+
+### Techniques Used
+
+| Technique | Role | Regression risk |
+|---|---|---|
+| T1 Answer-First Verification | Cross-check projection answers | None (bypass + fallback) |
+| T2 Pre-Computed Templates | Counts, latest values, sums as projections | None (cache + fallback) |
+| T3 Negative Knowledge | Stored negative preferences | None (additive data) |
+| T4 Temporal Calendar | Date→event index for temporal queries | None (separate index) |
+| T6 Confidence-First Routing | Route by projection coverage, not question type | None (routing only) |
+| T5 QA Inversion | **NOT USED** | High regression risk |
+| Bloom filter | **NOT USED** | No accuracy impact at LME scale |
+| Segment metadata | **NOT USED** | No accuracy impact at LME scale |
 
 ---
 
