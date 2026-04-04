@@ -1,5 +1,117 @@
 {
-  "facts": [],
-  "preferences": [],
-  "events": []
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "visited",
+      "value": "local community theater",
+      "date": "2023-05-26",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "attended play",
+      "value": "The Glass Menagerie",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "recently tried",
+      "value": "new Italian restaurant downtown",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has friend",
+      "value": "Emily",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "Emily",
+      "predicate": "is",
+      "value": "aspiring actress",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "auditioned for role in",
+      "value": "The Crucible",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "wants to focus on",
+      "value": "scene study",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "wants to focus on",
+      "value": "character development",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
+      "entity": "The Glass Menagerie",
+      "predicate": "written by",
+      "value": "Tennessee Williams",
+      "sessionId": "answer_355c48bb",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "Italian restaurants",
+      "polarity": "positive",
+      "constraint": "local options"
+    },
+    {
+      "entity": "User",
+      "preference": "community theater productions",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "acting classes",
+      "polarity": "positive",
+      "constraint": "for adults"
+    },
+    {
+      "entity": "User",
+      "preference": "getting into character and authentic performances",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "The Crucible audition",
+      "polarity": "negative",
+      "constraint": "did not go well"
+    }
+  ],
+  "events": [
+    {
+      "event": "User attended The Glass Menagerie at local community theater",
+      "date": null,
+      "location": "local community theater",
+      "sessionId": "answer_355c48bb"
+    },
+    {
+      "event": "User auditioned for role in The Crucible",
+      "date": null,
+      "sessionId": "answer_355c48bb"
+    },
+    {
+      "event": "User tried new Italian restaurant downtown",
+      "date": null,
+      "location": "downtown",
+      "sessionId": "answer_355c48bb"
+    }
+  ]
 }

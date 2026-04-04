@@ -1,146 +1,128 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "plans self-care day with",
-      "value": "morning yoga practice at home and brunch with friend",
-      "date": "2023-05-30",
-      "sessionId": "answer_9398da02",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "uses yoga app",
-      "value": "Down Dog",
-      "sessionId": "answer_9398da02",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "attends studio",
+      "entity": "user",
+      "predicate": "attends",
       "value": "Serenity Yoga",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "favorite yoga style",
-      "value": "vinyasa flow",
+      "entity": "user",
+      "predicate": "uses app",
+      "value": "Down Dog",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "has best friend",
       "value": "Sarah",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "Sarah",
-      "predicate": "started yoga practice with",
-      "value": "User",
+      "entity": "user",
+      "predicate": "practices with",
+      "value": "Sarah",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "User and Sarah",
-      "predicate": "have routine",
+      "entity": "user and Sarah",
+      "predicate": "routine",
       "value": "Sunday morning yoga and brunch",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "has improved",
+      "entity": "user",
+      "predicate": "noticed improvement in",
       "value": "flexibility",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "has improved",
-      "value": "breath awareness and body alignment",
+      "entity": "user",
+      "predicate": "noticed improvement in",
+      "value": "breath awareness",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "feels",
-      "value": "more energized and focused throughout the day",
+      "entity": "user",
+      "predicate": "noticed improvement in",
+      "value": "body alignment",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "feels after vinyasa flow",
-      "value": "centered and calm",
+      "entity": "user",
+      "predicate": "feels increased",
+      "value": "energy and focus throughout the day",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
-      "entity": "Sarah",
-      "predicate": "birthday",
-      "value": "June 15th",
-      "date": "2023-06-15",
+      "entity": "Down Dog",
+      "predicate": "pricing model",
+      "value": "Free trial, then subscription-based",
       "sessionId": "answer_9398da02",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "planning gift for Sarah",
-      "value": "yoga mat",
-      "sessionId": "answer_9398da02",
-      "source": "user"
+      "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "vinyasa flow classes",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "challenging sequences in yoga",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "building internal heat in yoga",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "preference": "Down Dog app",
-      "polarity": "positive"
+      "polarity": "positive",
+      "constraint": "for home yoga practice"
     },
     {
-      "entity": "User",
-      "preference": "healthy brunch spots",
+      "entity": "user",
+      "preference": "vinyasa flow classes",
       "polarity": "positive",
-      "constraint": "near Serenity Yoga"
+      "constraint": "favorite type of yoga class"
     },
     {
-      "entity": "User",
-      "preference": "home yoga practice",
+      "entity": "user",
+      "preference": "challenging sequences",
       "polarity": "positive",
-      "constraint": "on days when can't make it to studio"
+      "constraint": "in vinyasa flow"
+    },
+    {
+      "entity": "user",
+      "preference": "building internal heat",
+      "polarity": "positive",
+      "constraint": "in vinyasa flow practice"
+    },
+    {
+      "entity": "user",
+      "preference": "patience and presence in interactions",
+      "polarity": "positive",
+      "constraint": "future goal"
+    },
+    {
+      "entity": "user",
+      "preference": "calm and compassion",
+      "polarity": "positive",
+      "constraint": "in stressful moments"
     }
   ],
   "events": [
     {
-      "event": "User planning self-care day with morning yoga and brunch",
+      "event": "User planning self-care day with morning yoga and brunch with friend",
       "date": "2023-05-30",
+      "location": "home and near Serenity Yoga",
       "sessionId": "answer_9398da02"
     },
     {
-      "event": "Sarah's birthday",
-      "date": "2023-06-15",
+      "event": "User convinced Sarah to start yoga practice together",
+      "date": null,
       "sessionId": "answer_9398da02"
     },
     {
-      "event": "User and Sarah's Sunday morning yoga and brunch routine",
+      "event": "User and Sarah started Sunday morning yoga and brunch routine",
       "date": null,
       "sessionId": "answer_9398da02"
     }

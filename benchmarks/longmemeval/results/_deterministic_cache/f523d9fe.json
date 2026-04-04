@@ -1,100 +1,96 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "watches primarily",
+      "entity": "interviewee",
+      "predicate": "watches_content_type",
       "value": "series",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "currently watching",
+      "entity": "interviewee",
+      "predicate": "current_series",
       "value": "Black List",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "uses Netflix feature",
-      "value": "upcoming content calendar (what's coming next week/month)",
-      "sessionId": "answer_sharegpt_m2xJfjo_0",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "knows",
-      "value": "Netflix pricing",
+      "entity": "interviewee",
+      "predicate": "uses_netflix_feature",
+      "value": "upcoming content calendar (weekly/monthly)",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
       "entity": "Netflix",
-      "predicate": "removes shows after time",
-      "value": "true",
+      "predicate": "removed_show",
+      "value": "Doc Martin",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
       "entity": "Doc Martin",
-      "predicate": "availability on Netflix",
-      "value": "only last season available",
+      "predicate": "available_seasons",
+      "value": "only last season",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "experiences technical issues with Netflix",
-      "value": "access problems (unable to open app)",
+      "entity": "interviewee",
+      "predicate": "experiences_technical_issues",
+      "value": "access problems",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "resolution method for Netflix access issues",
-      "value": "wait and retry later",
+      "entity": "interviewee",
+      "predicate": "knows_netflix_pricing",
+      "value": "no",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "Netflix variety of content",
-      "polarity": "positive"
+      "entity": "interviewee",
+      "preference": "Netflix content variety",
+      "polarity": "positive",
+      "constraint": "something for everybody"
     },
     {
-      "entity": "User",
+      "entity": "interviewee",
       "preference": "Black List series",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "more diversity in Netflix content",
       "polarity": "positive",
-      "constraint": "but satisfied with current offerings"
+      "constraint": "enjoys very much"
     },
     {
-      "entity": "User",
-      "preference": "Netflix pricing/value",
+      "entity": "interviewee",
+      "preference": "content diversity",
       "polarity": "positive",
-      "constraint": "unsure of actual cost"
+      "constraint": "would like more choice"
     },
     {
-      "entity": "User",
-      "preference": "all seasons of old shows available on Netflix",
-      "polarity": "positive"
+      "entity": "interviewee",
+      "preference": "Netflix pricing value",
+      "polarity": "positive",
+      "constraint": "good value for money"
     },
     {
-      "entity": "User",
-      "preference": "Netflix original programming",
-      "polarity": "neutral",
-      "constraint": "takes it as it comes"
+      "entity": "interviewee",
+      "preference": "show availability",
+      "polarity": "negative",
+      "constraint": "dislikes when Netflix removes old shows and seasons"
+    },
+    {
+      "entity": "interviewee",
+      "preference": "Netflix access reliability",
+      "polarity": "negative",
+      "constraint": "occasional access issues"
     }
   ],
   "events": [
     {
-      "event": "Netflix interview conducted",
+      "event": "Netflix interview session conducted",
       "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0"
     }

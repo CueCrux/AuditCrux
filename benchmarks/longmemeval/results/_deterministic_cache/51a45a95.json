@@ -1,5 +1,135 @@
 {
-  "facts": [],
-  "preferences": [],
-  "events": []
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "shops at",
+      "value": "Target",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "shopping frequency at Target",
+      "value": "every other week",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "uses app",
+      "value": "Cartwheel app from Target",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "duration using Cartwheel",
+      "value": "a few weeks",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "total savings from Cartwheel",
+      "value": "$20",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "redeemed coupon amount",
+      "value": "$5 on coffee creamer",
+      "date": "2023-05-28",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has children",
+      "value": "kids",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "purchasing categories",
+      "value": "household items, toiletries, kids' clothes",
+      "sessionId": "answer_d61669c7",
+      "source": "user"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended apps",
+      "value": "Fetch Rewards, Ibotta, Shoeboxed, Receipt Bank, Neat, Genius Scan, Rakuten, TopCashback, Mint, Personal Capital, YNAB, Expense Manager, Pocketbook",
+      "date": "2023-05-29",
+      "sessionId": "answer_d61669c7",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended feature for Cartwheel",
+      "value": "sort offers by expiration date",
+      "date": "2023-05-29",
+      "sessionId": "answer_d61669c7",
+      "source": "assistant"
+    },
+    {
+      "entity": "Target",
+      "predicate": "offers discount with",
+      "value": "RedCard - 5% off all purchases",
+      "sessionId": "answer_d61669c7",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "binder with labeled sections for organization",
+      "polarity": "positive",
+      "constraint": "for coupons and receipts"
+    },
+    {
+      "entity": "User",
+      "preference": "Cartwheel app",
+      "polarity": "positive",
+      "constraint": "for saving money on household items"
+    },
+    {
+      "entity": "User",
+      "preference": "Cartwheel app user-friendly interface and categorization",
+      "polarity": "positive",
+      "constraint": "easy to navigate and browse offers"
+    },
+    {
+      "entity": "User",
+      "preference": "sort Cartwheel offers by expiration date",
+      "polarity": "positive",
+      "constraint": "to prioritize offers expiring soon"
+    },
+    {
+      "entity": "User",
+      "preference": "customizable notifications on Cartwheel",
+      "polarity": "positive",
+      "constraint": "for specific categories or expiring soon"
+    },
+    {
+      "entity": "User",
+      "preference": "too many notifications from Cartwheel",
+      "polarity": "negative",
+      "constraint": "feels overwhelmed"
+    }
+  ],
+  "events": [
+    {
+      "event": "User redeemed $5 coupon on coffee creamer from email inbox",
+      "date": "2023-05-28",
+      "location": "Target",
+      "sessionId": "answer_d61669c7"
+    },
+    {
+      "event": "Conversation about coupon and receipt organization",
+      "date": "2023-05-29",
+      "sessionId": "answer_d61669c7"
+    }
+  ]
 }

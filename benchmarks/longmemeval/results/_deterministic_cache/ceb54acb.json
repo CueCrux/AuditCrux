@@ -1,53 +1,73 @@
 {
   "facts": [
     {
-      "entity": "conversation",
-      "predicate": "date",
-      "value": "2023-05-27",
+      "entity": "User",
+      "predicate": "seeking",
+      "value": "shorter term for sexual behaviors",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "user"
     },
     {
-      "entity": "assistant's first suggestion",
-      "predicate": "term used",
+      "entity": "Assistant",
+      "predicate": "suggested",
       "value": "sexual compulsions",
+      "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
     },
     {
-      "entity": "user",
-      "predicate": "evaluated previous suggestion as",
-      "value": "longer than needed",
+      "entity": "Assistant",
+      "predicate": "suggested",
+      "value": "sexual fixations",
+      "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
-      "source": "user"
+      "source": "assistant"
     },
     {
-      "entity": "user",
-      "predicate": "requested",
-      "value": "better alternative term",
+      "entity": "Assistant",
+      "predicate": "suggested",
+      "value": "problematic sexual behaviors",
+      "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
-      "source": "user"
+      "source": "assistant"
     },
     {
-      "entity": "assistant's second suggestions",
-      "predicate": "alternatives provided",
-      "value": "sexual fixations, problematic sexual behaviors, sexual impulsivity, compulsive sexuality",
+      "entity": "Assistant",
+      "predicate": "suggested",
+      "value": "sexual impulsivity",
+      "date": "2023-05-27",
+      "sessionId": "answer_sharegpt_cGdjmYo_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "suggested",
+      "value": "compulsive sexuality",
+      "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "user",
-      "preference": "shorter terminology",
-      "polarity": "positive"
+      "entity": "User",
+      "preference": "term length",
+      "polarity": "negative",
+      "constraint": "wants shorter term"
     },
     {
-      "entity": "user",
-      "preference": "better quality suggestions",
-      "polarity": "positive"
+      "entity": "User",
+      "preference": "previous suggestions",
+      "polarity": "negative",
+      "constraint": "not good enough"
     }
   ],
-  "events": []
+  "events": [
+    {
+      "event": "Conversation about terminology for sexual behaviors",
+      "date": "2023-05-27",
+      "sessionId": "answer_sharegpt_cGdjmYo_0"
+    }
+  ]
 }

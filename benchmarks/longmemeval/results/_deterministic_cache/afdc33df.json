@@ -1,89 +1,187 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "has",
-      "value": "garbage disposal with issues",
+      "entity": "garbage disposal",
+      "predicate": "has_issue",
+      "value": "user experiencing problems",
       "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "recently purchased",
-      "value": "new utensil holder",
-      "date": "2023-05-22",
-      "sessionId": "answer_8549e5e0",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "has",
-      "value": "granite countertop",
-      "date": "2023-05-22",
-      "sessionId": "answer_8549e5e0",
-      "source": "user"
-    },
-    {
-      "entity": "User's granite countertop",
-      "predicate": "has scratches",
-      "value": "near the sink",
-      "date": "2023-05-22",
-      "sessionId": "answer_8549e5e0",
-      "source": "user"
-    },
-    {
-      "entity": "Garbage disposal",
-      "predicate": "typical lifespan",
+      "entity": "garbage disposal",
+      "predicate": "lifespan",
       "value": "10-15 years",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
-      "entity": "Baking soda and vinegar cleaning method",
-      "predicate": "requires",
-      "value": "1/2 cup baking soda and 1 cup vinegar, sit for 1-2 hours",
+      "entity": "baking soda and vinegar cleaning method",
+      "predicate": "amount_baking_soda",
+      "value": "1/2 cup",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
-      "entity": "Ice and rock salt cleaning method",
-      "predicate": "requires",
-      "value": "few ice cubes and 1 tablespoon rock salt",
+      "entity": "baking soda and vinegar cleaning method",
+      "predicate": "amount_vinegar",
+      "value": "1 cup",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
-      "entity": "Lemon juice and baking soda cleaning method",
-      "predicate": "requires",
-      "value": "1/2 cup baking soda",
+      "entity": "baking soda and vinegar cleaning method",
+      "predicate": "soak_time",
+      "value": "1-2 hours",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "ice and rock salt cleaning method",
+      "predicate": "amount_rock_salt",
+      "value": "1 tablespoon",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "lemon juice and baking soda method",
+      "predicate": "amount_baking_soda",
+      "value": "1/2 cup",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "utensil holder",
+      "predicate": "recently_purchased",
+      "value": "true",
+      "date": "2023-05-22",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "utensil holder",
+      "predicate": "purpose",
+      "value": "keep countertops clutter-free",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "granite countertop",
+      "predicate": "has_scratches",
+      "value": "near sink",
+      "date": "2023-05-22",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "kitchen faucet",
+      "predicate": "has_issue",
+      "value": "leaking slightly",
+      "date": "2023-05-22",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "kitchen faucet",
+      "predicate": "lifespan",
+      "value": "10-15 years",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "slow cooker",
+      "predicate": "has_issue",
+      "value": "user experiencing problems",
+      "date": "2023-05-22",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "slow cooker yogurt making",
+      "predicate": "milk_heating_temperature",
+      "value": "180°F (82°C)",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "slow cooker yogurt making",
+      "predicate": "milk_heating_time",
+      "value": "1-2 hours",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "slow cooker yogurt making",
+      "predicate": "milk_cooling_temperature",
+      "value": "110°F (43°C) to 120°F (49°C)",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "slow cooker yogurt making",
+      "predicate": "yogurt_starter_amount",
+      "value": "1-2 tablespoons",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "slow cooker yogurt making",
+      "predicate": "incubation_temperature",
+      "value": "100°F to 110°F (38°C to 43°C)",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "slow cooker yogurt making",
+      "predicate": "incubation_time",
+      "value": "6-8 hours or 8-12 hours overnight",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "keep countertops clutter-free",
-      "polarity": "positive"
+      "entity": "user",
+      "preference": "clean kitchen",
+      "polarity": "positive",
+      "constraint": "keeping countertops clutter-free"
     },
     {
-      "entity": "User",
-      "preference": "organize kitchen utensils",
-      "polarity": "positive"
+      "entity": "user",
+      "preference": "making homemade yogurt",
+      "polarity": "positive",
+      "constraint": "using slow cooker"
     }
   ],
   "events": [
     {
-      "event": "User purchased new utensil holder",
+      "event": "User asked for tips on cleaning and maintaining garbage disposal",
       "date": "2023-05-22",
       "location": "kitchen",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "User noticed scratches on granite countertop",
+      "event": "User purchased a new utensil holder",
       "date": "2023-05-22",
-      "location": "near sink",
+      "location": "kitchen",
+      "sessionId": "answer_8549e5e0"
+    },
+    {
+      "event": "User noticed scratches on granite countertop near sink",
+      "date": "2023-05-22",
+      "location": "kitchen sink area",
+      "sessionId": "answer_8549e5e0"
+    },
+    {
+      "event": "User reported kitchen faucet leaking slightly",
+      "date": "2023-05-22",
+      "location": "kitchen sink",
+      "sessionId": "answer_8549e5e0"
+    },
+    {
+      "event": "User asked for tips on making yogurt in slow cooker",
+      "date": "2023-05-22",
+      "location": "kitchen",
       "sessionId": "answer_8549e5e0"
     }
   ]

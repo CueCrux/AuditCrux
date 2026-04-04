@@ -150,7 +150,9 @@ async function main() {
         const content = flattenSession(session.turns, session.sessionId, session.date);
         if (content.length < 50) continue;
         try {
-          const sessionStore = await extractFacts(content.slice(0, 8000), session.sessionId, apiKey);
+          // Use larger context for single-session questions (only 1-2 answer sessions)
+          const maxChars = sessionsToExtract.length <= 3 ? 15000 : 8000;
+          const sessionStore = await extractFacts(content.slice(0, maxChars), session.sessionId, apiKey);
           store.facts.push(...sessionStore.facts);
           store.preferences.push(...sessionStore.preferences);
           store.events.push(...sessionStore.events);

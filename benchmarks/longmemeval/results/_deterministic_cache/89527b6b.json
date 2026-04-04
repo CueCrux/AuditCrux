@@ -2,15 +2,8 @@
   "facts": [
     {
       "entity": "T-Rex",
-      "predicate": "is",
-      "value": "a giant carnivorous dinosaur",
-      "sessionId": "answer_sharegpt_YkWn1Ne_0",
-      "source": "assistant"
-    },
-    {
-      "entity": "T-Rex",
-      "predicate": "lived",
-      "value": "millions of years ago",
+      "predicate": "is a",
+      "value": "giant carnivorous dinosaur",
       "sessionId": "answer_sharegpt_YkWn1Ne_0",
       "source": "assistant"
     },
@@ -31,14 +24,14 @@
     {
       "entity": "T-Rex",
       "predicate": "has",
-      "value": "long tail for balance",
+      "value": "long tail",
       "sessionId": "answer_sharegpt_YkWn1Ne_0",
       "source": "assistant"
     },
     {
       "entity": "Pterodactyl",
-      "predicate": "is",
-      "value": "a flying dinosaur",
+      "predicate": "is a",
+      "value": "flying dinosaur",
       "sessionId": "answer_sharegpt_YkWn1Ne_0",
       "source": "assistant"
     },
@@ -58,8 +51,8 @@
     },
     {
       "entity": "Plesiosaur",
-      "predicate": "is",
-      "value": "a dinosaur that lived in oceans",
+      "predicate": "is a",
+      "value": "dinosaur that lived in oceans",
       "sessionId": "answer_sharegpt_YkWn1Ne_0",
       "source": "assistant"
     },
@@ -79,15 +72,8 @@
     },
     {
       "entity": "Triceratops",
-      "predicate": "is",
-      "value": "a herbivorous dinosaur",
-      "sessionId": "answer_sharegpt_YkWn1Ne_0",
-      "source": "assistant"
-    },
-    {
-      "entity": "Triceratops",
-      "predicate": "has",
-      "value": "large head",
+      "predicate": "is a",
+      "value": "herbivorous dinosaur",
       "sessionId": "answer_sharegpt_YkWn1Ne_0",
       "source": "assistant"
     },
@@ -100,40 +86,32 @@
     },
     {
       "entity": "Triceratops",
-      "predicate": "eats",
-      "value": "only plants",
+      "predicate": "diet",
+      "value": "plants only",
       "sessionId": "answer_sharegpt_YkWn1Ne_0",
       "source": "assistant"
     },
     {
-      "entity": "Book",
-      "predicate": "title",
-      "value": "The Amazing Adventures of Dinosaurs",
+      "entity": "dinosaurs",
+      "predicate": "lived",
+      "value": "millions of years ago",
       "sessionId": "answer_sharegpt_YkWn1Ne_0",
       "source": "assistant"
-    },
-    {
-      "entity": "Book",
-      "predicate": "genre",
-      "value": "children's book",
-      "sessionId": "answer_sharegpt_YkWn1Ne_0",
-      "source": "user"
-    },
-    {
-      "entity": "Book",
-      "predicate": "includes",
-      "value": "images of dinosaurs",
-      "sessionId": "answer_sharegpt_YkWn1Ne_0",
-      "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "author writing children's book",
+      "entity": "user",
+      "preference": "children's book about dinosaurs",
       "polarity": "positive",
-      "constraint": "about dinosaurs with images"
+      "constraint": "includes images with elaborate descriptions"
     }
   ],
-  "events": []
+  "events": [
+    {
+      "event": "Writing of children's book 'The Amazing Adventures of Dinosaurs'",
+      "date": "2023-05-23",
+      "sessionId": "answer_sharegpt_YkWn1Ne_0"
+    }
+  ]
 }

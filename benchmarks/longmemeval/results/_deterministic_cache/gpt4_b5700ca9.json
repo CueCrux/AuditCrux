@@ -18,15 +18,8 @@
     },
     {
       "entity": "User",
-      "predicate": "availability",
-      "value": "weekday evenings",
-      "sessionId": "answer_a17423e7_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "willing to commit to",
-      "value": "regular volunteer schedule",
+      "predicate": "interested in volunteering",
+      "value": "Food Bank",
       "sessionId": "answer_a17423e7_1",
       "source": "user"
     },
@@ -39,28 +32,14 @@
     },
     {
       "entity": "Food Bank",
-      "predicate": "operating hours",
-      "value": "Monday to Friday",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "evening shift times",
-      "value": "4:00 pm - 7:00 pm",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "contact phone",
+      "predicate": "phone number",
       "value": "555-555-5555",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "contact email",
+      "predicate": "email",
       "value": "volunteer@foodbank.org",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
@@ -73,67 +52,63 @@
       "source": "assistant"
     },
     {
-      "entity": "Food Bank volunteer",
-      "predicate": "minimum age requirement",
-      "value": "18 years old",
+      "entity": "Food Bank",
+      "predicate": "operating hours",
+      "value": "Monday to Friday, evenings 4:00 pm - 7:00 pm",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
-      "entity": "Food Bank volunteer",
+      "entity": "Food Bank",
+      "predicate": "volunteer age requirement",
+      "value": "at least 18 years old",
+      "sessionId": "answer_a17423e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank",
       "predicate": "orientation duration",
-      "value": "30 minutes",
+      "value": "about 30 minutes",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
-      "entity": "Food Bank volunteer",
-      "predicate": "requires",
-      "value": "background check",
+      "entity": "Food Bank",
+      "predicate": "group volunteer program capacity",
+      "value": "5-20 people",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
-    },
-    {
-      "entity": "User",
-      "predicate": "interested in volunteering at",
-      "value": "Food Bank",
-      "date": "2023-04-06",
-      "sessionId": "answer_a17423e7_1",
-      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "community service or helping the underprivileged",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "weekday availability",
+      "preference": "volunteer causes",
       "polarity": "positive",
-      "constraint": "evenings preferred"
+      "constraint": "community service or helping the underprivileged"
     },
     {
       "entity": "User",
-      "preference": "regular volunteer schedule",
-      "polarity": "positive"
+      "preference": "volunteer schedule",
+      "polarity": "positive",
+      "constraint": "weekday evenings with regular commitment"
     },
     {
       "entity": "User",
-      "preference": "Food Bank Volunteer opportunity",
-      "polarity": "positive"
+      "preference": "volunteering format",
+      "polarity": "positive",
+      "constraint": "open to various causes and group volunteering"
     },
     {
       "entity": "User",
       "preference": "Maundy Thursday service",
       "polarity": "positive",
-      "constraint": "described as beautiful and moving"
+      "constraint": "found it beautiful and moving"
     }
   ],
   "events": [
     {
-      "event": "Easter Egg Hunt event (user volunteered)",
+      "event": "Easter Egg Hunt event",
       "date": "2023-03-30",
       "sessionId": "answer_a17423e7_1"
     },

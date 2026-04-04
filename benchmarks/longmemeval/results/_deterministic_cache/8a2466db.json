@@ -4,6 +4,7 @@
       "entity": "User",
       "predicate": "uses",
       "value": "Adobe Premiere Pro",
+      "date": "2023-05-21",
       "sessionId": "answer_edb03329",
       "source": "user"
     },
@@ -16,134 +17,78 @@
     },
     {
       "entity": "Lumetri Color Panel",
-      "predicate": "is_part_of",
-      "value": "Adobe Premiere Pro",
-      "sessionId": "answer_edb03329",
-      "source": "assistant"
-    },
-    {
-      "entity": "Lumetri Color Panel",
-      "predicate": "contains",
-      "value": "Color Match feature",
+      "predicate": "offers",
+      "value": "advanced color grading tools",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
       "entity": "Color Match",
-      "predicate": "function",
-      "value": "automatically match color and tone of one clip to another",
+      "predicate": "is_feature_of",
+      "value": "Lumetri Color Panel",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
       "entity": "Color Match",
-      "predicate": "analyzes",
-      "value": "color tone, skin tones, exposure, contrast",
+      "predicate": "automatically_matches",
+      "value": "color and tone of clips",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "Adobe Premiere Pro",
-      "predicate": "has_feature",
-      "value": "Timeline Panel",
+      "entity": "Creative Panel",
+      "predicate": "is_divided_into",
+      "value": "6 sections",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "Adobe Premiere Pro",
-      "predicate": "has_feature",
-      "value": "Render Cache",
+      "entity": "Curves Panel",
+      "predicate": "offers",
+      "value": "3 types of curves",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "Adobe Premiere Pro",
-      "predicate": "has_feature",
-      "value": "Dynamic Link",
+      "entity": "Luma Curve",
+      "predicate": "adjusts",
+      "value": "brightness and contrast",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "Adobe Premiere Pro",
-      "predicate": "has_feature",
-      "value": "Proxy Media",
+      "entity": "Color Curve",
+      "predicate": "adjusts",
+      "value": "color tone and saturation",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "Adobe Premiere Pro",
-      "predicate": "has_feature",
-      "value": "Multi-Camera Editing",
+      "entity": "Hue vs. Saturation Curve",
+      "predicate": "adjusts",
+      "value": "hue and saturation of specific colors",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "Adobe Premiere Pro",
-      "predicate": "integrates_with",
-      "value": "After Effects",
+      "entity": "S-curve",
+      "predicate": "creates",
+      "value": "cinematic look",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "Adobe Premiere Pro",
-      "predicate": "has_tool",
-      "value": "Media Encoder",
+      "entity": "Toe Control",
+      "predicate": "adjusts",
+      "value": "curve in shadows between 0-20% on x-axis",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     },
     {
-      "entity": "Lumetri Color Panel",
-      "predicate": "contains",
-      "value": "Creative panel",
-      "sessionId": "answer_edb03329",
-      "source": "assistant"
-    },
-    {
-      "entity": "Lumetri Color Panel",
-      "predicate": "contains",
-      "value": "Curves panel",
-      "sessionId": "answer_edb03329",
-      "source": "assistant"
-    },
-    {
-      "entity": "Creative panel",
-      "predicate": "divided_into",
-      "value": "six sections",
-      "sessionId": "answer_edb03329",
-      "source": "assistant"
-    },
-    {
-      "entity": "Creative panel",
-      "predicate": "contains_section",
-      "value": "Look",
-      "sessionId": "answer_edb03329",
-      "source": "assistant"
-    },
-    {
-      "entity": "Creative panel",
-      "predicate": "contains_section",
-      "value": "Color",
-      "sessionId": "answer_edb03329",
-      "source": "assistant"
-    },
-    {
-      "entity": "Creative panel",
-      "predicate": "contains_section",
-      "value": "Tone",
-      "sessionId": "answer_edb03329",
-      "source": "assistant"
-    },
-    {
-      "entity": "Look section",
-      "predicate": "allows",
-      "value": "applying pre-built looks such as film stocks or cinematic styles",
-      "sessionId": "answer_edb03329",
-      "source": "assistant"
-    },
-    {
-      "entity": "Color section",
-      "predicate": "enables",
-      "value": "adjusting overall color tone with warmth, coolness, and saturation options",
+      "entity": "Shoulder Control",
+      "predicate": "is_feature_of",
+      "value": "Curves Panel",
       "sessionId": "answer_edb03329",
       "source": "assistant"
     }
@@ -152,17 +97,39 @@
     {
       "entity": "User",
       "preference": "Adobe Premiere Pro",
-      "polarity": "positive"
+      "polarity": "positive",
+      "constraint": "enjoys to use"
     },
     {
       "entity": "User",
-      "preference": "learning advanced settings for video editing",
-      "polarity": "positive"
+      "preference": "learning advanced settings",
+      "polarity": "positive",
+      "constraint": "for video editing"
     }
   ],
   "events": [
     {
-      "event": "Conversation session about Adobe Premiere Pro advanced settings",
+      "event": "User asks for tips on advanced settings for Adobe Premiere Pro",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329"
+    },
+    {
+      "event": "User asks about Lumetri Color Panel and Color Match feature",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329"
+    },
+    {
+      "event": "User asks about Creative panel and Curves panel differences",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329"
+    },
+    {
+      "event": "User asks about creating cinematic look with Curves panel",
+      "date": "2023-05-21",
+      "sessionId": "answer_edb03329"
+    },
+    {
+      "event": "User asks about Toe and Shoulder controls in Curves panel",
       "date": "2023-05-21",
       "sessionId": "answer_edb03329"
     }

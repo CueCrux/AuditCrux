@@ -1,51 +1,138 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "has",
-      "value": "assignments and part-time job",
+      "entity": "user",
+      "predicate": "has_activity",
+      "value": "balancing assignments and part-time job",
+      "date": "2023-05-23",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is using",
+      "entity": "user",
+      "predicate": "uses_tool",
       "value": "Google Calendar",
+      "date": "2023-05-23",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "uses Google Calendar to track",
+      "entity": "user",
+      "predicate": "tracks_with_Google_Calendar",
       "value": "classes and part-time job",
+      "date": "2023-05-23",
       "sessionId": "answer_94030872",
       "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "planning_trip_to",
+      "value": "Great Ocean Road",
+      "sessionId": "answer_94030872",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "visited",
+      "value": "Great Ocean Road",
+      "sessionId": "answer_94030872",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "traveled_with",
+      "value": "some friends",
+      "sessionId": "answer_94030872",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "attended",
+      "value": "University of Melbourne",
+      "sessionId": "answer_94030872",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "program_type",
+      "value": "study abroad program",
+      "sessionId": "answer_94030872",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "activities_at_Great_Ocean_Road",
+      "value": "exploring the coast, hiking, and taking in the stunning views",
+      "sessionId": "answer_94030872",
+      "source": "user"
+    },
+    {
+      "entity": "Great Ocean Road",
+      "predicate": "location",
+      "value": "southeastern coast of Australia",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Great Ocean Road",
+      "predicate": "length",
+      "value": "243 kilometers",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
     },
     {
       "entity": "Todoist",
-      "predicate": "pricing",
-      "value": "Free, Premium: $3/month",
+      "predicate": "pricing_free",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Todoist",
+      "predicate": "pricing_premium",
+      "value": "$3/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Trello",
-      "predicate": "pricing",
-      "value": "Free, Premium: $12.50/month",
+      "predicate": "pricing_free",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Trello",
+      "predicate": "pricing_premium",
+      "value": "$12.50/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Evernote",
-      "predicate": "pricing",
-      "value": "Free, Premium: $7.99/month",
+      "predicate": "pricing_free",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Evernote",
+      "predicate": "pricing_premium",
+      "value": "$7.99/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "RescueTime",
-      "predicate": "pricing",
-      "value": "Free, Premium: $9/month",
+      "predicate": "pricing_free",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "RescueTime",
+      "predicate": "pricing_premium",
+      "value": "$9/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
@@ -58,8 +145,15 @@
     },
     {
       "entity": "Any.do",
-      "predicate": "pricing",
-      "value": "Free, Premium: $2.99/month",
+      "predicate": "pricing_free",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Any.do",
+      "predicate": "pricing_premium",
+      "value": "$2.99/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
@@ -72,82 +166,117 @@
     },
     {
       "entity": "Forest",
-      "predicate": "pricing",
-      "value": "Free, Premium: $1.99/month",
+      "predicate": "pricing_free",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Forest",
+      "predicate": "pricing_premium",
+      "value": "$1.99/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Wunderlist",
-      "predicate": "pricing",
-      "value": "Free, Premium: $4.99/month",
+      "predicate": "pricing_free",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Wunderlist",
+      "predicate": "pricing_premium",
+      "value": "$4.99/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "ClickUp",
-      "predicate": "pricing",
-      "value": "Free, Premium: $5/month",
+      "predicate": "pricing_free",
+      "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
-      "entity": "Todoist",
-      "predicate": "integrates with",
-      "value": "Google Calendar, Gmail, Slack",
+      "entity": "ClickUp",
+      "predicate": "pricing_premium",
+      "value": "$5/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
-      "entity": "Google Tasks",
-      "predicate": "integrates with",
-      "value": "Google Calendar and Gmail",
+      "entity": "user",
+      "predicate": "decided_to_use",
+      "value": "Todoist",
+      "date": "2023-05-23",
       "sessionId": "answer_94030872",
-      "source": "assistant"
+      "source": "user"
     },
     {
-      "entity": "Microsoft To Do",
-      "predicate": "integrates with",
-      "value": "Microsoft Outlook",
+      "entity": "Kennett River Koala Walk",
+      "predicate": "location",
+      "value": "Great Ocean Road area",
       "sessionId": "answer_94030872",
-      "source": "assistant"
+      "source": "user"
     },
     {
-      "entity": "Pomodoro Technique",
-      "predicate": "involves",
-      "value": "work for 25 minutes, take a 5-minute break, repeat for 4-6 cycles",
+      "entity": "Twelve Apostles",
+      "predicate": "location",
+      "value": "Great Ocean Road",
       "sessionId": "answer_94030872",
       "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "app that is easy to use",
+      "entity": "user",
+      "preference": "task management using simple, intuitive tools",
       "polarity": "positive",
-      "constraint": "for task management and organization"
+      "constraint": "easy to use and syncs across devices"
     },
     {
-      "entity": "User",
-      "preference": "app that syncs well across all devices",
-      "polarity": "positive",
-      "constraint": "for task management"
-    },
-    {
-      "entity": "Todoist",
-      "preference": "simple and intuitive interface",
+      "entity": "user",
+      "preference": "breaking down large projects into smaller, manageable tasks",
       "polarity": "positive"
     },
     {
-      "entity": "Trello",
-      "preference": "visual project management with Kanban-style workflow",
-      "polarity": "positive"
+      "entity": "user",
+      "preference": "Todoist over Trello for task management",
+      "polarity": "positive",
+      "constraint": "for task-focused management"
+    },
+    {
+      "entity": "user",
+      "preference": "Great Ocean Road",
+      "polarity": "positive",
+      "constraint": "must-see destination in Australia"
+    },
+    {
+      "entity": "user",
+      "preference": "outdoor activities",
+      "polarity": "positive",
+      "constraint": "hiking, exploring, scenic views"
     }
   ],
   "events": [
     {
-      "event": "Conversation session about time management and productivity tools",
-      "date": "2023-05-23",
+      "event": "user planning trip to Great Ocean Road",
+      "date": null,
+      "location": "Great Ocean Road, Australia",
+      "sessionId": "answer_94030872"
+    },
+    {
+      "event": "user previously traveled to Great Ocean Road with friends during study abroad program",
+      "date": null,
+      "location": "Great Ocean Road, Australia",
+      "sessionId": "answer_94030872"
+    },
+    {
+      "event": "user attended University of Melbourne study abroad program",
+      "date": null,
+      "location": "University of Melbourne, Australia",
       "sessionId": "answer_94030872"
     }
   ]

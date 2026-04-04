@@ -43,23 +43,16 @@ interface FactStore {
 
 // ── Phase 1: Extraction ──
 
-const EXTRACTION_PROMPT = `Extract ALL facts, preferences, and events from this conversation.
+const EXTRACTION_PROMPT = `You are a fact extractor. Extract ALL facts from the conversation below. Output ONLY valid JSON, no other text.
 
-Output JSON with three arrays:
-{
-  "facts": [{"entity": "...", "predicate": "...", "value": "...", "date": "YYYY-MM-DD or null", "source": "user|assistant"}],
-  "preferences": [{"entity": "...", "preference": "...", "polarity": "positive|negative", "constraint": "...or null"}],
-  "events": [{"event": "...", "date": "YYYY-MM-DD", "location": "...or null"}]
-}
+{"facts":[{"entity":"subject","predicate":"relationship","value":"object","date":"YYYY-MM-DD or null","source":"user or assistant"}],"preferences":[{"entity":"subject","preference":"what they like/dislike","polarity":"positive or negative","constraint":"null or detail"}],"events":[{"event":"what happened","date":"YYYY-MM-DD","location":"where or null"}]}
 
-Rules:
-- Extract EVERY factual statement (names, numbers, dates, places, activities, possessions, relationships)
-- For preferences: "I love X" = positive, "I don't like X" = negative, "I prefer X over Y" = positive for X
-- For events: anything with a specific date
-- Include facts from BOTH user and assistant turns
-- If the assistant recommends something and the user accepts, that's a fact
-- Dates: extract the actual date, not relative terms. If the conversation header says [Date: 2023-05-20], use that as context.
-- Be exhaustive — missing a fact is worse than extracting a redundant one
+IMPORTANT:
+- Extract EVERY fact: names, numbers, dates, places, activities, possessions, costs, relationships
+- Include facts from assistant turns (recommendations, answers, explanations)
+- "I love X" → preference positive. "I don't like X" → preference negative
+- Use actual dates from conversation headers like [Date: 2023-05-20]
+- Output ONLY the JSON object, nothing else
 
 Conversation:
 `;
@@ -117,8 +110,30 @@ export async function extractFacts(
         sessionId,
       })),
     };
-  } catch {
-    return { facts: [], preferences: [], events: [] };
+  } catch (parseErr) {
+    console.warn(`  [extract] JSON parse failed for ${sessionId}: ${parseErr instanceof Error ? parseErr.message : String(parseErr)}`);
+    console.warn(`  [extract] Raw text (first 200): ${text.slice(0, 200)}`);
+
+    // Retry: try extracting facts as a simpler comma-separated list
+    // Look for any key=value patterns in the text
+    const fallbackFacts: ExtractedFact[] = [];
+    const lines = text.split("\n").filter((l) => l.trim().length > 5);
+    for (const line of lines) {
+      const kvMatch = line.match(/["']?(\w[\w\s]+)["']?\s*[:=→-]\s*["']?(.+?)["']?$/);
+      if (kvMatch) {
+        fallbackFacts.push({
+          entity: "user",
+          predicate: kvMatch[1]!.trim(),
+          value: kvMatch[2]!.trim(),
+          sessionId,
+          source: "user",
+        });
+      }
+    }
+    if (fallbackFacts.length > 0) {
+      console.warn(`  [extract] Fallback: ${fallbackFacts.length} facts from line parsing`);
+    }
+    return { facts: fallbackFacts, preferences: [], events: [] };
   }
 }
 
@@ -168,6 +183,22 @@ function selectAnswerField(question: string, fact: ExtractedFact): string {
     // If value looks like a name (capitalized words)
     if (/^[A-Z][a-z]+ [A-Z][a-z]+/.test(fact.value)) return fact.value;
     if (/^[A-Z][a-z]+ [A-Z][a-z]+/.test(fact.entity)) return fact.entity;
+    return fact.value;
+  }
+
+  // "name of" / "remind me" questions → return the entity name (the proper noun)
+  if (/\bname\b|remind me|could you remind|you.*remind/.test(q)) {
+    // If entity is a proper noun, return it
+    if (/^[A-Z]/.test(fact.entity) && fact.entity !== "User" && fact.entity.length > 2) {
+      return fact.entity;
+    }
+    // Otherwise return value if it's a proper noun
+    if (/^[A-Z]/.test(fact.value) && fact.value.length < 60) return fact.value;
+    return fact.value;
+  }
+
+  // Recommendation / suggest questions → return the value (the recommended thing)
+  if (/\brecommend\b|\bsuggest\b|\btips?\b|\badvice\b|\bactivit/.test(q)) {
     return fact.value;
   }
 
@@ -271,8 +302,8 @@ export function parseQuestion(question: string): QuestionOp {
     return { type: "EVENT_DATE", event: eventMatch?.[1]?.trim() ?? question };
   }
 
-  // PREFERENCE patterns
-  if (/(?:do I (?:like|prefer|enjoy|love|hate|dislike))|(?:what (?:is|are) my (?:favorite|preferred|favourite))/.test(q)) {
+  // PREFERENCE patterns (including recommendation/suggestion questions)
+  if (/(?:do I (?:like|prefer|enjoy|love|hate|dislike))|(?:what (?:is|are) my (?:favorite|preferred|favourite))|(?:recommend|suggest|tips?\b|advice\b)/.test(q)) {
     const entityMatch = question.match(/(?:favorite|preferred|favourite) (.+?)(?:\?|$)/i) ??
       question.match(/(?:like|prefer|enjoy|love) (.+?)(?:\?|$)/i);
     return { type: "PREFERENCE", entity: entityMatch?.[1]?.trim() ?? question };
@@ -556,29 +587,61 @@ export function answerDeterministic(
     const wantsLocation = /\bwhere\b|what (?:place|store|restaurant|hotel|city|country|location)/.test(ql);
     const wantsAmount = /how (?:much|many)|total|cost|price|spend|spent|paid|budget|\$/.test(ql);
     const wantsDate = /\bwhen\b|what (?:date|day|time)|how (?:many|long) (?:days|weeks|months|years)/.test(ql);
-    const wantsName = /what (?:is|was) (?:the )?name|what (?:is|was) (?:it |that )?called|remind me (?:of )?(?:the )?name/.test(ql);
+    const wantsName = /what (?:is|was) (?:the )?name|what (?:is|was) (?:it |that )?called|remind me (?:of )?(?:the )?name|remind me (?:of )?that|could you remind|you (?:could |can )?remind|what was (?:the |that )/.test(ql);
     const wantsFrequency = /how often|how frequent|how regularly/.test(ql);
 
+    // Entity-group scoring: group facts by entity, score ALL facts for each entity
+    // against question keywords. This enables multi-fact reasoning:
+    // "romantic Italian restaurant" matches Roscioli because Roscioli has facts
+    // about "cozy", "intimate", "Italian", "Rome" spread across multiple facts.
+    const entityFacts = new Map<string, ExtractedFact[]>();
     for (const f of store.facts) {
-      const text = `${f.entity} ${f.predicate} ${f.value}`.toLowerCase();
-      let score = keywords.filter((kw) => text.includes(kw)).length;
+      const key = f.entity;
+      const arr = entityFacts.get(key) ?? [];
+      arr.push(f);
+      entityFacts.set(key, arr);
+    }
 
-      // Bonus: if the value matches what the question type wants, boost score
-      const val = f.value.toLowerCase();
-      const pred = f.predicate.toLowerCase();
-      if (wantsAmount && /\$?\d/.test(f.value)) score += 3;
-      if (wantsLocation && /store|shop|restaurant|hotel|city|town|downtown|park|school|university|hospital|airport|museum|library|market|mall|street|avenue|road/.test(val)) score += 3;
-      if (wantsDate && f.date) score += 3;
-      if (wantsDate && /\d{4}/.test(f.value)) score += 2;
-      if (wantsName && !/\d/.test(f.value) && f.value.length > 3) score += 2;
-      if (wantsFrequency && /daily|weekly|monthly|twice|three times|once|every/.test(val)) score += 3;
+    for (const [entityName, facts] of entityFacts) {
+      // Concatenate ALL text from all facts for this entity
+      const allText = facts.map((f) => `${f.entity} ${f.predicate} ${f.value}`).join(" ").toLowerCase();
+      const entityScore = keywords.filter((kw) => allText.includes(kw)).length;
 
-      // Penalty: if value just echoes the entity (not informative)
-      if (val === f.entity.toLowerCase()) score -= 2;
+      if (entityScore < 1) continue;
 
-      if (score >= 1) {
-        candidates.push({ score, answer: selectAnswerField(question, f), type: "fact" });
+      // Pick the best individual fact to answer from
+      let bestFact = facts[0]!;
+      let bestFactScore = 0;
+
+      for (const f of facts) {
+        let fScore = 0;
+        const val = f.value.toLowerCase();
+        const pred = f.predicate.toLowerCase();
+
+        if (wantsAmount && /\$?\d/.test(f.value)) fScore += 5;
+        if (wantsLocation && /store|shop|restaurant|hotel|city|town|downtown|park|school|near|district/.test(val)) fScore += 5;
+        if (wantsDate && f.date) fScore += 5;
+        if (wantsDate && /\d{4}/.test(f.value)) fScore += 3;
+        if (wantsFrequency && /daily|weekly|monthly|twice|three times|once|every/.test(val)) fScore += 5;
+        if (wantsName) fScore += 1; // for names, the entity itself is the answer
+        if (/name|called|titled|known as|type|description/.test(pred)) fScore += 2;
+
+        if (fScore > bestFactScore) { bestFactScore = fScore; bestFact = f; }
       }
+
+      // For name questions: the ENTITY name is the answer, not a fact value
+      let answer: string;
+      if (wantsName && /^[A-Z]/.test(entityName) && entityName !== "User") {
+        answer = entityName;
+      } else {
+        answer = selectAnswerField(question, bestFact);
+      }
+
+      candidates.push({
+        score: entityScore + bestFactScore,
+        answer,
+        type: "fact",
+      });
     }
     for (const p of store.preferences) {
       const text = `${p.entity} ${p.preference} ${p.constraint ?? ""}`.toLowerCase();
