@@ -2,50 +2,57 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "took a family trip to",
+      "predicate": "took a trip to",
       "value": "Hawaii",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "participated in activity during Hawaii trip",
+      "entity": "User's Hawaii trip",
+      "predicate": "included activity",
       "value": "snorkeling",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
+      "entity": "User's Hawaii trip",
+      "predicate": "had",
+      "value": "packed schedule",
+      "sessionId": "answer_02e66dec_1",
+      "source": "user"
+    },
+    {
       "entity": "User",
-      "predicate": "wanted to explore during Hawaii trip",
+      "predicate": "wanted to explore",
       "value": "Waikiki",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "wanted to do during Hawaii trip",
+      "predicate": "wanted to do",
       "value": "shopping",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "is planning to take",
+      "predicate": "is planning",
       "value": "solo excursions on next family trip",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "is considering taking extra days after family trip to",
-      "value": "explore on own",
+      "predicate": "is considering",
+      "value": "taking extra days after family trip to explore solo",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "has friends who live in",
-      "value": "the area (implied Hawaii or travel destination)",
+      "predicate": "has",
+      "value": "friends who live in the area",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
@@ -58,68 +65,76 @@
     },
     {
       "entity": "User",
-      "predicate": "is aware of apps for meeting people",
-      "value": "Bumble BFF, Meetup",
+      "predicate": "is aware of apps",
+      "value": "Bumble BFF and Meetup",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended apps",
+      "value": "Backpackr, Travello, Join My Trip",
+      "sessionId": "answer_02e66dec_1",
+      "source": "assistant"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "snorkeling with family",
+      "preference": "snorkeling",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "personal freedom and flexibility while traveling",
+      "preference": "family travel experiences",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "solo exploration",
+      "preference": "personal freedom while traveling",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "shopping",
+      "preference": "exploring and shopping",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "flexible schedules",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "solo travel with social opportunities",
       "polarity": "positive"
     },
     {
       "entity": "User",
       "preference": "packed family schedules",
-      "polarity": "negative"
+      "polarity": "negative",
+      "constraint": "felt stuck to schedule"
     },
     {
       "entity": "User",
-      "preference": "feeling stuck to a schedule",
-      "polarity": "negative"
-    },
-    {
-      "entity": "User",
-      "preference": "meeting new people while traveling solo",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "meeting friends while traveling",
+      "preference": "meeting new people while traveling",
       "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "User's family trip to Hawaii with snorkeling activity",
+      "event": "User's family trip to Hawaii with snorkeling",
       "date": null,
       "location": "Hawaii",
       "sessionId": "answer_02e66dec_1"
     },
     {
-      "event": "User planning next family trip with solo excursions",
+      "event": "Planning next family trip with solo excursions",
       "date": null,
       "sessionId": "answer_02e66dec_1"
     },
     {
-      "event": "User planning solo exploration after family trip",
+      "event": "Planning extra solo days after next family trip",
       "date": null,
       "sessionId": "answer_02e66dec_1"
     }

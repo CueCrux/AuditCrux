@@ -2,14 +2,14 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "primary content type watched on Netflix",
+      "predicate": "watches primarily",
       "value": "series",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "current series watching",
+      "predicate": "currently watching",
       "value": "Black List",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
@@ -23,36 +23,36 @@
     },
     {
       "entity": "User",
-      "predicate": "has tried Netflix original content",
-      "value": "no information provided",
-      "sessionId": "answer_sharegpt_m2xJfjo_0",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "knows Netflix pricing",
-      "value": "no, unsure of cost",
+      "predicate": "knows",
+      "value": "Netflix pricing",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
       "entity": "Netflix",
-      "predicate": "removes show seasons",
-      "value": "true - example: Doc Martin show went down, only last season remains accessible",
+      "predicate": "removes shows after time",
+      "value": "true",
+      "sessionId": "answer_sharegpt_m2xJfjo_0",
+      "source": "user"
+    },
+    {
+      "entity": "Doc Martin",
+      "predicate": "availability on Netflix",
+      "value": "only last season available",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "experienced technical issue with Netflix",
-      "value": "occasional access issues - unable to open app, resolved by waiting",
+      "predicate": "experiences technical issues with Netflix",
+      "value": "access problems (unable to open app)",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "opinion on Netflix impact on entertainment consumption",
-      "value": "no comment/unsure",
+      "predicate": "resolution method for Netflix access issues",
+      "value": "wait and retry later",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     }
@@ -60,9 +60,8 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "Netflix content variety",
-      "polarity": "positive",
-      "constraint": "something for everybody"
+      "preference": "Netflix variety of content",
+      "polarity": "positive"
     },
     {
       "entity": "User",
@@ -71,37 +70,31 @@
     },
     {
       "entity": "User",
-      "preference": "Netflix daily new content",
+      "preference": "more diversity in Netflix content",
+      "polarity": "positive",
+      "constraint": "but satisfied with current offerings"
+    },
+    {
+      "entity": "User",
+      "preference": "Netflix pricing/value",
+      "polarity": "positive",
+      "constraint": "unsure of actual cost"
+    },
+    {
+      "entity": "User",
+      "preference": "all seasons of old shows available on Netflix",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "more content diversity on Netflix",
-      "polarity": "positive",
-      "constraint": "though satisfied with current offerings"
-    },
-    {
-      "entity": "User",
-      "preference": "Netflix pricing value",
-      "polarity": "positive",
-      "constraint": "good value for money"
-    },
-    {
-      "entity": "User",
-      "preference": "complete series availability",
-      "polarity": "positive",
-      "constraint": "all seasons of old shows should remain accessible"
-    },
-    {
-      "entity": "User",
-      "preference": "Netflix stability",
-      "polarity": "negative",
-      "constraint": "frustration with occasional access issues"
+      "preference": "Netflix original programming",
+      "polarity": "neutral",
+      "constraint": "takes it as it comes"
     }
   ],
   "events": [
     {
-      "event": "Interview about Netflix conducted",
+      "event": "Netflix interview conducted",
       "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0"
     }

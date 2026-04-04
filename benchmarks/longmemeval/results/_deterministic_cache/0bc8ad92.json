@@ -16,29 +16,15 @@
     },
     {
       "entity": "User",
-      "predicate": "attended tour with",
-      "value": "a chemistry professor friend",
-      "sessionId": "answer_f4ea84fb_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "explored",
-      "value": "Science Museum's collection of rare minerals",
-      "sessionId": "answer_f4ea84fb_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "participated in",
-      "value": "hands-on experiment with educational team",
+      "predicate": "was amazed by",
+      "value": "complexity of exhibits",
       "sessionId": "answer_f4ea84fb_3",
       "source": "user"
     },
     {
       "entity": "User",
       "predicate": "visited",
-      "value": "various museums",
+      "value": "various museums in past few months",
       "sessionId": "answer_f4ea84fb_3",
       "source": "user"
     },
@@ -50,9 +36,30 @@
       "source": "user"
     },
     {
-      "entity": "Science Museum exhibits",
-      "predicate": "characteristic",
-      "value": "complex",
+      "entity": "User",
+      "predicate": "visited with",
+      "value": "chemistry professor friend",
+      "sessionId": "answer_f4ea84fb_3",
+      "source": "user"
+    },
+    {
+      "entity": "User and friend",
+      "predicate": "explored",
+      "value": "Science Museum's collection of rare minerals",
+      "sessionId": "answer_f4ea84fb_3",
+      "source": "user"
+    },
+    {
+      "entity": "User and friend",
+      "predicate": "participated in",
+      "value": "hands-on experiment with educational team",
+      "sessionId": "answer_f4ea84fb_3",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "interested in",
+      "value": "chemistry and physics exhibits and events",
       "sessionId": "answer_f4ea84fb_3",
       "source": "user"
     }
@@ -60,42 +67,47 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "chemistry and physics content",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "museum exhibits and events",
-      "polarity": "positive",
-      "constraint": "in local area"
-    },
-    {
-      "entity": "User",
-      "preference": "learning and having fun simultaneously",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
       "preference": "behind-the-scenes museum tours",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "hands-on educational experiences",
+      "preference": "chemistry and physics exhibits",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "hands-on experiments",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "educational content on chemistry and physics",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "museum events and exhibits",
+      "polarity": "positive",
+      "constraint": "in local area"
+    },
+    {
+      "entity": "User",
+      "preference": "learning new things through museums",
       "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "User's behind-the-scenes tour at Science Museum",
+      "event": "User visited Science Museum for behind-the-scenes tour",
       "date": null,
       "location": "Science Museum",
       "sessionId": "answer_f4ea84fb_3"
     },
     {
-      "event": "User's recent visits to various museums",
+      "event": "User visited various museums in past few months",
       "date": null,
-      "location": "various museums in user's area",
+      "location": "User's area",
       "sessionId": "answer_f4ea84fb_3"
     }
   ]

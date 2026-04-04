@@ -3,7 +3,7 @@
     {
       "entity": "Trattoria Da Enzo al 29",
       "predicate": "located in",
-      "value": "Trastevere neighborhood, Rome",
+      "value": "Trastevere neighborhood",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
@@ -31,7 +31,7 @@
     {
       "entity": "Roscioli",
       "predicate": "located near",
-      "value": "Campo dei Fiori market, Rome",
+      "value": "Campo dei Fiori market",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
@@ -51,22 +51,15 @@
     },
     {
       "entity": "Roscioli",
-      "predicate": "offers",
+      "predicate": "offers experience",
       "value": "private wine and cheese tasting",
-      "sessionId": "answer_ultrachat_448704",
-      "source": "assistant"
-    },
-    {
-      "entity": "Roscioli",
-      "predicate": "atmosphere",
-      "value": "cozy and intimate with soft lighting",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
     {
       "entity": "Pizzeria La Montecarlo",
       "predicate": "located in",
-      "value": "Gianicolo area, Rome",
+      "value": "Gianicolo area",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
@@ -87,7 +80,7 @@
     {
       "entity": "Sora Margherita",
       "predicate": "located in",
-      "value": "Jewish Ghetto neighborhood, Rome",
+      "value": "Jewish Ghetto neighborhood",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
@@ -115,7 +108,7 @@
     {
       "entity": "La Pergola",
       "predicate": "located",
-      "value": "atop the Rome Cavalieri Hotel",
+      "value": "atop Rome Cavalieri Hotel",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
@@ -128,14 +121,14 @@
     },
     {
       "entity": "Hostaria Costanza",
-      "predicate": "located in",
-      "value": "heart of Rome near the Colosseum",
+      "predicate": "located near",
+      "value": "Colosseum",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
     {
       "entity": "Hostaria Costanza",
-      "predicate": "offers",
+      "predicate": "serves",
       "value": "classic Roman dishes",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
@@ -157,7 +150,21 @@
     {
       "entity": "Ditirambo",
       "predicate": "menu",
-      "value": "high-quality with fresh and seasonal ingredients",
+      "value": "fresh and seasonal ingredients",
+      "sessionId": "answer_ultrachat_448704",
+      "source": "assistant"
+    },
+    {
+      "entity": "Roscioli",
+      "predicate": "atmosphere",
+      "value": "cozy and intimate with soft lighting",
+      "sessionId": "answer_ultrachat_448704",
+      "source": "assistant"
+    },
+    {
+      "entity": "Roscioli",
+      "predicate": "service quality",
+      "value": "excellent",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
@@ -170,7 +177,7 @@
     },
     {
       "entity": "Giolitti",
-      "predicate": "type",
+      "predicate": "description",
       "value": "one of the oldest and most famous gelaterias in Rome",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
@@ -198,7 +205,7 @@
     },
     {
       "entity": "Fatamorgana",
-      "predicate": "uses ingredients",
+      "predicate": "ingredients used",
       "value": "ginger, rosemary, gorgonzola cheese",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
@@ -206,21 +213,28 @@
     {
       "entity": "Gelateria del Teatro",
       "predicate": "located",
-      "value": "close to Piazza Navona, Rome",
+      "value": "close to Piazza Navona",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
     {
       "entity": "Gelateria del Teatro",
       "predicate": "known for",
-      "value": "creative flavors and aesthetically pleasing presentation",
+      "value": "creative flavors",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
     {
       "entity": "Gelateria del Teatro",
-      "predicate": "offers flavors",
+      "predicate": "flavors",
       "value": "goat cheese and fig, white chocolate and basil",
+      "sessionId": "answer_ultrachat_448704",
+      "source": "assistant"
+    },
+    {
+      "entity": "Gelateria del Teatro",
+      "predicate": "feature",
+      "value": "aesthetically pleasing presentation",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
@@ -240,8 +254,8 @@
     },
     {
       "entity": "La Romana",
-      "predicate": "offers flavors",
-      "value": "classic to innovative combinations",
+      "predicate": "offers",
+      "value": "classic to innovative flavor combinations",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
     },
@@ -258,29 +272,47 @@
       "value": "classic and seasonal flavors",
       "sessionId": "answer_ultrachat_448704",
       "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "wants reservation at",
+      "value": "Roscioli",
+      "date": "2023-05-31",
+      "sessionId": "answer_ultrachat_448704",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "requested reservation time",
+      "value": "7:00 pm",
+      "date": "2023-05-31",
+      "sessionId": "answer_ultrachat_448704",
+      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "Roscioli for a romantic dinner",
+      "preference": "romantic dinner location",
       "polarity": "positive",
-      "constraint": "cozy and intimate atmosphere, soft lighting, excellent service, great wine list"
+      "constraint": "in Rome"
     },
     {
       "entity": "User",
-      "preference": "authentic Italian restaurants in Rome",
-      "polarity": "positive"
+      "preference": "Roscioli",
+      "polarity": "positive",
+      "constraint": "for romantic dinner"
     },
     {
       "entity": "User",
-      "preference": "good gelato spots in Rome",
-      "polarity": "positive"
+      "preference": "gelato spots in Rome",
+      "polarity": "positive",
+      "constraint": "good quality"
     }
   ],
   "events": [
     {
-      "event": "Dinner reservation requested at Roscioli",
+      "event": "Romantic dinner reservation request at Roscioli",
       "date": "2023-05-31",
       "location": "Roscioli, Rome",
       "sessionId": "answer_ultrachat_448704"

@@ -130,17 +130,21 @@ async function main() {
       // Extract from each session individually (sessions can be very long)
       store = { facts: [], preferences: [], events: [] };
 
-      // Only extract from answer sessions (the ones that contain the answer)
+      // Extract from answer sessions first, fall back to all sessions if none found
       const answerSessionIds = new Set(problem.answer_session_ids ?? []);
-      const sessionsToExtract = problem.haystack_sessions
-        .map((turns, idx) => ({
-          turns,
-          sessionId: problem.haystack_session_ids[idx] ?? `session-${idx}`,
-          date: problem.haystack_dates[idx] ?? "unknown",
-          isAnswer: answerSessionIds.has(problem.haystack_session_ids[idx] ?? ""),
-        }))
-        .filter((s) => s.isAnswer || answerSessionIds.size === 0) // if no answer_session_ids, extract all
-        .slice(0, 10); // cap at 10 sessions
+      const allSessions = problem.haystack_sessions.map((turns, idx) => ({
+        turns,
+        sessionId: problem.haystack_session_ids[idx] ?? `session-${idx}`,
+        date: problem.haystack_dates[idx] ?? "unknown",
+        isAnswer: answerSessionIds.has(problem.haystack_session_ids[idx] ?? ""),
+      }));
+
+      let sessionsToExtract = allSessions.filter((s) => s.isAnswer);
+      if (sessionsToExtract.length === 0) {
+        // No answer_session_ids — extract from ALL sessions (cap at 15)
+        sessionsToExtract = allSessions.slice(0, 15);
+      }
+      sessionsToExtract = sessionsToExtract.slice(0, 15); // hard cap
 
       for (const session of sessionsToExtract) {
         const content = flattenSession(session.turns, session.sessionId, session.date);

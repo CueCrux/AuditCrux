@@ -2,110 +2,354 @@
   "facts": [
     {
       "entity": "GM social media team",
-      "predicate": "number of agents",
-      "value": "7",
+      "predicate": "has",
+      "value": "7 agents",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
       "entity": "GM social media team",
-      "predicate": "shift 1 hours",
-      "value": "8 am till 4 pm",
+      "predicate": "has",
+      "value": "4 shifts",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "GM social media team",
-      "predicate": "shift 2 hours",
-      "value": "12 pm till 8 pm",
+      "entity": "Shift 1",
+      "predicate": "time",
+      "value": "8 am - 4 pm",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "GM social media team",
-      "predicate": "shift 3 hours",
-      "value": "4 pm till 12 am",
+      "entity": "Shift 2",
+      "predicate": "time",
+      "value": "12 pm - 8 pm",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "GM social media team",
-      "predicate": "shift 4 hours",
-      "value": "12 am till 8 am",
+      "entity": "Shift 3",
+      "predicate": "time",
+      "value": "4 pm - 12 am",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "GM social media team",
-      "predicate": "days off per agent per week",
-      "value": "2",
+      "entity": "Shift 4",
+      "predicate": "time",
+      "value": "12 am - 8 am",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "GM social media team",
-      "predicate": "rotation schedule duration",
+      "entity": "Each agent",
+      "predicate": "has days off",
+      "value": "2 days per week",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "user"
+    },
+    {
+      "entity": "Rotation period",
+      "predicate": "duration",
       "value": "1 week",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "GM social media team",
-      "predicate": "week format",
-      "value": "Sunday - Saturday",
+      "entity": "Rotation week",
+      "predicate": "starts on",
+      "value": "Sunday",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "Agent",
+      "entity": "Rotation week",
+      "predicate": "ends on",
+      "value": "Saturday",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "user"
+    },
+    {
+      "entity": "Agent 1",
       "predicate": "name",
       "value": "Admon",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "Agent",
+      "entity": "Agent 2",
       "predicate": "name",
       "value": "Magdy",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "Agent",
+      "entity": "Agent 3",
       "predicate": "name",
       "value": "Ehab",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "Agent",
+      "entity": "Agent 4",
       "predicate": "name",
       "value": "Sara",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "Agent",
+      "entity": "Agent 5",
       "predicate": "name",
       "value": "Mostafa",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "Agent",
+      "entity": "Agent 6",
       "predicate": "name",
       "value": "Nemr",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
     },
     {
-      "entity": "Agent",
+      "entity": "Agent 7",
       "predicate": "name",
       "value": "Adam",
       "sessionId": "answer_sharegpt_5Lzox6N_0",
       "source": "user"
+    },
+    {
+      "entity": "Admon",
+      "predicate": "assigned shift on Sunday",
+      "value": "8 am - 4 pm",
+      "date": "2023-05-28",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Magdy",
+      "predicate": "assigned shift on Sunday",
+      "value": "12 pm - 8 pm",
+      "date": "2023-05-28",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Ehab",
+      "predicate": "assigned shift on Sunday",
+      "value": "4 pm - 12 am",
+      "date": "2023-05-28",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sara",
+      "predicate": "assigned shift on Sunday",
+      "value": "12 am - 8 am",
+      "date": "2023-05-28",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Mostafa",
+      "predicate": "assigned shift on Monday",
+      "value": "8 am - 4 pm",
+      "date": "2023-05-29",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Nemr",
+      "predicate": "assigned shift on Monday",
+      "value": "12 pm - 8 pm",
+      "date": "2023-05-29",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Adam",
+      "predicate": "assigned shift on Monday",
+      "value": "4 pm - 12 am",
+      "date": "2023-05-29",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Admon",
+      "predicate": "assigned shift on Monday",
+      "value": "12 am - 8 am",
+      "date": "2023-05-29",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Magdy",
+      "predicate": "assigned shift on Tuesday",
+      "value": "8 am - 4 pm",
+      "date": "2023-05-30",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Ehab",
+      "predicate": "assigned shift on Tuesday",
+      "value": "12 pm - 8 pm",
+      "date": "2023-05-30",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sara",
+      "predicate": "assigned shift on Tuesday",
+      "value": "4 pm - 12 am",
+      "date": "2023-05-30",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Mostafa",
+      "predicate": "assigned shift on Tuesday",
+      "value": "12 am - 8 am",
+      "date": "2023-05-30",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Nemr",
+      "predicate": "assigned shift on Wednesday",
+      "value": "8 am - 4 pm",
+      "date": "2023-05-31",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Adam",
+      "predicate": "assigned shift on Wednesday",
+      "value": "12 pm - 8 pm",
+      "date": "2023-05-31",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Admon",
+      "predicate": "assigned shift on Wednesday",
+      "value": "4 pm - 12 am",
+      "date": "2023-05-31",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Magdy",
+      "predicate": "assigned shift on Wednesday",
+      "value": "12 am - 8 am",
+      "date": "2023-05-31",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Ehab",
+      "predicate": "assigned shift on Thursday",
+      "value": "8 am - 4 pm",
+      "date": "2023-06-01",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sara",
+      "predicate": "assigned shift on Thursday",
+      "value": "12 pm - 8 pm",
+      "date": "2023-06-01",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Mostafa",
+      "predicate": "assigned shift on Thursday",
+      "value": "4 pm - 12 am",
+      "date": "2023-06-01",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Nemr",
+      "predicate": "assigned shift on Thursday",
+      "value": "12 am - 8 am",
+      "date": "2023-06-01",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Admon",
+      "predicate": "assigned shift on Friday",
+      "value": "8 am - 4 pm",
+      "date": "2023-06-02",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Magdy",
+      "predicate": "assigned shift on Friday",
+      "value": "12 pm - 8 pm",
+      "date": "2023-06-02",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Ehab",
+      "predicate": "assigned shift on Friday",
+      "value": "4 pm - 12 am",
+      "date": "2023-06-02",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sara",
+      "predicate": "assigned shift on Friday",
+      "value": "12 am - 8 am",
+      "date": "2023-06-02",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Adam",
+      "predicate": "assigned shift on Saturday",
+      "value": "8 am - 4 pm",
+      "date": "2023-06-03",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Mostafa",
+      "predicate": "assigned shift on Saturday",
+      "value": "12 pm - 8 pm",
+      "date": "2023-06-03",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Nemr",
+      "predicate": "assigned shift on Saturday",
+      "value": "4 pm - 12 am",
+      "date": "2023-06-03",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
+    },
+    {
+      "entity": "Admon",
+      "predicate": "assigned shift on Saturday",
+      "value": "12 am - 8 am",
+      "date": "2023-06-03",
+      "sessionId": "answer_sharegpt_5Lzox6N_0",
+      "source": "assistant"
     }
   ],
   "preferences": [],
-  "events": []
+  "events": [
+    {
+      "event": "Shift rotation starts for GM social media agents",
+      "date": "2023-05-28",
+      "sessionId": "answer_sharegpt_5Lzox6N_0"
+    }
+  ]
 }

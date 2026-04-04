@@ -2,8 +2,8 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "planning activity",
-      "value": "play tennis with friends at local park",
+      "predicate": "is planning to play",
+      "value": "tennis with friends at local park",
       "date": "2023-05-28",
       "sessionId": "answer_c3567066",
       "source": "user"
@@ -17,7 +17,7 @@
     },
     {
       "entity": "User's tennis racket",
-      "predicate": "acquired from",
+      "predicate": "purchased from",
       "value": "sports store downtown",
       "sessionId": "answer_c3567066",
       "source": "user"
@@ -25,15 +25,15 @@
     {
       "entity": "User's tennis racket",
       "predicate": "performance status",
-      "value": "performing really well",
+      "value": "performing well, improved game",
       "sessionId": "answer_c3567066",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "planning to purchase",
+      "predicate": "is planning to buy",
       "value": "new tennis balls",
-      "date": "2023-05-28",
+      "date": "2023-05-27 or 2023-05-28",
       "sessionId": "answer_c3567066",
       "source": "user"
     },
@@ -45,6 +45,13 @@
       "source": "user"
     },
     {
+      "entity": "Tennis warm-up duration",
+      "predicate": "recommended time",
+      "value": "10-15 minutes",
+      "sessionId": "answer_c3567066",
+      "source": "assistant"
+    },
+    {
       "entity": "Tennis strings",
       "predicate": "recommended restringing frequency",
       "value": "every 3-6 months",
@@ -52,9 +59,9 @@
       "source": "assistant"
     },
     {
-      "entity": "Warm-up duration",
-      "predicate": "recommended length",
-      "value": "10-15 minutes",
+      "entity": "Recreational tennis balls",
+      "predicate": "recommended pressure level",
+      "value": "around 12.5 psi",
       "sessionId": "answer_c3567066",
       "source": "assistant"
     }
@@ -63,37 +70,44 @@
     {
       "entity": "User",
       "preference": "new tennis racket",
-      "polarity": "positive"
+      "polarity": "positive",
+      "constraint": "performs well and improves game"
     },
     {
-      "entity": "Recreational tennis players",
-      "preference": "pressurized tennis balls with lower pressure (around 12.5 psi)",
+      "entity": "User",
+      "preference": "tennis ball brands",
       "polarity": "positive",
-      "constraint": "for slightly slower bounce"
+      "constraint": "suitable for recreational players, good balance of quality/durability/affordability"
     },
     {
-      "entity": "Recreational tennis players",
-      "preference": "mid-range or recreational tennis balls",
+      "entity": "User",
+      "preference": "Wilson, Penn, Dunlop tennis balls",
       "polarity": "positive",
-      "constraint": "balance of quality and affordability"
+      "constraint": "popular brands for recreational players"
     },
     {
-      "entity": "Recommended tennis ball brands",
-      "preference": "Wilson, Penn, Dunlop",
+      "entity": "User",
+      "preference": "pressurized tennis balls",
       "polarity": "positive",
-      "constraint": "suitable for recreational players"
+      "constraint": "most common type suitable for recreational players"
+    },
+    {
+      "entity": "Recreational players",
+      "preference": "lower pressure tennis balls",
+      "polarity": "positive",
+      "constraint": "around 12.5 psi for slightly slower bounce"
     }
   ],
   "events": [
     {
-      "event": "User planning to play tennis with friends at local park",
+      "event": "User playing tennis with friends at local park",
       "date": "2023-05-28",
       "location": "local park",
       "sessionId": "answer_c3567066"
     },
     {
-      "event": "User planning to buy new tennis balls",
-      "date": "2023-05-28",
+      "event": "User plans to buy new tennis balls",
+      "date": "2023-05-27 or 2023-05-28",
       "sessionId": "answer_c3567066"
     }
   ]

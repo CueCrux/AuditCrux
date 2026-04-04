@@ -10,8 +10,8 @@
     },
     {
       "entity": "User",
-      "predicate": "wants to",
-      "value": "create a budget",
+      "predicate": "has been thinking about",
+      "value": "creating a budget",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
@@ -28,30 +28,20 @@
       "entity": "User",
       "predicate": "spent on",
       "value": "luxury items last month",
-      "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
       "entity": "User",
       "predicate": "purchased",
-      "value": "designer handbag",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "Designer handbag",
-      "predicate": "costs",
-      "value": "$800",
-      "date": "2023-05-23",
+      "value": "designer handbag for $800",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "decided to use",
-      "value": "Mint app",
+      "predicate": "decided to try",
+      "value": "Mint budgeting app",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
@@ -59,79 +49,56 @@
     {
       "entity": "User",
       "predicate": "frequents",
-      "value": "Saks",
-      "date": "2023-05-23",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "frequents",
-      "value": "Neiman Marcus",
-      "date": "2023-05-23",
+      "value": "high-end department stores (Saks and Neiman Marcus)",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
       "entity": "Mint",
       "predicate": "is",
-      "value": "free app",
+      "value": "a free budgeting app",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
       "entity": "Mint",
-      "predicate": "features",
-      "value": "connects to bank accounts, credit cards, and investments",
-      "sessionId": "answer_7cb94507",
-      "source": "assistant"
-    },
-    {
-      "entity": "Mint",
-      "predicate": "features",
-      "value": "bill tracking and alerts",
-      "sessionId": "answer_7cb94507",
-      "source": "assistant"
-    },
-    {
-      "entity": "Mint",
-      "predicate": "features",
-      "value": "credit score monitoring",
+      "predicate": "connects to",
+      "value": "bank accounts, credit cards, and investments",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
       "entity": "Personal Capital",
       "predicate": "is",
-      "value": "free app",
+      "value": "a free app that tracks income, expenses, investments, and debts",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
-      "entity": "YNAB",
+      "entity": "YNAB (You Need a Budget)",
       "predicate": "is",
-      "value": "paid app with free trial",
+      "value": "a paid app with free trial available",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
       "entity": "Spendee",
       "predicate": "is",
-      "value": "free app",
+      "value": "a free app that tracks expenses and categorizes transactions",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
       "entity": "Pocketbook",
       "predicate": "is",
-      "value": "free app",
+      "value": "a free app that tracks income and expenses",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
       "entity": "Wally",
       "predicate": "is",
-      "value": "free app",
+      "value": "a free app that connects to bank accounts and credit cards",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     }
@@ -139,46 +106,41 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "wants to track spending habits",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "wants to create a budget",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "shopping at Saks and Neiman Marcus",
+      "preference": "shopping at high-end department stores",
       "polarity": "positive",
-      "constraint": "frequents these stores"
+      "constraint": "uncertain about whether it's a good idea financially"
     },
     {
       "entity": "User",
       "preference": "luxury items",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "designer handbags",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "Mint app",
       "polarity": "positive",
-      "constraint": "decided to use it based on good reviews"
+      "constraint": "spending may be excessive"
+    },
+    {
+      "entity": "User",
+      "preference": "Mint budgeting app",
+      "polarity": "positive",
+      "constraint": "based on positive recommendations heard"
+    },
+    {
+      "entity": "User",
+      "preference": "tracking expenses",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
       "event": "User purchased designer handbag",
-      "date": "2023-04-23",
-      "location": "Saks or Neiman Marcus (inferred)",
+      "date": null,
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User conversation about financial tracking and budgeting",
+      "event": "User spent money on luxury items",
+      "date": null,
+      "sessionId": "answer_7cb94507"
+    },
+    {
+      "event": "User began conversation about financial tracking and budgeting",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     }

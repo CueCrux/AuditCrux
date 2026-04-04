@@ -2,150 +2,376 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "has project",
+      "predicate": "has_project",
       "value": "due soon",
-      "date": "null",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "needs to complete",
+      "predicate": "needs_to_complete",
       "value": "report",
-      "date": "null",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "needs to",
-      "value": "respond to emails",
-      "date": "null",
+      "predicate": "needs_to_respond_to",
+      "value": "emails",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "time available for tasks",
-      "value": "7-8 hours per day",
-      "date": "null",
+      "predicate": "time_consuming_tasks",
+      "value": "project work, email responses, attending meetings",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "most productive time",
+      "predicate": "available_hours_per_day",
+      "value": "7-8 hours",
+      "sessionId": "answer_6dc4305e",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "most_productive_times",
       "value": "10 am - 12 pm",
-      "date": "null",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "has exercise routine",
-      "value": "30 minutes in the morning",
-      "date": "null",
+      "predicate": "has_exercise_routine",
+      "value": "30-minute",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "prefers schedule type",
+      "predicate": "exercise_time",
+      "value": "morning",
+      "sessionId": "answer_6dc4305e",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has_work_schedule",
+      "value": "includes commute",
+      "sessionId": "answer_6dc4305e",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "schedule_preference",
       "value": "structured",
-      "date": "null",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "wants to minimize",
-      "value": "procrastination and social media usage",
-      "date": "null",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "existing time management tools",
-      "value": "none",
-      "date": "null",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "willing to use",
-      "value": "time management tools",
-      "date": "null",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "prefers to wind down by",
+      "predicate": "bedtime_target",
       "value": "9:30 pm",
-      "date": "null",
+      "sessionId": "answer_6dc4305e",
+      "source": "user"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_exercise_time",
+      "value": "8:00 am - 8:30 am",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_shower_time",
+      "value": "8:30 am - 9:00 am",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_breakfast_time",
+      "value": "9:00 am - 9:30 am",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_email_check_time",
+      "value": "9:30 am - 10:00 am",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_project_work_time_1",
+      "value": "10:00 am - 12:00 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_lunch_time",
+      "value": "12:00 pm - 1:00 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_email_management_time",
+      "value": "1:00 pm - 2:00 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_meeting_time",
+      "value": "2:00 pm - 3:00 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_project_work_time_2",
+      "value": "3:00 pm - 4:00 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_break_time",
+      "value": "4:00 pm - 4:30 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_project_work_time_3",
+      "value": "4:30 pm - 6:00 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_schedule_review_time",
+      "value": "6:00 pm - 6:30 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_timer_duration",
+      "value": "90-120 minutes",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_screen_avoidance_before_sleep",
+      "value": "30 minutes",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_wind_down_time",
+      "value": "60-90 minutes before bedtime",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_wind_down_schedule_finish_work",
+      "value": "8:30 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_wind_down_schedule_relaxation",
+      "value": "8:45 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_wind_down_schedule_device_detox",
+      "value": "9:15 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_wind_down_schedule_sleep_environment",
+      "value": "9:20 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended_wind_down_schedule_get_ready_for_bed",
+      "value": "9:25 pm",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Headspace",
+      "predicate": "is_meditation_app",
+      "value": "true",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Headspace",
+      "predicate": "has_features",
+      "value": "guided meditations for sleep, stress, and focus",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Headspace",
+      "predicate": "pricing",
+      "value": "Free trial, then subscription",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Calm",
+      "predicate": "is_meditation_app",
+      "value": "true",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Calm",
+      "predicate": "has_features",
+      "value": "guided meditations, sleep stories, and relaxing music",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Calm",
+      "predicate": "pricing",
+      "value": "Free trial, then subscription",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Insight Timer",
+      "predicate": "is_meditation_app",
+      "value": "true",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Insight Timer",
+      "predicate": "has_features",
+      "value": "guided meditations for sleep and relaxation",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Insight Timer",
+      "predicate": "pricing",
+      "value": "Free",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Meditation Studio",
+      "predicate": "is_meditation_app",
+      "value": "true",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Meditation Studio",
+      "predicate": "has_features",
+      "value": "guided meditations for sleep, anxiety, and relaxation",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Meditation Studio",
+      "predicate": "pricing",
+      "value": "Free trial, then subscription",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "10% Happier",
+      "predicate": "is_meditation_app",
+      "value": "true",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "10% Happier",
+      "predicate": "has_features",
+      "value": "guided meditations for sleep, stress, and mindfulness",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "10% Happier",
+      "predicate": "pricing",
+      "value": "Free trial, then subscription",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Serenity",
+      "predicate": "is_meditation_app",
+      "value": "true",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Serenity",
+      "predicate": "has_features",
+      "value": "meditation tracks and sleep stories",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "Serenity",
+      "predicate": "pricing",
+      "value": "Free trial, then subscription",
+      "sessionId": "answer_6dc4305e",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "will_try",
+      "value": "Insight Timer and Calm",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "decision: will use",
-      "value": "Calm meditation app",
-      "date": "2023-05-30",
+      "predicate": "will_start_with",
+      "value": "Insight Timer",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "decision: will use",
-      "value": "Insight Timer meditation app",
-      "date": "2023-05-30",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "will start with",
-      "value": "10-minute meditations",
-      "date": "2023-05-30",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "will gradually increase",
-      "value": "meditation duration",
-      "date": "2023-05-30",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "time-consuming tasks",
-      "value": "working on project, responding to emails, attending meetings",
-      "date": "null",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "has fixed commitment",
-      "value": "30-minute exercise routine in the morning",
-      "date": "null",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "work schedule includes",
-      "value": "commute",
-      "date": "null",
+      "predicate": "reason_for_starting_with_insight_timer",
+      "value": "free",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     }
   ],
   "preferences": [
+    {
+      "entity": "User",
+      "preference": "time management",
+      "polarity": "positive",
+      "constraint": "needs to manage time effectively"
+    },
     {
       "entity": "User",
       "preference": "structured schedule",
@@ -154,44 +380,49 @@
     {
       "entity": "User",
       "preference": "minimize procrastination",
-      "polarity": "negative",
-      "constraint": "procrastination"
+      "polarity": "negative"
     },
     {
       "entity": "User",
       "preference": "minimize social media usage",
-      "polarity": "negative",
-      "constraint": "social media"
+      "polarity": "negative"
     },
     {
       "entity": "User",
       "preference": "good night's sleep",
+      "polarity": "positive",
+      "constraint": "by 9:30 pm"
+    },
+    {
+      "entity": "User",
+      "preference": "wind down before bed",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "relax before bed",
+      "preference": "meditation or guided relaxation",
+      "polarity": "positive",
+      "constraint": "before bed"
+    },
+    {
+      "entity": "User",
+      "preference": "open to using time management tools",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "meditation for relaxation",
+      "preference": "meditation apps",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "open to time management tools",
+      "preference": "free resources",
       "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "Project deadline",
-      "date": "null",
-      "sessionId": "answer_6dc4305e"
-    },
-    {
-      "event": "User decides to use Calm and Insight Timer apps",
+      "event": "Project due",
       "date": "2023-05-30",
       "sessionId": "answer_6dc4305e"
     }

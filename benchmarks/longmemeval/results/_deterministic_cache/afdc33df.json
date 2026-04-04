@@ -3,14 +3,14 @@
     {
       "entity": "User",
       "predicate": "has",
-      "value": "issues with garbage disposal",
+      "value": "garbage disposal with issues",
       "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "recently bought",
+      "predicate": "recently purchased",
       "value": "new utensil holder",
       "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
@@ -19,7 +19,15 @@
     {
       "entity": "User",
       "predicate": "has",
-      "value": "scratches on granite countertop near sink",
+      "value": "granite countertop",
+      "date": "2023-05-22",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "User's granite countertop",
+      "predicate": "has scratches",
+      "value": "near the sink",
       "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
       "source": "user"
@@ -33,22 +41,22 @@
     },
     {
       "entity": "Baking soda and vinegar cleaning method",
-      "predicate": "uses",
-      "value": "1/2 cup baking soda and 1 cup vinegar",
+      "predicate": "requires",
+      "value": "1/2 cup baking soda and 1 cup vinegar, sit for 1-2 hours",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
       "entity": "Ice and rock salt cleaning method",
-      "predicate": "uses",
-      "value": "ice cubes and 1 tablespoon rock salt",
+      "predicate": "requires",
+      "value": "few ice cubes and 1 tablespoon rock salt",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
       "entity": "Lemon juice and baking soda cleaning method",
-      "predicate": "uses",
-      "value": "lemon juice and 1/2 cup baking soda",
+      "predicate": "requires",
+      "value": "1/2 cup baking soda",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     }
@@ -57,9 +65,26 @@
     {
       "entity": "User",
       "preference": "keep countertops clutter-free",
-      "polarity": "positive",
-      "constraint": "through use of utensil holder"
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "organize kitchen utensils",
+      "polarity": "positive"
     }
   ],
-  "events": []
+  "events": [
+    {
+      "event": "User purchased new utensil holder",
+      "date": "2023-05-22",
+      "location": "kitchen",
+      "sessionId": "answer_8549e5e0"
+    },
+    {
+      "event": "User noticed scratches on granite countertop",
+      "date": "2023-05-22",
+      "location": "near sink",
+      "sessionId": "answer_8549e5e0"
+    }
+  ]
 }

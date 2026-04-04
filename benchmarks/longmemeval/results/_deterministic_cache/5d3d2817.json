@@ -9,7 +9,7 @@
     },
     {
       "entity": "User",
-      "predicate": "previous job title",
+      "predicate": "previously worked as",
       "value": "marketing specialist",
       "sessionId": "answer_235eb6fb",
       "source": "user"
@@ -29,7 +29,7 @@
       "source": "user"
     },
     {
-      "entity": "User's organization",
+      "entity": "User",
       "predicate": "currently uses",
       "value": "Google Drive",
       "sessionId": "answer_235eb6fb",
@@ -37,8 +37,8 @@
     },
     {
       "entity": "User's organization",
-      "predicate": "uses Google Drive for",
-      "value": "file sharing",
+      "predicate": "uses",
+      "value": "Google Drive for file sharing",
       "sessionId": "answer_235eb6fb",
       "source": "user"
     },
@@ -51,15 +51,15 @@
     },
     {
       "entity": "Trello",
-      "predicate": "free version allows",
-      "value": "unlimited boards, lists, and cards",
+      "predicate": "has",
+      "value": "free version with unlimited boards, lists, and cards",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
     {
       "entity": "Trello",
-      "predicate": "premium trial duration",
-      "value": "14 days",
+      "predicate": "offers",
+      "value": "14-day free trial for premium features",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
@@ -72,15 +72,15 @@
     },
     {
       "entity": "Asana",
-      "predicate": "free version user limit",
-      "value": "up to 15 users",
+      "predicate": "has",
+      "value": "free version for up to 15 users with limited features",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
     {
       "entity": "Asana",
-      "predicate": "premium trial duration",
-      "value": "30 days",
+      "predicate": "offers",
+      "value": "30-day free trial for premium features",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
@@ -93,8 +93,8 @@
     },
     {
       "entity": "Smartsheet",
-      "predicate": "trial duration",
-      "value": "30 days",
+      "predicate": "offers",
+      "value": "30-day free trial for premium features",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
@@ -107,15 +107,15 @@
     },
     {
       "entity": "ClickUp",
-      "predicate": "free version allows",
-      "value": "unlimited tasks",
+      "predicate": "has",
+      "value": "free version with unlimited tasks and limited features",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
     {
       "entity": "ClickUp",
-      "predicate": "premium trial duration",
-      "value": "30 days",
+      "predicate": "offers",
+      "value": "30-day free trial for premium features",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
@@ -142,8 +142,8 @@
     },
     {
       "entity": "Airtable",
-      "predicate": "trial duration",
-      "value": "14 days",
+      "predicate": "offers",
+      "value": "14-day free trial for premium features",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
@@ -178,7 +178,7 @@
     {
       "entity": "ClickUp",
       "predicate": "has feature",
-      "value": "Team Collaboration",
+      "value": "Team Collaboration with real-time commenting",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
@@ -198,36 +198,64 @@
     },
     {
       "entity": "ClickUp",
-      "predicate": "uses structure type",
-      "value": "hierarchical (lists, folders, spaces)",
+      "predicate": "uses hierarchical structure with",
+      "value": "lists, folders, and spaces",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
     {
       "entity": "Trello",
-      "predicate": "uses structure type",
+      "predicate": "uses structure with",
       "value": "boards, lists, and cards",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
     {
       "entity": "ClickUp",
-      "predicate": "has feature",
-      "value": "task dependencies",
+      "predicate": "has strength",
+      "value": "highly customizable",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
     {
       "entity": "ClickUp",
-      "predicate": "has feature",
-      "value": "subtasks",
+      "predicate": "has strength",
+      "value": "all-in-one solution",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     },
     {
       "entity": "ClickUp",
-      "predicate": "has feature",
-      "value": "custom fields",
+      "predicate": "has strength",
+      "value": "strong reporting",
+      "sessionId": "answer_235eb6fb",
+      "source": "assistant"
+    },
+    {
+      "entity": "ClickUp",
+      "predicate": "has strength",
+      "value": "competitive pricing",
+      "sessionId": "answer_235eb6fb",
+      "source": "assistant"
+    },
+    {
+      "entity": "ClickUp",
+      "predicate": "has weakness",
+      "value": "steep learning curve",
+      "sessionId": "answer_235eb6fb",
+      "source": "assistant"
+    },
+    {
+      "entity": "ClickUp",
+      "predicate": "has weakness",
+      "value": "limited Kanban support",
+      "sessionId": "answer_235eb6fb",
+      "source": "assistant"
+    },
+    {
+      "entity": "ClickUp",
+      "predicate": "has weakness",
+      "value": "limited mobile app",
       "sessionId": "answer_235eb6fb",
       "source": "assistant"
     }
@@ -237,26 +265,25 @@
       "entity": "User",
       "preference": "Google Drive integration",
       "polarity": "positive",
-      "constraint": "in project management tool"
+      "constraint": "already using Google Drive for file sharing"
     },
     {
       "entity": "User",
-      "preference": "free version or trial availability",
+      "preference": "free version or trial available",
       "polarity": "positive",
-      "constraint": "before committing to paid plan"
+      "constraint": "wants to test before committing to paid plan"
     },
     {
       "entity": "User",
-      "preference": "exploring options beyond Trello",
-      "polarity": "positive",
-      "constraint": "despite familiarity with Trello"
+      "preference": "Trello",
+      "polarity": "neutral",
+      "constraint": "familiar with it but interested in exploring other options"
+    },
+    {
+      "entity": "User",
+      "preference": "exploring alternatives to Trello",
+      "polarity": "positive"
     }
   ],
-  "events": [
-    {
-      "event": "User started new role",
-      "date": null,
-      "sessionId": "answer_235eb6fb"
-    }
-  ]
+  "events": []
 }

@@ -2,13 +2,6 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "is planning",
-      "value": "trip with friends",
-      "sessionId": "answer_0b1a0942_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
       "predicate": "has visited",
       "value": "Miami Beach",
       "sessionId": "answer_0b1a0942_2",
@@ -23,89 +16,84 @@
     },
     {
       "entity": "User",
-      "predicate": "selected destination",
-      "value": "Fort Myers Beach",
+      "predicate": "is planning",
+      "value": "trip with friends",
       "sessionId": "answer_0b1a0942_2",
       "source": "user"
     },
     {
-      "entity": "Fort Myers Beach",
-      "predicate": "location",
-      "value": "Gulf Coast, Florida",
-      "sessionId": "answer_0b1a0942_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Fort Myers Beach",
-      "predicate": "distance from Tampa",
-      "value": "2.5 hours southwest",
-      "sessionId": "answer_0b1a0942_2",
-      "source": "assistant"
-    },
-    {
       "entity": "Sarasota",
-      "predicate": "distance from Tampa",
-      "value": "about 1 hour south",
+      "predicate": "distance from",
+      "value": "Tampa (about 1 hour south)",
       "sessionId": "answer_0b1a0942_2",
       "source": "assistant"
     },
     {
       "entity": "St. Pete Beach",
-      "predicate": "distance from Tampa",
-      "value": "about 30 minutes southwest",
+      "predicate": "distance from",
+      "value": "Tampa (about 30 minutes southwest)",
       "sessionId": "answer_0b1a0942_2",
       "source": "assistant"
     },
     {
       "entity": "Clearwater Beach",
-      "predicate": "distance from Tampa",
-      "value": "about 30 minutes west",
+      "predicate": "distance from",
+      "value": "Tampa (about 30 minutes west)",
       "sessionId": "answer_0b1a0942_2",
       "source": "assistant"
+    },
+    {
+      "entity": "Fort Myers Beach",
+      "predicate": "distance from",
+      "value": "Tampa (about 2.5 hours southwest)",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Fort Myers Beach",
+      "predicate": "suitable for",
+      "value": "paddleboarding",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User and friends",
+      "predicate": "plan to stay in",
+      "value": "Fort Myers Beach",
+      "sessionId": "answer_0b1a0942_2",
+      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "relaxed atmosphere",
-      "polarity": "positive",
-      "constraint": "for beach vacation"
-    },
-    {
-      "entity": "User",
-      "preference": "beach town near major city",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
       "preference": "Miami Beach",
       "polarity": "negative",
-      "constraint": "has been there before, finds it overwhelming"
+      "constraint": "been there before, wants somewhere more relaxed"
+    },
+    {
+      "entity": "User",
+      "preference": "relaxed atmosphere",
+      "polarity": "positive",
+      "constraint": "not too far from major city"
     },
     {
       "entity": "User",
       "preference": "Fort Myers Beach",
-      "polarity": "positive"
+      "polarity": "positive",
+      "constraint": "good reputation for water sports"
     },
     {
       "entity": "User",
       "preference": "paddleboarding",
-      "polarity": "positive",
-      "constraint": "for water sports activity"
+      "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "beachfront accommodations",
+      "preference": "hotels/resorts close to beach with good amenities",
       "polarity": "positive",
-      "constraint": "with good amenities"
+      "constraint": "in Fort Myers Beach"
     }
   ],
-  "events": [
-    {
-      "event": "User planning trip to Florida beach town with friends",
-      "date": "2023-05-27",
-      "location": "Fort Myers Beach, Florida",
-      "sessionId": "answer_0b1a0942_2"
-    }
-  ]
+  "events": []
 }

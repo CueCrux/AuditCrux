@@ -3,28 +3,21 @@
     {
       "entity": "User",
       "predicate": "has",
-      "value": "assignments",
+      "value": "assignments and part-time job",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "has",
-      "value": "part-time job",
-      "sessionId": "answer_94030872",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "currently uses",
+      "predicate": "is using",
       "value": "Google Calendar",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
-      "entity": "Google Calendar",
-      "predicate": "is used for",
-      "value": "tracking classes and part-time job",
+      "entity": "User",
+      "predicate": "uses Google Calendar to track",
+      "value": "classes and part-time job",
       "sessionId": "answer_94030872",
       "source": "user"
     },
@@ -120,44 +113,9 @@
       "source": "assistant"
     },
     {
-      "entity": "Todoist",
-      "predicate": "feature",
-      "value": "task hierarchies",
-      "sessionId": "answer_94030872",
-      "source": "assistant"
-    },
-    {
-      "entity": "Todoist",
-      "predicate": "feature",
-      "value": "prioritization with labels, filters, and priority levels",
-      "sessionId": "answer_94030872",
-      "source": "assistant"
-    },
-    {
-      "entity": "Trello",
-      "predicate": "feature",
-      "value": "Kanban-style workflow management",
-      "sessionId": "answer_94030872",
-      "source": "assistant"
-    },
-    {
-      "entity": "Trello",
-      "predicate": "feature",
-      "value": "team collaboration",
-      "sessionId": "answer_94030872",
-      "source": "assistant"
-    },
-    {
       "entity": "Pomodoro Technique",
-      "predicate": "description",
+      "predicate": "involves",
       "value": "work for 25 minutes, take a 5-minute break, repeat for 4-6 cycles",
-      "sessionId": "answer_94030872",
-      "source": "assistant"
-    },
-    {
-      "entity": "Recommended focused work sessions",
-      "predicate": "duration",
-      "value": "2-3 hours in the morning and 2-3 hours in the afternoon",
       "sessionId": "answer_94030872",
       "source": "assistant"
     }
@@ -165,31 +123,30 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "easy to use apps",
+      "preference": "app that is easy to use",
       "polarity": "positive",
       "constraint": "for task management and organization"
     },
     {
       "entity": "User",
-      "preference": "syncs well across all devices",
+      "preference": "app that syncs well across all devices",
       "polarity": "positive",
-      "constraint": "desktop, mobile, web"
+      "constraint": "for task management"
     },
     {
-      "entity": "User",
-      "preference": "staying organized with assignments and tasks",
+      "entity": "Todoist",
+      "preference": "simple and intuitive interface",
       "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "productive schedule",
-      "polarity": "positive",
-      "constraint": "balancing assignments and part-time job"
+      "entity": "Trello",
+      "preference": "visual project management with Kanban-style workflow",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "Conversation session",
+      "event": "Conversation session about time management and productivity tools",
       "date": "2023-05-23",
       "sessionId": "answer_94030872"
     }

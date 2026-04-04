@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "attended",
+      "predicate": "participated in",
       "value": "Easter Egg Hunt event",
       "date": "2023-03-30",
       "sessionId": "answer_a17423e7_1",
@@ -19,20 +19,20 @@
     {
       "entity": "User",
       "predicate": "availability",
-      "value": "weekdays, preferably evenings",
+      "value": "weekday evenings",
       "sessionId": "answer_a17423e7_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "willing to commit",
-      "value": "regular schedule for volunteering",
+      "predicate": "willing to commit to",
+      "value": "regular volunteer schedule",
       "sessionId": "answer_a17423e7_1",
       "source": "user"
     },
     {
       "entity": "Food Bank",
-      "predicate": "location",
+      "predicate": "located at",
       "value": "123 Main St, Anytown, USA 12345",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
@@ -46,21 +46,21 @@
     },
     {
       "entity": "Food Bank",
-      "predicate": "evening shifts available",
+      "predicate": "evening shift times",
       "value": "4:00 pm - 7:00 pm",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "phone",
+      "predicate": "contact phone",
       "value": "555-555-5555",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "email",
+      "predicate": "contact email",
       "value": "volunteer@foodbank.org",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
@@ -73,52 +73,50 @@
       "source": "assistant"
     },
     {
-      "entity": "Food Bank",
+      "entity": "Food Bank volunteer",
       "predicate": "minimum age requirement",
       "value": "18 years old",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
-      "entity": "Food Bank",
+      "entity": "Food Bank volunteer",
       "predicate": "orientation duration",
       "value": "30 minutes",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
-      "entity": "Food Bank",
+      "entity": "Food Bank volunteer",
       "predicate": "requires",
       "value": "background check",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
-      "entity": "Food Bank",
-      "predicate": "provides",
-      "value": "on-the-job training",
+      "entity": "User",
+      "predicate": "interested in volunteering at",
+      "value": "Food Bank",
+      "date": "2023-04-06",
       "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "parking",
-      "value": "available on site",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "public transportation",
-      "value": "easily accessible",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
+      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "User",
       "preference": "community service or helping the underprivileged",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "weekday availability",
+      "polarity": "positive",
+      "constraint": "evenings preferred"
+    },
+    {
+      "entity": "User",
+      "preference": "regular volunteer schedule",
       "polarity": "positive"
     },
     {
@@ -131,17 +129,11 @@
       "preference": "Maundy Thursday service",
       "polarity": "positive",
       "constraint": "described as beautiful and moving"
-    },
-    {
-      "entity": "User",
-      "preference": "regular volunteering schedule",
-      "polarity": "positive",
-      "constraint": "weekday evenings"
     }
   ],
   "events": [
     {
-      "event": "Easter Egg Hunt",
+      "event": "Easter Egg Hunt event (user volunteered)",
       "date": "2023-03-30",
       "sessionId": "answer_a17423e7_1"
     },

@@ -122,6 +122,103 @@ export async function extractFacts(
   }
 }
 
+// ── Answer Field Selector ──
+
+/**
+ * Given a question and a matched fact, return the most appropriate answer.
+ * Uses the question's interrogative word to select which fact field to return.
+ *
+ * "Where did I buy X?" + {entity: "X", predicate: "bought from", value: "store downtown"} → "store downtown"
+ * "How much did X cost?" + {entity: "X", predicate: "cost", value: "$800"} → "$800"
+ * "When did I do X?" + {entity: "X", predicate: "did", value: "something", date: "2023-05-20"} → "2023-05-20"
+ */
+function selectAnswerField(question: string, fact: ExtractedFact): string {
+  const q = question.toLowerCase();
+
+  // "when" questions → prefer date
+  if (/\bwhen\b|what date|what day|what time/.test(q)) {
+    if (fact.date) return fact.date;
+    // Check if value looks like a date
+    if (/\d{4}-\d{2}-\d{2}|\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i.test(fact.value)) {
+      return fact.value;
+    }
+  }
+
+  // "where" questions → prefer value (location)
+  if (/\bwhere\b|what (?:place|location|city|country|store|restaurant|hotel|venue)/.test(q)) {
+    return fact.value;
+  }
+
+  // "how much/many" questions → prefer numeric value
+  if (/how (?:much|many)|total|cost|price|spend|spent|paid|budget/.test(q)) {
+    // Look for a number in value first
+    if (/\$?\d/.test(fact.value)) return fact.value;
+    // Check predicate for numbers
+    if (/\$?\d/.test(fact.predicate)) return fact.predicate;
+    return fact.value;
+  }
+
+  // "how long/often/frequently" → prefer value with time/frequency
+  if (/how (?:long|often|frequent)/.test(q)) {
+    return fact.value;
+  }
+
+  // "who" questions → prefer entity or value depending on which is a person
+  if (/\bwho\b|what person|whose/.test(q)) {
+    // If value looks like a name (capitalized words)
+    if (/^[A-Z][a-z]+ [A-Z][a-z]+/.test(fact.value)) return fact.value;
+    if (/^[A-Z][a-z]+ [A-Z][a-z]+/.test(fact.entity)) return fact.entity;
+    return fact.value;
+  }
+
+  // "what" questions → prefer value (the answer)
+  if (/\bwhat\b/.test(q)) {
+    return fact.value;
+  }
+
+  // "which" questions → prefer value
+  if (/\bwhich\b/.test(q)) {
+    return fact.value;
+  }
+
+  // "did I" / "do I" / "have I" → yes/no or value
+  if (/\b(?:did|do|have|has|is|are|was|were) (?:I|my)\b/.test(q)) {
+    return fact.value;
+  }
+
+  // Default: return the most informative field (longest non-entity)
+  if (fact.value.length > fact.predicate.length) return fact.value;
+  return fact.value;
+}
+
+/**
+ * Select best answer from a preference match.
+ */
+function selectPreferenceAnswer(question: string, pref: ExtractedPreference): string {
+  const q = question.toLowerCase();
+  if (pref.polarity === "negative") {
+    return `Not ${pref.preference}`;
+  }
+  if (pref.constraint) {
+    return `${pref.preference} (${pref.constraint})`;
+  }
+  return pref.preference;
+}
+
+/**
+ * Select best answer from an event match.
+ */
+function selectEventAnswer(question: string, event: ExtractedEvent): string {
+  const q = question.toLowerCase();
+  if (/\bwhen\b|what date|how (?:many|long) (?:days|weeks|months)/.test(q)) {
+    return event.date;
+  }
+  if (/\bwhere\b/.test(q) && event.location) {
+    return event.location;
+  }
+  return `${event.event} (${event.date})`;
+}
+
 // ── Phase 3: Question Parser ──
 
 type QuestionOp =
@@ -242,11 +339,33 @@ export function answerFromProjections(
   switch (op.type) {
     case "COUNT": {
       const entity = (op.entity ?? "").toLowerCase();
-      const matching = store.facts.filter(
-        (f) => f.entity.toLowerCase().includes(entity) || f.predicate.toLowerCase().includes(entity) || f.value.toLowerCase().includes(entity),
-      );
+      // Extract key nouns from the question for better matching
+      const countStopwords = new Set(["how", "many", "much", "have", "did", "does", "total", "number", "different", "currently", "own", "bought", "worked", "led", "leading", "visited", "tried", "attended"]);
+      const countKeywords = entity.split(/\s+/).filter((w) => w.length > 2 && !countStopwords.has(w));
+
+      // Find facts that match the count target
+      const matching = store.facts.filter((f) => {
+        const text = `${f.entity} ${f.predicate} ${f.value}`.toLowerCase();
+        return countKeywords.some((kw) => text.includes(kw)) ||
+          text.includes(entity);
+      });
+
       if (matching.length === 0) return null;
-      // Deduplicate by value
+
+      // For counts: look for numeric values first
+      const numericFacts = matching.filter((f) => /\d+/.test(f.value));
+      if (numericFacts.length > 0) {
+        // If a fact explicitly states a count, use it
+        const countFact = numericFacts.find((f) =>
+          f.predicate.toLowerCase().includes("count") ||
+          f.predicate.toLowerCase().includes("number") ||
+          f.predicate.toLowerCase().includes("total") ||
+          f.predicate.toLowerCase().includes("how many"),
+        );
+        if (countFact) return countFact.value;
+      }
+
+      // Otherwise deduplicate and count unique items
       const unique = new Set(matching.map((f) => f.value.toLowerCase()));
       return String(unique.size);
     }
@@ -356,7 +475,7 @@ export function answerFromProjections(
           bestFact = { entity: event.event, predicate: "event_date", value: event.date, date: event.date, sessionId: event.sessionId, source: "user" };
         }
       }
-      if (bestFact && bestScore >= 1) return bestFact.value;
+      if (bestFact && bestScore >= 1) return selectAnswerField(question, bestFact);
       return null;
     }
 
@@ -422,32 +541,80 @@ export function answerDeterministic(
     return { questionId, question, operation: op, tier, answer, source: "projection" };
   }
 
-  // Universal fuzzy fallback — try matching question keywords against ALL extracted data
+  // Universal fuzzy fallback with interrogative-aware answer selection
   if (store.facts.length > 0 || store.preferences.length > 0 || store.events.length > 0) {
-    const stopwords = new Set(["the", "what", "was", "were", "did", "does", "how", "when", "where", "who", "which", "that", "this", "with", "from", "your", "have", "has", "been", "about", "can", "you", "tell", "remind", "remember", "previous", "conversation", "mentioned", "talked", "said", "know", "many", "much", "going", "back", "looking", "wondering"]);
+    const stopwords = new Set(["the", "what", "was", "were", "did", "does", "how", "when", "where", "who", "which", "that", "this", "with", "from", "your", "have", "has", "been", "about", "can", "you", "tell", "remind", "remember", "previous", "conversation", "mentioned", "talked", "said", "know", "many", "much", "going", "back", "looking", "wondering", "could", "would", "again", "also", "just", "some", "our", "chat"]);
     const keywords = question.toLowerCase().split(/\s+/).filter((w) => w.length > 2 && !stopwords.has(w));
 
-    // Score all facts
-    let bestValue = "";
-    let bestScore = 0;
+    // Score all facts — use selectAnswerField for the answer
+    // Collect ALL matching facts above threshold, then pick the best answer
+    type ScoredMatch = { score: number; answer: string; type: string };
+    const candidates: ScoredMatch[] = [];
+
+    // Detect what type of answer the question wants
+    const ql = question.toLowerCase();
+    const wantsLocation = /\bwhere\b|what (?:place|store|restaurant|hotel|city|country|location)/.test(ql);
+    const wantsAmount = /how (?:much|many)|total|cost|price|spend|spent|paid|budget|\$/.test(ql);
+    const wantsDate = /\bwhen\b|what (?:date|day|time)|how (?:many|long) (?:days|weeks|months|years)/.test(ql);
+    const wantsName = /what (?:is|was) (?:the )?name|what (?:is|was) (?:it |that )?called|remind me (?:of )?(?:the )?name/.test(ql);
+    const wantsFrequency = /how often|how frequent|how regularly/.test(ql);
+
     for (const f of store.facts) {
       const text = `${f.entity} ${f.predicate} ${f.value}`.toLowerCase();
-      const score = keywords.filter((kw) => text.includes(kw)).length;
-      if (score > bestScore) { bestScore = score; bestValue = f.value; }
+      let score = keywords.filter((kw) => text.includes(kw)).length;
+
+      // Bonus: if the value matches what the question type wants, boost score
+      const val = f.value.toLowerCase();
+      const pred = f.predicate.toLowerCase();
+      if (wantsAmount && /\$?\d/.test(f.value)) score += 3;
+      if (wantsLocation && /store|shop|restaurant|hotel|city|town|downtown|park|school|university|hospital|airport|museum|library|market|mall|street|avenue|road/.test(val)) score += 3;
+      if (wantsDate && f.date) score += 3;
+      if (wantsDate && /\d{4}/.test(f.value)) score += 2;
+      if (wantsName && !/\d/.test(f.value) && f.value.length > 3) score += 2;
+      if (wantsFrequency && /daily|weekly|monthly|twice|three times|once|every/.test(val)) score += 3;
+
+      // Penalty: if value just echoes the entity (not informative)
+      if (val === f.entity.toLowerCase()) score -= 2;
+
+      if (score >= 1) {
+        candidates.push({ score, answer: selectAnswerField(question, f), type: "fact" });
+      }
     }
     for (const p of store.preferences) {
       const text = `${p.entity} ${p.preference} ${p.constraint ?? ""}`.toLowerCase();
       const score = keywords.filter((kw) => text.includes(kw)).length;
-      if (score > bestScore) { bestScore = score; bestValue = p.preference; }
+      if (score >= 1) {
+        candidates.push({ score, answer: selectPreferenceAnswer(question, p), type: "pref" });
+      }
     }
     for (const e of store.events) {
       const text = `${e.event} ${e.location ?? ""} ${e.date}`.toLowerCase();
       const score = keywords.filter((kw) => text.includes(kw)).length;
-      if (score > bestScore) { bestScore = score; bestValue = `${e.event} (${e.date})`; }
+      if (score >= 1) {
+        candidates.push({ score, answer: selectEventAnswer(question, e), type: "event" });
+      }
     }
 
-    if (bestScore >= 1 && bestValue) {
-      return { questionId, question, operation: op, tier: "medium", answer: bestValue, source: "projection" };
+    // Sort by score descending, then pick the best answer that ISN'T just repeating the question
+    candidates.sort((a, b) => b.score - a.score);
+
+    let bestAnswer = "";
+    for (const c of candidates) {
+      // Skip answers that are just echoing question keywords back
+      const ansLower = c.answer.toLowerCase();
+      const isEcho = keywords.filter((kw) => ansLower.includes(kw)).length >= keywords.length * 0.6;
+      if (!isEcho || candidates.length === 1) {
+        bestAnswer = c.answer;
+        break;
+      }
+    }
+    // If all candidates echo the question, take the top one anyway
+    if (!bestAnswer && candidates.length > 0) {
+      bestAnswer = candidates[0]!.answer;
+    }
+
+    if (bestAnswer) {
+      return { questionId, question, operation: op, tier: "medium", answer: bestAnswer, source: "projection" };
     }
   }
 

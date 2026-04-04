@@ -37,57 +37,71 @@
     },
     {
       "entity": "Spectrum (Charter Communications)",
-      "predicate": "TV only starting price",
+      "predicate": "TV only price starting at",
       "value": "$49.99/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
-      "entity": "AT&T",
-      "predicate": "TV only starting price",
+      "entity": "AT&T DirecTV",
+      "predicate": "TV only price starting at",
       "value": "$59.99/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
       "entity": "Google Fiber",
-      "predicate": "internet and TV bundle starting price",
+      "predicate": "internet and TV bundle price starting at",
       "value": "$70/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
       "entity": "Suddenlink",
-      "predicate": "TV only starting price",
+      "predicate": "TV only price starting at",
       "value": "$40/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
       "entity": "Grande Communications",
-      "predicate": "TV only starting price",
+      "predicate": "TV only price starting at",
       "value": "$40/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
-      "entity": "Local gas provider for 78749",
-      "predicate": "is",
+      "entity": "78749 zip code area",
+      "predicate": "gas service provider",
       "value": "Texas Gas Service",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
+      "entity": "78749 zip code area",
+      "predicate": "location",
+      "value": "Austin area",
+      "sessionId": "answer_3a6f1e82_2",
+      "source": "assistant"
+    },
+    {
       "entity": "User",
-      "predicate": "selected time-tracking tool",
+      "predicate": "selected task management tool",
       "value": "Trello",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "plans to schedule home insurance with",
+      "predicate": "planning to schedule insurance with",
       "value": "Liberty Mutual",
+      "sessionId": "answer_3a6f1e82_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "insurance type needed",
+      "value": "home insurance policy",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
     }
@@ -105,21 +119,15 @@
     },
     {
       "entity": "User",
-      "preference": "Trello for task management",
-      "polarity": "positive",
-      "constraint": "for organizing home move"
+      "preference": "Trello for task management during home move",
+      "polarity": "positive"
     }
   ],
   "events": [
     {
       "event": "User planning to move into new home",
       "date": "2023-11-30",
-      "location": "78749 zip code",
-      "sessionId": "answer_3a6f1e82_2"
-    },
-    {
-      "event": "User received mortgage pre-approval from Wells Fargo",
-      "date": null,
+      "location": "78749 zip code (Austin area, Texas)",
       "sessionId": "answer_3a6f1e82_2"
     },
     {
@@ -135,7 +143,7 @@
       "sessionId": "answer_3a6f1e82_2"
     },
     {
-      "event": "User plans to schedule home insurance policy with Liberty Mutual",
+      "event": "User planning to schedule home insurance policy with Liberty Mutual",
       "date": null,
       "sessionId": "answer_3a6f1e82_2"
     }

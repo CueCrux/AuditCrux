@@ -1,41 +1,52 @@
 {
   "facts": [
     {
-      "entity": "User's previous request",
-      "predicate": "was characterized as",
-      "value": "longer than desired",
+      "entity": "conversation",
+      "predicate": "date",
+      "value": "2023-05-27",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "user"
     },
     {
-      "entity": "Assistant's initial suggestion",
-      "predicate": "was",
+      "entity": "assistant's first suggestion",
+      "predicate": "term used",
       "value": "sexual compulsions",
-      "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
     },
     {
-      "entity": "Assistant's follow-up suggestions",
-      "predicate": "included terms",
+      "entity": "user",
+      "predicate": "evaluated previous suggestion as",
+      "value": "longer than needed",
+      "sessionId": "answer_sharegpt_cGdjmYo_0",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "requested",
+      "value": "better alternative term",
+      "sessionId": "answer_sharegpt_cGdjmYo_0",
+      "source": "user"
+    },
+    {
+      "entity": "assistant's second suggestions",
+      "predicate": "alternatives provided",
       "value": "sexual fixations, problematic sexual behaviors, sexual impulsivity, compulsive sexuality",
-      "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "wants a shorter/better term for sexual behavioral patterns",
-      "polarity": "positive",
-      "constraint": "must be better than previous suggestions"
+      "entity": "user",
+      "preference": "shorter terminology",
+      "polarity": "positive"
     },
     {
-      "entity": "User",
-      "preference": "did not find initial suggestions satisfactory",
-      "polarity": "negative"
+      "entity": "user",
+      "preference": "better quality suggestions",
+      "polarity": "positive"
     }
   ],
   "events": []
