@@ -137,6 +137,13 @@ export async function extractFacts(
   }
 }
 
+// ── Safe field accessors ──
+
+/** Safely lowercase a possibly undefined string */
+function safe(s: string | undefined | null): string {
+  return (s ?? "").toLowerCase();
+}
+
 // ── Answer Field Selector ──
 
 /**
@@ -402,23 +409,23 @@ export function answerFromProjections(
       if (numericFacts.length > 0) {
         // If a fact explicitly states a count, use it
         const countFact = numericFacts.find((f) =>
-          f.predicate.toLowerCase().includes("count") ||
-          f.predicate.toLowerCase().includes("number") ||
-          f.predicate.toLowerCase().includes("total") ||
-          f.predicate.toLowerCase().includes("how many"),
+          safe(f.predicate).includes("count") ||
+          safe(f.predicate).includes("number") ||
+          safe(f.predicate).includes("total") ||
+          safe(f.predicate).includes("how many"),
         );
         if (countFact) return countFact.value;
       }
 
       // Otherwise deduplicate and count unique items
-      const unique = new Set(matching.map((f) => f.value.toLowerCase()));
+      const unique = new Set(matching.map((f) => (f.value ?? "").toLowerCase()).filter(Boolean));
       return String(unique.size);
     }
 
     case "LATEST": {
       const pred = (op.predicate ?? "").toLowerCase();
       const matching = store.facts
-        .filter((f) => f.predicate.toLowerCase().includes(pred) || f.value.toLowerCase().includes(pred))
+        .filter((f) => safe(f.predicate).includes(pred) || safe(f.value).includes(pred))
         .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
       if (matching.length > 0) return matching[0]!.value;
       // Fuzzy fallback
@@ -429,7 +436,7 @@ export function answerFromProjections(
     case "PREVIOUS": {
       const pred = (op.predicate ?? "").toLowerCase();
       const matching = store.facts
-        .filter((f) => f.predicate.toLowerCase().includes(pred))
+        .filter((f) => safe(f.predicate).includes(pred))
         .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
       if (matching.length < 2) return null;
       return matching[1]!.value; // second most recent
@@ -440,7 +447,7 @@ export function answerFromProjections(
       const matching = store.events.filter((e) => e.event.toLowerCase().includes(event));
       if (matching.length > 0) return matching[0]!.date;
       const factMatch = store.facts.filter(
-        (f) => f.date && (f.predicate.toLowerCase().includes(event) || f.value.toLowerCase().includes(event)),
+        (f) => f.date && (safe(f.predicate).includes(event) || safe(f.value).includes(event)),
       );
       if (factMatch.length > 0) return factMatch[0]!.date!;
       const fb = fuzzySearch(question);
@@ -458,7 +465,7 @@ export function answerFromProjections(
       // Fall back to facts with dates
       if (!eventDate) {
         const matchingFacts = store.facts.filter(
-          (f) => f.date && (f.predicate.toLowerCase().includes(event) || f.value.toLowerCase().includes(event) || f.entity.toLowerCase().includes(event)),
+          (f) => f.date && (safe(f.predicate).includes(event) || safe(f.value).includes(event) || safe(f.entity).includes(event)),
         );
         if (matchingFacts.length > 0) eventDate = matchingFacts[0]!.date!;
       }
@@ -515,8 +522,8 @@ export function answerFromProjections(
       if (positive.length > 0) return positive[0]!.preference;
       // Fall back to facts about preferences
       const factMatch = store.facts.filter(
-        (f) => (f.predicate.toLowerCase().includes("favorite") || f.predicate.toLowerCase().includes("prefer") || f.predicate.toLowerCase().includes("like"))
-          && (f.value.toLowerCase().includes(entity) || f.entity.toLowerCase().includes(entity)),
+        (f) => (safe(f.predicate).includes("favorite") || safe(f.predicate).includes("prefer") || safe(f.predicate).includes("like"))
+          && (safe(f.value).includes(entity) || safe(f.entity).includes(entity)),
       );
       if (factMatch.length > 0) return factMatch[0]!.value;
       return null;
@@ -525,7 +532,7 @@ export function answerFromProjections(
     case "EXISTS": {
       const pred = (op.predicate ?? "").toLowerCase();
       const exists = store.facts.some(
-        (f) => f.predicate.toLowerCase().includes(pred) || f.value.toLowerCase().includes(pred),
+        (f) => safe(f.predicate).includes(pred) || safe(f.value).includes(pred),
       );
       return exists ? "Yes" : null;
     }
@@ -533,7 +540,7 @@ export function answerFromProjections(
     case "LIST": {
       const entity = (op.entity ?? "").toLowerCase();
       const matching = store.facts.filter(
-        (f) => f.entity.toLowerCase().includes(entity) || f.predicate.toLowerCase().includes(entity),
+        (f) => safe(f.entity).includes(entity) || safe(f.predicate).includes(entity),
       );
       if (matching.length === 0) return null;
       const unique = [...new Set(matching.map((f) => f.value))];
@@ -703,8 +710,8 @@ export function answerDeterministic(
 
       for (const f of facts) {
         let fScore = 0;
-        const val = f.value.toLowerCase();
-        const pred = f.predicate.toLowerCase();
+        const val = safe(f.value);
+        const pred = safe(f.predicate);
 
         if (wantsAmount && /\$?\d/.test(f.value)) fScore += 5;
         if (wantsLocation && /store|shop|restaurant|hotel|city|town|downtown|park|school|near|district/.test(val)) fScore += 5;

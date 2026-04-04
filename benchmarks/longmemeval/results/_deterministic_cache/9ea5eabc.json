@@ -2,50 +2,43 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "took a trip to",
+      "predicate": "took trip to",
       "value": "Hawaii",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "participated in activity",
+      "predicate": "activity during Hawaii trip",
       "value": "snorkeling",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "traveled with",
-      "value": "family",
-      "sessionId": "answer_02e66dec_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "wants to explore",
+      "predicate": "wanted to explore",
       "value": "Waikiki",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "plans to take extra days after family trip in",
-      "value": "area with friends",
+      "predicate": "wanted to do",
+      "value": "shopping",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "has friends who live in",
-      "value": "Hawaii area",
+      "predicate": "planning to take",
+      "value": "solo trip after family trip",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "interested in taking",
-      "value": "food tour",
+      "predicate": "has friends in",
+      "value": "area where family trip is",
       "sessionId": "answer_02e66dec_1",
       "source": "user"
     },
@@ -58,59 +51,62 @@
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended apps for meeting people",
+      "predicate": "recommended apps",
       "value": "Bumble BFF, Meetup, Backpackr, Travello, Join My Trip",
+      "date": "2023-05-26",
       "sessionId": "answer_02e66dec_1",
       "source": "assistant"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended accommodation type",
-      "value": "social hostels",
-      "sessionId": "answer_02e66dec_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended activities",
-      "value": "food tours, cooking classes",
-      "sessionId": "answer_02e66dec_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "listed popular food tour destinations",
+      "predicate": "recommended food tour destinations",
       "value": "Italy, Thailand, Japan, Spain, Mexico, Vietnam, India, Peru",
+      "date": "2023-05-26",
       "sessionId": "answer_02e66dec_1",
       "source": "assistant"
     },
     {
-      "entity": "Japan",
-      "predicate": "has popular food markets",
-      "value": "Tsukiji Fish Market, Dotonbori, Shinjuku's Omoide Yokocho, Fukuoka's Yatai",
+      "entity": "Assistant",
+      "predicate": "recommended food markets/locations in Japan",
+      "value": "Tsukiji Fish Market (Tokyo), Dotonbori (Osaka), Shinjuku's Omoide Yokocho (Tokyo), Fukuoka's Yatai (Fukuoka)",
+      "date": "2023-05-26",
       "sessionId": "answer_02e66dec_1",
       "source": "assistant"
     },
     {
       "entity": "User",
-      "predicate": "took family trip to",
+      "predicate": "traveled to",
       "value": "Paris",
-      "date": "2023-04",
-      "sessionId": "answer_02e66dec_2",
-      "source": "user"
-    },
-    {
-      "entity": "User's kids",
-      "predicate": "enjoyed",
-      "value": "Paris trip",
-      "date": "2023-04",
+      "date": "2023-04-28",
       "sessionId": "answer_02e66dec_2",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "planning solo trip to",
+      "predicate": "traveled with",
+      "value": "family",
+      "date": "2023-04-28",
+      "sessionId": "answer_02e66dec_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "planning trip to",
       "value": "Tokyo",
+      "sessionId": "answer_02e66dec_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "trip type",
+      "value": "solo",
+      "sessionId": "answer_02e66dec_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has",
+      "value": "kids",
       "sessionId": "answer_02e66dec_2",
       "source": "user"
     },
@@ -138,13 +134,6 @@
     {
       "entity": "Paris",
       "predicate": "has attraction",
-      "value": "Montmartre",
-      "sessionId": "answer_02e66dec_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Paris",
-      "predicate": "has attraction",
       "value": "Eiffel Tower",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
@@ -165,8 +154,15 @@
     },
     {
       "entity": "Paris",
-      "predicate": "has attraction",
-      "value": "Champs-Élysées",
+      "predicate": "has neighborhood",
+      "value": "Montmartre",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Paris",
+      "predicate": "has neighborhood",
+      "value": "Marais",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
@@ -187,35 +183,77 @@
     {
       "entity": "Paris",
       "predicate": "has attraction",
+      "value": "Champs-Élysées",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Paris",
+      "predicate": "has day trip",
       "value": "Disneyland Paris",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
       "entity": "Paris",
-      "predicate": "has attraction",
+      "predicate": "has day trip",
       "value": "Château de Versailles",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
-      "entity": "Hotel Plaza Athenee",
-      "predicate": "located in",
-      "value": "Paris",
+      "entity": "Tokyo",
+      "predicate": "has neighborhood",
+      "value": "Shinjuku",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
-      "entity": "Hotel Le Walt",
-      "predicate": "located in",
-      "value": "Paris",
+      "entity": "Tokyo",
+      "predicate": "has neighborhood",
+      "value": "Shibuya",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
-      "entity": "Marais neighborhood",
-      "predicate": "located in",
-      "value": "Paris",
+      "entity": "Tokyo",
+      "predicate": "has neighborhood",
+      "value": "Asakusa",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Tokyo",
+      "predicate": "has neighborhood",
+      "value": "Harajuku",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Tokyo",
+      "predicate": "has neighborhood",
+      "value": "Shimokitazawa",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Tokyo",
+      "predicate": "has neighborhood",
+      "value": "Akihabara",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Tokyo",
+      "predicate": "has neighborhood",
+      "value": "Daikanyama",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Tokyo",
+      "predicate": "has neighborhood",
+      "value": "Golden Gai",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
@@ -249,29 +287,8 @@
     },
     {
       "entity": "Tokyo",
-      "predicate": "has neighborhood",
-      "value": "Harajuku",
-      "sessionId": "answer_02e66dec_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tokyo",
-      "predicate": "has neighborhood",
-      "value": "Shimokitazawa",
-      "sessionId": "answer_02e66dec_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tokyo",
-      "predicate": "has neighborhood",
-      "value": "Akihabara",
-      "sessionId": "answer_02e66dec_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tokyo",
       "predicate": "has attraction",
-      "value": "teamLab Borderless digital art museum",
+      "value": "teamLab Borderless",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
@@ -305,22 +322,8 @@
     },
     {
       "entity": "Tokyo",
-      "predicate": "has neighborhood",
-      "value": "Daikanyama",
-      "sessionId": "answer_02e66dec_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tokyo",
       "predicate": "has attraction",
       "value": "Ghibli Museum",
-      "sessionId": "answer_02e66dec_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tokyo",
-      "predicate": "has attraction",
-      "value": "Golden Gai",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
@@ -333,43 +336,113 @@
     },
     {
       "entity": "Tokyo",
-      "predicate": "has attraction",
-      "value": "Sumida River",
+      "predicate": "has day trip",
+      "value": "Nikko",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
       "entity": "Tokyo",
+      "predicate": "has day trip",
+      "value": "Kamakura",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Tokyo",
+      "predicate": "has day trip",
+      "value": "Yokohama",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Tokyo",
+      "predicate": "has day trip",
+      "value": "Izu Peninsula",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Rome",
       "predicate": "has attraction",
-      "value": "Ryogoku Kokugikan",
+      "value": "Colosseum",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
-      "entity": "Nikko",
-      "predicate": "is day trip from",
-      "value": "Tokyo",
+      "entity": "Rome",
+      "predicate": "has attraction",
+      "value": "Explora Museum",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
-      "entity": "Kamakura",
-      "predicate": "is day trip from",
-      "value": "Tokyo",
+      "entity": "Amsterdam",
+      "predicate": "has attraction",
+      "value": "NEMO Science Center",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
-      "entity": "Yokohama",
-      "predicate": "is day trip from",
-      "value": "Tokyo",
+      "entity": "Amsterdam",
+      "predicate": "has attraction",
+      "value": "Amsterdam Zoo",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     },
     {
-      "entity": "Izu Peninsula",
-      "predicate": "is day trip from",
-      "value": "Tokyo",
+      "entity": "Barcelona",
+      "predicate": "has attraction",
+      "value": "Tibidabo Amusement Park",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Barcelona",
+      "predicate": "has attraction",
+      "value": "Barceloneta Beach",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "London",
+      "predicate": "has attraction",
+      "value": "Legoland",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "London",
+      "predicate": "has attraction",
+      "value": "Harry Potter Studios",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "London",
+      "predicate": "has attraction",
+      "value": "London Zoo",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Dublin",
+      "predicate": "has attraction",
+      "value": "Dublin Zoo",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Dublin",
+      "predicate": "has attraction",
+      "value": "Trinity College",
+      "sessionId": "answer_02e66dec_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Dublin",
+      "predicate": "has attraction",
+      "value": "Phoenix Park",
       "sessionId": "answer_02e66dec_2",
       "source": "assistant"
     }
@@ -379,83 +452,91 @@
       "entity": "User",
       "preference": "snorkeling",
       "polarity": "positive",
-      "constraint": "highlight of Hawaii trip"
+      "constraint": "in Hawaii"
     },
     {
       "entity": "User",
-      "preference": "personal freedom and exploration while traveling",
-      "polarity": "positive",
-      "constraint": "especially shopping in Waikiki"
-    },
-    {
-      "entity": "User",
-      "preference": "meeting new people while traveling",
-      "polarity": "positive",
-      "constraint": "through food tours, cooking classes, social hostels"
-    },
-    {
-      "entity": "User",
-      "preference": "trying new flavors and cuisines",
-      "polarity": "positive",
-      "constraint": "especially Japanese food"
-    },
-    {
-      "entity": "User",
-      "preference": "family bonding",
-      "polarity": "positive",
-      "constraint": "shared experiences and memories"
-    },
-    {
-      "entity": "User",
-      "preference": "packed schedules",
-      "polarity": "negative",
-      "constraint": "felt stuck to schedule on Hawaii trip"
-    },
-    {
-      "entity": "User's kids",
-      "preference": "Paris trip activities",
+      "preference": "personal freedom and solo time while traveling",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "unique and off-the-beaten-path experiences",
+      "preference": "exploring and shopping",
       "polarity": "positive",
-      "constraint": "Tokyo"
+      "constraint": "in Waikiki"
     },
     {
       "entity": "User",
-      "preference": "something different from family travel",
+      "preference": "meeting new people while traveling solo",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "social hostels",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "food tours and cooking classes",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "trying new flavors",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "packed schedule",
+      "polarity": "negative",
+      "constraint": "during family trips"
+    },
+    {
+      "entity": "User",
+      "preference": "family travel",
       "polarity": "positive",
-      "constraint": "solo trip"
+      "constraint": "with kids"
+    },
+    {
+      "entity": "User",
+      "preference": "Paris",
+      "polarity": "positive",
+      "constraint": "recent family trip was amazing"
+    },
+    {
+      "entity": "User",
+      "preference": "solo travel",
+      "polarity": "positive",
+      "constraint": "planning Tokyo trip"
+    },
+    {
+      "entity": "User",
+      "preference": "off-the-beaten-path experiences",
+      "polarity": "positive",
+      "constraint": "in Tokyo"
+    },
+    {
+      "entity": "User",
+      "preference": "unique experiences",
+      "polarity": "positive",
+      "constraint": "different from family travel"
     }
   ],
   "events": [
     {
-      "event": "User took a family trip to Hawaii and went snorkeling",
+      "event": "User took family trip to Hawaii with snorkeling activity",
       "date": null,
       "location": "Hawaii",
       "sessionId": "answer_02e66dec_1"
     },
     {
-      "event": "User planning next family trip with solo days added",
-      "date": null,
-      "sessionId": "answer_02e66dec_1"
-    },
-    {
-      "event": "User planning to explore Waikiki and meet friends after family trip",
-      "date": null,
-      "location": "Waikiki, Hawaii",
-      "sessionId": "answer_02e66dec_1"
-    },
-    {
-      "event": "User planning to take a food tour and join cooking classes",
-      "date": null,
-      "location": "Japan",
+      "event": "Conversation about trip planning and balancing freedom and bonding time",
+      "date": "2023-05-26",
       "sessionId": "answer_02e66dec_1"
     },
     {
       "event": "User took family trip to Paris",
-      "date": "2023-04",
+      "date": "2023-04-28",
       "location": "Paris, France",
       "sessionId": "answer_02e66dec_2"
     },

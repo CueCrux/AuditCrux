@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "planning",
+      "predicate": "is planning",
       "value": "dinner party",
       "date": "2023-06-16",
       "sessionId": "answer_73540165_1",
@@ -58,7 +58,7 @@
     },
     {
       "entity": "User",
-      "predicate": "has scheduled event",
+      "predicate": "has event",
       "value": "cocktail-making class",
       "date": "2023-06-22",
       "sessionId": "answer_73540165_1",
@@ -66,294 +66,49 @@
     },
     {
       "entity": "User",
-      "predicate": "beverage choice",
-      "value": "spicy mango margaritas",
+      "predicate": "is experimenting with",
+      "value": "jerk seasoning",
       "date": "2023-06-16",
       "sessionId": "answer_73540165_1",
       "source": "user"
     },
     {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Spicy Shrimp Ceviche",
+      "entity": "Spicy mango margaritas",
+      "predicate": "are paired with",
+      "value": "appetizers and main course",
       "date": "2023-06-16",
       "sessionId": "answer_73540165_1",
-      "source": "assistant"
+      "source": "user"
     },
     {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Mango Salsa with Plantain Chips",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Grilled Pineapple and Prosciutto Skewers",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Jalapeño Poppers",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Coconut Shrimp with Mango Chili Sauce",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Spicy Mango Bruschetta",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Crispy Fried Wontons with Mango Salsa",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Mango and Avocado Salad",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Spicy Mango Meatballs",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended appetizer",
-      "value": "Tropical Fruit Skewers with Spicy Rum Glaze",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended main course",
-      "value": "Grilled Jerk Chicken with Mango Salsa",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended main course",
-      "value": "Pan-Seared Fish Tacos with Mango Avocado Salsa",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended main course",
-      "value": "Cilantro Lime Chicken Fajitas",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended main course",
-      "value": "Grilled Shrimp and Pineapple Skewers with Coconut Rice",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended main course",
-      "value": "Chipotle Lime Grilled Steak with Roasted Vegetables",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended main course",
-      "value": "Coconut Curry Chicken with Mango Chutney",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended main course",
-      "value": "Grilled Mahi-Mahi with Mango BBQ Sauce",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended dessert",
-      "value": "Coconut Lime Panna Cotta with Mango Salsa",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended dessert",
-      "value": "Pineapple Upside-Down Cake with Spicy Rum Glaze",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended dessert",
-      "value": "Mango Sorbet with Toasted Coconut and Lime Zest",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended dessert",
-      "value": "Coconut Cream Pie with Spicy Mango Chutney",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended dessert",
-      "value": "Jerk-Infused Chocolate Truffles",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended dessert",
-      "value": "Pineapple-Coconut Tarts with Spicy Mango Salsa",
-      "date": "2023-06-16",
-      "sessionId": "answer_73540165_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "predicate": "attends",
       "value": "cocktail-making class on Fridays",
       "sessionId": "answer_73540165_2",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "has tried",
       "value": "Avion Silver tequila",
       "sessionId": "answer_73540165_2",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "uses in homemade margaritas",
-      "value": "Avion Silver",
-      "sessionId": "answer_73540165_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "predicate": "plans to experiment with",
       "value": "Paloma cocktail",
-      "date": "2023-06-30",
+      "date": "2023-07-07",
       "sessionId": "answer_73540165_2",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "plans to experiment with",
       "value": "Tequila Sour cocktail",
-      "date": "2023-06-30",
+      "date": "2023-07-07",
       "sessionId": "answer_73540165_2",
       "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "plans to try roasting",
-      "value": "watermelon",
-      "sessionId": "answer_73540165_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "is experimenting with",
-      "value": "basil in cocktails",
-      "sessionId": "answer_73540165_2",
-      "source": "user"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Avion Silver blanco tequila",
-      "date": "2023-06-30",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Casa Noble Crystal blanco tequila",
-      "date": "2023-06-30",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Espolón Blanco tequila",
-      "date": "2023-06-30",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Don Julio Reposado tequila",
-      "date": "2023-06-30",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Herradura Reposado tequila",
-      "date": "2023-06-30",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "El Jimador Reposado tequila",
-      "date": "2023-06-30",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
     },
     {
       "entity": "Watermelon Puree Recipe",
@@ -365,7 +120,7 @@
     {
       "entity": "Watermelon Puree Recipe",
       "predicate": "requires",
-      "value": "1 tablespoon granulated sugar",
+      "value": "1 tablespoon granulated sugar (optional)",
       "sessionId": "answer_73540165_2",
       "source": "assistant"
     },
@@ -398,65 +153,79 @@
       "source": "assistant"
     },
     {
-      "entity": "Watermelon Basil Margarita Recipe",
-      "predicate": "requires",
-      "value": "2 ounces tequila",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Watermelon Basil Margarita Recipe",
-      "predicate": "requires",
-      "value": "1 ounce fresh lime juice",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Watermelon Basil Margarita Recipe",
-      "predicate": "requires",
-      "value": "1/2 ounce watermelon puree",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Watermelon Basil Margarita Recipe",
-      "predicate": "requires",
-      "value": "1/2 ounce agave syrup",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Watermelon Basil Margarita Recipe",
-      "predicate": "requires",
-      "value": "1/4 ounce basil syrup",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Roasted watermelon",
-      "predicate": "preparation temperature",
-      "value": "400°F/200°C",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Roasted watermelon",
-      "predicate": "preparation time",
-      "value": "20-30 minutes",
-      "sessionId": "answer_73540165_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Watermelon Puree",
-      "predicate": "storage duration",
-      "value": "up to 24 hours",
+      "entity": "Basil Syrup",
+      "predicate": "steeps for",
+      "value": "at least 30 minutes",
       "sessionId": "answer_73540165_2",
       "source": "assistant"
     },
     {
       "entity": "Basil Syrup",
-      "predicate": "storage duration",
-      "value": "up to 2 weeks",
+      "predicate": "stores in",
+      "value": "refrigerator for up to 2 weeks",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Watermelon Puree",
+      "predicate": "stores in",
+      "value": "refrigerator for up to 24 hours",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Watermelon Basil Margarita",
+      "predicate": "contains",
+      "value": "2 ounces tequila",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Watermelon Basil Margarita",
+      "predicate": "contains",
+      "value": "1 ounce fresh lime juice",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Watermelon Basil Margarita",
+      "predicate": "contains",
+      "value": "1/2 ounce watermelon puree",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Watermelon Basil Margarita",
+      "predicate": "contains",
+      "value": "1/2 ounce agave syrup",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Watermelon Basil Margarita",
+      "predicate": "contains",
+      "value": "1/4 ounce basil syrup",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Avion Silver",
+      "predicate": "is described as",
+      "value": "crisp, clean tequila with notes of citrus and a hint of sweetness",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Paloma",
+      "predicate": "contains",
+      "value": "tequila, grapefruit juice, lime juice, and soda water",
+      "sessionId": "answer_73540165_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Tequila Sour",
+      "predicate": "contains",
+      "value": "tequila, lime juice, egg white, and orange liqueur",
       "sessionId": "answer_73540165_2",
       "source": "assistant"
     }
@@ -469,55 +238,77 @@
     },
     {
       "entity": "User",
-      "preference": "jerk seasoning on chicken",
-      "polarity": "positive",
-      "constraint": "lately experimenting with it"
-    },
-    {
-      "entity": "User",
-      "preference": "creamy dessert with tangy and refreshing contrast",
-      "polarity": "positive",
-      "constraint": "coconut lime panna cotta with mango salsa"
-    },
-    {
-      "entity": "User",
-      "preference": "Watermelon Basil Margarita",
+      "preference": "grilled pineapple and prosciutto skewers",
       "polarity": "positive"
     },
     {
       "entity": "User",
+      "preference": "spicy shrimp ceviche",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "jerk seasoning on chicken",
+      "polarity": "positive",
+      "constraint": "loves the flavor it adds"
+    },
+    {
+      "entity": "User",
+      "preference": "grilled jerk chicken with mango salsa",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "roasted sweet potatoes",
+      "polarity": "positive",
+      "constraint": "as side dish instead of quinoa"
+    },
+    {
+      "entity": "User",
+      "preference": "coconut lime panna cotta with mango salsa",
+      "polarity": "positive",
+      "constraint": "loves creamy dessert with tangy and refreshing contrast"
+    },
+    {
+      "entity": "User",
+      "preference": "cocktail-making class",
+      "polarity": "positive",
+      "constraint": "excited to try out new recipes"
+    },
+    {
+      "entity": "user",
       "preference": "basil in cocktails",
       "polarity": "positive",
-      "constraint": "experimenting with it lately"
+      "constraint": "pairs well with tequila"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "preference": "Watermelon Basil Margarita",
+      "polarity": "positive",
+      "constraint": "interested in trying this recipe"
+    },
+    {
+      "entity": "user",
       "preference": "Avion Silver tequila",
       "polarity": "positive",
-      "constraint": "one of favorites, used in homemade margaritas"
+      "constraint": "one of their favorites, uses in homemade margaritas"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "grapefruit juice in cocktails",
       "polarity": "positive",
-      "constraint": "wanting to experiment with"
+      "constraint": "wants to experiment with it"
     },
     {
-      "entity": "User",
-      "preference": "Paloma cocktail",
+      "entity": "user",
+      "preference": "roasting watermelon",
       "polarity": "positive",
-      "constraint": "planning to try during class"
-    },
-    {
-      "entity": "User",
-      "preference": "Tequila Sour cocktail",
-      "polarity": "positive",
-      "constraint": "planning to try during class"
+      "constraint": "to bring out sweetness"
     }
   ],
   "events": [
     {
-      "event": "dinner party planning",
+      "event": "dinner party planning and menu selection",
       "date": "2023-06-16",
       "sessionId": "answer_73540165_1"
     },
@@ -527,12 +318,12 @@
       "sessionId": "answer_73540165_1"
     },
     {
-      "event": "User attends cocktail-making class",
+      "event": "cocktail-making class",
       "date": "2023-07-07",
       "sessionId": "answer_73540165_2"
     },
     {
-      "event": "User plans to experiment with Paloma and Tequila Sour recipes",
+      "event": "user plans to experiment with Watermelon Basil Margarita, Paloma, and Tequila Sour",
       "date": "2023-07-07",
       "sessionId": "answer_73540165_2"
     }

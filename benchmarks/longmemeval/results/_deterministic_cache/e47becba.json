@@ -9,22 +9,23 @@
     },
     {
       "entity": "User",
-      "predicate": "has",
+      "predicate": "is in",
       "value": "new job",
       "sessionId": "answer_280352e9",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "works",
-      "value": "9-to-5 schedule",
+      "predicate": "works schedule",
+      "value": "9-to-5",
       "sessionId": "answer_280352e9",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "currently uses",
+      "predicate": "currently using",
       "value": "planner",
+      "date": "2023-05-30",
       "sessionId": "answer_280352e9",
       "source": "user"
     },
@@ -143,6 +144,46 @@
     {
       "entity": "Assistant",
       "predicate": "recommended",
+      "value": "Expensify",
+      "date": "2023-05-30",
+      "sessionId": "answer_280352e9",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended",
+      "value": "Concur",
+      "date": "2023-05-30",
+      "sessionId": "answer_280352e9",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended",
+      "value": "Zoho Expense",
+      "date": "2023-05-30",
+      "sessionId": "answer_280352e9",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended",
+      "value": "Shoeboxed",
+      "date": "2023-05-30",
+      "sessionId": "answer_280352e9",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended",
+      "value": "Neat",
+      "date": "2023-05-30",
+      "sessionId": "answer_280352e9",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended",
       "value": "Mint",
       "date": "2023-05-30",
       "sessionId": "answer_280352e9",
@@ -159,7 +200,7 @@
     {
       "entity": "Assistant",
       "predicate": "recommended",
-      "value": "YNAB (You Need a Budget)",
+      "value": "YNAB",
       "date": "2023-05-30",
       "sessionId": "answer_280352e9",
       "source": "assistant"
@@ -223,46 +264,6 @@
     {
       "entity": "Assistant",
       "predicate": "recommended",
-      "value": "Expensify",
-      "date": "2023-05-30",
-      "sessionId": "answer_280352e9",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Concur",
-      "date": "2023-05-30",
-      "sessionId": "answer_280352e9",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Zoho Expense",
-      "date": "2023-05-30",
-      "sessionId": "answer_280352e9",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Shoeboxed",
-      "date": "2023-05-30",
-      "sessionId": "answer_280352e9",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Neat",
-      "date": "2023-05-30",
-      "sessionId": "answer_280352e9",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended",
       "value": "Ibotta",
       "date": "2023-05-30",
       "sessionId": "answer_280352e9",
@@ -280,28 +281,55 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "digital task management over paper planner",
-      "polarity": "positive"
+      "preference": "organizing life",
+      "polarity": "positive",
+      "constraint": "better organization and digital task management"
     },
     {
       "entity": "User",
-      "preference": "saving money on groceries and household items",
-      "polarity": "positive"
+      "preference": "task management apps",
+      "polarity": "positive",
+      "constraint": "prioritizing work and personal tasks"
     },
     {
       "entity": "User",
-      "preference": "staying organized with work and personal tasks",
-      "polarity": "positive"
+      "preference": "Todoist and Trello",
+      "polarity": "positive",
+      "constraint": "heard good things about them"
+    },
+    {
+      "entity": "User",
+      "preference": "staying organized with paperwork",
+      "polarity": "positive",
+      "constraint": "tracking expenses and reimbursements"
+    },
+    {
+      "entity": "User",
+      "preference": "personal expense tracking",
+      "polarity": "positive",
+      "constraint": "staying on top of finances"
+    },
+    {
+      "entity": "User",
+      "preference": "saving money on everyday expenses",
+      "polarity": "positive",
+      "constraint": "groceries and household items"
+    },
+    {
+      "entity": "User",
+      "preference": "cutting back spending",
+      "polarity": "positive",
+      "constraint": "feels spending too much on groceries and household items"
     }
   ],
   "events": [
     {
-      "event": "User started new job with 9-to-5 schedule",
+      "event": "User graduated with Business Administration degree",
       "date": null,
       "sessionId": "answer_280352e9"
     },
     {
-      "event": "User graduated with degree in Business Administration",
+      "event": "User started new job",
       "date": null,
       "sessionId": "answer_280352e9"
     }

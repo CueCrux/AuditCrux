@@ -2,70 +2,35 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "plays sport",
-      "value": "soccer",
+      "predicate": "plays_sport",
+      "value": "soccer with coworkers",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "plays sport with",
-      "value": "coworkers",
-      "sessionId": "answer_a25d4a91_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "soccer game frequency",
+      "predicate": "soccer_game_frequency",
       "value": "every two weeks",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "next soccer game",
-      "value": "in two weeks",
+      "predicate": "completed_5K_run",
+      "value": "charity 5K with personal best time of 27:12",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "recently completed",
-      "value": "charity 5K run",
+      "predicate": "scored_goal",
+      "value": "in recreational game with coworkers",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "5K run personal best time",
-      "value": "27:12",
-      "sessionId": "answer_a25d4a91_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "scored goal in",
-      "value": "recreational soccer game with coworkers",
-      "sessionId": "answer_a25d4a91_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "plays sport",
-      "value": "tennis",
-      "sessionId": "answer_a25d4a91_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "tennis playing duration",
-      "value": "casually for a few years",
-      "sessionId": "answer_a25d4a91_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "signed up for",
+      "predicate": "registered_for_tournament",
       "value": "tennis tournament",
       "date": "2023-05-06",
       "sessionId": "answer_a25d4a91_1",
@@ -73,22 +38,22 @@
     },
     {
       "entity": "User",
-      "predicate": "first tournament",
-      "value": "tennis",
+      "predicate": "tennis_experience",
+      "value": "playing casually for a few years",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "tournament goal",
-      "value": "at least quarterfinals",
+      "predicate": "tournament_goal",
+      "value": "make it to at least the quarterfinals",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "focuses on strength training for",
-      "value": "core and legs",
+      "predicate": "fitness_focus",
+      "value": "strengthening core and legs",
       "sessionId": "answer_a25d4a91_1",
       "source": "user"
     },
@@ -104,15 +69,6 @@
       "entity": "User",
       "predicate": "personal best time",
       "value": "25:50",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "goal",
-      "value": "beat personal best time of 25:50",
-      "date": "2023-05-30",
       "sessionId": "answer_a25d4a91_2",
       "source": "user"
     },
@@ -127,7 +83,7 @@
     {
       "entity": "Assistant",
       "predicate": "recommended weekly mileage increase",
-      "value": "10-15% per week",
+      "value": "10-15%",
       "date": "2023-05-30",
       "sessionId": "answer_a25d4a91_2",
       "source": "assistant"
@@ -142,8 +98,16 @@
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended sleep",
-      "value": "7-9 hours per night",
+      "predicate": "recommended sleep duration",
+      "value": "7-9 hours",
+      "date": "2023-05-30",
+      "sessionId": "answer_a25d4a91_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended interval training pace",
+      "value": "3:20-3:40 per 800m",
       "date": "2023-05-30",
       "sessionId": "answer_a25d4a91_2",
       "source": "assistant"
@@ -158,15 +122,7 @@
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended interval workout pace",
-      "value": "3:20-3:40 per 800m",
-      "date": "2023-05-30",
-      "sessionId": "answer_a25d4a91_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommended tennis serve toss height",
+      "predicate": "recommended serve toss height",
       "value": "6-8 feet",
       "date": "2023-05-30",
       "sessionId": "answer_a25d4a91_2",
@@ -174,7 +130,7 @@
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended tennis serve contact height",
+      "predicate": "recommended serve contact height",
       "value": "9-10 feet",
       "date": "2023-05-30",
       "sessionId": "answer_a25d4a91_2",
@@ -184,67 +140,74 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "scoring goals in soccer",
+      "preference": "soccer",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "running",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "tennis",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "goal-scoring in soccer",
       "polarity": "positive",
-      "constraint": "highlight for user since not typically a goal-scorer"
+      "constraint": "not typically a goal-scorer"
     },
     {
       "entity": "User",
-      "preference": "participating in tennis tournaments",
+      "preference": "beating personal best time in 5K",
       "polarity": "positive",
-      "constraint": "first real tournament"
+      "constraint": "25:50"
     },
     {
       "entity": "User",
-      "preference": "running in charity 5K events",
-      "polarity": "positive"
+      "preference": "improving endurance",
+      "polarity": "positive",
+      "constraint": "for 5K running"
     },
     {
       "entity": "User",
-      "preference": "improving running endurance",
-      "polarity": "positive"
+      "preference": "improving serve technique",
+      "polarity": "positive",
+      "constraint": "for tennis tournament"
     },
     {
       "entity": "User",
-      "preference": "participating in tennis tournaments",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "improving tennis serve",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "focusing on toss consistency",
+      "preference": "improving toss consistency",
       "polarity": "positive",
       "constraint": "for tennis serve"
     }
   ],
   "events": [
     {
-      "event": "User completed charity 5K run with personal best time of 27:12",
+      "event": "Charity 5K run with personal best time of 27:12",
       "date": null,
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "User scored goal in recreational soccer game with coworkers",
+      "event": "Scored a goal in recreational soccer game with coworkers",
       "date": null,
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "Tennis tournament",
+      "event": "Tennis tournament registration",
       "date": "2023-05-06",
       "sessionId": "answer_a25d4a91_1"
     },
     {
-      "event": "Tennis tournament",
-      "date": "2023-05-06",
+      "event": "User training for charity 5K run",
+      "date": "2023-05-30",
       "sessionId": "answer_a25d4a91_2"
     },
     {
-      "event": "Charity 5K run",
-      "date": null,
+      "event": "Tennis tournament",
+      "date": "2023-05-06",
       "sessionId": "answer_a25d4a91_2"
     }
   ]

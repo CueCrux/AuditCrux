@@ -2,29 +2,14 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "lives in",
-      "value": "North Carolina (near Outer Banks)",
-      "sessionId": "answer_526354c8_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
       "predicate": "took road trip to",
       "value": "Outer Banks, North Carolina",
-      "date": "2023-05-21",
       "sessionId": "answer_526354c8_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "driving distance from home to",
-      "value": "Outer Banks, North Carolina",
-      "sessionId": "answer_526354c8_1",
-      "source": "user"
-    },
-    {
-      "entity": "Outer Banks, North Carolina",
-      "predicate": "driving distance",
+      "entity": "Outer Banks",
+      "predicate": "driving distance from user's place",
       "value": "4 hours",
       "sessionId": "answer_526354c8_1",
       "source": "user"
@@ -39,40 +24,47 @@
     },
     {
       "entity": "User",
-      "predicate": "decided to visit",
+      "predicate": "chose destination",
       "value": "Tybee Island, Georgia",
       "date": "2023-05-21",
       "sessionId": "answer_526354c8_1",
       "source": "user"
     },
     {
-      "entity": "Outer Banks to Tybee Island",
-      "predicate": "driving distance",
+      "entity": "Tybee Island",
+      "predicate": "driving distance from Outer Banks",
       "value": "7-8 hours",
       "sessionId": "answer_526354c8_1",
       "source": "assistant"
     },
     {
-      "entity": "Outer Banks to Topsail Island, NC",
-      "predicate": "driving distance",
+      "entity": "Tybee Island",
+      "predicate": "known for",
+      "value": "surfing",
+      "sessionId": "answer_526354c8_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "planning to stop at",
+      "value": "Topsail Island, North Carolina",
+      "date": "2023-05-21",
+      "sessionId": "answer_526354c8_1",
+      "source": "user"
+    },
+    {
+      "entity": "Topsail Island",
+      "predicate": "driving distance from Outer Banks",
       "value": "2 hours",
       "sessionId": "answer_526354c8_1",
       "source": "assistant"
     },
     {
-      "entity": "Topsail Island, NC to Tybee Island, Georgia",
-      "predicate": "driving distance",
+      "entity": "Topsail Island",
+      "predicate": "driving distance to Tybee Island",
       "value": "4-5 hours",
       "sessionId": "answer_526354c8_1",
       "source": "assistant"
-    },
-    {
-      "entity": "User",
-      "predicate": "planning to stop at",
-      "value": "Topsail Island, NC",
-      "date": "2023-05-21",
-      "sessionId": "answer_526354c8_1",
-      "source": "user"
     },
     {
       "entity": "User",
@@ -91,64 +83,15 @@
     },
     {
       "entity": "The Fish Factory",
-      "predicate": "has outdoor seating",
-      "value": "covered deck area with marsh/Intracoastal Waterway views",
+      "predicate": "has",
+      "value": "outdoor deck area",
       "sessionId": "answer_526354c8_1",
       "source": "assistant"
     },
     {
-      "entity": "Bar Harbor, Maine",
-      "predicate": "driving distance from NC",
-      "value": "7-8 hours",
-      "sessionId": "answer_526354c8_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Chincoteague Island, Virginia",
-      "predicate": "driving distance from NC",
-      "value": "4-5 hours",
-      "sessionId": "answer_526354c8_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tybee Island, Georgia",
-      "predicate": "driving distance from NC",
-      "value": "5-6 hours",
-      "sessionId": "answer_526354c8_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Gulf Shores, Alabama",
-      "predicate": "driving distance from NC",
-      "value": "7-8 hours",
-      "sessionId": "answer_526354c8_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Orange Beach, Alabama",
-      "predicate": "driving distance from NC",
-      "value": "7-8 hours",
-      "sessionId": "answer_526354c8_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "St. Pete Beach, Florida",
-      "predicate": "driving distance from NC",
-      "value": "8-9 hours",
-      "sessionId": "answer_526354c8_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Cannon Beach, Oregon",
-      "predicate": "driving distance from NC",
-      "value": "24-26 hours",
-      "sessionId": "answer_526354c8_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Half Moon Bay, California",
-      "predicate": "driving distance from NC",
-      "value": "26-28 hours",
+      "entity": "The Fish Factory",
+      "predicate": "deck area is",
+      "value": "covered",
       "sessionId": "answer_526354c8_1",
       "source": "assistant"
     }
@@ -156,23 +99,12 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "coastal trips",
+      "preference": "relaxed, laid-back vibe for trips",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "relaxed, laid-back vibe",
-      "polarity": "positive",
-      "constraint": "for trips"
-    },
-    {
-      "entity": "User",
-      "preference": "beach activities",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "water sports",
+      "preference": "beach activities and water sports",
       "polarity": "positive"
     },
     {
@@ -182,15 +114,14 @@
     },
     {
       "entity": "User",
-      "preference": "scenic stops",
+      "preference": "coastal trips",
       "polarity": "positive",
-      "constraint": "during road trips"
+      "constraint": "great experiences"
     },
     {
       "entity": "User",
-      "preference": "seafood",
-      "polarity": "positive",
-      "constraint": "at Topsail Island"
+      "preference": "seafood platters at The Fish Factory",
+      "polarity": "positive"
     },
     {
       "entity": "User",
@@ -200,19 +131,19 @@
   ],
   "events": [
     {
-      "event": "User took road trip to Outer Banks, North Carolina",
-      "date": "2023-05-21",
+      "event": "User took road trip to Outer Banks",
+      "date": null,
       "location": "Outer Banks, North Carolina",
       "sessionId": "answer_526354c8_1"
     },
     {
-      "event": "User planning road trip to Tybee Island, Georgia",
+      "event": "User planning road trip to Tybee Island",
       "date": "2023-05-21",
       "location": "Tybee Island, Georgia",
       "sessionId": "answer_526354c8_1"
     },
     {
-      "event": "User planning to stop at Topsail Island, NC for lunch break",
+      "event": "User planning lunch stop at Topsail Island",
       "date": "2023-05-21",
       "location": "Topsail Island, North Carolina",
       "sessionId": "answer_526354c8_1"

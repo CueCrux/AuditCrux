@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "works in field",
+      "predicate": "works_in_field",
       "value": "deep learning for medical image analysis",
       "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
@@ -10,116 +10,217 @@
     },
     {
       "entity": "BRATS",
-      "predicate": "is dataset for",
+      "predicate": "is_dataset_for",
       "value": "brain tumor segmentation",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "BRATS",
-      "predicate": "contains number of scans",
-      "value": "750",
+      "predicate": "contains",
+      "value": "750 MRI scans",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "BRATS",
-      "predicate": "contains modalities",
+      "predicate": "includes_modalities",
       "value": "T1, T2, FLAIR, T1ce",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "MRBrainS",
-      "predicate": "contains number of scans",
-      "value": "5",
+      "predicate": "contains",
+      "value": "5 MRI scans",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "ACDC",
-      "predicate": "is dataset for",
-      "value": "cardiac segmentation",
+      "predicate": "contains",
+      "value": "150 cardiac MRI scans",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
-      "entity": "ACDC",
-      "predicate": "contains number of scans",
-      "value": "150",
-      "sessionId": "answer_d87a6ef8",
-      "source": "assistant"
-    },
-    {
-      "entity": "LUNA",
-      "predicate": "is dataset for",
-      "value": "lung nodule analysis",
+      "entity": "LVSC",
+      "predicate": "contains",
+      "value": "30 cardiac MRI scans",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "LUNA",
-      "predicate": "contains number of scans",
-      "value": "888",
+      "predicate": "contains",
+      "value": "888 CT scans",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "LOLA11",
+      "predicate": "contains",
+      "value": "55 CT scans",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "CHAOS",
-      "predicate": "is dataset for",
-      "value": "abdominal organ segmentation",
-      "sessionId": "answer_d87a6ef8",
-      "source": "assistant"
-    },
-    {
-      "entity": "CHAOS",
-      "predicate": "contains number of scans",
-      "value": "40",
+      "predicate": "contains",
+      "value": "40 abdominal CT scans",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "BTCV",
-      "predicate": "contains number of scans",
-      "value": "50",
+      "predicate": "contains",
+      "value": "50 abdominal CT scans",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "MedMNIST",
-      "predicate": "contains number of tasks",
-      "value": "12",
+      "predicate": "contains",
+      "value": "12 medical image segmentation tasks",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "MSD",
-      "predicate": "contains number of tasks",
-      "value": "10",
+      "predicate": "contains",
+      "value": "10 medical image segmentation tasks",
+      "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
       "entity": "Grad-CAM",
-      "predicate": "was introduced by",
+      "predicate": "is_technique_for",
+      "value": "visualizing gradients of output class scores",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "Grad-CAM",
+      "predicate": "introduced_by",
       "value": "Selvaraju et al.",
       "date": "2017",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
+      "entity": "Attention-Gated Networks",
+      "predicate": "application",
+      "value": "ultrasound image segmentation",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "Attention-Gated Networks",
+      "predicate": "presented_by",
+      "value": "Schlemper et al.",
+      "date": "2019",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
       "entity": "DeepLIFT",
-      "predicate": "was introduced by",
+      "predicate": "is_method_for",
+      "value": "explaining neural network predictions",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "DeepLIFT",
+      "predicate": "introduced_by",
       "value": "Shrikumar et al.",
       "date": "2017",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     },
     {
-      "entity": "Zeiler and Fergus",
-      "predicate": "published paper on",
-      "value": "Visualizing and Understanding Convolutional Neural Networks",
-      "date": "2014",
+      "entity": "LIME",
+      "predicate": "full_name",
+      "value": "Local Interpretable Model-agnostic Explanations",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "SHAP",
+      "predicate": "is_technique",
+      "value": "model-agnostic explanation",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "GANs",
+      "predicate": "full_name",
+      "value": "Generative Adversarial Networks",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "VAEs",
+      "predicate": "full_name",
+      "value": "Variational Autoencoders",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "Transformers",
+      "predicate": "origin_field",
+      "value": "natural language processing",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "Federated Learning",
+      "predicate": "property",
+      "value": "privacy-preserving collaboration",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "Multi-Modal Image Fusion",
+      "predicate": "survey_paper",
+      "value": "Multi-Modal Fusion with Deep Neural Networks for Medical Image Analysis by Wang et al.",
+      "date": "2019",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "Transfer Learning",
+      "predicate": "survey_paper",
+      "value": "Deep Learning for Medical Image Analysis: A Survey by Shen et al.",
+      "date": "2017",
+      "sessionId": "answer_d87a6ef8",
+      "source": "assistant"
+    },
+    {
+      "entity": "Domain Adaptation",
+      "predicate": "survey_paper",
+      "value": "Domain Adaptation for Medical Image Analysis: A Survey by Dou et al.",
+      "date": "2020",
       "sessionId": "answer_d87a6ef8",
       "source": "assistant"
     }
@@ -127,14 +228,65 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "skip basics",
+      "preference": "advanced topics in deep learning",
       "polarity": "positive",
-      "constraint": "requests advanced topics only"
+      "constraint": "multi-modal image fusion, transfer learning, domain adaptation"
+    },
+    {
+      "entity": "User",
+      "preference": "basic information",
+      "polarity": "negative",
+      "constraint": "wants to skip basics as already working in the field"
     }
   ],
   "events": [
     {
-      "event": "Conversation session on deep learning for medical image analysis advancements",
+      "event": "User asked for overview of recent advancements in deep learning for medical image analysis",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "Assistant provided summary of 10 major advancements including multimodal fusion, self-supervised learning, generative models, explainability, transformers, 3D imaging, federated learning, clinical integration, personalized medicine, and regulatory considerations",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "User requested recommendations for popular datasets for segmentation tasks",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "Assistant provided list of datasets across brain, cardiac, lung, abdominal segmentation and general medical imaging tasks",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "User asked for information on latest trends in explainable AI for medical image analysis",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "Assistant provided 10 trends and advancements in XAI for medical imaging including attention-based models, gradient-based methods, visualizations, and clinical validation",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "User requested research papers and articles on explainable AI in medical image analysis",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "Assistant provided list of survey papers, technical papers, and medical imaging applications with XAI",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "User requested research papers on multi-modal image fusion, transfer learning, and domain adaptation",
+      "date": "2023-05-22",
+      "sessionId": "answer_d87a6ef8"
+    },
+    {
+      "event": "Assistant began providing recommendations on advanced topics with research papers",
       "date": "2023-05-22",
       "sessionId": "answer_d87a6ef8"
     }

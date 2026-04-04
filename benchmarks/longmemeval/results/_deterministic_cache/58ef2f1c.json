@@ -2,28 +2,21 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "location_interest",
-      "value": "Los Angeles",
-      "sessionId": "answer_59547700",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "cause_passion",
+      "predicate": "passionate about",
       "value": "animal welfare",
       "sessionId": "answer_59547700",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "cause_passion",
+      "predicate": "passionate about",
       "value": "children's health",
       "sessionId": "answer_59547700",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "volunteered_at",
+      "predicate": "volunteered at",
       "value": "Love is in the Air fundraising dinner",
       "date": "2023-02-14",
       "sessionId": "answer_59547700",
@@ -31,23 +24,16 @@
     },
     {
       "entity": "User",
-      "predicate": "plans_to_attend",
-      "value": "Strut Your Mutt",
+      "predicate": "planning to attend",
+      "value": "Strut Your Mutt event",
       "date": "2023-09-18",
-      "sessionId": "answer_59547700",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "attending_event_with",
-      "value": "friends passionate about animal welfare",
       "sessionId": "answer_59547700",
       "source": "user"
     },
     {
       "entity": "Strut Your Mutt",
       "predicate": "date",
-      "value": "2023-09-18",
+      "value": "Saturday, September 18, 2023",
       "date": "2023-09-18",
       "sessionId": "answer_59547700",
       "source": "assistant"
@@ -68,21 +54,28 @@
     },
     {
       "entity": "Strut Your Mutt",
-      "predicate": "walk_start_time",
+      "predicate": "registration start time",
+      "value": "7:00 AM",
+      "sessionId": "answer_59547700",
+      "source": "assistant"
+    },
+    {
+      "entity": "Strut Your Mutt",
+      "predicate": "walk start time",
       "value": "9:00 AM",
       "sessionId": "answer_59547700",
       "source": "assistant"
     },
     {
       "entity": "Strut Your Mutt",
-      "predicate": "distance_options",
+      "predicate": "distance options",
       "value": "1-mile or 3-mile walk",
       "sessionId": "answer_59547700",
       "source": "assistant"
     },
     {
       "entity": "Strut Your Mutt",
-      "predicate": "registration_deadline",
+      "predicate": "registration deadline",
       "value": "September 1st",
       "date": "2023-09-01",
       "sessionId": "answer_59547700",
@@ -90,72 +83,77 @@
     },
     {
       "entity": "Strut Your Mutt",
-      "predicate": "adult_registration_cost",
+      "predicate": "adult registration cost",
       "value": "$25",
       "sessionId": "answer_59547700",
       "source": "assistant"
     },
     {
       "entity": "Strut Your Mutt",
-      "predicate": "child_registration_cost",
-      "value": "$15 (ages 5-12)",
+      "predicate": "child registration cost (ages 5-12)",
+      "value": "$15",
       "sessionId": "answer_59547700",
       "source": "assistant"
     },
     {
       "entity": "Strut Your Mutt",
-      "predicate": "child_under_5_cost",
+      "predicate": "child registration cost (under 5)",
       "value": "free",
       "sessionId": "answer_59547700",
       "source": "assistant"
     },
     {
-      "entity": "Strut Your Mutt",
-      "predicate": "organizing_charity",
-      "value": "Best Friends Animal Society",
+      "entity": "User",
+      "predicate": "attending event with",
+      "value": "friends who are passionate about animal welfare",
       "sessionId": "answer_59547700",
-      "source": "assistant"
+      "source": "user"
+    },
+    {
+      "entity": "Love is in the Air fundraising dinner",
+      "predicate": "date",
+      "value": "Valentine's Day",
+      "date": "2023-02-14",
+      "sessionId": "answer_59547700",
+      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "animal welfare causes",
-      "polarity": "positive"
+      "preference": "animal welfare",
+      "polarity": "positive",
+      "constraint": "causes they are most passionate about"
     },
     {
       "entity": "User",
-      "preference": "children's health causes",
-      "polarity": "positive"
+      "preference": "children's health",
+      "polarity": "positive",
+      "constraint": "causes they are most passionate about"
     },
     {
       "entity": "User",
       "preference": "fundraising dinners",
       "polarity": "positive",
-      "constraint": "similar to Love is in the Air event"
+      "constraint": "enjoyed similar format to Love is in the Air"
     },
     {
       "entity": "User",
       "preference": "silent auctions and raffles",
       "polarity": "positive",
-      "constraint": "bidding on prizes while supporting causes"
+      "constraint": "energy and excitement of bidding while supporting causes"
     },
     {
       "entity": "User",
-      "preference": "meeting new people at events",
+      "preference": "meeting new people",
       "polarity": "positive",
       "constraint": "at charity events"
     },
     {
       "entity": "User",
-      "preference": "different types of charity events",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "attending events with friends",
+      "preference": "open to different types of events",
       "polarity": "positive",
-      "constraint": "who share similar passions"
+      "constraint": "as long as related to animal welfare or children's health"
     }
   ],
   "events": [
@@ -166,7 +164,7 @@
       "sessionId": "answer_59547700"
     },
     {
-      "event": "Strut Your Mutt dog walk and festival",
+      "event": "Strut Your Mutt",
       "date": "2023-09-18",
       "location": "Exposition Park, Los Angeles, CA",
       "sessionId": "answer_59547700"

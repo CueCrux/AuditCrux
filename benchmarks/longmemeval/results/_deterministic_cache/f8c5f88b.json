@@ -12,12 +12,11 @@
       "entity": "User",
       "predicate": "owns",
       "value": "new tennis racket",
-      "date": "2023-05-25",
       "sessionId": "answer_c3567066",
       "source": "user"
     },
     {
-      "entity": "User's tennis racket",
+      "entity": "Tennis racket",
       "predicate": "purchased from",
       "value": "sports store downtown",
       "sessionId": "answer_c3567066",
@@ -27,84 +26,56 @@
       "entity": "User",
       "predicate": "plans to buy",
       "value": "new tennis balls",
-      "date": "2023-05-25",
+      "date": "2023-05-27",
       "sessionId": "answer_c3567066",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is",
-      "value": "recreational tennis player",
+      "entity": "Tennis ball machines",
+      "predicate": "price range",
+      "value": "a few hundred to several thousand dollars",
       "sessionId": "answer_c3567066",
-      "source": "user"
+      "source": "assistant"
     },
     {
       "entity": "Tennis strings",
-      "predicate": "recommended restring frequency",
+      "predicate": "recommended restringing frequency",
       "value": "every 3-6 months",
       "sessionId": "answer_c3567066",
       "source": "assistant"
     },
     {
-      "entity": "Pressurized tennis balls",
-      "predicate": "have pressure level",
-      "value": "around 12.5 psi for recreational players",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tennis ball machine",
-      "predicate": "price range",
-      "value": "from a few hundred to several thousand dollars",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Core exercise - Plank",
-      "predicate": "recommended duration",
-      "value": "30-60 seconds",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Core exercise - Russian twists",
-      "predicate": "recommended sets and reps",
-      "value": "3 sets of 10-15 reps",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Leg exercise - Squats",
-      "predicate": "recommended sets and reps",
-      "value": "3 sets of 10-15 reps",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Leg exercise - Lunges",
-      "predicate": "recommended sets and reps",
-      "value": "3 sets of 10-15 reps on each leg",
-      "sessionId": "answer_c3567066",
-      "source": "assistant"
-    },
-    {
-      "entity": "Tennis warm-up",
-      "predicate": "recommended duration",
+      "entity": "Warm-up duration",
+      "predicate": "recommended time",
       "value": "10-15 minutes",
       "sessionId": "answer_c3567066",
       "source": "assistant"
     },
     {
-      "entity": "Wilson, Penn, Dunlop",
-      "predicate": "are",
-      "value": "popular tennis ball brands",
+      "entity": "Wilson US Open tennis balls",
+      "predicate": "described as",
+      "value": "popular choice among recreational players",
       "sessionId": "answer_c3567066",
       "source": "assistant"
     },
     {
-      "entity": "Wilson US Open, Penn Championship, Dunlop ATP",
-      "predicate": "are",
-      "value": "recommended tennis ball models for recreational players",
+      "entity": "Penn Championship tennis balls",
+      "predicate": "known for",
+      "value": "durability and consistent bounce",
+      "sessionId": "answer_c3567066",
+      "source": "assistant"
+    },
+    {
+      "entity": "Dunlop ATP tennis balls",
+      "predicate": "designed for",
+      "value": "recreational players",
+      "sessionId": "answer_c3567066",
+      "source": "assistant"
+    },
+    {
+      "entity": "Recreational tennis balls",
+      "predicate": "typical purchase quantity",
+      "value": "cans of three or four balls",
       "sessionId": "answer_c3567066",
       "source": "assistant"
     }
@@ -112,39 +83,27 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "new tennis racket",
+      "preference": "new tennis racket performance",
       "polarity": "positive",
-      "constraint": "performs well and improved their game"
+      "constraint": "improved game"
     },
     {
       "entity": "User",
       "preference": "practicing with friends",
       "polarity": "positive",
-      "constraint": "prefers this over tennis ball machine for now"
-    },
-    {
-      "entity": "User",
-      "preference": "recreational level tennis",
-      "polarity": "positive",
-      "constraint": "casual player, not professional"
+      "constraint": "focus for improvement"
     }
   ],
   "events": [
     {
-      "event": "User purchased new tennis racket",
-      "date": null,
-      "location": "sports store downtown",
-      "sessionId": "answer_c3567066"
-    },
-    {
-      "event": "User plans to play tennis with friends",
+      "event": "User plans to play tennis with friends at local park",
       "date": "2023-05-28",
       "location": "local park",
       "sessionId": "answer_c3567066"
     },
     {
       "event": "User plans to buy new tennis balls",
-      "date": "2023-05-27 or 2023-05-28",
+      "date": "2023-05-27",
       "sessionId": "answer_c3567066"
     }
   ]

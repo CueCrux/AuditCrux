@@ -1,84 +1,84 @@
 {
   "facts": [
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "has project deadline",
       "value": "soon",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "needs to complete",
       "value": "report",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "needs to complete",
       "value": "respond to emails",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "most time-consuming tasks",
-      "value": "working on project, responding to emails, attending meetings",
+      "entity": "User",
+      "predicate": "time-consuming tasks include",
+      "value": "working on project",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "available hours per day for tasks",
+      "entity": "User",
+      "predicate": "time-consuming tasks include",
+      "value": "responding to emails",
+      "sessionId": "answer_6dc4305e",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "time-consuming tasks include",
+      "value": "attending meetings",
+      "sessionId": "answer_6dc4305e",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "available hours per day",
       "value": "7-8 hours",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "most productive time",
       "value": "10 am - 12 pm",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "has fixed commitment",
-      "value": "30-minute exercise routine in the morning",
+      "entity": "User",
+      "predicate": "exercise routine duration",
+      "value": "30 minutes",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "schedule preference",
-      "value": "structured schedule",
+      "entity": "User",
+      "predicate": "exercises in",
+      "value": "morning",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "wants to minimize",
-      "value": "procrastination and social media usage",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "existing time management tools",
-      "value": "none, but open to using one",
-      "sessionId": "answer_6dc4305e",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "preferred bedtime",
+      "entity": "User",
+      "predicate": "desired bedtime",
       "value": "9:30 pm",
       "sessionId": "answer_6dc4305e",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "tried meditation",
       "value": "Sleep guided meditation by Headspace",
       "date": "2023-05-30",
@@ -94,7 +94,7 @@
     },
     {
       "entity": "Sleep guided meditation by Headspace",
-      "predicate": "created by",
+      "predicate": "guided by",
       "value": "Andy Puddicombe",
       "sessionId": "answer_6dc4305e",
       "source": "assistant"
@@ -102,69 +102,72 @@
   ],
   "preferences": [
     {
-      "entity": "user",
+      "entity": "User",
+      "preference": "time management help",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
       "preference": "structured schedule",
       "polarity": "positive"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "preference": "minimize procrastination",
       "polarity": "negative",
       "constraint": "procrastination"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "preference": "minimize social media usage",
       "polarity": "negative",
       "constraint": "social media"
     },
     {
-      "entity": "user",
-      "preference": "wind down by 9:30 pm for good night's sleep",
-      "polarity": "positive",
-      "constraint": "bedtime routine"
+      "entity": "User",
+      "preference": "open to using time management tools",
+      "polarity": "positive"
     },
     {
-      "entity": "user",
+      "entity": "User",
+      "preference": "good night's sleep",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "meditation for relaxation",
+      "polarity": "positive",
+      "constraint": "before bed"
+    },
+    {
+      "entity": "User",
       "preference": "imagery and visualization in meditation",
-      "polarity": "positive",
-      "constraint": "helps distract from stressful thoughts"
-    },
-    {
-      "entity": "user",
-      "preference": "relaxing and calming meditation",
-      "polarity": "positive",
-      "constraint": "helps with sleep"
+      "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "user consulted about time management and task prioritization",
+      "event": "User seeks time management assistance",
       "date": "2023-05-30",
       "sessionId": "answer_6dc4305e"
     },
     {
-      "event": "assistant provided structured daily schedule and time management tips",
+      "event": "Assistant provides structured daily schedule",
       "date": "2023-05-30",
       "sessionId": "answer_6dc4305e"
     },
     {
-      "event": "assistant provided wind-down schedule and relaxation techniques",
+      "event": "Assistant provides wind-down schedule and sleep tips",
       "date": "2023-05-30",
       "sessionId": "answer_6dc4305e"
     },
     {
-      "event": "assistant recommended meditation apps and guided meditation resources",
+      "event": "Assistant recommends meditation apps and resources",
       "date": "2023-05-30",
       "sessionId": "answer_6dc4305e"
     },
     {
-      "event": "assistant provided overview of Sleep guided meditation by Headspace",
-      "date": "2023-05-30",
-      "sessionId": "answer_6dc4305e"
-    },
-    {
-      "event": "user tried Sleep guided meditation by Headspace and found it helpful",
+      "event": "User tries Sleep guided meditation by Headspace",
       "date": "2023-05-30",
       "sessionId": "answer_6dc4305e"
     }

@@ -1,6 +1,13 @@
 {
   "facts": [
     {
+      "entity": "garbage disposal",
+      "predicate": "lifespan",
+      "value": "10-15 years",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
       "entity": "user",
       "predicate": "has issue with",
       "value": "garbage disposal",
@@ -10,7 +17,7 @@
     },
     {
       "entity": "user",
-      "predicate": "recently bought",
+      "predicate": "purchased",
       "value": "new utensil holder",
       "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
@@ -18,9 +25,24 @@
     },
     {
       "entity": "user",
-      "predicate": "has scratches on",
-      "value": "granite countertop near sink",
+      "predicate": "has issue with",
+      "value": "kitchen utensil organization",
       "date": "2023-05-22",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "has problem with",
+      "value": "scratches on granite countertop near sink",
+      "date": "2023-05-22",
+      "sessionId": "answer_8549e5e0",
+      "source": "user"
+    },
+    {
+      "entity": "granite countertop scratch",
+      "predicate": "location",
+      "value": "near sink",
       "sessionId": "answer_8549e5e0",
       "source": "user"
     },
@@ -33,6 +55,13 @@
       "source": "user"
     },
     {
+      "entity": "kitchen faucet",
+      "predicate": "lifespan",
+      "value": "10-15 years",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
       "entity": "user",
       "predicate": "has issue with",
       "value": "slow cooker",
@@ -41,65 +70,66 @@
       "source": "user"
     },
     {
-      "entity": "garbage disposal",
-      "predicate": "lifespan is",
-      "value": "10-15 years",
+      "entity": "user",
+      "predicate": "wants to make",
+      "value": "yogurt in slow cooker",
+      "date": "2023-05-22",
       "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "kitchen faucet",
-      "predicate": "lifespan is",
-      "value": "10-15 years",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
+      "source": "user"
     },
     {
       "entity": "milk for yogurt",
-      "predicate": "should be heated to",
+      "predicate": "heating temperature",
       "value": "180°F (82°C)",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
       "entity": "milk for yogurt",
-      "predicate": "should be cooled to",
+      "predicate": "cooling temperature",
       "value": "110°F (43°C) to 120°F (49°C)",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
-      "entity": "yogurt incubation",
-      "predicate": "duration is",
-      "value": "6-8 hours or 8-12 hours overnight",
+      "entity": "milk for yogurt",
+      "predicate": "incubation temperature",
+      "value": "100°F to 110°F (38°C to 43°C)",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
       "entity": "yogurt starter",
-      "predicate": "amount to add",
-      "value": "1-2 tablespoons of store-bought yogurt",
+      "predicate": "amount needed",
+      "value": "1-2 tablespoons store-bought yogurt",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
-      "entity": "baking soda and vinegar",
-      "predicate": "amounts are",
-      "value": "1/2 cup baking soda and 1 cup vinegar",
+      "entity": "yogurt",
+      "predicate": "incubation time",
+      "value": "6-8 hours or 8-12 hours overnight",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     },
     {
-      "entity": "ice and rock salt",
-      "predicate": "amounts are",
-      "value": "few ice cubes and 1 tablespoon of rock salt",
-      "sessionId": "answer_8549e5e0",
-      "source": "assistant"
-    },
-    {
-      "entity": "lemon juice and baking soda",
-      "predicate": "amount of baking soda is",
+      "entity": "baking soda",
+      "predicate": "amount for garbage disposal cleaning",
       "value": "1/2 cup",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "vinegar",
+      "predicate": "amount for garbage disposal cleaning",
+      "value": "1 cup",
+      "sessionId": "answer_8549e5e0",
+      "source": "assistant"
+    },
+    {
+      "entity": "rock salt",
+      "predicate": "amount for garbage disposal cleaning",
+      "value": "1 tablespoon",
       "sessionId": "answer_8549e5e0",
       "source": "assistant"
     }
@@ -107,41 +137,36 @@
   "preferences": [
     {
       "entity": "user",
-      "preference": "keep countertops clutter-free",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "make yogurt in slow cooker",
+      "preference": "keeping countertops clutter-free",
       "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "user asked for garbage disposal cleaning and replacement tips",
+      "event": "User asked for garbage disposal cleaning and replacement tips",
       "date": "2023-05-22",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "user asked for kitchen utensil organization tips",
+      "event": "User purchased new utensil holder",
       "date": "2023-05-22",
       "location": "kitchen",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "user noticed scratches on granite countertop",
+      "event": "User noticed scratches on granite countertop",
       "date": "2023-05-22",
       "location": "kitchen near sink",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "user asked for kitchen faucet leak repair tips",
+      "event": "User experienced kitchen faucet leak",
       "date": "2023-05-22",
       "location": "kitchen",
       "sessionId": "answer_8549e5e0"
     },
     {
-      "event": "user asked for yogurt-making tips using slow cooker",
+      "event": "User inquired about making yogurt in slow cooker",
       "date": "2023-05-22",
       "sessionId": "answer_8549e5e0"
     }

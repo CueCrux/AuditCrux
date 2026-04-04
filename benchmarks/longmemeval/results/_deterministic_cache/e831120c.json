@@ -22,60 +22,114 @@
       "source": "user"
     },
     {
-      "entity": "Spreadsheet template",
-      "predicate": "includes columns",
-      "value": "Movie Title, Release Year, Watch Date, Rating, Notes, Franchise/Series, Genre, Type, Platform, Format, Re-watch, Month Watched",
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Movie Title",
       "sessionId": "answer_86c505e7_1",
       "source": "assistant"
     },
     {
-      "entity": "Spreadsheet template",
-      "predicate": "optional columns include",
-      "value": "Director, Cast, Runtime, Language",
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Release Year",
       "sessionId": "answer_86c505e7_1",
       "source": "assistant"
     },
     {
-      "entity": "Type column",
-      "predicate": "can include values",
-      "value": "Sequel, Remake, Standalone, Prequel, Spin-off, Reboot",
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Watch Date",
       "sessionId": "answer_86c505e7_1",
       "source": "assistant"
     },
     {
-      "entity": "Platform column",
-      "predicate": "can include values",
-      "value": "Theaters, Amazon Prime, Netflix, Hulu, Disney+, Blu-ray/DVD, YouTube, iTunes",
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Rating",
       "sessionId": "answer_86c505e7_1",
       "source": "assistant"
+    },
+    {
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Notes",
+      "sessionId": "answer_86c505e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Franchise/Series",
+      "sessionId": "answer_86c505e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Genre",
+      "sessionId": "answer_86c505e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Type",
+      "sessionId": "answer_86c505e7_1",
+      "source": "user"
+    },
+    {
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Platform",
+      "sessionId": "answer_86c505e7_1",
+      "source": "user"
+    },
+    {
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Format",
+      "sessionId": "answer_86c505e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Re-watch",
+      "sessionId": "answer_86c505e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Spreadsheet column",
+      "predicate": "name",
+      "value": "Month Watched",
+      "sessionId": "answer_86c505e7_1",
+      "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "stores movie list in",
+      "predicate": "has movies stored in",
       "value": "note-taking app",
       "sessionId": "answer_86c505e7_1",
       "source": "user"
     },
     {
-      "entity": "Conversation",
-      "predicate": "date",
-      "value": "2023-05-23",
-      "date": "2023-05-23",
+      "entity": "User",
+      "predicate": "plans to use",
+      "value": "Method 1 (Copy and Paste)",
       "sessionId": "answer_86c505e7_1",
       "source": "user"
     },
     {
       "entity": "User",
       "predicate": "watched",
-      "value": "Star Wars marathon (all main films)",
-      "date": "2023-05-25",
+      "value": "Star Wars Marathon (all main films)",
       "sessionId": "answer_86c505e7_2",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "completed marathon in",
-      "value": "one and a half weeks",
+      "predicate": "completed Star Wars marathon in",
+      "value": "one week and a half",
       "sessionId": "answer_86c505e7_2",
       "source": "user"
     },
@@ -102,36 +156,8 @@
     },
     {
       "entity": "User",
-      "predicate": "completed MCU marathon in",
+      "predicate": "completed MCU movies in",
       "value": "about two weeks",
-      "sessionId": "answer_86c505e7_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "watched",
-      "value": "Captain Marvel",
-      "sessionId": "answer_86c505e7_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "watched",
-      "value": "Us",
-      "sessionId": "answer_86c505e7_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "watched",
-      "value": "Shazam!",
-      "sessionId": "answer_86c505e7_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "watched",
-      "value": "A Quiet Place",
       "sessionId": "answer_86c505e7_2",
       "source": "user"
     },
@@ -187,7 +213,7 @@
     {
       "entity": "User",
       "predicate": "watched",
-      "value": "The Lion King remake",
+      "value": "The Lion King (2019 remake)",
       "sessionId": "answer_86c505e7_2",
       "source": "user"
     },
@@ -202,27 +228,287 @@
       "entity": "User",
       "predicate": "currently watching",
       "value": "The Office Season 5",
-      "date": "2023-05-25",
       "sessionId": "answer_86c505e7_2",
       "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Us",
+      "sessionId": "answer_86c505e7_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Shazam!",
+      "sessionId": "answer_86c505e7_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "A Quiet Place",
+      "sessionId": "answer_86c505e7_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Captain Marvel",
+      "sessionId": "answer_86c505e7_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Iron Man",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "The Incredible Hulk",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Iron Man 2",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Thor",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Captain America: The First Avenger",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "The Avengers",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Iron Man 3",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Thor: The Dark World",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Captain America: The Winter Soldier",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Guardians of the Galaxy",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Avengers: Age of Ultron",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Ant-Man",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Captain America: Civil War",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Doctor Strange",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Guardians of the Galaxy Vol. 2",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Spider-Man: Homecoming",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Thor: Ragnarok",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Black Panther",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Avengers: Infinity War",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Ant-Man and the Wasp",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Avengers: Endgame",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Spider-Man: Far From Home",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode I - The Phantom Menace",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode II - Attack of the Clones",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode III - Revenge of the Sith",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode IV - A New Hope",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode V - The Empire Strikes Back",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode VI - Return of the Jedi",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode VII - The Force Awakens",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode VIII - The Last Jedi",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "watched",
+      "value": "Star Wars: Episode IX - The Rise of Skywalker",
+      "sessionId": "answer_86c505e7_2",
+      "source": "assistant"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "spreadsheet option for organizing movie history",
+      "preference": "spreadsheet option for movie tracking",
       "polarity": "positive",
-      "constraint": "prefers spreadsheet over text list or apps"
+      "constraint": "over simple text list or movie tracking apps"
     },
     {
       "entity": "User",
-      "preference": "Method 1 (copy and paste)",
-      "polarity": "positive",
-      "constraint": "for quickly entering multiple movies"
+      "preference": "adding Type column (sequel, remake, standalone)",
+      "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "Star Wars marathon",
+      "preference": "adding Platform column (Amazon Prime, theaters, etc.)",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "adding Month Watched column",
+      "polarity": "positive",
+      "constraint": "to track viewing habits by month"
+    },
+    {
+      "entity": "User",
+      "preference": "Marvel Cinematic Universe movies",
+      "polarity": "positive",
+      "constraint": "watched all 22 in two weeks"
+    },
+    {
+      "entity": "User",
+      "preference": "Star Wars Marathon",
       "polarity": "positive",
       "constraint": "described as a wild ride"
     },
@@ -234,30 +520,30 @@
     },
     {
       "entity": "User",
-      "preference": "simple list format",
+      "preference": "simple movie list format",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "wide range of movies",
       "polarity": "positive",
-      "constraint": "for organizing movies"
+      "constraint": "watches classics, blockbusters, and recent releases"
     }
   ],
   "events": [
     {
-      "event": "User watched 22 Marvel Cinematic Universe movies in a movie binge",
+      "event": "User watched all 22 Marvel Cinematic Universe movies",
       "date": null,
       "sessionId": "answer_86c505e7_1"
     },
     {
-      "event": "User and assistant discussed organizing movie watching history",
-      "date": "2023-05-23",
-      "sessionId": "answer_86c505e7_1"
-    },
-    {
-      "event": "User decided to set up a movie tracking spreadsheet",
+      "event": "Conversation about creating movie tracking spreadsheet",
       "date": "2023-05-23",
       "sessionId": "answer_86c505e7_1"
     },
     {
       "event": "User completed Star Wars marathon",
-      "date": "2023-05-25",
+      "date": null,
       "sessionId": "answer_86c505e7_2"
     },
     {

@@ -2,45 +2,50 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "studies at",
-      "value": "University of Melbourne",
+      "predicate": "has activity",
+      "value": "assignments",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "has",
+      "predicate": "has activity",
       "value": "part-time job",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "currently uses",
+      "predicate": "uses tool",
       "value": "Google Calendar",
-      "date": "2023-05-23",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "plans to use",
+      "predicate": "plans to use tool",
       "value": "Todoist",
-      "date": "2023-05-23",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "visited",
+      "predicate": "plans trip to",
       "value": "Great Ocean Road",
       "sessionId": "answer_94030872",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "traveled to Great Ocean Road with",
-      "value": "friends",
+      "predicate": "previously visited",
+      "value": "Great Ocean Road",
+      "sessionId": "answer_94030872",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "attended",
+      "value": "University of Melbourne",
       "sessionId": "answer_94030872",
       "source": "user"
     },
@@ -52,6 +57,20 @@
       "source": "user"
     },
     {
+      "entity": "User",
+      "predicate": "visited with",
+      "value": "friends",
+      "sessionId": "answer_94030872",
+      "source": "user"
+    },
+    {
+      "entity": "Great Ocean Road",
+      "predicate": "is located in",
+      "value": "Australia",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
       "entity": "Great Ocean Road",
       "predicate": "length",
       "value": "243 kilometers",
@@ -59,128 +78,135 @@
       "source": "assistant"
     },
     {
-      "entity": "Great Ocean Road",
-      "predicate": "location",
-      "value": "southeastern coast of Australia",
-      "sessionId": "answer_94030872",
-      "source": "assistant"
-    },
-    {
       "entity": "Todoist",
-      "predicate": "free tier cost",
+      "predicate": "free plan cost",
       "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Todoist",
-      "predicate": "premium tier cost",
+      "predicate": "premium plan cost",
       "value": "$3/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Trello",
-      "predicate": "free tier cost",
+      "predicate": "free plan cost",
       "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Trello",
-      "predicate": "premium tier cost",
+      "predicate": "premium plan cost",
       "value": "$12.50/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Evernote",
-      "predicate": "free tier cost",
+      "predicate": "free plan cost",
       "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Evernote",
-      "predicate": "premium tier cost",
+      "predicate": "premium plan cost",
       "value": "$7.99/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "RescueTime",
-      "predicate": "free tier cost",
+      "predicate": "free plan cost",
       "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "RescueTime",
-      "predicate": "premium tier cost",
+      "predicate": "premium plan cost",
       "value": "$9/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
-      "entity": "Any.do",
-      "predicate": "free tier cost",
+      "entity": "Google Tasks",
+      "predicate": "cost",
       "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Any.do",
-      "predicate": "premium tier cost",
+      "predicate": "free plan cost",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Any.do",
+      "predicate": "premium plan cost",
       "value": "$2.99/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
-      "entity": "Forest",
-      "predicate": "free tier cost",
+      "entity": "Microsoft To Do",
+      "predicate": "cost",
       "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Forest",
-      "predicate": "premium tier cost",
+      "predicate": "free plan cost",
+      "value": "Free",
+      "sessionId": "answer_94030872",
+      "source": "assistant"
+    },
+    {
+      "entity": "Forest",
+      "predicate": "premium plan cost",
       "value": "$1.99/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Wunderlist",
-      "predicate": "free tier cost",
+      "predicate": "free plan cost",
       "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Wunderlist",
-      "predicate": "premium tier cost",
+      "predicate": "premium plan cost",
       "value": "$4.99/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "ClickUp",
-      "predicate": "free tier cost",
+      "predicate": "free plan cost",
       "value": "Free",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "ClickUp",
-      "predicate": "premium tier cost",
+      "predicate": "premium plan cost",
       "value": "$5/month",
       "sessionId": "answer_94030872",
       "source": "assistant"
     },
     {
       "entity": "Kennett River Koala Walk",
-      "predicate": "location",
-      "value": "Great Ocean Road, Australia",
+      "predicate": "is located on",
+      "value": "Great Ocean Road",
       "sessionId": "answer_94030872",
       "source": "user"
     }
@@ -188,36 +214,29 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "task management with ability to break down large projects into smaller tasks",
-      "polarity": "positive",
-      "constraint": "easy to use, syncs across devices"
+      "preference": "task management tools that break down projects into smaller tasks",
+      "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "Todoist",
+      "preference": "easy to use applications",
       "polarity": "positive",
-      "constraint": "heard great things about it"
+      "constraint": "that sync across devices"
     },
     {
       "entity": "User",
       "preference": "Great Ocean Road",
       "polarity": "positive",
-      "constraint": "must-see destination in Australia"
+      "constraint": "as a travel destination"
     },
     {
       "entity": "User",
-      "preference": "Kennett River Koala Walk",
+      "preference": "koala spotting",
       "polarity": "positive",
-      "constraint": "spotting koalas in natural habitat"
+      "constraint": "at Kennett River Koala Walk"
     }
   ],
   "events": [
-    {
-      "event": "User studied abroad at University of Melbourne",
-      "date": null,
-      "location": "University of Melbourne, Australia",
-      "sessionId": "answer_94030872"
-    },
     {
       "event": "User visited Great Ocean Road with friends",
       "date": null,
@@ -225,13 +244,13 @@
       "sessionId": "answer_94030872"
     },
     {
-      "event": "User explored the coast, hiking, and enjoyed views at Great Ocean Road",
+      "event": "User participated in study abroad program",
       "date": null,
-      "location": "Great Ocean Road, Australia",
+      "location": "University of Melbourne, Australia",
       "sessionId": "answer_94030872"
     },
     {
-      "event": "User planning a trip to Great Ocean Road",
+      "event": "User plans to visit Great Ocean Road",
       "date": null,
       "location": "Great Ocean Road, Australia",
       "sessionId": "answer_94030872"

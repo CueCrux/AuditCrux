@@ -1,22 +1,23 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "is hosting",
+      "entity": "user",
+      "predicate": "hosting",
       "value": "dinner party",
       "date": "2022-04-17",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "has been interested in",
+      "entity": "user",
+      "predicate": "interested in",
       "value": "baking",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "made",
       "value": "strawberry rhubarb crisp",
       "date": "2022-03-27",
@@ -24,56 +25,77 @@
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is planning to make",
+      "entity": "user",
+      "predicate": "planning to make",
       "value": "matcha tiramisu",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is planning to make",
+      "entity": "user",
+      "predicate": "planning to make",
       "value": "salted caramel chocolate tart",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is planning to make",
+      "entity": "user",
+      "predicate": "planning to make",
       "value": "sourdough bread sandwiches",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is planning to make",
+      "entity": "user",
+      "predicate": "planning to make",
       "value": "lemon bars",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "made",
       "value": "lemon bars with shortbread crust and lemon curd",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "is planning to make",
+      "entity": "user",
+      "predicate": "planning to make",
       "value": "croissants from scratch",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "previous attempt at",
       "value": "croissants",
       "sessionId": "answer_dba89487_1",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "predicate": "planning to make",
+      "value": "banana bread",
+      "date": "2022-04-10",
+      "sessionId": "answer_dba89487_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "made",
+      "value": "banana bread with walnuts",
+      "sessionId": "answer_dba89487_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "baked",
       "value": "chocolate cake",
       "date": "2022-04-10",
@@ -81,30 +103,17 @@
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "made",
-      "value": "banana bread with walnuts",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "is planning to make",
-      "value": "banana bread",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "chocolate cake",
-      "predicate": "contained",
-      "value": "espresso powder",
-      "sessionId": "answer_dba89487_1",
-      "source": "user"
-    },
-    {
-      "entity": "chocolate cake",
-      "predicate": "was made for",
+      "entity": "user",
+      "predicate": "made chocolate cake for",
       "value": "friend's birthday party",
+      "date": "2022-04-10",
+      "sessionId": "answer_dba89487_1",
+      "source": "user"
+    },
+    {
+      "entity": "chocolate cake",
+      "predicate": "ingredient",
+      "value": "espresso powder",
       "date": "2022-04-10",
       "sessionId": "answer_dba89487_1",
       "source": "user"
@@ -115,51 +124,60 @@
       "value": "fresh lemons and eggs",
       "sessionId": "answer_dba89487_1",
       "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "experimenting with",
+      "value": "strawberries",
+      "date": "2022-04-10",
+      "sessionId": "answer_dba89487_1",
+      "source": "user"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "matcha tiramisu",
       "polarity": "positive"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "salted caramel chocolate tart",
       "polarity": "positive"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "strawberry rhubarb crisp",
       "polarity": "positive",
       "constraint": "incredible"
     },
     {
-      "entity": "User",
-      "preference": "experimenting with different flavors like strawberries",
-      "polarity": "positive"
+      "entity": "user",
+      "preference": "banana bread with walnuts",
+      "polarity": "positive",
+      "constraint": "amazing"
     },
     {
-      "entity": "User",
-      "preference": "banana bread with walnuts",
+      "entity": "user",
+      "preference": "chocolate cake with espresso powder",
       "polarity": "positive",
       "constraint": "amazing"
     }
   ],
   "events": [
     {
-      "event": "User hosting dinner party",
+      "event": "dinner party",
       "date": "2022-04-17",
       "sessionId": "answer_dba89487_1"
     },
     {
-      "event": "User made strawberry rhubarb crisp",
-      "date": "2022-03-27",
+      "event": "friend's birthday party",
+      "date": "2022-04-10",
       "sessionId": "answer_dba89487_1"
     },
     {
-      "event": "User baked chocolate cake for friend's birthday party",
-      "date": "2022-04-10",
+      "event": "made strawberry rhubarb crisp",
+      "date": "2022-03-27",
       "sessionId": "answer_dba89487_1"
     }
   ]

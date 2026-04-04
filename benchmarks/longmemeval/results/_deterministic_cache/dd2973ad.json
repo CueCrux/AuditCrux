@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "has",
+      "predicate": "has condition",
       "value": "high cholesterol levels",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_2",
@@ -10,7 +10,7 @@
     },
     {
       "entity": "User",
-      "predicate": "attended",
+      "predicate": "had appointment",
       "value": "doctor's appointment",
       "date": "2023-05-18",
       "sessionId": "answer_f9de4602_2",
@@ -26,7 +26,14 @@
     },
     {
       "entity": "User",
-      "predicate": "decided to use",
+      "predicate": "has activity scheduled",
+      "value": "yoga class in the evening",
+      "sessionId": "answer_f9de4602_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "planning to use app",
       "value": "MyFitnessPal",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_2",
@@ -34,84 +41,157 @@
     },
     {
       "entity": "User",
-      "predicate": "has",
-      "value": "yoga class in the evening",
+      "predicate": "activity on Tuesday",
+      "value": "multiple work meetings and yoga class",
       "sessionId": "answer_f9de4602_2",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "has",
-      "value": "work meetings scheduled",
-      "sessionId": "answer_f9de4602_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "has",
+      "predicate": "has task due",
       "value": "report due by end of week",
       "sessionId": "answer_f9de4602_2",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "researched",
-      "value": "healthy recipes",
-      "date": "2023-05-18",
-      "sessionId": "answer_f9de4602_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "created",
-      "value": "meal plan for the week",
+      "predicate": "completed activity",
+      "value": "researched healthy recipes and made meal plan for the week",
       "date": "2023-05-18",
       "sessionId": "answer_f9de4602_2",
       "source": "user"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "MyFitnessPal app",
+      "predicate": "recommended recipe",
+      "value": "Oatmeal with Fresh Fruits and Nuts",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_2",
       "source": "assistant"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Lose It! app",
+      "predicate": "recommended recipe",
+      "value": "Grilled Chicken or Fish with Roasted Vegetables",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_2",
       "source": "assistant"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Yummly app",
+      "predicate": "recommended recipe",
+      "value": "Lentil Soup",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_2",
       "source": "assistant"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "PlateJoy app",
+      "predicate": "recommended recipe",
+      "value": "Avocado Toast with Poached Eggs",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_2",
       "source": "assistant"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended",
-      "value": "Heart Healthy Diet app by American Heart Association",
+      "predicate": "recommended recipe",
+      "value": "Quinoa Salad with Roasted Vegetables and Lean Protein",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended app",
+      "value": "MyFitnessPal",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended app",
+      "value": "Lose It!",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended app",
+      "value": "Yummly",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended app",
+      "value": "PlateJoy",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended app",
+      "value": "Heart Healthy Diet by American Heart Association",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended breakfast idea",
+      "value": "Oatmeal with Banana and Walnuts",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended breakfast idea",
+      "value": "Greek Yogurt with Berries and Chia Seeds",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended breakfast idea",
+      "value": "Smoothie Bowl with Spinach, Banana, and Almond Milk",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended breakfast idea",
+      "value": "Whole-Grain Waffles with Fresh Fruits and Yogurt",
+      "date": "2023-05-24",
+      "sessionId": "answer_f9de4602_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended breakfast idea",
+      "value": "Green Smoothie with Spinach, Avocado, and Oat Milk",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_2",
       "source": "assistant"
     },
     {
       "entity": "User",
-      "predicate": "bed time",
+      "predicate": "felt",
+      "value": "sluggish",
+      "date": "2023-05-29",
+      "sessionId": "answer_f9de4602_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "went to bed at",
       "value": "2 AM",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_1",
@@ -119,7 +199,7 @@
     },
     {
       "entity": "User",
-      "predicate": "had struggle on",
+      "predicate": "had difficulty on",
       "value": "Thursday morning",
       "date": "2023-05-25",
       "sessionId": "answer_f9de4602_1",
@@ -127,7 +207,7 @@
     },
     {
       "entity": "User",
-      "predicate": "plans to attend",
+      "predicate": "will attend",
       "value": "yoga class",
       "date": "2023-05-30",
       "sessionId": "answer_f9de4602_1",
@@ -137,13 +217,12 @@
       "entity": "User",
       "predicate": "has",
       "value": "busy Monday",
-      "date": "2023-05-29",
       "sessionId": "answer_f9de4602_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "selected breakfast recipe",
+      "predicate": "decided to try",
       "value": "Avocado Toast with Poached Eggs",
       "date": "2023-05-29",
       "sessionId": "answer_f9de4602_1",
@@ -151,7 +230,7 @@
     },
     {
       "entity": "User",
-      "predicate": "selected dinner recipe",
+      "predicate": "decided to try",
       "value": "Quinoa and Black Bean Bowl",
       "date": "2023-05-29",
       "sessionId": "answer_f9de4602_1",
@@ -159,173 +238,113 @@
     },
     {
       "entity": "User",
-      "predicate": "selected drink option",
+      "predicate": "decided to try",
       "value": "Infused Water with lemon and cucumber slices",
       "date": "2023-05-29",
       "sessionId": "answer_f9de4602_1",
       "source": "user"
     },
     {
-      "entity": "Lentil Soup",
-      "predicate": "can be refrigerated or frozen for up to",
-      "value": "5 days",
+      "entity": "User",
+      "predicate": "is considering",
+      "value": "meal prepping for the week",
+      "date": "2023-05-29",
       "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Quinoa Salad Jars",
-      "predicate": "can be refrigerated or frozen for up to",
-      "value": "3 days",
-      "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Grilled Chicken and Veggies Wrap",
-      "predicate": "can be refrigerated for up to",
-      "value": "2 days",
-      "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Mason Jar Salads",
-      "predicate": "can be refrigerated for up to",
-      "value": "2 days",
-      "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Rice and Bean Bowl",
-      "predicate": "can be refrigerated for up to",
-      "value": "2 days",
-      "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Meal prep portions",
-      "predicate": "can be frozen for up to",
-      "value": "3-4 months",
-      "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Daily water intake",
-      "predicate": "recommended amount",
-      "value": "8 cups (64 oz)",
-      "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Infused water",
-      "predicate": "recommended infusion time",
-      "value": "at least 30 minutes",
-      "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Infused water",
-      "predicate": "should be changed every",
-      "value": "24 hours",
-      "sessionId": "answer_f9de4602_1",
-      "source": "assistant"
+      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "lower cholesterol levels",
+      "preference": "wants to lower cholesterol through diet changes",
       "polarity": "positive",
-      "constraint": "through diet changes"
+      "constraint": "high cholesterol levels"
     },
     {
       "entity": "User",
-      "preference": "healthy eating",
+      "preference": "interested in meal planning",
       "polarity": "positive",
-      "constraint": "cholesterol-lowering diet"
+      "constraint": "for health reasons"
     },
     {
       "entity": "User",
-      "preference": "meal planning and prep",
-      "polarity": "positive",
-      "constraint": "to stick to new meal plan"
-    },
-    {
-      "entity": "User",
-      "preference": "yoga",
+      "preference": "interested in yoga",
       "polarity": "positive",
       "constraint": "evening class"
     },
     {
       "entity": "User",
-      "preference": "energy-boosting breakfast options",
+      "preference": "wants to stick to meal plan",
       "polarity": "positive",
-      "constraint": "healthy"
+      "constraint": "healthy eating"
     },
     {
       "entity": "User",
-      "preference": "advance meal preparation",
+      "preference": "healthy breakfast recipes",
       "polarity": "positive",
-      "constraint": "quick and easy"
+      "constraint": "to boost energy levels"
     },
     {
       "entity": "User",
-      "preference": "desk snacks",
+      "preference": "quick and easy lunch prepared in advance",
       "polarity": "positive",
-      "constraint": "to curb cravings throughout the day"
+      "constraint": "keeps them full until yoga class"
     },
     {
       "entity": "User",
-      "preference": "reheatable dinner recipes",
+      "preference": "healthy snack options",
       "polarity": "positive",
-      "constraint": "easy to portion"
+      "constraint": "to curb cravings at desk"
     },
     {
       "entity": "User",
-      "preference": "hydrating drinks",
+      "preference": "healthy dinner recipes",
+      "polarity": "positive",
+      "constraint": "can be reheated and portioned out easily"
+    },
+    {
+      "entity": "User",
+      "preference": "healthy drink options",
+      "polarity": "positive",
+      "constraint": "for hydration throughout the day"
+    },
+    {
+      "entity": "User",
+      "preference": "Infused Water with lemon and cucumber slices",
       "polarity": "positive",
       "constraint": "refreshing"
-    },
-    {
-      "entity": "User",
-      "preference": "sugary drinks like soda and energy drinks",
-      "polarity": "negative",
-      "constraint": "can lead to dehydration"
     }
   ],
   "events": [
     {
       "event": "Doctor's appointment and blood test results received",
       "date": "2023-05-18",
-      "location": "Doctor's office",
+      "location": "doctor's office",
       "sessionId": "answer_f9de4602_2"
     },
     {
-      "event": "User researched healthy recipes and created meal plan",
+      "event": "User researched healthy recipes and made meal plan for the week",
       "date": "2023-05-18",
       "sessionId": "answer_f9de4602_2"
     },
     {
       "event": "Yoga class scheduled",
-      "date": "2023-05-30",
+      "date": null,
       "sessionId": "answer_f9de4602_2"
     },
     {
-      "event": "User stayed up late and went to bed",
+      "event": "User went to bed late",
       "date": "2023-05-24",
       "sessionId": "answer_f9de4602_1"
     },
     {
-      "event": "User experienced sluggish morning after late night",
+      "event": "User had a difficult morning",
       "date": "2023-05-25",
       "sessionId": "answer_f9de4602_1"
     },
     {
-      "event": "User planning to attend yoga class",
+      "event": "User's yoga class",
       "date": "2023-05-30",
-      "sessionId": "answer_f9de4602_1"
-    },
-    {
-      "event": "User planning meal prep for the week due to busy Monday",
-      "date": "2023-05-29",
       "sessionId": "answer_f9de4602_1"
     }
   ]

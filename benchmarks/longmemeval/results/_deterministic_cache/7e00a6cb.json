@@ -15,16 +15,9 @@
       "source": "assistant"
     },
     {
-      "entity": "Stayokay Amsterdam Vondelpark",
-      "predicate": "price_range",
-      "value": "affordable",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
       "entity": "ClinkNOORD Hostel",
       "predicate": "location",
-      "value": "Amsterdam Noord, in a former laboratory",
+      "value": "Amsterdam Noord",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
@@ -44,36 +37,22 @@
     },
     {
       "entity": "The Bulldog Hostel Amsterdam",
-      "predicate": "room_types",
-      "value": "shared dorms and private rooms",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "The Bulldog Hostel Amsterdam",
       "predicate": "amenities",
-      "value": "bar and smoking lounge",
+      "value": "bar, smoking lounge",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "International Budget Hostel",
       "predicate": "location",
-      "value": "near the Red Light District",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "International Budget Hostel",
-      "predicate": "room_types",
-      "value": "dormitory-style rooms and private rooms",
+      "value": "near Red Light District",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "International Budget Hostel",
       "predicate": "amenities",
-      "value": "fully equipped kitchen and lounge area",
+      "value": "fully equipped kitchen, lounge area",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
@@ -86,21 +65,14 @@
     },
     {
       "entity": "Amsterdam Hostel Centre",
-      "predicate": "room_types",
-      "value": "dormitory-style rooms and private rooms",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Amsterdam Hostel Centre",
       "predicate": "amenities",
-      "value": "communal kitchen, bar, and lounge area",
+      "value": "communal kitchen, bar, lounge area",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "Van Gogh Museum",
-      "predicate": "collection",
+      "predicate": "contains",
       "value": "largest collection of Vincent Van Gogh's artwork in the world",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
@@ -108,14 +80,14 @@
     {
       "entity": "Anne Frank House",
       "predicate": "historical_significance",
-      "value": "house where Anne Frank and family hid from Nazis during World War II",
+      "value": "place where Anne Frank and family hid from Nazis during World War II",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "Anne Frank House",
-      "predicate": "features",
-      "value": "secret annex where they lived",
+      "predicate": "feature",
+      "value": "secret annex",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
@@ -128,15 +100,15 @@
     },
     {
       "entity": "Rijksmuseum",
-      "predicate": "status",
+      "predicate": "description",
       "value": "one of the most renowned art museums in the world",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "Rijksmuseum",
-      "predicate": "collection",
-      "value": "Dutch art, including works by Rembrandt and Vermeer",
+      "predicate": "contains",
+      "value": "impressive collection of Dutch art including works by Rembrandt and Vermeer",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
@@ -149,21 +121,21 @@
     },
     {
       "entity": "Jordaan neighborhood",
-      "predicate": "characteristics",
+      "predicate": "known_for",
       "value": "small streets, quaint boutiques, trendy restaurants and bars",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "Amsterdam Flower Market",
-      "predicate": "unique_feature",
+      "predicate": "description",
       "value": "only floating flower market in the world",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "Heineken Experience",
-      "predicate": "content",
+      "predicate": "focus",
       "value": "history and brewing process of Heineken beer",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
@@ -174,34 +146,20 @@
       "value": "adult entertainment establishments and vibrant nightlife",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
-    },
-    {
-      "entity": "traditional Dutch food",
-      "predicate": "examples",
-      "value": "bitterballen, stroopwafels, and herring",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "budget-friendly accommodation",
+      "entity": "user",
+      "preference": "budget-friendly hostel options",
       "polarity": "positive",
-      "constraint": "hostels in Amsterdam"
-    },
-    {
-      "entity": "User",
-      "preference": "fun activities",
-      "polarity": "positive",
-      "constraint": "in Amsterdam"
+      "constraint": "Amsterdam"
     }
   ],
   "events": [
     {
-      "event": "World War II - Anne Frank and family hiding",
-      "date": null,
-      "location": "Anne Frank House, Amsterdam",
+      "event": "conversation about budget-friendly hostels and activities in Amsterdam",
+      "date": "2023-05-27",
       "sessionId": "answer_ultrachat_370515"
     }
   ]

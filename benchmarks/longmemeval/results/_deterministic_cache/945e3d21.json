@@ -1,15 +1,15 @@
 {
   "facts": [
     {
-      "entity": "user",
-      "predicate": "feeling",
-      "value": "overwhelmed with work tasks",
+      "entity": "User",
+      "predicate": "experiences",
+      "value": "feeling overwhelmed with work tasks",
       "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "has task",
       "value": "Finish project report",
       "sessionId": "answer_6a4f8626_1",
@@ -23,7 +23,7 @@
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "has task",
       "value": "Respond to client email",
       "sessionId": "answer_6a4f8626_1",
@@ -38,14 +38,7 @@
       "source": "user"
     },
     {
-      "entity": "Respond to client email",
-      "predicate": "description",
-      "value": "Need to respond to the client's email regarding the project timeline",
-      "sessionId": "answer_6a4f8626_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
+      "entity": "User",
       "predicate": "has task",
       "value": "Prepare for meeting",
       "sessionId": "answer_6a4f8626_1",
@@ -60,7 +53,7 @@
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "has task",
       "value": "Review and update project plan",
       "sessionId": "answer_6a4f8626_1",
@@ -74,56 +67,63 @@
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "does activity",
+      "entity": "User",
+      "predicate": "practices",
       "value": "yoga",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "yoga frequency",
       "value": "twice a week",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "uses",
       "value": "meditation",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "meditation purpose",
-      "value": "set intentions and focus on goals for the day",
+      "entity": "User",
+      "predicate": "uses meditation for",
+      "value": "setting intentions and focusing on goals",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "has",
       "value": "therapist",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "mental health conditions",
-      "value": "anxiety and depression",
+      "entity": "User",
+      "predicate": "experiences",
+      "value": "anxiety",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "experienced",
+      "entity": "User",
+      "predicate": "experiences",
+      "value": "depression",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "history",
       "value": "childhood trauma",
       "sessionId": "answer_6a4f8626_1",
       "source": "user"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended app",
       "value": "Headspace",
       "date": "2023-08-11",
@@ -131,7 +131,7 @@
       "source": "assistant"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended app",
       "value": "Calm",
       "date": "2023-08-11",
@@ -139,7 +139,7 @@
       "source": "assistant"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended app",
       "value": "Insight Timer",
       "date": "2023-08-11",
@@ -147,7 +147,7 @@
       "source": "assistant"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended app",
       "value": "Breethe",
       "date": "2023-08-11",
@@ -155,7 +155,7 @@
       "source": "assistant"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended book",
       "value": "The Body Keeps the Score by Bessel van der Kolk",
       "date": "2023-08-11",
@@ -163,7 +163,7 @@
       "source": "assistant"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended book",
       "value": "Daring Greatly by Brené Brown",
       "date": "2023-08-11",
@@ -171,7 +171,7 @@
       "source": "assistant"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended book",
       "value": "Reasons to Stay Alive by Matt Haig",
       "date": "2023-08-11",
@@ -179,7 +179,7 @@
       "source": "assistant"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended book",
       "value": "The Gifts of Imperfection by Brené Brown",
       "date": "2023-08-11",
@@ -187,61 +187,285 @@
       "source": "assistant"
     },
     {
-      "entity": "assistant",
+      "entity": "Assistant",
       "predicate": "recommended book",
       "value": "Mind Over Mood by Christine A. Padesky and Kathleen A. Mooney",
       "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1",
       "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended resource",
+      "value": "National Alliance on Mental Illness (NAMI)",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended resource",
+      "value": "Mental Health America",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended resource",
+      "value": "The Mighty",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended resource",
+      "value": "Psychology Today",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended podcast",
+      "value": "The Mental Illness Happy Hour",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended podcast",
+      "value": "The Anxiety Podcast",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommended podcast",
+      "value": "The Mindful Kind",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "has task",
+      "value": "Marketing Campaign",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has task",
+      "value": "Report",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "Report",
+      "predicate": "due date",
+      "value": "2023-12-08",
+      "date": "2023-12-08",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has task",
+      "value": "Website Updates",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "Marketing Campaign",
+      "predicate": "priority",
+      "value": "High",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "Report",
+      "predicate": "priority",
+      "value": "High",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "Report",
+      "predicate": "time-sensitive",
+      "value": "Yes",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "Marketing Campaign",
+      "predicate": "estimated time",
+      "value": "2-3 days",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "Report",
+      "predicate": "estimated time",
+      "value": "2-3 days",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "Website Updates",
+      "predicate": "estimated time",
+      "value": "2-3 days",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "work hours",
+      "value": "9:00 am - 5:00 pm",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "lunch break",
+      "value": "12:00 pm - 1:00 pm",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has meeting",
+      "value": "Wednesday 2:00 pm - 3:00 pm",
+      "date": "2023-12-06",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "attends yoga",
+      "value": "3 times per week",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "yoga days",
+      "value": "Tuesday, Thursday, Friday",
+      "sessionId": "answer_6a4f8626_2",
+      "source": "assistant"
     }
   ],
   "preferences": [
     {
-      "entity": "user",
+      "entity": "User",
       "preference": "yoga",
       "polarity": "positive",
       "constraint": "helps with relaxation and focus"
     },
     {
-      "entity": "user",
-      "preference": "self-care",
-      "polarity": "positive",
-      "constraint": "prioritizing it"
-    },
-    {
-      "entity": "user",
+      "entity": "User",
       "preference": "meditation",
       "polarity": "positive",
       "constraint": "for setting intentions and focusing on goals"
     },
     {
-      "entity": "user",
-      "preference": "therapy",
+      "entity": "User",
+      "preference": "self-care",
       "polarity": "positive",
-      "constraint": "finding it helpful"
+      "constraint": "prioritizing mental and physical well-being"
     },
     {
-      "entity": "user",
-      "preference": "journaling and reflection",
+      "entity": "User",
+      "preference": "therapy",
       "polarity": "positive",
-      "constraint": "to understand thoughts and emotions better"
+      "constraint": "helpful for working through childhood trauma"
+    },
+    {
+      "entity": "User",
+      "preference": "mindfulness",
+      "polarity": "positive",
+      "constraint": "incorporating into daily routine"
+    },
+    {
+      "entity": "User",
+      "preference": "journaling",
+      "polarity": "positive",
+      "constraint": "for exploring thoughts and emotions"
+    },
+    {
+      "entity": "User",
+      "preference": "educating self about anxiety and depression",
+      "polarity": "positive",
+      "constraint": "using trusted resources"
+    },
+    {
+      "entity": "User",
+      "preference": "Marketing Campaign priority",
+      "polarity": "positive",
+      "constraint": "highest priority among tasks"
+    },
+    {
+      "entity": "User",
+      "preference": "Yoga classes",
+      "polarity": "positive",
+      "constraint": "helps with focus and clearing head"
+    },
+    {
+      "entity": "User",
+      "preference": "Report quality",
+      "polarity": "positive",
+      "constraint": "wants it to be perfect before submitting"
+    },
+    {
+      "entity": "User",
+      "preference": "Yoga schedule accommodation",
+      "polarity": "positive",
+      "constraint": "appreciates when schedule respects yoga days"
     }
   ],
   "events": [
     {
-      "event": "User started yoga practice",
-      "date": null,
+      "event": "User seeks help prioritizing work tasks",
+      "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1"
     },
     {
-      "event": "User began therapy for anxiety and depression",
-      "date": null,
+      "event": "User discusses yoga practice and self-care",
+      "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1"
     },
     {
-      "event": "User started using meditation for intention-setting",
-      "date": null,
+      "event": "User discusses journaling and reflection for childhood trauma",
+      "date": "2023-08-11",
       "sessionId": "answer_6a4f8626_1"
+    },
+    {
+      "event": "User asks for book recommendations on anxiety and depression",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1"
+    },
+    {
+      "event": "User discusses incorporating mindfulness into daily routine",
+      "date": "2023-08-11",
+      "sessionId": "answer_6a4f8626_1"
+    },
+    {
+      "event": "Work week planning session",
+      "date": "2023-11-30",
+      "sessionId": "answer_6a4f8626_2"
+    },
+    {
+      "event": "User meeting",
+      "date": "2023-12-06",
+      "sessionId": "answer_6a4f8626_2"
+    },
+    {
+      "event": "Report deadline",
+      "date": "2023-12-08",
+      "sessionId": "answer_6a4f8626_2"
     }
   ]
 }

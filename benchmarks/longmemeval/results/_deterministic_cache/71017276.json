@@ -10,43 +10,51 @@
     {
       "entity": "User",
       "predicate": "acquired",
-      "value": "crystal chandelier from aunt",
+      "value": "crystal chandelier",
       "date": "2023-03-04",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
     },
     {
       "entity": "crystal chandelier",
-      "predicate": "belonged to",
-      "value": "user's great-grandmother",
+      "predicate": "origin",
+      "value": "belonged to User's great-grandmother",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
     },
     {
       "entity": "crystal chandelier",
-      "predicate": "has feature",
-      "value": "intricate etchings",
+      "predicate": "features",
+      "value": "intricate etchings and sparkling droplets",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
     },
     {
       "entity": "crystal chandelier",
-      "predicate": "has feature",
-      "value": "sparkling droplets",
+      "predicate": "received_from",
+      "value": "User's aunt",
+      "date": "2023-03-04",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
     },
     {
       "entity": "vintage armchair",
-      "predicate": "found at",
-      "value": "estate sale",
+      "predicate": "era",
+      "value": "1950s",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
     },
     {
-      "entity": "user's great-grandmother",
-      "predicate": "owned property",
-      "value": "mansion/estate",
+      "entity": "crystal chandelier",
+      "predicate": "hung_in",
+      "value": "great-grandmother's mansion estate",
+      "sessionId": "answer_0b4a8adc_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "found",
+      "value": "vintage armchair at an estate sale",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
     }
@@ -54,36 +62,39 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "antique furniture and crystal chandeliers",
+      "preference": "cleaning and maintaining antique furniture",
       "polarity": "positive",
-      "constraint": "wants to preserve and maintain them"
+      "constraint": "wants to preserve beauty and integrity"
     },
     {
       "entity": "User",
-      "preference": "researching history of antique pieces",
-      "polarity": "positive"
+      "preference": "researching history of antique items",
+      "polarity": "positive",
+      "constraint": "particularly interested in chandelier origins and makers"
+    },
+    {
+      "entity": "User",
+      "preference": "learning about historic mansions and estates",
+      "polarity": "positive",
+      "constraint": "specifically about great-grandmother's estate"
     },
     {
       "entity": "User",
       "preference": "visiting local antique dealers",
       "polarity": "positive",
-      "constraint": "to find information about estate sales"
+      "constraint": "to gather information about estate sales"
     }
   ],
   "events": [
     {
       "event": "User acquired vintage armchair from the 1950s",
       "date": null,
+      "location": "estate sale",
       "sessionId": "answer_0b4a8adc_1"
     },
     {
       "event": "User received crystal chandelier from aunt",
       "date": "2023-03-04",
-      "sessionId": "answer_0b4a8adc_1"
-    },
-    {
-      "event": "User found vintage armchair at estate sale",
-      "date": null,
       "sessionId": "answer_0b4a8adc_1"
     }
   ]

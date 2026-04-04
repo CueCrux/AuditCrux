@@ -2,9 +2,8 @@
   "facts": [
     {
       "entity": "interviewee",
-      "predicate": "watches content type on",
-      "value": "series on Netflix",
-      "date": "2023-05-26",
+      "predicate": "watches content type",
+      "value": "series",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
@@ -12,30 +11,34 @@
       "entity": "interviewee",
       "predicate": "currently watching",
       "value": "Black List",
-      "date": "2023-05-26",
-      "sessionId": "answer_sharegpt_m2xJfjo_0",
-      "source": "user"
-    },
-    {
-      "entity": "Netflix",
-      "predicate": "feature available",
-      "value": "upcoming content calendar (what's coming next week/month)",
-      "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
       "entity": "interviewee",
-      "predicate": "experienced issue with",
-      "value": "Netflix access problems",
-      "date": "2023-05-26",
+      "predicate": "uses Netflix feature",
+      "value": "upcoming content schedule (next week, next month)",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     },
     {
-      "entity": "Netflix",
-      "predicate": "removed show",
-      "value": "Doc Martin (all seasons except last)",
+      "entity": "interviewee",
+      "predicate": "experienced issue with show",
+      "value": "Doc Martin - only last season available after removal",
+      "sessionId": "answer_sharegpt_m2xJfjo_0",
+      "source": "user"
+    },
+    {
+      "entity": "interviewee",
+      "predicate": "experiences technical problem",
+      "value": "unable to open Netflix intermittently",
+      "sessionId": "answer_sharegpt_m2xJfjo_0",
+      "source": "user"
+    },
+    {
+      "entity": "interviewee",
+      "predicate": "knowledge of",
+      "value": "Netflix pricing - unknown",
       "sessionId": "answer_sharegpt_m2xJfjo_0",
       "source": "user"
     }
@@ -43,20 +46,21 @@
   "preferences": [
     {
       "entity": "interviewee",
-      "preference": "variety of content on Netflix",
+      "preference": "Netflix content variety",
       "polarity": "positive",
-      "constraint": "something for everybody"
+      "constraint": "something for everybody, new content daily"
     },
     {
       "entity": "interviewee",
-      "preference": "series over movies",
-      "polarity": "positive"
+      "preference": "series format",
+      "polarity": "positive",
+      "constraint": "over movies"
     },
     {
       "entity": "interviewee",
       "preference": "Black List",
       "polarity": "positive",
-      "constraint": "recent series"
+      "constraint": "enjoy very much"
     },
     {
       "entity": "interviewee",
@@ -66,20 +70,20 @@
     },
     {
       "entity": "interviewee",
-      "preference": "complete show availability",
-      "polarity": "positive",
-      "constraint": "all seasons of old shows should remain accessible"
+      "preference": "show availability",
+      "polarity": "negative",
+      "constraint": "wants all seasons of old shows to remain available"
     },
     {
       "entity": "interviewee",
-      "preference": "Netflix access issues",
-      "polarity": "negative",
-      "constraint": "occasional inability to open Netflix"
+      "preference": "content diversity",
+      "polarity": "positive",
+      "constraint": "would like more but satisfied with current offerings"
     }
   ],
   "events": [
     {
-      "event": "interview about Netflix preferences",
+      "event": "Interview session about Netflix opinions",
       "date": "2023-05-26",
       "sessionId": "answer_sharegpt_m2xJfjo_0"
     }

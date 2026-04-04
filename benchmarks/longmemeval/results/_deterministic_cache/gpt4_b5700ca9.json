@@ -32,7 +32,7 @@
     },
     {
       "entity": "Food Bank",
-      "predicate": "phone number",
+      "predicate": "phone",
       "value": "555-555-5555",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
@@ -59,7 +59,7 @@
       "source": "assistant"
     },
     {
-      "entity": "Food Bank Volunteer",
+      "entity": "Food Bank",
       "predicate": "minimum age requirement",
       "value": "18 years old",
       "sessionId": "answer_a17423e7_1",
@@ -67,29 +67,22 @@
     },
     {
       "entity": "Food Bank",
-      "predicate": "requires",
-      "value": "background check for volunteers",
+      "predicate": "orientation duration",
+      "value": "30 minutes",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "requires",
-      "value": "orientation session (30 minutes)",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank",
-      "predicate": "has",
-      "value": "Group Volunteer Program",
-      "sessionId": "answer_a17423e7_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Food Bank Group Volunteer Program",
-      "predicate": "group size",
+      "predicate": "group volunteer capacity",
       "value": "5-20 people",
+      "sessionId": "answer_a17423e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank",
+      "predicate": "requires",
+      "value": "background check",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     }
@@ -97,32 +90,35 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "volunteer causes",
-      "polarity": "positive",
-      "constraint": "community service and helping the underprivileged"
+      "preference": "community service and helping the underprivileged",
+      "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "volunteer availability",
+      "preference": "volunteering on weekdays in the evenings",
       "polarity": "positive",
-      "constraint": "weekday evenings with regular schedule commitment"
+      "constraint": "weekday evenings"
     },
     {
       "entity": "User",
-      "preference": "group volunteering",
-      "polarity": "positive",
-      "constraint": "inviting friends and church group to volunteer together"
+      "preference": "regular volunteering schedule commitment",
+      "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "Maundy Thursday service",
+      "preference": "group volunteering with church or community",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "adopting specific projects or programs",
       "polarity": "positive",
-      "constraint": "found it beautiful and moving"
+      "constraint": "making significant impact"
     }
   ],
   "events": [
     {
-      "event": "Easter Egg Hunt",
+      "event": "Easter Egg Hunt event",
       "date": "2023-03-30",
       "sessionId": "answer_a17423e7_1"
     },
