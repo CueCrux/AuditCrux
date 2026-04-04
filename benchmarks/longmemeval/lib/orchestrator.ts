@@ -16,6 +16,7 @@ import { buildSystemPrompt, buildPlaybookPrompt, classifyQuestion } from "./syst
 import { decomposeQuery, buildDecomposedEvidence, isCompoundQuestion } from "./query-decomposer.js";
 import { selectPlaybook, isPlaybookEngineEnabled, type Playbook } from "./playbook-engine.js";
 import { ingestProblem, waitForEmbeddings, verifyIngestion } from "./ingest-sessions.js";
+import { ingestProblemViaCorecrux, waitForCorecruxIndex, verifyCorecruxIngestion } from "./ingest-corecrux.js";
 import { routeQuery, type RouterResult } from "./entity-router.js";
 import { verifiedQuery, matchQATemplate, type VerifiedResult } from "./verified-query.js";
 
@@ -439,19 +440,34 @@ export async function executeRun(
       });
 
       if (!config.manifest.skipSeed) {
-        console.log(`[${i + 1}/${problems.length}] ${problem.problemId} — seeding ${problem.sessions.length} sessions...`);
-        const result = await ingestProblem(proxy, problem);
-        console.log(`[${i + 1}/${problems.length}] ${problem.problemId} — ${result.seeded}/${result.totalSessions} seeded in ${(result.durationMs / 1000).toFixed(1)}s`);
+        const useCorecrux = process.env.LME_INGEST_BACKEND === "corecrux";
 
-        if (result.failed > 0) {
-          console.warn(`[${i + 1}/${problems.length}] ${problem.problemId} — WARNING: ${result.failed} sessions failed`);
-        }
-
-        await waitForEmbeddings(problem.sessions.length);
-
-        const verified = await verifyIngestion(proxy, problem.question);
-        if (!verified) {
-          console.warn(`[${i + 1}/${problems.length}] ${problem.problemId} — WARNING: verification returned no results`);
+        if (useCorecrux) {
+          // CoreCrux v5 ingest path — append to spine, seal, .ccxi
+          console.log(`[${i + 1}/${problems.length}] ${problem.problemId} — seeding ${problem.sessions.length} sessions via CoreCrux...`);
+          const result = await ingestProblemViaCorecrux(problem, tenantId);
+          console.log(`[${i + 1}/${problems.length}] ${problem.problemId} — ${result.seeded}/${problem.sessions.length} seeded in ${(result.durationMs / 1000).toFixed(1)}s`);
+          if (result.failed > 0) {
+            console.warn(`[${i + 1}/${problems.length}] ${problem.problemId} — WARNING: ${result.failed} sessions failed`);
+          }
+          await waitForCorecruxIndex(problem.sessions.length);
+          const verified = await verifyCorecruxIngestion(tenantId, problem.question);
+          if (!verified) {
+            console.warn(`[${i + 1}/${problems.length}] ${problem.problemId} — WARNING: CoreCrux verification returned no results`);
+          }
+        } else {
+          // Legacy VaultCrux Postgres ingest path
+          console.log(`[${i + 1}/${problems.length}] ${problem.problemId} — seeding ${problem.sessions.length} sessions...`);
+          const result = await ingestProblem(proxy, problem);
+          console.log(`[${i + 1}/${problems.length}] ${problem.problemId} — ${result.seeded}/${result.totalSessions} seeded in ${(result.durationMs / 1000).toFixed(1)}s`);
+          if (result.failed > 0) {
+            console.warn(`[${i + 1}/${problems.length}] ${problem.problemId} — WARNING: ${result.failed} sessions failed`);
+          }
+          await waitForEmbeddings(problem.sessions.length);
+          const verified = await verifyIngestion(proxy, problem.question);
+          if (!verified) {
+            console.warn(`[${i + 1}/${problems.length}] ${problem.problemId} — WARNING: verification returned no results`);
+          }
         }
       }
     }
