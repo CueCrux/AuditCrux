@@ -224,9 +224,22 @@ function selectAnswerField(question: string, fact: ExtractedFact): string {
 
 /**
  * Select best answer from a preference match.
+ * For recommendation/suggestion questions, format as "The user would prefer..."
+ * to match LME gold answer format.
  */
 function selectPreferenceAnswer(question: string, pref: ExtractedPreference): string {
   const q = question.toLowerCase();
+  const isRecommendation = /recommend|suggest|tips?\b|advice|activities/.test(q);
+
+  if (isRecommendation) {
+    // Format like LME gold: "The user would prefer responses that..."
+    if (pref.polarity === "negative") {
+      return `The user would prefer responses that avoid ${pref.preference}`;
+    }
+    const context = pref.constraint ? ` specifically related to ${pref.constraint}` : "";
+    return `The user would prefer suggestions related to ${pref.preference}${context}`;
+  }
+
   if (pref.polarity === "negative") {
     return `Not ${pref.preference}`;
   }
@@ -340,6 +353,7 @@ export function answerFromProjections(
   op: QuestionOp,
   store: FactStore,
   question: string,
+  questionDate?: string,
 ): string | null {
   const q = question.toLowerCase();
 
@@ -435,10 +449,62 @@ export function answerFromProjections(
 
     case "DATE_DIFF": {
       const event = (op.event_a ?? "").toLowerCase();
-      const matching = store.events.filter((e) => e.event.toLowerCase().includes(event));
-      if (matching.length === 0) return null;
-      // Parse date and compute diff from question_date (approximate)
-      return matching[0]!.date;
+      // Search events first
+      let eventDate: string | null = null;
+      const matchingEvents = store.events.filter((e) => e.event.toLowerCase().includes(event));
+      if (matchingEvents.length > 0) {
+        eventDate = matchingEvents[0]!.date;
+      }
+      // Fall back to facts with dates
+      if (!eventDate) {
+        const matchingFacts = store.facts.filter(
+          (f) => f.date && (f.predicate.toLowerCase().includes(event) || f.value.toLowerCase().includes(event) || f.entity.toLowerCase().includes(event)),
+        );
+        if (matchingFacts.length > 0) eventDate = matchingFacts[0]!.date!;
+      }
+      // Fuzzy search across all facts
+      if (!eventDate) {
+        const fb = fuzzySearch(question);
+        eventDate = fb?.date ?? null;
+      }
+      if (!eventDate) return null;
+
+      // Parse the event date and compute diff
+      const parsedDate = new Date(eventDate);
+      if (isNaN(parsedDate.getTime())) return eventDate; // can't parse, return raw
+
+      // Use the question_date as the reference point for "how many days ago"
+      let refDate: Date;
+      if (questionDate) {
+        // Parse LME date format: "2023/06/15 (Thu) 00:24" → "2023-06-15"
+        const cleaned = questionDate.replace(/\s*\([^)]+\)\s*/, " ").trim().split(" ")[0]?.replace(/\//g, "-") ?? "";
+        refDate = new Date(cleaned);
+      } else {
+        // Find the latest date in all events/facts as the reference point
+        const allDates = [
+          ...store.events.map((e) => e.date),
+          ...store.facts.filter((f) => f.date).map((f) => f.date!),
+        ].filter(Boolean).sort().reverse();
+        refDate = allDates.length > 0 ? new Date(allDates[0]!) : new Date();
+      }
+
+      const diffMs = refDate.getTime() - parsedDate.getTime();
+      const diffDays = Math.round(Math.abs(diffMs) / (1000 * 60 * 60 * 24));
+
+      // Format based on what the question asks
+      if (/weeks?\b/.test(q)) {
+        const weeks = Math.round(diffDays / 7);
+        return `${weeks} week${weeks !== 1 ? "s" : ""}`;
+      }
+      if (/months?\b/.test(q)) {
+        const months = Math.round(diffDays / 30);
+        return `${months} month${months !== 1 ? "s" : ""}`;
+      }
+      if (/years?\b/.test(q)) {
+        const years = Math.round(diffDays / 365);
+        return `${years} year${years !== 1 ? "s" : ""}`;
+      }
+      return `${diffDays} day${diffDays !== 1 ? "s" : ""}`;
     }
 
     case "PREFERENCE": {
@@ -529,8 +595,9 @@ export function routeByConfidence(
   op: QuestionOp,
   store: FactStore,
   question: string,
+  questionDate?: string,
 ): { tier: ConfidenceTier; answer: string | null } {
-  const answer = answerFromProjections(op, store, question);
+  const answer = answerFromProjections(op, store, question, questionDate);
 
   if (answer !== null) {
     // Check if answer seems complete
@@ -564,9 +631,10 @@ export function answerDeterministic(
   question: string,
   store: FactStore,
   bm25Fallback?: (query: string) => string | null,
+  questionDate?: string,
 ): DeterministicAnswer {
   const op = parseQuestion(question);
-  const { tier, answer } = routeByConfidence(op, store, question);
+  const { tier, answer } = routeByConfidence(op, store, question, questionDate);
 
   if (answer !== null) {
     return { questionId, question, operation: op, tier, answer, source: "projection" };
@@ -590,6 +658,26 @@ export function answerDeterministic(
     const wantsName = /what (?:is|was) (?:the )?name|what (?:is|was) (?:it |that )?called|remind me (?:of )?(?:the )?name|remind me (?:of )?that|could you remind|you (?:could |can )?remind|what was (?:the |that )/.test(ql);
     const wantsFrequency = /how often|how frequent|how regularly/.test(ql);
 
+    // Synonym expansion for better matching
+    const synonymMap: Record<string, string[]> = {
+      "romantic": ["cozy", "intimate", "candlelit", "soft lighting", "atmospheric"],
+      "budget": ["cheap", "affordable", "low-cost", "inexpensive", "hostel"],
+      "luxury": ["high-end", "premium", "five-star", "upscale", "elegant"],
+      "fun": ["entertaining", "exciting", "enjoyable", "amusing"],
+      "healthy": ["nutritious", "organic", "wholesome", "diet"],
+      "relaxing": ["calm", "peaceful", "soothing", "spa", "meditation"],
+      "fast": ["quick", "speedy", "rapid", "express"],
+      "old": ["previous", "former", "past", "earlier"],
+      "new": ["recent", "latest", "current", "newest"],
+      "best": ["favorite", "preferred", "top", "recommended"],
+    };
+    // Expand keywords with synonyms
+    const expandedKeywords = [...keywords];
+    for (const kw of keywords) {
+      const syns = synonymMap[kw];
+      if (syns) expandedKeywords.push(...syns);
+    }
+
     // Entity-group scoring: group facts by entity, score ALL facts for each entity
     // against question keywords. This enables multi-fact reasoning:
     // "romantic Italian restaurant" matches Roscioli because Roscioli has facts
@@ -605,7 +693,7 @@ export function answerDeterministic(
     for (const [entityName, facts] of entityFacts) {
       // Concatenate ALL text from all facts for this entity
       const allText = facts.map((f) => `${f.entity} ${f.predicate} ${f.value}`).join(" ").toLowerCase();
-      const entityScore = keywords.filter((kw) => allText.includes(kw)).length;
+      const entityScore = expandedKeywords.filter((kw) => allText.includes(kw)).length;
 
       if (entityScore < 1) continue;
 
@@ -645,9 +733,9 @@ export function answerDeterministic(
     }
     for (const p of store.preferences) {
       const text = `${p.entity} ${p.preference} ${p.constraint ?? ""}`.toLowerCase();
-      const score = keywords.filter((kw) => text.includes(kw)).length;
+      const score = expandedKeywords.filter((kw) => text.includes(kw)).length;
       if (score >= 1) {
-        candidates.push({ score, answer: selectPreferenceAnswer(question, p), type: "pref" });
+        candidates.push({ score: score + 2, answer: selectPreferenceAnswer(question, p), type: "pref" }); // +2 boost for preferences
       }
     }
     for (const e of store.events) {

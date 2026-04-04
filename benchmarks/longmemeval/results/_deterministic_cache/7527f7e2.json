@@ -1,15 +1,15 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "wants to",
+      "entity": "user",
+      "predicate": "wants to do",
       "value": "track spending habits and create a budget",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "purchased",
       "value": "designer handbag",
       "sessionId": "answer_7cb94507",
@@ -23,14 +23,28 @@
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "frequents",
-      "value": "Saks and Neiman Marcus",
+      "value": "Saks",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "predicate": "frequents",
+      "value": "Neiman Marcus",
+      "sessionId": "answer_7cb94507",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "uses credit card",
+      "value": "frequently",
+      "sessionId": "answer_7cb94507",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "plans to use",
       "value": "Mint budgeting app",
       "date": "2023-05-23",
@@ -38,58 +52,73 @@
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "browses",
-      "value": "H&M and Uniqlo",
+      "value": "H&M",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "monthly beauty box subscription",
+      "entity": "user",
+      "predicate": "browses",
+      "value": "Uniqlo",
+      "sessionId": "answer_7cb94507",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "cancelled subscription",
+      "value": "monthly beauty box",
+      "sessionId": "answer_7cb94507",
+      "source": "user"
+    },
+    {
+      "entity": "monthly beauty box",
       "predicate": "cost",
-      "value": "$50",
+      "value": "$50 per month",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "canceled",
-      "value": "monthly beauty box subscription",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "predicate": "now buys beauty products at",
       "value": "discount store",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "eats out",
       "value": "frequently",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "wants to",
-      "value": "cook more at home and try new recipes",
+      "entity": "user",
+      "predicate": "wants to start",
+      "value": "cooking more at home",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "interested in",
-      "value": "Korean and Indian cuisines",
+      "entity": "user",
+      "predicate": "wants to try",
+      "value": "Korean cuisine",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "predicate": "wants to try",
+      "value": "Indian cuisine",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "considering",
       "value": "meal prepping on weekends",
       "date": "2023-05-23",
@@ -97,40 +126,137 @@
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "dietary preference",
-      "value": "relatively healthy and balanced meals",
-      "sessionId": "answer_7cb94507",
-      "source": "user"
-    },
-    {
-      "entity": "Assistant",
+      "entity": "assistant",
       "predicate": "recommended",
-      "value": "Mint, Personal Capital, YNAB, Spendee, Pocketbook, Wally",
+      "value": "Mint",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
-      "entity": "Assistant",
+      "entity": "assistant",
       "predicate": "recommended",
-      "value": "Plan to Eat and Yummly meal planning apps",
+      "value": "Personal Capital",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
-      "entity": "Assistant",
+      "entity": "assistant",
       "predicate": "recommended",
-      "value": "Ibotta and Fetch Rewards cashback apps",
+      "value": "YNAB (You Need a Budget)",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
     },
     {
-      "entity": "Assistant",
+      "entity": "assistant",
       "predicate": "recommended",
-      "value": "Out of Milk and Grocery IQ grocery tracking apps",
+      "value": "Spendee",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Pocketbook",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Wally",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Rakuten cashback app",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "TopCashback",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Ibotta",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "ThredUp",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Poshmark",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Plan to Eat meal planning app",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Yummly meal planning app",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Aldi discount store",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Fetch Rewards",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Out of Milk app",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507",
+      "source": "assistant"
+    },
+    {
+      "entity": "assistant",
+      "predicate": "recommended",
+      "value": "Grocery IQ app",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507",
       "source": "assistant"
@@ -138,83 +264,110 @@
   ],
   "preferences": [
     {
-      "entity": "User",
-      "preference": "designer handbags and luxury items",
+      "entity": "user",
+      "preference": "luxury shopping at high-end department stores",
       "polarity": "positive",
-      "constraint": "high-end department stores"
+      "constraint": "expensive habit, trying to reduce"
     },
     {
-      "entity": "User",
-      "preference": "stylish pieces and fashion",
+      "entity": "user",
+      "preference": "designer handbags",
       "polarity": "positive",
-      "constraint": "affordable alternatives preferred"
+      "constraint": "costly purchases"
     },
     {
-      "entity": "User",
+      "entity": "user",
+      "preference": "stylish fashion pieces",
+      "polarity": "positive",
+      "constraint": "prefers affordable alternatives"
+    },
+    {
+      "entity": "user",
       "preference": "monthly beauty box subscription",
       "polarity": "negative",
-      "constraint": "wasteful, not using products"
+      "constraint": "wasteful, not using most products"
     },
     {
-      "entity": "User",
-      "preference": "eating out frequently",
+      "entity": "user",
+      "preference": "eating out",
       "polarity": "negative",
-      "constraint": "trying to reduce spending"
+      "constraint": "expensive habit, wants to reduce"
     },
     {
-      "entity": "User",
-      "preference": "cooking at home and new recipes",
+      "entity": "user",
+      "preference": "cooking at home",
       "polarity": "positive",
-      "constraint": "healthy and balanced meals"
+      "constraint": "trying new recipes and cuisines"
     },
     {
-      "entity": "User",
-      "preference": "Korean and Indian food",
+      "entity": "user",
+      "preference": "healthy and balanced meals",
+      "polarity": "positive",
+      "constraint": "no dietary restrictions"
+    },
+    {
+      "entity": "user",
+      "preference": "Korean cuisine",
       "polarity": "positive",
       "constraint": "affordable and delicious"
     },
     {
-      "entity": "User",
-      "preference": "meal prepping",
+      "entity": "user",
+      "preference": "Indian cuisine",
       "polarity": "positive",
-      "constraint": "to make weekdays easier"
+      "constraint": "affordable and delicious"
+    },
+    {
+      "entity": "user",
+      "preference": "shopping at H&M",
+      "polarity": "positive",
+      "constraint": "affordable alternative to high-end brands"
+    },
+    {
+      "entity": "user",
+      "preference": "shopping at Uniqlo",
+      "polarity": "positive",
+      "constraint": "affordable alternative to high-end brands"
     }
   ],
   "events": [
     {
-      "event": "User started thinking about creating a budget",
+      "event": "user started tracking spending habits and creating budget",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User purchased designer handbag for $800",
+      "event": "user purchased designer handbag for $800",
       "date": null,
-      "location": "high-end department store",
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User decided to set boundaries on shopping habits",
+      "event": "user decided to set boundaries around shopping habits",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User started browsing H&M and Uniqlo for affordable alternatives",
-      "date": null,
+      "event": "user cancelled monthly beauty box subscription",
+      "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User canceled monthly beauty box subscription",
-      "date": null,
+      "event": "user started browsing affordable clothing stores",
+      "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User began buying beauty products at discount stores",
-      "date": null,
-      "location": "discount store",
+      "event": "user started buying beauty products at discount stores",
+      "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     },
     {
-      "event": "User decided to start cooking more at home",
+      "event": "user decided to start cooking more at home",
+      "date": "2023-05-23",
+      "sessionId": "answer_7cb94507"
+    },
+    {
+      "event": "user planning to explore new recipes and cuisines",
       "date": "2023-05-23",
       "sessionId": "answer_7cb94507"
     }

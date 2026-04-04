@@ -9,37 +9,37 @@
     },
     {
       "entity": "User",
-      "predicate": "has prescription for",
+      "predicate": "has nasal spray prescription for",
       "value": "nasal spray",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "had appointment with",
+      "predicate": "had follow-up appointment with",
       "value": "Dr. Lee",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "Dr. Lee",
-      "predicate": "is",
+      "entity": "User",
+      "predicate": "specialty of Dr. Lee",
       "value": "dermatologist",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "had procedure",
-      "value": "biopsy on suspicious mole on back",
+      "predicate": "had biopsy on",
+      "value": "suspicious mole on back",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
-      "entity": "User's mole biopsy",
-      "predicate": "result was",
+      "entity": "User",
+      "predicate": "biopsy result",
       "value": "benign",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3",
@@ -47,37 +47,129 @@
     },
     {
       "entity": "User",
-      "predicate": "experiences",
+      "predicate": "has condition",
       "value": "chronic sinusitis",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "experiences",
+      "predicate": "experiencing symptom",
       "value": "congestion",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "experiences",
+      "predicate": "experiencing symptom",
       "value": "fatigue",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "is considering",
+      "predicate": "planning to get",
       "value": "colonoscopy",
       "sessionId": "answer_55a6940c_3",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "has delayed",
+      "predicate": "has been putting off",
       "value": "colonoscopy",
       "sessionId": "answer_55a6940c_3",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has condition",
+      "value": "exhaustion/fatigue",
+      "date": "2023-05-21",
+      "sessionId": "answer_55a6940c_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has condition",
+      "value": "UTI",
+      "sessionId": "answer_55a6940c_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "was prescribed",
+      "value": "antibiotics",
+      "sessionId": "answer_55a6940c_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "primary care physician",
+      "value": "Dr. Smith",
+      "sessionId": "answer_55a6940c_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has condition",
+      "value": "chronic sinusitis",
+      "sessionId": "answer_55a6940c_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "diagnosed by",
+      "value": "ENT specialist",
+      "sessionId": "answer_55a6940c_1",
+      "source": "user"
+    },
+    {
+      "entity": "Nasal saline irrigation",
+      "predicate": "recommended frequency for maintenance",
+      "value": "1-2 times per week",
+      "sessionId": "answer_55a6940c_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Nasal saline irrigation",
+      "predicate": "recommended frequency for mild symptoms",
+      "value": "2-3 times per week",
+      "sessionId": "answer_55a6940c_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Nasal saline irrigation",
+      "predicate": "recommended frequency for moderate to severe symptoms",
+      "value": "daily or every other day",
+      "sessionId": "answer_55a6940c_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Saline solution",
+      "predicate": "contains",
+      "value": "1/4 teaspoon non-iodized salt",
+      "sessionId": "answer_55a6940c_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Saline solution",
+      "predicate": "contains",
+      "value": "1/2 teaspoon baking soda",
+      "sessionId": "answer_55a6940c_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Saline solution",
+      "predicate": "contains",
+      "value": "1 cup warm sterile or distilled water",
+      "sessionId": "answer_55a6940c_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "time since UTI treatment",
+      "value": "a few weeks",
+      "sessionId": "answer_55a6940c_1",
       "source": "user"
     },
     {
@@ -88,15 +180,15 @@
       "source": "user"
     },
     {
-      "entity": "Dr. Patel",
-      "predicate": "profession",
-      "value": "ENT specialist",
+      "entity": "User",
+      "predicate": "diagnosed by",
+      "value": "Dr. Patel (ENT specialist)",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
     {
       "entity": "Dr. Patel",
-      "predicate": "prescribed to User",
+      "predicate": "prescribed",
       "value": "nasal spray",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
@@ -104,7 +196,7 @@
     {
       "entity": "User",
       "predicate": "recently had",
-      "value": "urinary tract infection",
+      "value": "urinary tract infection (UTI)",
       "sessionId": "answer_55a6940c_2",
       "source": "user"
     },
@@ -137,86 +229,16 @@
       "source": "user"
     },
     {
-      "entity": "chronic sinusitis",
-      "predicate": "can cause",
-      "value": "fatigue",
+      "entity": "Chronic sinusitis",
+      "predicate": "characterized by",
+      "value": "nasal congestion, yellow or green nasal discharge, facial pain, headaches, fatigue, coughing, sore throat, bad breath",
       "sessionId": "answer_55a6940c_2",
       "source": "assistant"
     },
     {
-      "entity": "antibiotics",
-      "predicate": "can cause",
-      "value": "fatigue",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "antibiotics",
-      "predicate": "can cause",
-      "value": "joint pain",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "antibiotics",
-      "predicate": "can disrupt",
-      "value": "gut microbiome",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Flonase",
-      "predicate": "active ingredient",
-      "value": "fluticasone",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Nasonex",
-      "predicate": "active ingredient",
-      "value": "mometasone",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Nasacort",
-      "predicate": "active ingredient",
-      "value": "triamcinolone",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Dymista",
-      "predicate": "contains",
-      "value": "azelastine and fluticasone",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Honeywell HUL520W Mistmate Humidifier",
-      "predicate": "type",
-      "value": "cool mist humidifier",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Levoit LV600HH Hybrid Humidifier",
-      "predicate": "type",
-      "value": "cool and warm mist humidifier",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Dyson AM10 Humidifier",
-      "predicate": "type",
-      "value": "ultrasonic humidifier",
-      "sessionId": "answer_55a6940c_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "chronic sinusitis",
-      "predicate": "affects",
-      "value": "up to 70% of patients with fatigue",
+      "entity": "Fatigue",
+      "predicate": "affects percentage of sinusitis patients",
+      "value": "up to 70%",
       "sessionId": "answer_55a6940c_2",
       "source": "assistant"
     }
@@ -224,30 +246,46 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "managing chronic sinusitis",
+      "preference": "wants to manage chronic sinusitis effectively",
       "polarity": "positive",
-      "constraint": "wants general advice on symptom management"
+      "constraint": "through general tips and advice"
     },
     {
       "entity": "User",
-      "preference": "getting colonoscopy screening",
+      "preference": "wants to understand colonoscopy procedure",
       "polarity": "positive",
-      "constraint": "willing to schedule but has been procrastinating"
+      "constraint": "comprehensive information and preparation"
     },
     {
       "entity": "User",
-      "preference": "learning about medical procedures",
+      "preference": "wants to ask appropriate questions to doctor",
       "polarity": "positive",
-      "constraint": "wants comprehensive information and preparation tips"
+      "constraint": "before colonoscopy procedure"
     },
     {
       "entity": "User",
-      "preference": "learning about chronic sinusitis management",
+      "preference": "boost energy levels",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "following up with healthcare providers",
+      "preference": "manage chronic sinusitis",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "nasal saline irrigation",
+      "polarity": "positive",
+      "constraint": "finding it helpful for sinusitis management"
+    },
+    {
+      "entity": "User",
+      "preference": "managing chronic sinusitis symptoms",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "learning about nasal spray and humidifier options",
       "polarity": "positive"
     }
   ],
@@ -261,6 +299,21 @@
       "event": "Biopsy results came back benign",
       "date": "2023-05-20",
       "sessionId": "answer_55a6940c_3"
+    },
+    {
+      "event": "User diagnosed with UTI by Dr. Smith",
+      "date": null,
+      "sessionId": "answer_55a6940c_1"
+    },
+    {
+      "event": "User prescribed antibiotics for UTI",
+      "date": null,
+      "sessionId": "answer_55a6940c_1"
+    },
+    {
+      "event": "User diagnosed with chronic sinusitis by ENT specialist",
+      "date": null,
+      "sessionId": "answer_55a6940c_1"
     },
     {
       "event": "User diagnosed with chronic sinusitis by Dr. Patel",
@@ -283,13 +336,13 @@
       "sessionId": "answer_55a6940c_2"
     },
     {
-      "event": "User planning follow-up appointment with Dr. Patel",
-      "date": null,
+      "event": "User decided to schedule follow-up appointment with Dr. Patel",
+      "date": "2023-05-22",
       "sessionId": "answer_55a6940c_2"
     },
     {
-      "event": "User planning follow-up appointment with primary care physician",
-      "date": null,
+      "event": "User decided to schedule follow-up appointment with primary care physician",
+      "date": "2023-05-22",
       "sessionId": "answer_55a6940c_2"
     }
   ]

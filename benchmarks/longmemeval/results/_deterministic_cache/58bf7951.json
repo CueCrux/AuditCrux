@@ -2,8 +2,8 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "visited",
-      "value": "local community theater",
+      "predicate": "attended",
+      "value": "local community theater production",
       "date": "2023-05-26",
       "sessionId": "answer_355c48bb",
       "source": "user"
@@ -37,23 +37,23 @@
       "source": "user"
     },
     {
+      "entity": "Lead actress at community theater",
+      "predicate": "reminded user of",
+      "value": "friend Emily",
+      "sessionId": "answer_355c48bb",
+      "source": "user"
+    },
+    {
       "entity": "User",
-      "predicate": "auditioned for role in",
+      "predicate": "auditioned for",
       "value": "The Crucible",
       "sessionId": "answer_355c48bb",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "wants to focus on",
-      "value": "scene study",
-      "sessionId": "answer_355c48bb",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "wants to focus on",
-      "value": "character development",
+      "predicate": "performance in audition",
+      "value": "did not go well",
       "sessionId": "answer_355c48bb",
       "source": "user"
     },
@@ -63,6 +63,20 @@
       "value": "Tennessee Williams",
       "sessionId": "answer_355c48bb",
       "source": "assistant"
+    },
+    {
+      "entity": "The Glass Menagerie",
+      "predicate": "is",
+      "value": "memory play",
+      "sessionId": "answer_355c48bb",
+      "source": "assistant"
+    },
+    {
+      "entity": "The Glass Menagerie",
+      "predicate": "explores",
+      "value": "Wingfield family relationships",
+      "sessionId": "answer_355c48bb",
+      "source": "assistant"
     }
   ],
   "preferences": [
@@ -70,47 +84,61 @@
       "entity": "User",
       "preference": "Italian restaurants",
       "polarity": "positive",
-      "constraint": "local options"
+      "constraint": "local options, exploring different places"
     },
     {
       "entity": "User",
-      "preference": "community theater productions",
-      "polarity": "positive"
-    },
-    {
-      "entity": "User",
-      "preference": "acting classes",
+      "preference": "community theater performances",
       "polarity": "positive",
-      "constraint": "for adults"
+      "constraint": "impressed by lead actress's performance"
     },
     {
       "entity": "User",
-      "preference": "getting into character and authentic performances",
-      "polarity": "positive"
+      "preference": "acting",
+      "polarity": "positive",
+      "constraint": "wanting to improve skills and take classes"
     },
     {
       "entity": "User",
-      "preference": "The Crucible audition",
-      "polarity": "negative",
-      "constraint": "did not go well"
+      "preference": "scene study",
+      "polarity": "positive",
+      "constraint": "area of focus for acting classes"
+    },
+    {
+      "entity": "User",
+      "preference": "character development",
+      "polarity": "positive",
+      "constraint": "area of focus for acting classes"
+    },
+    {
+      "entity": "User",
+      "preference": "authentic character performances",
+      "polarity": "positive",
+      "constraint": "struggling with getting into character"
+    },
+    {
+      "entity": "User",
+      "preference": "script analysis",
+      "polarity": "positive",
+      "constraint": "wants to be more comfortable with it"
     }
   ],
   "events": [
     {
-      "event": "User attended The Glass Menagerie at local community theater",
+      "event": "User attended community theater production of The Glass Menagerie",
       "date": null,
       "location": "local community theater",
-      "sessionId": "answer_355c48bb"
-    },
-    {
-      "event": "User auditioned for role in The Crucible",
-      "date": null,
       "sessionId": "answer_355c48bb"
     },
     {
       "event": "User tried new Italian restaurant downtown",
       "date": null,
       "location": "downtown",
+      "sessionId": "answer_355c48bb"
+    },
+    {
+      "event": "User auditioned for The Crucible",
+      "date": null,
       "sessionId": "answer_355c48bb"
     }
   ]

@@ -3,13 +3,13 @@
     {
       "entity": "User",
       "predicate": "attended",
-      "value": "charity gala organized by the Cancer Research Foundation",
+      "value": "Cancer Research Foundation charity gala",
       "date": "2023-01-30",
       "sessionId": "answer_4bfcc250_4",
       "source": "user"
     },
     {
-      "entity": "charity gala",
+      "entity": "Cancer Research Foundation charity gala",
       "predicate": "location",
       "value": "fancy hotel in downtown",
       "date": "2023-01-30",
@@ -17,7 +17,7 @@
       "source": "user"
     },
     {
-      "entity": "charity gala",
+      "entity": "Cancer Research Foundation charity gala",
       "predicate": "raised",
       "value": "$100,000",
       "date": "2023-01-30",
@@ -25,150 +25,177 @@
       "source": "user"
     },
     {
-      "entity": "charity gala",
-      "predicate": "purpose",
-      "value": "cancer research",
-      "date": "2023-01-30",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "user"
-    },
-    {
       "entity": "Immunotherapy",
-      "predicate": "mechanism",
-      "value": "harnesses the immune system to fight cancer",
+      "predicate": "is_type_of",
+      "value": "cancer treatment",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
-      "entity": "Checkpoint Inhibitors",
-      "predicate": "examples",
-      "value": "pembrolizumab, nivolumab",
+      "entity": "Pembrolizumab",
+      "predicate": "is_example_of",
+      "value": "checkpoint inhibitor",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
       "entity": "CAR-T cell therapy",
-      "predicate": "type",
-      "value": "immunotherapy approach",
+      "predicate": "is_type_of",
+      "value": "immunotherapy",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
-      "entity": "Liquid Biopsies",
+      "entity": "Liquid biopsies",
       "predicate": "analyzes",
-      "value": "blood or urine samples for cancer biomarkers",
+      "value": "blood or urine for cancer biomarkers",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
-      "entity": "Personalized Medicine",
+      "entity": "Circulating tumor DNA (ctDNA)",
+      "predicate": "is_detected_by",
+      "value": "liquid biopsies",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Personalized medicine",
       "predicate": "uses",
-      "value": "genomics and precision medicine for targeted therapies",
+      "value": "genomics and precision medicine",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
-      "entity": "Cancer Stem Cell Research",
+      "entity": "Cancer stem cells",
+      "predicate": "responsible_for",
+      "value": "cancer relapse and metastasis",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Epigenetics",
+      "predicate": "involves",
+      "value": "DNA methylation and histone modification",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Nanotechnology",
+      "predicate": "application",
+      "value": "targeted cancer drug delivery",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Artificial Intelligence and Machine Learning",
+      "predicate": "applied_to",
+      "value": "cancer research for data analysis and pattern identification",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Cancer vaccines",
+      "predicate": "uses",
+      "value": "mRNA, DNA, or viral vectors",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Imatinib",
+      "predicate": "is_example_of",
+      "value": "tyrosine kinase inhibitor",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Olaparib",
+      "predicate": "is_example_of",
+      "value": "PARP inhibitor",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Microbiome",
+      "predicate": "influences",
+      "value": "cancer progression",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Checkpoint inhibitors",
       "predicate": "target",
-      "value": "responsible for cancer relapse and metastasis",
+      "value": "PD-1, PD-L1, CTLA-4",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
       "entity": "Melanoma",
-      "predicate": "immunotherapy response rate",
-      "value": "20% to 40%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Melanoma immunotherapy",
-      "predicate": "examples",
-      "value": "pembrolizumab, nivolumab",
+      "predicate": "immunotherapy_response_rate",
+      "value": "20-40%",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
       "entity": "Non-small cell lung cancer (NSCLC)",
-      "predicate": "immunotherapy response rate",
-      "value": "20% to 30%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "NSCLC immunotherapy",
-      "predicate": "examples",
-      "value": "pembrolizumab, atezolizumab",
+      "predicate": "immunotherapy_response_rate",
+      "value": "20-30%",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
       "entity": "Renal cell carcinoma",
-      "predicate": "immunotherapy response rate",
-      "value": "20% to 30%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Renal cell carcinoma immunotherapy",
-      "predicate": "examples",
-      "value": "nivolumab, ipilimumab",
+      "predicate": "immunotherapy_response_rate",
+      "value": "20-30%",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
       "entity": "Urothelial carcinoma",
-      "predicate": "immunotherapy response rate",
-      "value": "20% to 30%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Urothelial carcinoma immunotherapy",
-      "predicate": "examples",
-      "value": "atezolizumab, pembrolizumab",
+      "predicate": "immunotherapy_response_rate",
+      "value": "20-30%",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
       "entity": "Classical Hodgkin lymphoma",
-      "predicate": "immunotherapy response rate",
-      "value": "70% to 80%",
-      "sessionId": "answer_4bfcc250_4",
-      "source": "assistant"
-    },
-    {
-      "entity": "Hodgkin lymphoma immunotherapy",
-      "predicate": "examples",
-      "value": "pembrolizumab, nivolumab",
+      "predicate": "immunotherapy_response_rate",
+      "value": "70-80%",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
       "entity": "Triple-negative breast cancer",
-      "predicate": "immunotherapy response rate",
-      "value": "10% to 20%",
+      "predicate": "immunotherapy_response_rate",
+      "value": "10-20%",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
-      "entity": "Breast cancer immunotherapy",
-      "predicate": "examples",
-      "value": "atezolizumab, pembrolizumab",
+      "entity": "Microsatellite instability-high (MSI-H) colorectal cancer",
+      "predicate": "immunotherapy_response_rate",
+      "value": "30-40%",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
-      "entity": "MSI-H colorectal cancer",
-      "predicate": "immunotherapy response rate",
-      "value": "30% to 40%",
+      "entity": "Nivolumab",
+      "predicate": "is_type_of",
+      "value": "checkpoint inhibitor",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
-      "entity": "Colorectal cancer immunotherapy",
-      "predicate": "examples",
-      "value": "pembrolizumab, nivolumab",
+      "entity": "Atezolizumab",
+      "predicate": "is_type_of",
+      "value": "checkpoint inhibitor",
+      "sessionId": "answer_4bfcc250_4",
+      "source": "assistant"
+    },
+    {
+      "entity": "Ipilimumab",
+      "predicate": "is_type_of",
+      "value": "checkpoint inhibitor",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
@@ -181,151 +208,23 @@
     },
     {
       "entity": "Cancer stem cells",
-      "predicate": "responsible for",
-      "value": "cancer initiation, progression, relapse, and metastasis",
+      "predicate": "resistant_to",
+      "value": "conventional cancer therapies",
       "sessionId": "answer_4bfcc250_4",
       "source": "assistant"
     },
     {
       "entity": "User",
-      "predicate": "participated in",
-      "value": "24-Hour Bike Ride charity event",
-      "date": "2023-02-14",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "cycled for",
-      "value": "4 hours non-stop",
-      "date": "2023-02-14",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "24-Hour Bike Ride",
-      "predicate": "raised money for",
-      "value": "local children's hospital",
-      "date": "2023-02-14",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "planning",
-      "value": "road trip",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "Road trip",
-      "predicate": "scheduled for",
-      "value": "next weekend",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "Road trip",
-      "predicate": "starting point",
-      "value": "San Francisco",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "Road trip",
-      "predicate": "ending point",
-      "value": "Lake Tahoe",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "Road trip",
-      "predicate": "duration",
-      "value": "4 days",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "bringing",
-      "value": "road bike",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "looking for",
-      "value": "leisurely, scenic routes with some challenging parts",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "user"
-    },
-    {
-      "entity": "Road trip itinerary",
-      "predicate": "Day 1 route",
-      "value": "San Francisco to Santa Cruz (70 miles)",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "Road trip itinerary",
-      "predicate": "Day 1 stops",
-      "value": "Big Basin Redwoods State Park, Santa Cruz Beach Boardwalk",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "Road trip itinerary",
-      "predicate": "Day 2 route",
-      "value": "Santa Cruz to Monterey (40 miles)",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "Road trip itinerary",
-      "predicate": "Day 2 stops",
-      "value": "Capitola-by-the-Sea, Point Lobos State Natural Reserve",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "Road trip itinerary",
-      "predicate": "Day 3 route",
-      "value": "Monterey to Bishop (150 miles)",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "Road trip itinerary",
-      "predicate": "Day 3 stops",
-      "value": "Death Valley National Park, Owens Valley",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "Road trip itinerary",
-      "predicate": "Day 4 route",
-      "value": "Bishop to Lake Tahoe (160 miles)",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "Road trip itinerary",
-      "predicate": "Day 4 stops",
-      "value": "June Lake Loop, Mammoth Lakes, Eastern Sierra Scenic Byway",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "June Lake Loop",
-      "predicate": "distance",
-      "value": "15 miles",
-      "sessionId": "answer_4bfcc250_3",
-      "source": "assistant"
-    },
-    {
-      "entity": "User",
       "predicate": "volunteered at",
-      "value": "Books for Kids charity book drive event at local library",
+      "value": "Books for Kids charity book drive event",
+      "date": "2023-02-15",
+      "sessionId": "answer_4bfcc250_2",
+      "source": "user"
+    },
+    {
+      "entity": "Books for Kids charity book drive event",
+      "predicate": "location",
+      "value": "local library",
       "date": "2023-02-15",
       "sessionId": "answer_4bfcc250_2",
       "source": "user"
@@ -339,16 +238,10 @@
       "source": "user"
     },
     {
-      "entity": "Books for Kids charity book drive event",
-      "predicate": "location",
-      "value": "local library",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "user"
-    },
-    {
-      "entity": "Books for Kids charity book drive event",
-      "predicate": "beneficiaries",
+      "entity": "Books",
+      "predicate": "intended for",
       "value": "underprivileged kids in the neighborhood",
+      "date": "2023-02-15",
       "sessionId": "answer_4bfcc250_2",
       "source": "user"
     },
@@ -438,64 +331,50 @@
     },
     {
       "entity": "Dinosaurs Before Dark",
-      "predicate": "book number in series",
+      "predicate": "series position",
       "value": "#1",
       "sessionId": "answer_4bfcc250_2",
       "source": "assistant"
     },
     {
-      "entity": "Dinosaurs Before Dark",
-      "predicate": "part of series",
-      "value": "Magic Tree House",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
       "entity": "The Knight at Dawn",
-      "predicate": "book number in series",
+      "predicate": "series position",
       "value": "#2",
       "sessionId": "answer_4bfcc250_2",
       "source": "assistant"
     },
     {
       "entity": "Mummies in the Morning",
-      "predicate": "book number in series",
+      "predicate": "series position",
       "value": "#3",
       "sessionId": "answer_4bfcc250_2",
       "source": "assistant"
     },
     {
       "entity": "Pirates Past Noon",
-      "predicate": "book number in series",
+      "predicate": "series position",
       "value": "#4",
       "sessionId": "answer_4bfcc250_2",
       "source": "assistant"
     },
     {
       "entity": "Night of the Ninjas",
-      "predicate": "book number in series",
+      "predicate": "series position",
       "value": "#5",
       "sessionId": "answer_4bfcc250_2",
       "source": "assistant"
     },
     {
       "entity": "Hour of the Olympics",
-      "predicate": "book number in series",
+      "predicate": "series position",
       "value": "#16",
       "sessionId": "answer_4bfcc250_2",
       "source": "assistant"
     },
     {
       "entity": "Magic Tree House series",
-      "predicate": "main characters",
-      "value": "Jack and Annie",
-      "sessionId": "answer_4bfcc250_2",
-      "source": "assistant"
-    },
-    {
-      "entity": "Magic Tree House series",
       "predicate": "recommended age range",
-      "value": "6-10 years old",
+      "value": "6-10",
       "sessionId": "answer_4bfcc250_2",
       "source": "assistant"
     },
@@ -558,80 +437,67 @@
     },
     {
       "entity": "User",
-      "predicate": "walked distance in event",
+      "predicate": "walked distance",
       "value": "5 kilometers",
       "date": "2023-03-19",
       "sessionId": "answer_4bfcc250_1",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "event purpose",
-      "value": "raise money for local food bank",
+      "entity": "Walk for Hunger event",
+      "predicate": "charity organization",
+      "value": "local food bank",
       "date": "2023-03-19",
       "sessionId": "answer_4bfcc250_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "employment location",
-      "value": "work with colleagues",
-      "sessionId": "answer_4bfcc250_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "participates in",
-      "value": "charity events",
+      "predicate": "workplace affiliation",
+      "value": "colleagues from work",
+      "date": "2023-03-19",
       "sessionId": "answer_4bfcc250_1",
       "source": "user"
     },
     {
       "entity": "Energy Ball Recipe",
-      "predicate": "ingredient amount",
+      "predicate": "ingredient",
       "value": "2 cups rolled oats",
       "sessionId": "answer_4bfcc250_1",
       "source": "assistant"
     },
     {
       "entity": "Energy Ball Recipe",
-      "predicate": "ingredient amount",
+      "predicate": "ingredient",
       "value": "1 cup creamy peanut butter",
       "sessionId": "answer_4bfcc250_1",
       "source": "assistant"
     },
     {
       "entity": "Energy Ball Recipe",
-      "predicate": "ingredient amount",
+      "predicate": "ingredient",
       "value": "1/2 cup honey",
       "sessionId": "answer_4bfcc250_1",
       "source": "assistant"
     },
     {
       "entity": "Energy Ball Recipe",
-      "predicate": "ingredient amount",
+      "predicate": "ingredient",
       "value": "1/2 cup chocolate chips",
       "sessionId": "answer_4bfcc250_1",
       "source": "assistant"
     },
     {
-      "entity": "Energy Ball Recipe",
+      "entity": "Energy Balls",
       "predicate": "yield",
       "value": "12-15 energy balls",
       "sessionId": "answer_4bfcc250_1",
       "source": "assistant"
     },
     {
-      "entity": "Energy Ball Recipe",
-      "predicate": "refrigeration time",
-      "value": "at least 30 minutes",
-      "sessionId": "answer_4bfcc250_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Energy Ball Recipe",
+      "entity": "Energy Balls",
       "predicate": "storage duration",
-      "value": "up to 5 days in airtight container in refrigerator",
+      "value": "up to 5 days in refrigerator",
       "sessionId": "answer_4bfcc250_1",
       "source": "assistant"
     },
@@ -644,6 +510,27 @@
     },
     {
       "entity": "Muffin Tin Frittatas",
+      "predicate": "storage duration",
+      "value": "up to 5 days",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Smoothie Packs",
+      "predicate": "preparation method",
+      "value": "freeze individual packs",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Breakfast Sandwiches",
+      "predicate": "storage duration",
+      "value": "up to 3 days",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Quiche",
       "predicate": "storage duration",
       "value": "up to 5 days",
       "sessionId": "answer_4bfcc250_1",
@@ -664,94 +551,59 @@
       "source": "assistant"
     },
     {
-      "entity": "Hydration during long walks",
-      "predicate": "recommended water intake",
+      "entity": "Hydration recommendation",
+      "predicate": "drinking frequency",
       "value": "1-2 cups every 30-60 minutes",
       "sessionId": "answer_4bfcc250_1",
       "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "participates in",
+      "value": "charity events",
+      "sessionId": "answer_4bfcc250_1",
+      "source": "user"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "cancer research",
-      "polarity": "positive",
-      "constraint": "interested in latest developments"
-    },
-    {
-      "entity": "User",
-      "preference": "melanoma and lung cancer immunotherapy success rates",
-      "polarity": "positive",
-      "constraint": "particularly surprised by these rates"
-    },
-    {
-      "entity": "User",
-      "preference": "leisurely, scenic routes with challenging parts",
-      "polarity": "positive",
-      "constraint": "for road trip"
-    },
-    {
-      "entity": "User",
-      "preference": "exploring national parks and bike trails",
-      "polarity": "positive",
-      "constraint": "during road trip"
-    },
-    {
-      "entity": "User",
-      "preference": "healthy snack options",
-      "polarity": "positive",
-      "constraint": "energy-boosting and easy-to-make"
-    },
-    {
-      "entity": "User",
-      "preference": "cycling",
+      "preference": "cancer research and latest developments",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "charity events",
+      "preference": "success rates in melanoma and lung cancer",
       "polarity": "positive",
-      "constraint": "for good causes like children's hospital"
+      "constraint": "particularly interested"
     },
     {
       "entity": "User",
-      "preference": "volunteering for children's book drives and charity work",
+      "preference": "helping underprivileged kids access books",
       "polarity": "positive",
-      "constraint": "helping underprivileged kids"
+      "constraint": "through volunteer work"
     },
     {
-      "entity": "7-year-old child (referenced by user)",
+      "entity": "7-year-old reader",
       "preference": "adventure and history",
       "polarity": "positive",
-      "constraint": "in books"
+      "constraint": "in book selections"
     },
     {
       "entity": "User",
-      "preference": "educational and fun books for kids",
+      "preference": "books that are fun and educational",
       "polarity": "positive",
-      "constraint": "both qualities combined"
+      "constraint": "for kids"
     },
     {
       "entity": "User",
-      "preference": "ancient Egypt",
+      "preference": "learning about ancient Egypt",
       "polarity": "positive",
-      "constraint": "learning about the subject"
-    },
-    {
-      "entity": "Kids (general)",
-      "preference": "books with engaging visuals",
-      "polarity": "positive",
-      "constraint": "photographs, illustrations, diagrams"
-    },
-    {
-      "entity": "Kids (general)",
-      "preference": "books with simple, clear language",
-      "polarity": "positive",
-      "constraint": "easy to understand"
+      "constraint": "non-fiction books for kids aged 7-10"
     },
     {
       "entity": "User",
-      "preference": "healthy snacks",
+      "preference": "healthy snack ideas",
       "polarity": "positive",
       "constraint": "easy to prepare"
     },
@@ -759,59 +611,36 @@
       "entity": "User",
       "preference": "energy balls",
       "polarity": "positive",
-      "constraint": "as first snack choice"
+      "constraint": "quick and nutritious snack"
     },
     {
       "entity": "User",
       "preference": "overnight oats",
       "polarity": "positive",
-      "constraint": "for weekday breakfast"
+      "constraint": "protein-rich breakfast"
     },
     {
       "entity": "User",
-      "preference": "protein-rich breakfast",
+      "preference": "healthy breakfast",
       "polarity": "positive",
-      "constraint": "can be prepared in advance"
-    },
-    {
-      "entity": "User",
-      "preference": "charity events",
-      "polarity": "positive",
-      "constraint": "does them frequently"
+      "constraint": "to start the day"
     }
   ],
   "events": [
     {
-      "event": "User attended charity gala organized by Cancer Research Foundation",
+      "event": "Cancer Research Foundation charity gala",
       "date": "2023-01-30",
       "location": "fancy hotel in downtown",
       "sessionId": "answer_4bfcc250_4"
     },
     {
-      "event": "24-Hour Bike Ride charity event",
-      "date": "2023-02-14",
-      "location": "local area near children's hospital",
-      "sessionId": "answer_4bfcc250_3"
-    },
-    {
-      "event": "Road trip planning",
-      "date": "2023-02-14",
-      "sessionId": "answer_4bfcc250_3"
-    },
-    {
-      "event": "Planned road trip from San Francisco to Lake Tahoe",
-      "date": null,
-      "location": "San Francisco to Lake Tahoe",
-      "sessionId": "answer_4bfcc250_3"
-    },
-    {
-      "event": "Books for Kids charity book drive event",
+      "event": "Books for Kids charity book drive event at local library",
       "date": "2023-02-15",
       "location": "local library",
       "sessionId": "answer_4bfcc250_2"
     },
     {
-      "event": "User volunteered to sort and pack books",
+      "event": "User sorted and packed over 500 books for underprivileged kids",
       "date": "2023-02-15",
       "location": "local library",
       "sessionId": "answer_4bfcc250_2"

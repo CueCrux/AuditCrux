@@ -10,7 +10,7 @@
     {
       "entity": "User",
       "predicate": "acquired",
-      "value": "crystal chandelier",
+      "value": "crystal chandelier from aunt",
       "date": "2023-03-04",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
@@ -18,7 +18,7 @@
     {
       "entity": "crystal chandelier",
       "predicate": "belonged to",
-      "value": "great-grandmother",
+      "value": "user's great-grandmother",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
     },
@@ -44,9 +44,9 @@
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "intends to visit",
-      "value": "local antique dealers",
+      "entity": "user's great-grandmother",
+      "predicate": "owned property",
+      "value": "mansion/estate",
       "sessionId": "answer_0b4a8adc_1",
       "source": "user"
     }
@@ -54,24 +54,35 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "caring for antique furniture and crystal chandeliers",
+      "preference": "antique furniture and crystal chandeliers",
       "polarity": "positive",
-      "constraint": "gentle and thoughtful maintenance"
+      "constraint": "wants to preserve and maintain them"
     },
     {
       "entity": "User",
       "preference": "researching history of antique pieces",
       "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "visiting local antique dealers",
+      "polarity": "positive",
+      "constraint": "to find information about estate sales"
     }
   ],
   "events": [
     {
-      "event": "User acquired crystal chandelier from aunt",
+      "event": "User acquired vintage armchair from the 1950s",
+      "date": null,
+      "sessionId": "answer_0b4a8adc_1"
+    },
+    {
+      "event": "User received crystal chandelier from aunt",
       "date": "2023-03-04",
       "sessionId": "answer_0b4a8adc_1"
     },
     {
-      "event": "User acquired vintage armchair from estate sale",
+      "event": "User found vintage armchair at estate sale",
       "date": null,
       "sessionId": "answer_0b4a8adc_1"
     }

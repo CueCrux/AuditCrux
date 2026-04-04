@@ -1,5 +1,148 @@
 {
-  "facts": [],
-  "preferences": [],
-  "events": []
+  "facts": [
+    {
+      "entity": "User",
+      "predicate": "previous last name",
+      "value": "Johnson",
+      "date": "2023-05-28",
+      "sessionId": "answer_f6168136",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "current last name",
+      "value": "Winters",
+      "date": "2023-05-28",
+      "sessionId": "answer_f6168136",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "needs to update",
+      "value": "address with health insurance provider",
+      "date": "2023-05-28",
+      "sessionId": "answer_f6168136",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "recently experienced",
+      "value": "name change",
+      "sessionId": "answer_f6168136",
+      "source": "user"
+    },
+    {
+      "entity": "Health insurance provider",
+      "predicate": "typical processing time for address update",
+      "value": "1-3 business days for online/phone, 5-7 business days for mail/fax",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    },
+    {
+      "entity": "DMV",
+      "predicate": "requirement for name change",
+      "value": "update driver's license or state ID within timeframe specified by state",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "needs to update",
+      "value": "social media profiles (Facebook, Instagram, Twitter, LinkedIn)",
+      "date": "2023-05-28",
+      "sessionId": "answer_f6168136",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "needs to update",
+      "value": "credit report with Experian, TransUnion, and Equifax",
+      "date": "2023-05-28",
+      "sessionId": "answer_f6168136",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "needs to update",
+      "value": "credit card information with new name",
+      "date": "2023-05-28",
+      "sessionId": "answer_f6168136",
+      "source": "user"
+    },
+    {
+      "entity": "Experian",
+      "predicate": "phone number",
+      "value": "(866) 200-6020",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    },
+    {
+      "entity": "Experian",
+      "predicate": "mailing address",
+      "value": "P.O. Box 2104, Allen, TX 75013-2104",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    },
+    {
+      "entity": "TransUnion",
+      "predicate": "phone number",
+      "value": "(800) 680-7289",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    },
+    {
+      "entity": "TransUnion",
+      "predicate": "mailing address",
+      "value": "P.O. Box 2000, Chester, PA 19016-2000",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    },
+    {
+      "entity": "Equifax",
+      "predicate": "phone number",
+      "value": "(800) 685-1111",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    },
+    {
+      "entity": "Equifax",
+      "predicate": "mailing address",
+      "value": "P.O. Box 740256, Atlanta, GA 30374-0256",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    },
+    {
+      "entity": "Credit card company",
+      "predicate": "typical processing time for name update",
+      "value": "1-3 business days online, new card within 7-10 business days",
+      "sessionId": "answer_f6168136",
+      "source": "assistant"
+    }
+  ],
+  "preferences": [
+    {
+      "entity": "User",
+      "preference": "calling health insurance provider to update address",
+      "polarity": "positive",
+      "constraint": "easier and quicker"
+    },
+    {
+      "entity": "User",
+      "preference": "not losing friends and memories on Facebook",
+      "polarity": "positive",
+      "constraint": "wants to preserve social connections and data"
+    }
+  ],
+  "events": [
+    {
+      "event": "User changed last name from Johnson to Winters",
+      "date": null,
+      "sessionId": "answer_f6168136"
+    },
+    {
+      "event": "User initiated conversation about updating personal information across multiple institutions and platforms",
+      "date": "2023-05-28",
+      "sessionId": "answer_f6168136"
+    }
+  ]
 }

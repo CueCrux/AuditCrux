@@ -2,14 +2,30 @@
   "facts": [
     {
       "entity": "user",
-      "predicate": "attends",
+      "predicate": "plans activity",
+      "value": "morning yoga practice at home",
+      "date": "2023-05-30",
+      "sessionId": "answer_9398da02",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "plans activity",
+      "value": "meeting friend for brunch",
+      "date": "2023-05-30",
+      "sessionId": "answer_9398da02",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "attends yoga studio",
       "value": "Serenity Yoga",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "uses app",
+      "predicate": "uses yoga app",
       "value": "Down Dog",
       "sessionId": "answer_9398da02",
       "source": "user"
@@ -23,106 +39,110 @@
     },
     {
       "entity": "user",
-      "predicate": "practices with",
+      "predicate": "convinced to practice yoga",
       "value": "Sarah",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
       "entity": "user and Sarah",
-      "predicate": "routine",
+      "predicate": "have routine",
       "value": "Sunday morning yoga and brunch",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "noticed improvement in",
-      "value": "flexibility",
+      "predicate": "flexibility improved",
+      "value": "increased flexibility",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "noticed improvement in",
-      "value": "breath awareness",
+      "predicate": "awareness improved",
+      "value": "breath and body alignment awareness",
       "sessionId": "answer_9398da02",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "noticed improvement in",
-      "value": "body alignment",
+      "predicate": "energy level improved",
+      "value": "more energized and focused throughout the day",
       "sessionId": "answer_9398da02",
       "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "feels increased",
-      "value": "energy and focus throughout the day",
-      "sessionId": "answer_9398da02",
-      "source": "user"
-    },
-    {
-      "entity": "Down Dog",
-      "predicate": "pricing model",
-      "value": "Free trial, then subscription-based",
-      "sessionId": "answer_9398da02",
-      "source": "assistant"
     }
   ],
   "preferences": [
     {
       "entity": "user",
-      "preference": "Down Dog app",
+      "preference": "Down Dog yoga app",
       "polarity": "positive",
-      "constraint": "for home yoga practice"
+      "constraint": "helpful for home practice"
     },
     {
       "entity": "user",
       "preference": "vinyasa flow classes",
       "polarity": "positive",
-      "constraint": "favorite type of yoga class"
+      "constraint": "challenging sequences, builds strength and flexibility"
     },
     {
       "entity": "user",
       "preference": "challenging sequences",
       "polarity": "positive",
-      "constraint": "in vinyasa flow"
+      "constraint": "in vinyasa flow classes"
     },
     {
       "entity": "user",
       "preference": "building internal heat",
       "polarity": "positive",
-      "constraint": "in vinyasa flow practice"
+      "constraint": "heart rate elevation, sweating, feeling centered and calm afterwards"
     },
     {
       "entity": "user",
-      "preference": "patience and presence in interactions",
+      "preference": "healthy brunch",
       "polarity": "positive",
-      "constraint": "future goal"
+      "constraint": "near Serenity Yoga"
+    },
+    {
+      "entity": "user",
+      "preference": "self-care days",
+      "polarity": "positive",
+      "constraint": "yoga and brunch activities"
+    },
+    {
+      "entity": "user",
+      "preference": "patience and presence",
+      "polarity": "positive",
+      "constraint": "in interactions with others"
     },
     {
       "entity": "user",
       "preference": "calm and compassion",
       "polarity": "positive",
-      "constraint": "in stressful moments"
+      "constraint": "during stress and anxiety moments"
     }
   ],
   "events": [
     {
-      "event": "User planning self-care day with morning yoga and brunch with friend",
+      "event": "user planning self-care day with morning yoga and brunch",
       "date": "2023-05-30",
       "location": "home and near Serenity Yoga",
       "sessionId": "answer_9398da02"
     },
     {
-      "event": "User convinced Sarah to start yoga practice together",
+      "event": "user started using Down Dog for home yoga practice",
+      "date": null,
+      "location": "home",
+      "sessionId": "answer_9398da02"
+    },
+    {
+      "event": "user convinced Sarah to start practicing yoga",
       "date": null,
       "sessionId": "answer_9398da02"
     },
     {
-      "event": "User and Sarah started Sunday morning yoga and brunch routine",
+      "event": "user and Sarah established Sunday morning yoga and brunch routine",
       "date": null,
       "sessionId": "answer_9398da02"
     }

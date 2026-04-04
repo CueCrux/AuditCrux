@@ -24,14 +24,7 @@
     {
       "entity": "ClinkNOORD Hostel",
       "predicate": "location",
-      "value": "Amsterdam Noord",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "ClinkNOORD Hostel",
-      "predicate": "building_type",
-      "value": "former laboratory",
+      "value": "Amsterdam Noord, in a former laboratory",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
@@ -115,14 +108,14 @@
     {
       "entity": "Anne Frank House",
       "predicate": "historical_significance",
-      "value": "where Anne Frank and her family hid from the Nazis during World War II",
+      "value": "house where Anne Frank and family hid from Nazis during World War II",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "Anne Frank House",
-      "predicate": "feature",
-      "value": "secret annex",
+      "predicate": "features",
+      "value": "secret annex where they lived",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
@@ -156,28 +149,21 @@
     },
     {
       "entity": "Jordaan neighborhood",
-      "predicate": "known_for",
+      "predicate": "characteristics",
       "value": "small streets, quaint boutiques, trendy restaurants and bars",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
-      "entity": "Flower Market",
-      "predicate": "location",
-      "value": "Amsterdam",
-      "sessionId": "answer_ultrachat_370515",
-      "source": "assistant"
-    },
-    {
-      "entity": "Flower Market",
-      "predicate": "characteristic",
+      "entity": "Amsterdam Flower Market",
+      "predicate": "unique_feature",
       "value": "only floating flower market in the world",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
     },
     {
       "entity": "Heineken Experience",
-      "predicate": "subject",
+      "predicate": "content",
       "value": "history and brewing process of Heineken beer",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
@@ -188,26 +174,33 @@
       "value": "adult entertainment establishments and vibrant nightlife",
       "sessionId": "answer_ultrachat_370515",
       "source": "assistant"
+    },
+    {
+      "entity": "traditional Dutch food",
+      "predicate": "examples",
+      "value": "bitterballen, stroopwafels, and herring",
+      "sessionId": "answer_ultrachat_370515",
+      "source": "assistant"
     }
   ],
   "preferences": [
     {
       "entity": "User",
-      "preference": "budget-friendly hostels",
+      "preference": "budget-friendly accommodation",
       "polarity": "positive",
-      "constraint": "in Amsterdam"
+      "constraint": "hostels in Amsterdam"
     },
     {
       "entity": "User",
-      "preference": "fun things to do",
+      "preference": "fun activities",
       "polarity": "positive",
       "constraint": "in Amsterdam"
     }
   ],
   "events": [
     {
-      "event": "Anne Frank and her family hid from the Nazis",
-      "date": "1942-1944",
+      "event": "World War II - Anne Frank and family hiding",
+      "date": null,
       "location": "Anne Frank House, Amsterdam",
       "sessionId": "answer_ultrachat_370515"
     }

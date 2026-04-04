@@ -1,48 +1,48 @@
 {
   "facts": [
     {
-      "entity": "User",
-      "predicate": "seeking",
-      "value": "shorter term for sexual behaviors",
+      "entity": "conversation",
+      "predicate": "date",
+      "value": "2023-05-27",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "user"
     },
     {
-      "entity": "Assistant",
-      "predicate": "suggested",
+      "entity": "assistant",
+      "predicate": "suggested term",
       "value": "sexual compulsions",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
     },
     {
-      "entity": "Assistant",
-      "predicate": "suggested",
+      "entity": "assistant",
+      "predicate": "suggested term",
       "value": "sexual fixations",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
     },
     {
-      "entity": "Assistant",
-      "predicate": "suggested",
+      "entity": "assistant",
+      "predicate": "suggested term",
       "value": "problematic sexual behaviors",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
     },
     {
-      "entity": "Assistant",
-      "predicate": "suggested",
+      "entity": "assistant",
+      "predicate": "suggested term",
       "value": "sexual impulsivity",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
       "source": "assistant"
     },
     {
-      "entity": "Assistant",
-      "predicate": "suggested",
+      "entity": "assistant",
+      "predicate": "suggested term",
       "value": "compulsive sexuality",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0",
@@ -51,21 +51,26 @@
   ],
   "preferences": [
     {
-      "entity": "User",
+      "entity": "user",
       "preference": "term length",
       "polarity": "negative",
-      "constraint": "wants shorter term"
+      "constraint": "prefers shorter terms"
     },
     {
-      "entity": "User",
-      "preference": "previous suggestions",
+      "entity": "user",
+      "preference": "term quality",
       "polarity": "negative",
-      "constraint": "not good enough"
+      "constraint": "previous suggestions were not better"
     }
   ],
   "events": [
     {
-      "event": "Conversation about terminology for sexual behaviors",
+      "event": "User requested shorter terminology for sexual behaviors",
+      "date": "2023-05-27",
+      "sessionId": "answer_sharegpt_cGdjmYo_0"
+    },
+    {
+      "event": "Assistant provided multiple alternative terminology suggestions",
       "date": "2023-05-27",
       "sessionId": "answer_sharegpt_cGdjmYo_0"
     }

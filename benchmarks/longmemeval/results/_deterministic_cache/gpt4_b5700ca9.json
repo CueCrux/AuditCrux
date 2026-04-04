@@ -11,15 +11,15 @@
     {
       "entity": "User",
       "predicate": "attended",
-      "value": "Maundy Thursday service at Episcopal Church",
+      "value": "Maundy Thursday service at the Episcopal Church",
       "date": "2023-04-06",
       "sessionId": "answer_a17423e7_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "interested in volunteering",
-      "value": "Food Bank",
+      "predicate": "interested in",
+      "value": "Food Bank Volunteer opportunity",
       "sessionId": "answer_a17423e7_1",
       "source": "user"
     },
@@ -54,27 +54,41 @@
     {
       "entity": "Food Bank",
       "predicate": "operating hours",
-      "value": "Monday to Friday, evenings 4:00 pm - 7:00 pm",
+      "value": "Monday to Friday, evening shifts 4:00 pm - 7:00 pm",
+      "sessionId": "answer_a17423e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank Volunteer",
+      "predicate": "minimum age requirement",
+      "value": "18 years old",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "volunteer age requirement",
-      "value": "at least 18 years old",
+      "predicate": "requires",
+      "value": "background check for volunteers",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "orientation duration",
-      "value": "about 30 minutes",
+      "predicate": "requires",
+      "value": "orientation session (30 minutes)",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
     },
     {
       "entity": "Food Bank",
-      "predicate": "group volunteer program capacity",
+      "predicate": "has",
+      "value": "Group Volunteer Program",
+      "sessionId": "answer_a17423e7_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Food Bank Group Volunteer Program",
+      "predicate": "group size",
       "value": "5-20 people",
       "sessionId": "answer_a17423e7_1",
       "source": "assistant"
@@ -85,19 +99,19 @@
       "entity": "User",
       "preference": "volunteer causes",
       "polarity": "positive",
-      "constraint": "community service or helping the underprivileged"
+      "constraint": "community service and helping the underprivileged"
     },
     {
       "entity": "User",
-      "preference": "volunteer schedule",
+      "preference": "volunteer availability",
       "polarity": "positive",
-      "constraint": "weekday evenings with regular commitment"
+      "constraint": "weekday evenings with regular schedule commitment"
     },
     {
       "entity": "User",
-      "preference": "volunteering format",
+      "preference": "group volunteering",
       "polarity": "positive",
-      "constraint": "open to various causes and group volunteering"
+      "constraint": "inviting friends and church group to volunteer together"
     },
     {
       "entity": "User",
@@ -108,12 +122,12 @@
   ],
   "events": [
     {
-      "event": "Easter Egg Hunt event",
+      "event": "Easter Egg Hunt",
       "date": "2023-03-30",
       "sessionId": "answer_a17423e7_1"
     },
     {
-      "event": "Maundy Thursday service at Episcopal Church",
+      "event": "Maundy Thursday service at the Episcopal Church",
       "date": "2023-04-06",
       "location": "Episcopal Church",
       "sessionId": "answer_a17423e7_1"

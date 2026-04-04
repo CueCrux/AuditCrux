@@ -2,15 +2,7 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "has profession",
-      "value": "freelance writer",
-      "date": "2023-05-23",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "has business type",
+      "predicate": "has",
       "value": "freelance writing business",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
@@ -18,7 +10,7 @@
     },
     {
       "entity": "User",
-      "predicate": "plans to explore",
+      "predicate": "plans to use",
       "value": "Instagram and Twitter platforms",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
@@ -26,8 +18,8 @@
     },
     {
       "entity": "User",
-      "predicate": "experience level with platforms",
-      "value": "doesn't have much experience",
+      "predicate": "has experience with",
+      "value": "creating content calendar for cousin's art exhibition",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
       "source": "user"
@@ -42,55 +34,48 @@
     },
     {
       "entity": "User",
-      "predicate": "created content calendar for",
-      "value": "cousin's art exhibition",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "plans to create",
-      "value": "content calendar for own blog and writing services",
+      "predicate": "has experience level",
+      "value": "not much experience with Instagram and Twitter",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "promotes",
-      "value": "others more than self",
-      "date": "2023-05-23",
-      "sessionId": "answer_f38f679b",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "plans to track",
-      "value": "engagement metrics in content calendar",
+      "predicate": "wants to promote",
+      "value": "blog and writing services",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
       "source": "user"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended platforms for promotion",
-      "value": "Instagram, Twitter, Facebook, LinkedIn",
+      "predicate": "recommends",
+      "value": "20 tips for social media engagement",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
       "source": "assistant"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended analytics tools",
-      "value": "Hootsuite, Buffer, Sprout Social, Agorapulse, Google Analytics",
+      "predicate": "recommends",
+      "value": "Instagram and Twitter strategies for promoting writing services",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
       "source": "assistant"
     },
     {
       "entity": "Assistant",
-      "predicate": "recommended scheduling tools",
-      "value": "Hootsuite, Buffer, Google Calendar",
+      "predicate": "recommends",
+      "value": "content calendar creation tips",
+      "date": "2023-05-23",
+      "sessionId": "answer_f38f679b",
+      "source": "assistant"
+    },
+    {
+      "entity": "Assistant",
+      "predicate": "recommends",
+      "value": "social media analytics and engagement metrics tracking",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b",
       "source": "assistant"
@@ -107,29 +92,30 @@
       "entity": "User",
       "preference": "increasing engagement on posts",
       "polarity": "positive",
-      "constraint": "to attract clients and build authority"
+      "constraint": "on social media"
     },
     {
       "entity": "User",
-      "preference": "discounts and good deals",
-      "polarity": "positive"
+      "preference": "exploring new platforms",
+      "polarity": "positive",
+      "constraint": "Instagram and Twitter"
     },
     {
       "entity": "User",
       "preference": "promoting own services",
       "polarity": "positive",
-      "constraint": "realized need to focus more on self-promotion"
+      "constraint": "instead of only promoting others"
     },
     {
       "entity": "User",
       "preference": "tracking engagement metrics",
       "polarity": "positive",
-      "constraint": "to measure campaign success"
+      "constraint": "likes, comments, shares"
     }
   ],
   "events": [
     {
-      "event": "User received 10% discount on first purchase from new clothing brand",
+      "event": "User received 10% discount on first purchase from clothing brand",
       "date": "2023-04-23",
       "sessionId": "answer_f38f679b"
     },
@@ -139,7 +125,7 @@
       "sessionId": "answer_f38f679b"
     },
     {
-      "event": "User planning to create content calendar for own blog and writing services",
+      "event": "User consultation on social media growth strategies",
       "date": "2023-05-23",
       "sessionId": "answer_f38f679b"
     }

@@ -10,7 +10,7 @@
     },
     {
       "entity": "User",
-      "predicate": "owns",
+      "predicate": "has",
       "value": "bike",
       "sessionId": "answer_2880eb6c_4",
       "source": "user"
@@ -25,7 +25,7 @@
     },
     {
       "entity": "User",
-      "predicate": "has clocked",
+      "predicate": "clocked mileage",
       "value": "347 miles",
       "date": "2023-04-28",
       "sessionId": "answer_2880eb6c_4",
@@ -33,7 +33,7 @@
     },
     {
       "entity": "User",
-      "predicate": "goal",
+      "predicate": "goal mileage",
       "value": "1000 miles by end of summer",
       "date": "2023-08-31",
       "sessionId": "answer_2880eb6c_4",
@@ -48,14 +48,14 @@
     },
     {
       "entity": "User",
-      "predicate": "uses bike for",
-      "value": "daily commutes to work",
+      "predicate": "tracking",
+      "value": "bike mileage",
       "sessionId": "answer_2880eb6c_4",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "current bike mileage",
+      "predicate": "bike mileage as of date",
       "value": "347 miles",
       "date": "2023-04-28",
       "sessionId": "answer_2880eb6c_1",
@@ -63,7 +63,7 @@
     },
     {
       "entity": "user",
-      "predicate": "bike mileage goal",
+      "predicate": "mileage goal",
       "value": "1000 miles by end of summer",
       "sessionId": "answer_2880eb6c_1",
       "source": "user"
@@ -72,6 +72,14 @@
       "entity": "user",
       "predicate": "uses",
       "value": "specialized bike cleaner",
+      "sessionId": "answer_2880eb6c_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
+      "predicate": "last bike tune-up",
+      "value": "1 month ago",
+      "date": "2023-04-05",
       "sessionId": "answer_2880eb6c_1",
       "source": "user"
     },
@@ -91,67 +99,68 @@
     },
     {
       "entity": "user",
-      "predicate": "last bike tune-up",
-      "value": "1 month ago",
-      "date": "2023-04-05",
+      "predicate": "purchased from",
+      "value": "local bike shop downtown",
       "sessionId": "answer_2880eb6c_1",
       "source": "user"
     },
     {
-      "entity": "local bike shop downtown",
-      "predicate": "sold to user",
-      "value": "Bell Zephyr helmet",
-      "sessionId": "answer_2880eb6c_1",
+      "entity": "User",
+      "predicate": "planning trip to",
+      "value": "mountains",
+      "date": "2023-06-01",
+      "sessionId": "answer_2880eb6c_3",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "has bike mileage of",
+      "entity": "User",
+      "predicate": "has bike",
+      "value": "bicycle",
+      "sessionId": "answer_2880eb6c_3",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "current bike mileage",
       "value": "347 miles",
       "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_3",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "is planning a road trip to",
-      "value": "mountains",
-      "date": "2023-06",
+      "entity": "User",
+      "predicate": "mileage tracked since",
+      "value": "start of year 2023",
+      "date": "2023-01-01",
       "sessionId": "answer_2880eb6c_3",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "bike",
-      "sessionId": "answer_2880eb6c_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "car",
-      "sessionId": "answer_2880eb6c_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
+      "entity": "User",
       "predicate": "plans to order",
       "value": "Saris Bones 2-Bike Trunk Rack",
+      "date": "2023-05-12",
       "sessionId": "answer_2880eb6c_3",
       "source": "user"
     },
     {
       "entity": "Saris Bones 2-Bike Trunk Rack",
-      "predicate": "is a",
+      "predicate": "type",
       "value": "trunk-mounted bike rack",
       "sessionId": "answer_2880eb6c_3",
       "source": "assistant"
     },
     {
       "entity": "Saris Bones 2-Bike Trunk Rack",
-      "predicate": "has capacity of",
+      "predicate": "capacity",
       "value": "2 bikes",
+      "sessionId": "answer_2880eb6c_3",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has car",
+      "value": "vehicle with trunk",
       "sessionId": "answer_2880eb6c_3",
       "source": "user"
     }
@@ -159,21 +168,26 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "bike rack for longer trips",
+      "preference": "bike racks",
       "polarity": "positive",
-      "constraint": "Saris Bones 2-Bike Trunk Rack"
+      "constraint": "for longer trips"
     },
     {
       "entity": "User",
       "preference": "mountain road trips",
-      "polarity": "positive",
-      "constraint": "in June"
+      "polarity": "positive"
     },
     {
       "entity": "User",
       "preference": "cycling",
       "polarity": "positive",
-      "constraint": "daily commutes and long trips"
+      "constraint": "daily commutes and longer trips"
+    },
+    {
+      "entity": "user",
+      "preference": "local bike shop downtown",
+      "polarity": "positive",
+      "constraint": "good experiences with tune-ups and mechanics"
     },
     {
       "entity": "user",
@@ -183,64 +197,71 @@
     },
     {
       "entity": "user",
-      "preference": "local bike shop downtown",
+      "preference": "cycling",
       "polarity": "positive",
-      "constraint": "good experiences with tune-up services and mechanics"
+      "constraint": "tracking mileage and setting goals"
     },
     {
-      "entity": "user",
-      "preference": "mountain road trip with bike",
+      "entity": "User",
+      "preference": "mountain road trips",
       "polarity": "positive",
-      "constraint": "in June"
+      "constraint": "with bike"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "preference": "Saris Bones 2-Bike Trunk Rack",
       "polarity": "positive",
       "constraint": "sturdy and easy to install"
+    },
+    {
+      "entity": "User",
+      "preference": "bike maintenance and tracking",
+      "polarity": "positive",
+      "constraint": "keeping accurate records"
     }
   ],
   "events": [
     {
-      "event": "User planning road trip to mountains with bike",
+      "event": "User started tracking bike mileage",
+      "date": "2023-01-01",
+      "sessionId": "answer_2880eb6c_4"
+    },
+    {
+      "event": "User clocked 347 miles on bike",
+      "date": "2023-04-28",
+      "sessionId": "answer_2880eb6c_4"
+    },
+    {
+      "event": "Road trip to the mountains planned",
       "date": "2023-06-01",
       "location": "mountains",
       "sessionId": "answer_2880eb6c_4"
     },
     {
-      "event": "User clocked 347 miles since start of year",
-      "date": "2023-04-28",
-      "sessionId": "answer_2880eb6c_4"
-    },
-    {
-      "event": "Conversation about bike preparation and maintenance",
-      "date": "2023-05-05",
-      "sessionId": "answer_2880eb6c_4"
-    },
-    {
-      "event": "user clocked 347 miles on bike since start of year",
-      "date": "2023-04-28",
+      "event": "user purchased Bell Zephyr helmet",
+      "date": null,
+      "location": "local bike shop downtown",
       "sessionId": "answer_2880eb6c_1"
     },
     {
-      "event": "user last had bike tune-up",
+      "event": "user bike tune-up",
       "date": "2023-04-05",
       "location": "local bike shop downtown",
       "sessionId": "answer_2880eb6c_1"
     },
     {
-      "event": "user asks for bike preparation tips for road trip",
-      "date": "2023-05-05",
+      "event": "User planning mountain road trip",
+      "date": "2023-06-01",
       "location": "mountains",
       "sessionId": "answer_2880eb6c_3"
     },
     {
-      "event": "user reports bike mileage of 347 miles since start of year",
-      "date": "2023-05-05",
+      "event": "User plans to order Saris Bones 2-Bike Trunk Rack",
+      "date": "2023-05-12",
       "sessionId": "answer_2880eb6c_3"
     },
     {
-      "event": "user plans to order Saris Bones 2-Bike Trunk Rack",
+      "event": "Conversation session",
       "date": "2023-05-05",
       "sessionId": "answer_2880eb6c_3"
     }

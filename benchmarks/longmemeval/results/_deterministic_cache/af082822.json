@@ -17,7 +17,7 @@
     },
     {
       "entity": "User",
-      "predicate": "plans_to_use_TV_in",
+      "predicate": "location_for_TV",
       "value": "living room",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
@@ -40,7 +40,7 @@
     },
     {
       "entity": "User",
-      "predicate": "received_discount",
+      "predicate": "discount_at_Nordstrom",
       "value": "20% off",
       "date": "2022-11-17",
       "sessionId": "answer_b51b6115_1",
@@ -48,59 +48,23 @@
     },
     {
       "entity": "User",
-      "predicate": "received",
-      "value": "$20 gift card",
+      "predicate": "received_gift_card",
+      "value": "$20 Nordstrom gift card",
       "date": "2022-11-17",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
     },
     {
-      "entity": "Nordstrom purchase",
+      "entity": "Nordstrom_purchase",
       "predicate": "minimum_amount",
       "value": "$100",
-      "date": "2022-11-17",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
-    },
-    {
-      "entity": "Sanus VMF408",
-      "predicate": "weight_capacity",
-      "value": "40-80 lbs",
-      "sessionId": "answer_b51b6115_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Sanus VMF408",
-      "predicate": "suitable_for_TV_size",
-      "value": "up to 65 inches",
-      "sessionId": "answer_b51b6115_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Sanus VMF408",
-      "predicate": "swivel_range",
-      "value": "90°",
-      "sessionId": "answer_b51b6115_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Sanus VMF408",
-      "predicate": "tilt_range",
-      "value": "15°",
-      "sessionId": "answer_b51b6115_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Sanus VMF408",
-      "predicate": "pivot_range",
-      "value": "10°",
-      "sessionId": "answer_b51b6115_1",
-      "source": "assistant"
     },
     {
       "entity": "User",
       "predicate": "attended",
-      "value": "annual holiday market",
+      "value": "annual holiday market in city",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
     },
@@ -141,21 +105,91 @@
     },
     {
       "entity": "User",
-      "predicate": "has",
-      "value": "siblings",
+      "predicate": "TV_uses",
+      "value": "gaming",
       "sessionId": "answer_b51b6115_1",
       "source": "user"
     },
     {
+      "entity": "User",
+      "predicate": "TV_uses",
+      "value": "movie nights",
+      "sessionId": "answer_b51b6115_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "TV_uses",
+      "value": "casual viewing",
+      "sessionId": "answer_b51b6115_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "TV_uses",
+      "value": "family gatherings",
+      "sessionId": "answer_b51b6115_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "TV_uses",
+      "value": "holidays",
+      "sessionId": "answer_b51b6115_1",
+      "source": "user"
+    },
+    {
+      "entity": "Sanus VMF408",
+      "predicate": "weight_capacity",
+      "value": "40-80 lbs",
+      "sessionId": "answer_b51b6115_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sanus VMF408",
+      "predicate": "TV_size_compatibility",
+      "value": "up to 65 inches",
+      "sessionId": "answer_b51b6115_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sanus VMF408",
+      "predicate": "swivel",
+      "value": "90°",
+      "sessionId": "answer_b51b6115_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sanus VMF408",
+      "predicate": "tilt",
+      "value": "15°",
+      "sessionId": "answer_b51b6115_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sanus VMF408",
+      "predicate": "pivot",
+      "value": "10°",
+      "sessionId": "answer_b51b6115_1",
+      "source": "assistant"
+    },
+    {
       "entity": "Sonos Beam",
-      "predicate": "number_of_HDMI_inputs",
+      "predicate": "type",
+      "value": "compact soundbar",
+      "sessionId": "answer_b51b6115_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Sonos Beam",
+      "predicate": "HDMI_inputs",
       "value": "1",
       "sessionId": "answer_b51b6115_1",
       "source": "assistant"
     },
     {
       "entity": "Sonos Beam",
-      "predicate": "supports_Dolby_Atmos",
+      "predicate": "Dolby_Atmos_support",
       "value": "no",
       "sessionId": "answer_b51b6115_1",
       "source": "assistant"
@@ -163,44 +197,51 @@
     {
       "entity": "Yamaha YAS-209",
       "predicate": "channel_configuration",
-      "value": "2.1 channel with wireless subwoofer",
+      "value": "2.1 channel",
       "sessionId": "answer_b51b6115_1",
       "source": "assistant"
     },
     {
       "entity": "Yamaha YAS-209",
-      "predicate": "supports_4K_HDR_passthrough",
-      "value": "yes",
+      "predicate": "subwoofer",
+      "value": "wireless",
       "sessionId": "answer_b51b6115_1",
       "source": "assistant"
     },
     {
       "entity": "Yamaha YAS-209",
-      "predicate": "number_of_HDMI_inputs",
+      "predicate": "HDMI_input_support",
+      "value": "4K HDR passthrough with HDMI 2.1",
+      "sessionId": "answer_b51b6115_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Yamaha YAS-209",
+      "predicate": "voice_assistant_support",
+      "value": "Amazon Alexa and Google Assistant",
+      "sessionId": "answer_b51b6115_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "Yamaha YAS-209",
+      "predicate": "HDMI_inputs",
       "value": "1",
       "sessionId": "answer_b51b6115_1",
       "source": "assistant"
     },
     {
       "entity": "Yamaha YAS-209",
-      "predicate": "supports_Dolby_Atmos",
+      "predicate": "Dolby_Atmos_support",
       "value": "no",
       "sessionId": "answer_b51b6115_1",
       "source": "assistant"
     },
     {
       "entity": "Yamaha YAS-209",
-      "predicate": "supports_multi_room_audio",
+      "predicate": "multi_room_audio",
       "value": "no",
       "sessionId": "answer_b51b6115_1",
       "source": "assistant"
-    },
-    {
-      "entity": "Yamaha YAS-209",
-      "predicate": "price_comparison_to_Sonos_Beam",
-      "value": "more budget-friendly",
-      "sessionId": "answer_b51b6115_1",
-      "source": "user"
     }
   ],
   "preferences": [
@@ -212,14 +253,31 @@
     },
     {
       "entity": "User",
-      "preference": "improved audio quality",
-      "polarity": "positive",
-      "constraint": "with soundbar"
+      "preference": "budget-friendly soundbar",
+      "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "budget-friendly options",
+      "preference": "soundbar with good sound quality",
       "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "Sanus VMF408",
+      "polarity": "positive",
+      "constraint": "for living room TV mount"
+    },
+    {
+      "entity": "User",
+      "preference": "Sonos Beam",
+      "polarity": "positive",
+      "constraint": "considering as soundbar option"
+    },
+    {
+      "entity": "User",
+      "preference": "Yamaha YAS-209",
+      "polarity": "positive",
+      "constraint": "budget-friendly alternative to Sonos Beam"
     }
   ],
   "events": [
@@ -235,7 +293,7 @@
       "sessionId": "answer_b51b6115_1"
     },
     {
-      "event": "User attended annual holiday market in city",
+      "event": "User attended annual holiday market",
       "date": null,
       "location": "city",
       "sessionId": "answer_b51b6115_1"

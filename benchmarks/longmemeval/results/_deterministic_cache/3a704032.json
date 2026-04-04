@@ -1,62 +1,39 @@
 {
   "facts": [
     {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "peace lily",
+      "entity": "peace lily",
+      "predicate": "acquisition_date",
+      "value": "two weeks ago",
       "date": "2023-05-06",
-      "sessionId": "answer_c2204106_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "succulent",
-      "date": "2023-05-06",
-      "sessionId": "answer_c2204106_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "fern",
-      "sessionId": "answer_c2204106_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "rose bush",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
     {
       "entity": "peace lily",
-      "predicate": "acquired from",
+      "predicate": "source",
       "value": "nursery",
+      "sessionId": "answer_c2204106_2",
+      "source": "user"
+    },
+    {
+      "entity": "succulent",
+      "predicate": "acquisition_date",
+      "value": "two weeks ago",
       "date": "2023-05-06",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
     {
       "entity": "succulent",
-      "predicate": "acquired from",
+      "predicate": "source",
       "value": "nursery",
-      "date": "2023-05-06",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
     {
       "entity": "peace lily",
-      "predicate": "is losing",
-      "value": "leaves",
-      "sessionId": "answer_c2204106_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "uses",
-      "value": "water and fertilizer mixture",
+      "predicate": "current_condition",
+      "value": "losing some leaves",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
@@ -69,289 +46,372 @@
     },
     {
       "entity": "user",
-      "predicate": "mists",
-      "value": "fern",
+      "predicate": "watering_method",
+      "value": "mixture of water and fertilizer",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
     {
       "entity": "user",
-      "predicate": "mists frequency",
-      "value": "every other day",
-      "sessionId": "answer_c2204106_2",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "keeps peace lily at temperature",
+      "predicate": "current_peace_lily_temperature",
       "value": "65°F to 70°F (18°C to 21°C)",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
     {
+      "entity": "fern",
+      "predicate": "misting_frequency",
+      "value": "every other day",
+      "sessionId": "answer_c2204106_2",
+      "source": "user"
+    },
+    {
       "entity": "rose bush",
-      "predicate": "was pruned",
-      "value": "approximately one month ago",
+      "predicate": "last_pruning_date",
+      "value": "about a month ago",
       "date": "2023-04-20",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
     {
       "entity": "rose bush",
-      "predicate": "is producing",
-      "value": "new buds",
+      "predicate": "current_condition",
+      "value": "producing new buds",
       "sessionId": "answer_c2204106_2",
       "source": "user"
     },
     {
       "entity": "peace lily",
-      "predicate": "ideal temperature range",
-      "value": "65°F to 75°F (18°C to 24°C)",
+      "predicate": "ideal_temperature_range",
+      "value": "65°F (18°C) to 75°F (24°C)",
       "sessionId": "answer_c2204106_2",
       "source": "assistant"
     },
     {
       "entity": "peace lily",
-      "predicate": "prefers",
+      "predicate": "preferred_light",
       "value": "bright, indirect light",
       "sessionId": "answer_c2204106_2",
       "source": "assistant"
     },
     {
       "entity": "peace lily",
-      "predicate": "prefers humidity level",
-      "value": "40-50%",
+      "predicate": "watering_schedule",
+      "value": "every 7-10 days during spring/summer; every 10-14 days during fall/winter",
+      "sessionId": "answer_c2204106_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "peace lily",
+      "predicate": "fertilization_frequency",
+      "value": "every 1-2 weeks during growing season; once a month during dormant season",
+      "sessionId": "answer_c2204106_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "peace lily",
+      "predicate": "misting_frequency",
+      "value": "1-2 times a week",
+      "sessionId": "answer_c2204106_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "peace lily",
+      "predicate": "preferred_humidity",
+      "value": "40-50% relative humidity",
       "sessionId": "answer_c2204106_2",
       "source": "assistant"
     },
     {
       "entity": "fern",
-      "predicate": "prefers humidity level",
-      "value": "above 50%",
+      "predicate": "preferred_humidity",
+      "value": "above 50% relative humidity",
       "sessionId": "answer_c2204106_2",
       "source": "assistant"
     },
     {
-      "entity": "peace lily",
-      "predicate": "watering frequency",
-      "value": "every 7-10 days during growing season",
-      "sessionId": "answer_c2204106_2",
+      "entity": "Peace lily",
+      "predicate": "is experiencing",
+      "value": "leaf loss after being brought home",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "user"
+    },
+    {
+      "entity": "Peace lily",
+      "predicate": "prefers",
+      "value": "bright, indirect light",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "peace lily",
-      "predicate": "watering frequency",
-      "value": "every 10-14 days during fall and winter",
-      "sessionId": "answer_c2204106_2",
+      "entity": "Peace lily",
+      "predicate": "prefers",
+      "value": "humidity above 50%",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "peace lily",
-      "predicate": "fertilizer frequency",
-      "value": "every 1-2 weeks during growing season",
-      "sessionId": "answer_c2204106_2",
+      "entity": "Peace lily",
+      "predicate": "prefers",
+      "value": "temperature between 65°F to 80°F (18°C to 27°C)",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "peace lily",
-      "predicate": "fertilizer frequency",
-      "value": "once a month during fall and winter",
-      "sessionId": "answer_c2204106_2",
+      "entity": "Peace lily",
+      "predicate": "prefers",
+      "value": "slightly acidic pH potting mix",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "peace lily",
-      "predicate": "misting frequency recommended",
-      "value": "1-2 times per week",
-      "sessionId": "answer_c2204106_2",
+      "entity": "Snake plant",
+      "predicate": "is owned by",
+      "value": "user",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "user"
+    },
+    {
+      "entity": "Snake plant",
+      "predicate": "prefers",
+      "value": "slightly acidic to neutral soil pH around 6.0-7.0",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "peace lily",
-      "predicate": "preferred fertilizer type",
-      "value": "balanced fertilizer (20-20-20)",
-      "sessionId": "answer_c2204106_2",
+      "entity": "Snake plant",
+      "predicate": "prefers",
+      "value": "balanced N-P-K ratio fertilizer like 20-20-20",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "peace lily",
+      "entity": "Succulents",
+      "predicate": "are owned by",
+      "value": "user",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
-      "entity": "peace lily",
-      "predicate": "condition",
-      "value": "losing leaves",
+      "entity": "Succulents",
+      "predicate": "prefer",
+      "value": "higher phosphorus content fertilizer like 10-20-10",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Succulents",
+      "predicate": "prefer",
+      "value": "low-nitrogen fertilizer",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Orchid",
+      "predicate": "is being considered for purchase",
+      "value": "by user",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
-      "entity": "peace lily",
-      "predicate": "status",
-      "value": "recently brought home",
+      "entity": "Orchid",
+      "predicate": "requires",
+      "value": "high-phosphorus fertilizer like 10-20-10 or 15-30-15",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Orchid",
+      "predicate": "prefers",
+      "value": "slightly acidic to neutral soil pH around 5.5-7.0",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Orchid",
+      "predicate": "requires fertilization frequency",
+      "value": "once a month",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Fern",
+      "predicate": "is owned by",
+      "value": "user",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "snake plant",
-      "date": "2023-05-24",
-      "sessionId": "answer_c2204106_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "succulent",
-      "date": "2023-05-24",
-      "sessionId": "answer_c2204106_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "uses",
-      "value": "general-purpose fertilizer",
-      "date": "2023-05-24",
-      "sessionId": "answer_c2204106_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "orchid",
-      "date": "2023-05-24",
-      "sessionId": "answer_c2204106_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "fern",
-      "date": "2023-05-24",
-      "sessionId": "answer_c2204106_3",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "plans to purchase",
+      "entity": "Fern",
+      "predicate": "benefits from",
       "value": "humidifier",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "African violets",
+      "entity": "African Violets",
+      "predicate": "are owned by",
+      "value": "user",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
-      "entity": "African violets",
-      "predicate": "condition",
+      "entity": "African Violets",
+      "predicate": "require",
+      "value": "relative humidity of 50-60%",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "African Violets",
+      "predicate": "are prone to",
       "value": "crispy leaves in dry air",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "owns",
-      "value": "spider plant",
+      "entity": "African Violets",
+      "predicate": "are prone to",
+      "value": "fungal diseases",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Spider plant",
+      "predicate": "is owned by",
+      "value": "user",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
-      "entity": "spider plant",
-      "predicate": "status",
-      "value": "needs repotting",
+      "entity": "Spider plant",
+      "predicate": "requires",
+      "value": "repotting due to old potting mix",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "user"
     },
     {
-      "entity": "spider plant potting mix",
-      "predicate": "condition",
-      "value": "old",
-      "date": "2023-05-24",
-      "sessionId": "answer_c2204106_3",
-      "source": "user"
-    },
-    {
-      "entity": "peace lily",
-      "predicate": "preferred light",
-      "value": "bright, indirect light",
+      "entity": "Spider plant",
+      "predicate": "prefers",
+      "value": "well-draining potting mix rich in organic matter",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "peace lily",
-      "predicate": "preferred humidity",
-      "value": "above 50%",
+      "entity": "Miracle-Gro Indoor Plant Food",
+      "predicate": "has N-P-K ratio",
+      "value": "20-20-20",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "peace lily",
-      "predicate": "preferred temperature",
-      "value": "65°F to 80°F (18°C to 27°C)",
+      "entity": "Espoma Organic Indoor Plant Fertilizer",
+      "predicate": "has N-P-K ratio",
+      "value": "2-2-2",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "snake plant",
-      "predicate": "scientific name",
-      "value": "Sansevieria Trifasciata",
+      "entity": "Schultz All Purpose Plant Food",
+      "predicate": "has N-P-K ratio",
+      "value": "20-20-20",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "snake plant",
-      "predicate": "preferred pH",
-      "value": "6.0-7.0",
+      "entity": "Miracle-Gro Cactus, Palm & Citrus Food",
+      "predicate": "has N-P-K ratio",
+      "value": "10-20-10",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "orchid",
-      "predicate": "preferred pH",
-      "value": "5.5-7.0",
+      "entity": "Espoma Organic Cactus! Fertilizer",
+      "predicate": "has N-P-K ratio",
+      "value": "5-2-6",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
-      "entity": "African violets",
-      "predicate": "preferred humidity",
-      "value": "50-60%",
+      "entity": "Schultz Cactus and Succulent Food",
+      "predicate": "has N-P-K ratio",
+      "value": "10-20-10",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Miracle-Gro Orchid Food",
+      "predicate": "has N-P-K ratio",
+      "value": "30-10-10",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Espoma Organic Orchid! Fertilizer",
+      "predicate": "has N-P-K ratio",
+      "value": "15-30-15",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
+      "entity": "Schultz Orchid Food",
+      "predicate": "has N-P-K ratio",
+      "value": "20-20-20",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
       "entity": "Levoit LV600HH Hybrid Humidifier",
-      "predicate": "tank size",
+      "predicate": "has tank size",
       "value": "6 liters",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
       "source": "assistant"
     },
     {
+      "entity": "Levoit LV600HH Hybrid Humidifier",
+      "predicate": "offers",
+      "value": "cool and warm mist settings",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "assistant"
+    },
+    {
       "entity": "Honeywell HUL520W Mistmate Humidifier",
-      "predicate": "tank size",
+      "predicate": "has tank size",
       "value": "1 liter",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
@@ -359,7 +419,7 @@
     },
     {
       "entity": "Deneve Minimal Aroma Humidifier",
-      "predicate": "tank size",
+      "predicate": "has tank size",
       "value": "2.5 liters",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
@@ -367,7 +427,7 @@
     },
     {
       "entity": "Crane Drop Ultrasonic Cool Mist Humidifier",
-      "predicate": "tank size",
+      "predicate": "has tank size",
       "value": "1 liter",
       "date": "2023-05-24",
       "sessionId": "answer_c2204106_3",
@@ -375,6 +435,14 @@
     },
     {
       "entity": "User",
+      "predicate": "currently uses",
+      "value": "general-purpose fertilizer",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "has",
       "value": "basil plant on balcony",
       "date": "2023-05-25",
@@ -382,15 +450,23 @@
       "source": "user"
     },
     {
-      "entity": "User's basil plant",
-      "predicate": "struggles with",
-      "value": "too much direct sunlight",
+      "entity": "basil plant",
+      "predicate": "location",
+      "value": "balcony",
       "date": "2023-05-25",
       "sessionId": "answer_c2204106_1",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "basil plant",
+      "predicate": "condition",
+      "value": "struggling with too much direct sunlight",
+      "date": "2023-05-25",
+      "sessionId": "answer_c2204106_1",
+      "source": "user"
+    },
+    {
+      "entity": "user",
       "predicate": "has",
       "value": "snake plant",
       "date": "2023-05-25",
@@ -398,15 +474,15 @@
       "source": "user"
     },
     {
-      "entity": "User's snake plant",
-      "predicate": "is doing well with",
-      "value": "current watering and fertilizer routine",
+      "entity": "snake plant",
+      "predicate": "condition",
+      "value": "doing great with current watering and fertilizer routine",
       "date": "2023-05-25",
       "sessionId": "answer_c2204106_1",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "uses",
       "value": "general-purpose potting mix",
       "date": "2023-05-25",
@@ -414,15 +490,15 @@
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "received",
-      "value": "snake plant from sister",
+      "entity": "snake plant",
+      "predicate": "acquired from",
+      "value": "user's sister",
       "date": "2023-04-25",
       "sessionId": "answer_c2204106_1",
       "source": "user"
     },
     {
-      "entity": "User",
+      "entity": "user",
       "predicate": "has",
       "value": "fern",
       "date": "2023-05-25",
@@ -430,65 +506,34 @@
       "source": "user"
     },
     {
-      "entity": "User's fern",
-      "predicate": "has",
-      "value": "tiny moving dots pests on leaves and stems",
+      "entity": "fern",
+      "predicate": "condition",
+      "value": "has pests - tiny, moving dots on leaves and stems",
       "date": "2023-05-25",
       "sessionId": "answer_c2204106_1",
       "source": "user"
     },
     {
-      "entity": "Assistant",
-      "predicate": "recommends",
-      "value": "filtered sunlight for basil plant",
+      "entity": "basil plant",
+      "predicate": "prefers pH",
+      "value": "6.0 to 7.0",
       "date": "2023-05-25",
       "sessionId": "answer_c2204106_1",
       "source": "assistant"
     },
     {
-      "entity": "Assistant",
-      "predicate": "recommends",
-      "value": "pH range of 6.0 to 7.0 for basil soil",
-      "date": "2023-05-25",
-      "sessionId": "answer_c2204106_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommends",
-      "value": "pot 1-2 sizes larger for repotting snake plant",
-      "date": "2023-05-25",
-      "sessionId": "answer_c2204106_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommends",
-      "value": "neem oil for pest control",
-      "date": "2023-05-25",
-      "sessionId": "answer_c2204106_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommends",
-      "value": "40-60% relative humidity for fern",
-      "date": "2023-05-25",
-      "sessionId": "answer_c2204106_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Assistant",
-      "predicate": "recommends",
-      "value": "mist fern 2-3 times a week",
-      "date": "2023-05-25",
-      "sessionId": "answer_c2204106_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Basil plant",
-      "predicate": "prefers temperature range",
+      "entity": "basil plant",
+      "predicate": "prefers temperature",
       "value": "65°F to 75°F (18°C to 24°C)",
+      "date": "2023-05-25",
+      "sessionId": "answer_c2204106_1",
+      "source": "assistant"
+    },
+    {
+      "entity": "fern",
+      "predicate": "thrives in humidity",
+      "value": "40-60% relative humidity",
+      "date": "2023-05-25",
       "sessionId": "answer_c2204106_1",
       "source": "assistant"
     }
@@ -498,25 +543,25 @@
       "entity": "user",
       "preference": "plant tracking app",
       "polarity": "positive",
-      "constraint": "helpful for watering schedule and fertilization reminders"
+      "constraint": "helpful for watering and fertilization reminders"
     },
     {
       "entity": "peace lily",
       "preference": "bright, indirect light",
       "polarity": "positive",
-      "constraint": "not direct sunlight"
+      "constraint": "east- or west-facing windows ideal; avoid direct sunlight"
     },
     {
       "entity": "peace lily",
       "preference": "humid environment",
       "polarity": "positive",
-      "constraint": "can adapt to average humidity"
+      "constraint": "can adapt to average humidity levels"
     },
     {
       "entity": "peace lily",
-      "preference": "consistent temperature",
+      "preference": "balanced fertilizer",
       "polarity": "positive",
-      "constraint": "65°F to 75°F"
+      "constraint": "20-20-20 or similar with slightly higher nitrogen"
     },
     {
       "entity": "peace lily",
@@ -525,134 +570,109 @@
       "constraint": "prevents waterlogged soil"
     },
     {
-      "entity": "fern",
-      "preference": "high humidity",
+      "entity": "peace lily",
+      "preference": "consistent temperature",
       "polarity": "positive",
-      "constraint": "above 50% relative humidity"
-    },
-    {
-      "entity": "rose bush",
-      "preference": "pruning to encourage blooms",
-      "polarity": "positive",
-      "constraint": "light pruning during blooming season"
-    },
-    {
-      "entity": "user",
-      "preference": "peace lily",
-      "polarity": "positive",
-      "constraint": "plant ownership and care"
-    },
-    {
-      "entity": "user",
-      "preference": "snake plant",
-      "polarity": "positive",
-      "constraint": "plant ownership and care"
-    },
-    {
-      "entity": "user",
-      "preference": "succulent",
-      "polarity": "positive",
-      "constraint": "plant ownership and care"
-    },
-    {
-      "entity": "user",
-      "preference": "orchid",
-      "polarity": "positive",
-      "constraint": "plant ownership and care"
-    },
-    {
-      "entity": "user",
-      "preference": "fern",
-      "polarity": "positive",
-      "constraint": "plant ownership and care"
-    },
-    {
-      "entity": "user",
-      "preference": "African violets",
-      "polarity": "positive",
-      "constraint": "plant ownership and care"
-    },
-    {
-      "entity": "user",
-      "preference": "spider plant",
-      "polarity": "positive",
-      "constraint": "plant ownership and care"
+      "constraint": "65°F to 75°F ideal"
     },
     {
       "entity": "peace lily",
-      "preference": "direct sunlight",
+      "preference": "avoid overwatering",
+      "polarity": "negative",
+      "constraint": "most common cause of death"
+    },
+    {
+      "entity": "peace lily",
+      "preference": "avoid direct sunlight",
       "polarity": "negative",
       "constraint": "causes leaf scorch"
     },
     {
       "entity": "peace lily",
-      "preference": "overwatering",
+      "preference": "avoid low light",
       "polarity": "negative",
-      "constraint": "causes leaf drop"
+      "constraint": "may prevent blooming"
     },
     {
-      "entity": "orchid",
-      "preference": "general-purpose fertilizer",
+      "entity": "peace lily",
+      "preference": "avoid drafts",
       "polarity": "negative",
-      "constraint": "detrimental to health"
-    },
-    {
-      "entity": "orchid",
-      "preference": "high-nitrogen fertilizer",
-      "polarity": "negative",
-      "constraint": "promotes weak growth and poor flowering"
-    },
-    {
-      "entity": "African violets",
-      "preference": "dry air",
-      "polarity": "negative",
-      "constraint": "causes crispy leaves"
-    },
-    {
-      "entity": "African violets",
-      "preference": "standing water",
-      "polarity": "negative",
-      "constraint": "leads to root rot"
+      "constraint": "temperature fluctuations cause stress"
     },
     {
       "entity": "User",
+      "preference": "peace lily recovering from transplant stress",
+      "polarity": "positive",
+      "constraint": "wants to help it adjust to new environment"
+    },
+    {
+      "entity": "User",
+      "preference": "snake plants and succulents",
+      "polarity": "positive",
+      "constraint": "owns both types"
+    },
+    {
+      "entity": "User",
+      "preference": "specific fertilizers for different plant types",
+      "polarity": "positive",
+      "constraint": "seeking recommendations beyond general-purpose fertilizer"
+    },
+    {
+      "entity": "User",
+      "preference": "orchids",
+      "polarity": "positive",
+      "constraint": "considering getting one"
+    },
+    {
+      "entity": "User",
+      "preference": "humidifiers for plant care",
+      "polarity": "positive",
+      "constraint": "especially for ferns and African Violets"
+    },
+    {
+      "entity": "User",
+      "preference": "African Violets",
+      "polarity": "positive",
+      "constraint": "dislikes when they get crispy in dry air"
+    },
+    {
+      "entity": "User",
+      "preference": "spider plants",
+      "polarity": "positive",
+      "constraint": "wants to repot with fresh mix"
+    },
+    {
+      "entity": "user",
       "preference": "basil plant in shadier spot",
       "polarity": "positive",
-      "constraint": "wants to improve plant health"
+      "constraint": "wants to help struggling basil plant"
     },
     {
-      "entity": "User",
-      "preference": "snake plant thriving",
-      "polarity": "positive",
-      "constraint": "current care routine is working well"
-    },
-    {
-      "entity": "User",
-      "preference": "organic pest control methods",
-      "polarity": "positive",
-      "constraint": "wants to avoid harming plant"
-    },
-    {
-      "entity": "User",
+      "entity": "user",
       "preference": "neem oil for pest control",
       "polarity": "positive",
-      "constraint": "gentle and effective option"
+      "constraint": "gentle and effective way to control pests"
     },
     {
-      "entity": "Basil",
+      "entity": "basil plant",
       "preference": "humid environments",
       "polarity": "positive"
     },
     {
-      "entity": "Snake plant",
+      "entity": "basil plant",
+      "preference": "well-draining soil",
+      "polarity": "positive",
+      "constraint": "detests waterlogged soil"
+    },
+    {
+      "entity": "snake plant",
       "preference": "slightly root-bound conditions",
       "polarity": "positive"
     },
     {
-      "entity": "Fern",
+      "entity": "fern",
       "preference": "humid environments",
-      "polarity": "positive",
-      "constraint": "40-60% relative humidity"
+      "polarity": "positive"
     }
   ],
   "events": [
@@ -663,74 +683,50 @@
       "sessionId": "answer_c2204106_2"
     },
     {
-      "event": "Peace lily started losing leaves",
-      "date": null,
-      "location": "user's home",
-      "sessionId": "answer_c2204106_2"
-    },
-    {
-      "event": "Rose bush was pruned",
+      "event": "User pruned rose bush",
       "date": "2023-04-20",
-      "location": "user's home",
       "sessionId": "answer_c2204106_2"
     },
     {
-      "event": "Rose bush started producing new buds",
-      "date": null,
-      "location": "user's home",
-      "sessionId": "answer_c2204106_2"
-    },
-    {
-      "event": "user brought peace lily home",
+      "event": "User brought peace lily home",
       "date": "2023-05-24",
       "location": "user's home",
       "sessionId": "answer_c2204106_3"
     },
     {
-      "event": "peace lily started losing leaves",
+      "event": "Peace lily started losing leaves",
       "date": "2023-05-24",
       "location": "user's home",
       "sessionId": "answer_c2204106_3"
     },
     {
-      "event": "user considering repotting spider plant",
+      "event": "User inquired about fertilizer recommendations",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3"
+    },
+    {
+      "event": "User considered purchasing a humidifier",
+      "date": "2023-05-24",
+      "sessionId": "answer_c2204106_3"
+    },
+    {
+      "event": "User decided to repot spider plant",
       "date": "2023-05-24",
       "location": "user's home",
       "sessionId": "answer_c2204106_3"
     },
     {
-      "event": "User asked for basil care tips in shadier spot",
-      "date": "2023-05-25",
-      "location": "balcony",
-      "sessionId": "answer_c2204106_1"
-    },
-    {
-      "event": "User asked about ideal soil conditions for basil",
-      "date": "2023-05-25",
-      "sessionId": "answer_c2204106_1"
-    },
-    {
-      "event": "User received snake plant from sister",
+      "event": "user received snake plant from sister",
       "date": "2023-04-25",
       "sessionId": "answer_c2204106_1"
     },
     {
-      "event": "User asked about repotting snake plant",
+      "event": "user noticed pests on fern",
       "date": "2023-05-25",
       "sessionId": "answer_c2204106_1"
     },
     {
-      "event": "User noticed pests on fern",
-      "date": "2023-05-25",
-      "sessionId": "answer_c2204106_1"
-    },
-    {
-      "event": "User identified tiny moving dots on fern leaves and stems",
-      "date": "2023-05-25",
-      "sessionId": "answer_c2204106_1"
-    },
-    {
-      "event": "User decided to use neem oil for pest control",
+      "event": "user decided to treat fern with neem oil",
       "date": "2023-05-25",
       "sessionId": "answer_c2204106_1"
     }

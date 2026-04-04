@@ -165,7 +165,7 @@ async function main() {
     }
 
     // Phase 3-5: Parse + Answer deterministically
-    const answer = answerDeterministic(problem.question_id, problem.question, store);
+    const answer = answerDeterministic(problem.question_id, problem.question, store, undefined, problem.question_date);
 
     // Check against gold
     const gold = String(problem.answer).toLowerCase().trim();

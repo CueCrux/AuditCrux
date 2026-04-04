@@ -1,92 +1,78 @@
 {
   "facts": [
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "planning",
-      "value": "50-mile ride",
+      "value": "50-mile ride this weekend",
       "date": "2023-02-22",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "owns",
       "value": "road bike",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "location",
       "value": "San Francisco Bay Area",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "has ridden",
+      "entity": "User",
+      "predicate": "miles ridden",
       "value": "2,000 miles on road bike",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "owns",
       "value": "mountain bike",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "owns",
       "value": "commuter bike",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "total bikes owned",
-      "value": "3",
+      "value": "3 bikes",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
+      "entity": "User",
       "predicate": "planning",
       "value": "century ride",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "uses road bike for",
-      "value": "long weekend rides",
+      "entity": "User",
+      "predicate": "riding frequency",
+      "value": "long rides on weekends",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "uses mountain bike for",
-      "value": "trail rides",
+      "entity": "User",
+      "predicate": "miles on current wheels",
+      "value": "2,000 miles",
       "sessionId": "answer_e1403127_1",
       "source": "user"
     },
     {
-      "entity": "user",
-      "predicate": "uses commuter bike for",
-      "value": "daily commutes",
-      "sessionId": "answer_e1403127_1",
-      "source": "user"
-    },
-    {
-      "entity": "user",
-      "predicate": "has ridden",
-      "value": "2,000 miles on current wheels",
-      "sessionId": "answer_e1403127_1",
-      "source": "user"
-    },
-    {
-      "entity": "carbon fiber wheels",
+      "entity": "Carbon fiber wheels",
       "predicate": "price range",
       "value": "$1,000 to $5,000 or more",
       "sessionId": "answer_e1403127_1",
@@ -95,38 +81,22 @@
   ],
   "preferences": [
     {
-      "entity": "user",
-      "preference": "road biking",
-      "polarity": "positive"
+      "entity": "User",
+      "preference": "carbon fiber wheels upgrade",
+      "polarity": "neutral",
+      "constraint": "considering budget and long rides"
     },
     {
-      "entity": "user",
-      "preference": "long distance rides",
-      "polarity": "positive"
-    },
-    {
-      "entity": "user",
-      "preference": "carbon fiber wheels",
+      "entity": "User",
+      "preference": "having multiple bikes",
       "polarity": "positive",
-      "constraint": "considering upgrade pending budget research"
-    },
-    {
-      "entity": "user",
-      "preference": "variety in cycling",
-      "polarity": "positive",
-      "constraint": "uses multiple bikes for different purposes"
+      "constraint": "for different purposes"
     }
   ],
   "events": [
     {
       "event": "User planning 50-mile ride",
       "date": "2023-02-22",
-      "location": "San Francisco Bay Area",
-      "sessionId": "answer_e1403127_1"
-    },
-    {
-      "event": "User considering century ride",
-      "date": null,
       "location": "San Francisco Bay Area",
       "sessionId": "answer_e1403127_1"
     }

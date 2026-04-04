@@ -4,7 +4,6 @@
       "entity": "User",
       "predicate": "is purchasing",
       "value": "home",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
@@ -12,7 +11,6 @@
       "entity": "User",
       "predicate": "purchase price",
       "value": "$325,000",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
@@ -20,7 +18,6 @@
       "entity": "User",
       "predicate": "pre-approved loan amount",
       "value": "$350,000",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
@@ -28,71 +25,62 @@
       "entity": "User",
       "predicate": "pre-approved by",
       "value": "Wells Fargo",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "agreed credit towards closing costs",
+      "predicate": "agreed seller credit",
       "value": "$2,000",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "requesting additional credit",
+      "predicate": "requested additional seller credit",
       "value": "$3,250",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
     {
-      "entity": "Home inspection",
-      "predicate": "identified issues",
-      "value": "minor issues with roof and plumbing",
-      "date": "2023-08-11",
+      "entity": "Property inspection",
+      "predicate": "found issues with",
+      "value": "roof and plumbing",
       "sessionId": "answer_3a6f1e82_1",
       "source": "user"
     },
     {
-      "entity": "Closing costs estimate",
-      "predicate": "low-end",
+      "entity": "Property inspection",
+      "predicate": "issue severity",
+      "value": "minor",
+      "sessionId": "answer_3a6f1e82_1",
+      "source": "user"
+    },
+    {
+      "entity": "Estimated closing costs (low)",
+      "predicate": "amount",
       "value": "$11,332",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Closing costs estimate",
-      "predicate": "high-end",
+      "entity": "Estimated closing costs (high)",
+      "predicate": "amount",
       "value": "$20,322",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Total seller credits",
-      "predicate": "combined amount",
-      "value": "$5,250",
-      "date": "2023-08-11",
-      "sessionId": "answer_3a6f1e82_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Out of pocket closing costs low-end",
-      "predicate": "after seller credits",
+      "entity": "Estimated out-of-pocket closing costs (low)",
+      "predicate": "amount after seller credit",
       "value": "$6,082",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Out of pocket closing costs high-end",
-      "predicate": "after seller credits",
+      "entity": "Estimated out-of-pocket closing costs (high)",
+      "predicate": "amount after seller credit",
       "value": "$15,072",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
@@ -100,193 +88,149 @@
       "entity": "Estimated down payment",
       "predicate": "amount",
       "value": "$25,000",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
       "entity": "Estimated loan amount",
-      "predicate": "to be financed",
+      "predicate": "amount",
       "value": "$300,000",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Mortgage estimate",
-      "predicate": "interest rate assumed",
-      "value": "4%",
-      "date": "2023-08-11",
-      "sessionId": "answer_3a6f1e82_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Mortgage estimate",
-      "predicate": "loan term assumed",
-      "value": "30-year fixed-rate",
-      "date": "2023-08-11",
-      "sessionId": "answer_3a6f1e82_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Monthly mortgage payment estimate",
-      "predicate": "amount",
+      "entity": "Estimated mortgage payment (30-year fixed at 4%)",
+      "predicate": "monthly amount",
       "value": "$1,432",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Property tax rate estimate",
-      "predicate": "percentage",
-      "value": "1.25%",
-      "date": "2023-08-11",
-      "sessionId": "answer_3a6f1e82_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Annual property taxes estimate",
-      "predicate": "amount",
+      "entity": "Estimated property taxes",
+      "predicate": "annual amount at 1.25% rate",
       "value": "$4,062.50",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Monthly property taxes estimate",
-      "predicate": "amount",
+      "entity": "Estimated property taxes",
+      "predicate": "monthly amount",
       "value": "$338.54",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Homeowners insurance rate estimate",
-      "predicate": "percentage",
-      "value": "0.8%",
-      "date": "2023-08-11",
-      "sessionId": "answer_3a6f1e82_1",
-      "source": "assistant"
-    },
-    {
-      "entity": "Annual insurance premium estimate",
-      "predicate": "amount",
+      "entity": "Estimated homeowners insurance",
+      "predicate": "annual amount at 0.8% rate",
       "value": "$2,600",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Monthly insurance premium estimate",
-      "predicate": "amount",
+      "entity": "Estimated homeowners insurance",
+      "predicate": "monthly amount",
       "value": "$216.67",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
-      "entity": "Total monthly payment estimate",
-      "predicate": "amount",
+      "entity": "Estimated total monthly payment",
+      "predicate": "amount (mortgage + taxes + insurance)",
       "value": "$1,987.21",
-      "date": "2023-08-11",
       "sessionId": "answer_3a6f1e82_1",
       "source": "assistant"
     },
     {
       "entity": "User",
-      "predicate": "planning to move into",
+      "predicate": "is moving into",
       "value": "new home",
-      "date": "2023-11-30",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "location",
-      "value": "78749 zip code",
-      "date": "2023-11-30",
+      "predicate": "location zip code",
+      "value": "78749",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "mortgage pre-approval amount",
-      "value": "$400,000",
+      "predicate": "has pre-approval from",
+      "value": "Wells Fargo for $400,000",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "mortgage pre-approval from",
-      "value": "Wells Fargo",
-      "sessionId": "answer_3a6f1e82_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "rented storage unit from",
+      "predicate": "rented storage unit on",
       "value": "storage unit company",
       "date": "2024-03-01",
       "sessionId": "answer_3a6f1e82_2",
       "source": "user"
     },
     {
-      "entity": "User",
-      "predicate": "planning to schedule home insurance with",
-      "value": "Liberty Mutual",
-      "date": "2023-11-30",
-      "sessionId": "answer_3a6f1e82_2",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "selected task management tool",
-      "value": "Trello",
-      "date": "2023-11-30",
-      "sessionId": "answer_3a6f1e82_2",
-      "source": "user"
-    },
-    {
       "entity": "Spectrum",
-      "predicate": "TV service price starting at",
+      "predicate": "TV service price starts at",
       "value": "$49.99/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
       "entity": "AT&T",
-      "predicate": "TV service price starting at",
+      "predicate": "TV service price starts at",
       "value": "$59.99/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
       "entity": "Google Fiber",
-      "predicate": "TV and internet bundle price starting at",
+      "predicate": "internet and TV bundle price starts at",
       "value": "$70/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
       "entity": "Suddenlink",
-      "predicate": "TV service price starting at",
+      "predicate": "TV service price starts at",
       "value": "$40/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
       "entity": "Grande Communications",
-      "predicate": "TV service price starting at",
+      "predicate": "TV service price starts at",
       "value": "$40/month",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
     },
     {
-      "entity": "Texas Gas Service",
-      "predicate": "local gas provider for",
-      "value": "78749 zip code",
+      "entity": "78749 area",
+      "predicate": "has electricity providers",
+      "value": "TXU Energy, Reliant Energy, Direct Energy, Just Energy, Pulse Power",
       "sessionId": "answer_3a6f1e82_2",
       "source": "assistant"
+    },
+    {
+      "entity": "78749 area",
+      "predicate": "has gas provider",
+      "value": "Texas Gas Service",
+      "sessionId": "answer_3a6f1e82_2",
+      "source": "assistant"
+    },
+    {
+      "entity": "User",
+      "predicate": "plans to use app",
+      "value": "Trello",
+      "sessionId": "answer_3a6f1e82_2",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "scheduling home insurance with",
+      "value": "Liberty Mutual",
+      "sessionId": "answer_3a6f1e82_2",
+      "source": "user"
     }
   ],
   "preferences": [
@@ -294,13 +238,13 @@
       "entity": "User",
       "preference": "home buying",
       "polarity": "positive",
-      "constraint": "finalizing budget and closing costs"
+      "constraint": "interested in purchasing a $325,000 house"
     },
     {
       "entity": "User",
-      "preference": "negotiating with seller",
+      "preference": "negotiation",
       "polarity": "positive",
-      "constraint": "to cover closing costs based on inspection findings"
+      "constraint": "willing to negotiate closing costs with seller"
     },
     {
       "entity": "User",
@@ -315,28 +259,33 @@
   ],
   "events": [
     {
-      "event": "User received pre-approval for home purchase",
-      "date": "2023-08-11",
+      "event": "User received pre-approval for $350,000 from Wells Fargo",
+      "date": null,
       "sessionId": "answer_3a6f1e82_1"
     },
     {
-      "event": "Home inspection was conducted",
-      "date": "2023-08-11",
+      "event": "Home inspection completed identifying minor roof and plumbing issues",
+      "date": null,
       "sessionId": "answer_3a6f1e82_1"
     },
     {
-      "event": "User and seller agreed on initial $2,000 credit towards closing costs",
-      "date": "2023-08-11",
+      "event": "User and seller agreed on $2,000 credit towards closing costs",
+      "date": null,
+      "sessionId": "answer_3a6f1e82_1"
+    },
+    {
+      "event": "User planning to request additional $3,250 (1% of purchase price) from seller for closing costs",
+      "date": null,
       "sessionId": "answer_3a6f1e82_1"
     },
     {
       "event": "User planning to move into new home",
       "date": "2023-11-30",
-      "location": "78749 zip code",
+      "location": "78749, Texas",
       "sessionId": "answer_3a6f1e82_2"
     },
     {
-      "event": "User rented storage unit for belongings",
+      "event": "User rented storage unit",
       "date": "2024-03-01",
       "sessionId": "answer_3a6f1e82_2"
     }

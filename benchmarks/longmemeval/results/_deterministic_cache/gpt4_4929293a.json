@@ -2,7 +2,7 @@
   "facts": [
     {
       "entity": "User",
-      "predicate": "role at event",
+      "predicate": "served as",
       "value": "bridesmaid at cousin's wedding",
       "date": "2023-06-15",
       "sessionId": "answer_add9b012_1",
@@ -10,72 +10,101 @@
     },
     {
       "entity": "User",
-      "predicate": "planning",
+      "predicate": "is planning",
       "value": "own wedding",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "considering venue type",
-      "value": "cozy bed and breakfast in the countryside",
-      "sessionId": "answer_add9b012_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "considering venue type",
-      "value": "beautiful art museum in the city",
-      "sessionId": "answer_add9b012_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "wedding season",
-      "value": "fall",
-      "sessionId": "answer_add9b012_1",
-      "source": "user"
-    },
-    {
-      "entity": "User",
-      "predicate": "wedding size preference",
+      "predicate": "is considering",
       "value": "small, intimate ceremony",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "planning status",
-      "value": "already started looking at venues",
+      "predicate": "is considering venue",
+      "value": "cozy bed and breakfast in the countryside",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "ceremony element",
-      "value": "special reading or poem",
+      "predicate": "is considering venue",
+      "value": "beautiful art museum in the city",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "ceremony element",
-      "value": "unity candle or sand ceremony",
+      "predicate": "is planning",
+      "value": "fall wedding",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
       "entity": "User",
-      "predicate": "ceremony element",
+      "predicate": "has started",
+      "value": "looking at venues",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "is planning to incorporate",
+      "value": "special song during ceremony",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "is planning to incorporate",
+      "value": "special reading or poem during ceremony",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "is planning to incorporate",
+      "value": "unity candle ceremony",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "is planning to incorporate",
+      "value": "sand ceremony",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "is planning",
       "value": "personal and meaningful vows",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     },
     {
-      "entity": "Cousin",
-      "predicate": "had wedding",
-      "value": "ceremony with special meaningful song",
+      "entity": "User's cousin",
+      "predicate": "had",
+      "value": "wedding",
       "date": "2023-06-15",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User's cousin's wedding",
+      "predicate": "included",
+      "value": "special song played during ceremony",
+      "date": "2023-06-15",
+      "sessionId": "answer_add9b012_1",
+      "source": "user"
+    },
+    {
+      "entity": "User",
+      "predicate": "has",
+      "value": "partner",
       "sessionId": "answer_add9b012_1",
       "source": "user"
     }
@@ -83,35 +112,63 @@
   "preferences": [
     {
       "entity": "User",
-      "preference": "wedding planner necessity",
-      "polarity": "negative",
-      "constraint": "for small, intimate wedding"
+      "preference": "small, intimate wedding ceremony",
+      "polarity": "positive",
+      "constraint": "possibly at a cozy bed and breakfast in the countryside or a beautiful art museum in the city"
     },
     {
       "entity": "User",
-      "preference": "intimate and romantic ceremony atmosphere",
+      "preference": "fall wedding",
       "polarity": "positive"
     },
     {
       "entity": "User",
-      "preference": "personal and meaningful details",
+      "preference": "planning own wedding without a full-service wedding planner",
+      "polarity": "positive",
+      "constraint": "for small, intimate ceremony"
+    },
+    {
+      "entity": "User",
+      "preference": "looking at different venues",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "intimate and special atmosphere",
       "polarity": "positive"
     },
     {
       "entity": "User",
       "preference": "special song during ceremony",
       "polarity": "positive",
-      "constraint": "inspired by cousin's wedding"
+      "constraint": "meaningful to the couple"
     },
     {
       "entity": "User",
-      "preference": "looking at different venues",
+      "preference": "special reading or poem during ceremony",
+      "polarity": "positive",
+      "constraint": "that speaks to their love story"
+    },
+    {
+      "entity": "User",
+      "preference": "unity candle or sand ceremony",
+      "polarity": "positive",
+      "constraint": "to symbolize commitment to each other"
+    },
+    {
+      "entity": "User",
+      "preference": "personal and meaningful vows",
+      "polarity": "positive"
+    },
+    {
+      "entity": "User",
+      "preference": "intimate and romantic ceremony",
       "polarity": "positive"
     }
   ],
   "events": [
     {
-      "event": "User walked down the aisle as bridesmaid at cousin's wedding",
+      "event": "User walked down the aisle as a bridesmaid at cousin's wedding",
       "date": "2023-06-15",
       "sessionId": "answer_add9b012_1"
     }
